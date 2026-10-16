@@ -14,3 +14,10 @@
 
 ## 2026-10-16 — Art source
 - Owner chose free web art. Verified & imported Kenney Tiny Dungeon + Tiny Town (CC0) with License.txt and sha256. Style is Western-fantasy; xianxia identity needs original work (ART-2).
+
+## 2026-10-16 — M1 World & movement
+- Added core/rng, core/world (seeded generation, collision), data/tiles, WorldScene, DOM HUD.
+- Verified: lint clean; build OK; unit 10/10; e2e 2/2 (boot, keyboard movement, stops at map border). Screenshot reviewed manually: ground, 2-tile trees, hero, NPC render correctly (SwiftShader).
+- Found & fixed during review: trees drawn half-height; HUD text offscreen under camera zoom.
+- UNVERIFIED: real-GPU perf (4096 ground images are individual sprites; M0-4 pending), gamepad/touch, window-resize behaviour, FPS numbers.
+- Next: M0-4 perf spike (tilemap layer), then M2 combat core.

@@ -5,14 +5,16 @@ Status: [x] done, [ ] todo. Format: ID — task (deps) — acceptance.
 - [x] M0-3 ESLint — `npm run lint` clean.
 - [ ] M0-4 Phaser 4 perf spike (M0-2) — measure fps: large tilemap (GPU layer), ~200 sprites, particles; record numbers in docs.
 - [ ] M0-5 Transitive license scan (license-checker) into ASSET_LICENSE_AUDIT.
-- [ ] M1-1 Tilemap world + camera (M0) — player walks small map, camera follows.
-- [ ] M1-2 Input + movement view using core/movement.
+- [x] M1-1 World + camera — 64x64 deterministic map (seeded), camera follows with integer zoom, bounds.
+- [x] M1-2 Input + movement with tile collision (WASD/arrows, wall sliding) — unit + e2e tested.
 - [ ] M2-1 Combat core (damage, cooldown, hp/mana) with unit tests.
 - [ ] M2-2 Enemy FSM x3 types.
 - [ ] M3-x Skills/VFX/boss; M4-x progression/cultivation; M5-x NPC/quest/inventory; M6-x save/load/menu/creation; M7-x polish/perf/security.
 Placeholders to replace: BootScene text (src/game/BootScene.ts).
 
 ## Art tasks
-- [ ] ART-1 Load Kenney tilesheets in Phaser (spritesheet 16x16, integer scaling, nearest filter) — used in M1.
+- [x] ART-1 Kenney tilesheets loaded (pixelArt, integer zoom).
 - [ ] ART-2 Original xianxia pass: recolor palette, add Eastern buildings/robes/banners, qi VFX (our own).
 - [ ] ART-3 Pre-release art review: replace/commission anything inconsistent; re-verify all licenses.
+
+Placeholders (M1): NPC wizard position/sprite in WorldScene; hero sprite = Kenney hero 85; world is procedural scatter, no authored zones yet; ground drawn as individual images (switch to Phaser tilemap/GPU layer under M0-4).
