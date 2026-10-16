@@ -1,7 +1,7 @@
 import { statsOf, type GameState } from '../core/gameState';
 import { BASE_BREAKTHROUGH_CHANCE, canBreakthrough, hasNextRealm } from '../core/cultivation';
 import type { Dialogue, DialogueAction } from '../core/dialogue';
-import { ITEMS } from '../data/items';
+import { ITEMS, RARITY_COLOR } from '../data/items';
 import { REALMS } from '../data/realms';
 import { ROOTS } from '../data/roots';
 import { SLOT_COUNT } from '../core/inventory';
@@ -52,7 +52,8 @@ function renderInventory(gs: GameState): void {
     if (s) {
       b.innerHTML = icon(s.id) + (s.count > 1 ? `<span class="cnt">${s.count}</span>` : '');
       const def = ITEMS[s.id]!;
-      b.onmouseenter = () => { $('tip').textContent = `${def.name} — ${def.description}`; };
+      b.style.borderColor = RARITY_COLOR[def.rarity];
+      b.onmouseenter = () => { $('tip').textContent = `${def.name} (${def.rarity}) — ${def.description}`; };
       b.onclick = () => actions.clickSlot(i);
     }
     grid.appendChild(b);

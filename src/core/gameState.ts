@@ -1,4 +1,5 @@
-import { DROPS } from '../data/items';
+import { BOSSES } from '../data/boss';
+import { DROPS, ELITE_WEAPON } from '../data/items';
 import { ENEMIES } from '../data/enemies';
 import { QUESTS } from '../data/quests';
 import type { HeroId } from '../data/heroes';
@@ -17,18 +18,20 @@ export interface GameState {
   quests: QuestLog;
   kills: number;
   stones: number;
-  bossDefeated: boolean;
+  /** ids of bosses defeated */
+  bosses: string[];
   hp: number;
   mana: number;
   pos: { x: number; y: number };
 }
 
 export const WARDEN_ID = 'warden';
+export const isBossDefeated = (gs: GameState, id: string): boolean => gs.bosses.includes(id);
 
 export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
     character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 0, bossDefeated: false, hp: 0, mana: 0, pos: { ...spawn },
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], hp: 0, mana: 0, pos: { ...spawn },
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);
@@ -55,14 +58,15 @@ export function grantXp(gs: GameState, amount: number): number {
 
 export interface KillResult { xp: number; stones: number; levelsGained: number; drops: { id: string; count: number }[]; overflow: string[] }
 
-export function registerKill(gs: GameState, enemyType: string, rng: () => number, opts: { elite?: boolean } = {}): KillResult {
+export function registerKill(gs: GameState, enemyType: string, rng: () => number, opts: { elite?: boolean; zone?: string } = {}): KillResult {
   const mult = opts.elite ? 3 : 1;
-  const xp = (enemyType === WARDEN_ID ? 220 : ENEMIES[enemyType]?.xp ?? 0) * mult;
-  const range = enemyType === WARDEN_ID ? [40, 60] : ENEMIES[enemyType]?.stones ?? [0, 0];
+  const boss = BOSSES[enemyType];
+  const xp = (boss ? boss.xp : ENEMIES[enemyType]?.xp ?? 0) * mult;
+  const range = boss ? boss.stones : ENEMIES[enemyType]?.stones ?? [0, 0];
   const stones = (range[0]! + Math.floor(rng() * (range[1]! - range[0]! + 1))) * mult;
   gs.stones += stones;
   gs.kills++;
-  if (enemyType === WARDEN_ID) gs.bossDefeated = true;
+  if (boss && !gs.bosses.includes(enemyType)) gs.bosses.push(enemyType);
   onKill(gs.quests, enemyType);
   const drops: { id: string; count: number }[] = [];
   const overflow: string[] = [];
@@ -72,6 +76,8 @@ export function registerKill(gs: GameState, enemyType: string, rng: () => number
       else overflow.push(d.item);
     }
   }
+  const wpn = opts.elite && opts.zone ? ELITE_WEAPON[opts.zone] : undefined;
+  if (wpn && rng() < 0.35) { if (addItem(gs.inventory, wpn, 1) === 0) drops.push({ id: wpn, count: 1 }); else overflow.push(wpn); }
   return { xp, stones, levelsGained: grantXp(gs, xp), drops, overflow };
 }
 

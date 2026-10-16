@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { getDialogue } from '../src/core/dialogue';
-import { gatherHerb, newGameState, registerKill, statsOf, turnInQuest, unequipWeapon, useItemSlot, WARDEN_ID } from '../src/core/gameState';
+import { gatherHerb, isBossDefeated, newGameState, registerKill, statsOf, turnInQuest, unequipWeapon, useItemSlot, WARDEN_ID } from '../src/core/gameState';
 import { addItem, countOf } from '../src/core/inventory';
 import { acceptQuest } from '../src/core/quest';
 
@@ -22,6 +22,11 @@ describe('dialogue reflects quest state', () => {
     d = getDialogue('elder-lin', gs.quests, gs.inventory);
     expect(d.options[0]!.action).toEqual({ type: 'turnin', questId: 'pests' });
     expect(turnInQuest(gs, 'pests').ok).toBe(true);
+    d = getDialogue('elder-lin', gs.quests, gs.inventory);
+    expect(d.options[0]!.action).toEqual({ type: 'accept', questId: 'fox' });
+    expect(acceptQuest(gs.quests, 'warden')).toBe(false); // the chain is ordered
+    acceptQuest(gs.quests, 'fox'); registerKill(gs, 'ninetail', never);
+    expect(turnInQuest(gs, 'fox').ok).toBe(true);
     d = getDialogue('elder-lin', gs.quests, gs.inventory);
     expect(d.options[0]!.action).toEqual({ type: 'accept', questId: 'warden' });
     acceptQuest(gs.quests, 'warden'); registerKill(gs, WARDEN_ID, never);
@@ -82,7 +87,7 @@ describe('kills, drops and level-up', () => {
     const gs = mk(); const r = registerKill(gs, 'wolf', always);
     expect(gs.kills).toBe(1); expect(r.xp).toBe(12);
     expect(r.drops.map((d) => d.id)).toEqual(['hp-potion']);
-    expect(r.stones).toBeGreaterThan(0); expect(gs.stones).toBe(r.stones);
+    expect(r.stones).toBeGreaterThan(0); expect(gs.stones).toBe(30 + r.stones);
   });
   it('elites give triple xp/stones and better drop odds', () => {
     const a = mk(), b = mk();
@@ -104,9 +109,20 @@ describe('kills, drops and level-up', () => {
   });
   it('boss kill flips the flag, always drops its reward, and quest progress only counts while active', () => {
     const gs = mk(); registerKill(gs, WARDEN_ID, never);
-    expect(gs.bossDefeated).toBe(true);
+    expect(isBossDefeated(gs, WARDEN_ID)).toBe(true); expect(isBossDefeated(gs, 'ninetail')).toBe(false);
     expect(gs.quests.warden!.kills[WARDEN_ID]).toBeUndefined();
     expect(countOf(gs.inventory, 'jade-sword')).toBe(1); // chance 1 => guaranteed
+    registerKill(gs, WARDEN_ID, never); expect(gs.bosses).toEqual([WARDEN_ID]); // never listed twice
+  });
+  it('the fox boss drops its saber; elite kills in a zone can drop that zone\'s weapon', () => {
+    const gs = mk(); const r = registerKill(gs, 'ninetail', never);
+    expect(countOf(gs.inventory, 'spirit-saber')).toBe(1); expect(r.xp).toBe(140);
+    const g2 = mk(); registerKill(g2, 'wolf', () => 0, { elite: true, zone: 'marsh' });
+    expect(countOf(g2.inventory, 'steel-blade')).toBe(1);
+    const g3 = mk(); registerKill(g3, 'wolf', () => 0.99, { elite: true, zone: 'marsh' });
+    expect(countOf(g3.inventory, 'steel-blade')).toBe(0);
+    const g4 = mk(); registerKill(g4, 'wolf', () => 0, { zone: 'marsh' }); // not an elite
+    expect(countOf(g4.inventory, 'steel-blade')).toBe(0);
   });
   it('using potions clamps to max and consumes one', () => {
     const gs = mk(); gs.hp = 10;

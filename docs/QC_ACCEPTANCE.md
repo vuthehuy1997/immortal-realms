@@ -36,7 +36,8 @@ Automated tests cannot judge beauty. A milestone also needs screenshot review (`
 - [x] Martial-arts kit: 3-hit combo, dash with i-frames, 4 techniques (projectile, piercing wave, stunning burst, ground rain) with tinted spell FX, hit-stop, knockback, camera shake, damage numbers.
 - [x] Xianxia identity: sect village with palace/pagoda/gates, bamboo forest, marsh, peach grove, ruins, boss court; zone banners; spirit array meditation; peach petals, fireflies, mist.
 - [x] Skinned UI (jade/gold) with animated hero previews at character creation.
-- [ ] Audio (SFX + music) — NOT done.
-- [ ] Minimap / world map — NOT done.
-- [ ] Merchant, alchemy, loot tiers, second boss — NOT done (merchant/alchemist NPCs stand in the village, no shop yet).
+- [x] Audio: procedural SFX + generative guqin-style music that follows the zone/combat mood, mute button/N key. Automated tests prove it starts and triggers; nobody has LISTENED to it yet (sound quality is an owner-playtest item).
+- [x] Circular minimap (terrain, enemies, elites, NPCs, herbs, bosses).
+- [x] Merchant Qiao (buy/sell, spirit stones), Alchemist Yun (herbs -> potions/pills), weapon tiers with rarity colours, elite weapon drops, second boss (Nine-Tailed Fox) and a 3-step quest chain.
 - [ ] Real-GPU performance — only software GL measured (~37 fps in the headless test machine).
+- [ ] Third boss (Jiao Dragon), more zones/quests, equipment slots beyond the weapon, skill progression — future content.

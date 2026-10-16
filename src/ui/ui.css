@@ -28,7 +28,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #stones { display: flex; align-items: center; gap: .35em; font-weight: 700; text-shadow: 0 1px 2px #000; }
 .stone { width: 1.5em; height: 1.5em; background: var(--img-stone) center / contain no-repeat; image-rendering: pixelated; }
 #hint { position: absolute; left: 1em; bottom: .8em; font-size: .72em; line-height: 1.35; color: #fff; background: rgba(11,13,20,.7); padding: .35em .6em; border-radius: 6px; max-width: 22em; opacity: .85; }
-#quest { position: absolute; right: 1em; top: .8em; width: 18em; font-size: .9em; border: 14px solid transparent; border-image: var(--img-panel) 36 fill / 14px stretch; padding: .1em .4em; background-clip: padding-box; }
+#quest { position: absolute; right: 1em; top: 16.2em; width: 18em; font-size: .9em; border: 14px solid transparent; border-image: var(--img-panel) 36 fill / 14px stretch; padding: .1em .4em; background-clip: padding-box; }
 #quest h4 { margin: 0 0 .25em; font-size: 1em; color: #ffe9a8; } #quest .done { color: #8fe29a; }
 #boss { position: absolute; left: 50%; top: .8em; transform: translateX(-50%); width: min(34em, 56vw); text-align: center; }
 #boss .name { font-weight: 700; font-size: 1.15em; text-shadow: 0 1px 3px #000, 0 0 8px #000; margin-bottom: .1em; letter-spacing: .06em; }
@@ -58,7 +58,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ---- panels ---- */
 .panel { position: absolute; border: 22px solid transparent; border-image: var(--img-panel) 36 fill / 22px stretch; padding: .15em .45em; background-clip: padding-box; }
-#inv { right: 1em; top: 50%; transform: translateY(-50%); width: 24em; max-height: 92vh; overflow: auto; }
+#inv { right: 1em; top: 24em; width: 24em; max-height: calc(100vh - 25em); overflow: auto; }
 #chr { left: 1em; top: 50%; transform: translateY(-50%); width: 23em; max-height: 92vh; overflow: auto; }
 .panel h3 { margin: 0 0 .5em; font-size: 1.15em; letter-spacing: .05em; color: #ffe9a8; }
 .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: .3em; }
@@ -119,3 +119,21 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .btnrow { display: flex; gap: 1em; justify-content: center; flex-wrap: wrap; } .btnrow .menu-btn { margin: .3em 0; width: 14em; }
 @media (max-height: 640px) { .titlebox h1 { font-size: 2.6em; } .hero .pv { height: 80px; } }
 @media (max-width: 900px) { .heroes { grid-template-columns: repeat(3, 1fr); } }
+
+#btn-audio { position: absolute; right: 1em; bottom: .8em; width: 2.6em; height: 2.6em; border-radius: 50%; border: 2px solid var(--gold2); background: radial-gradient(#2a2535, #14111c); color: var(--gold); font-size: 1.1em; z-index: 5; }
+#btn-audio.off { opacity: .5; text-decoration: line-through; }
+
+#minimap { position: absolute; right: 1em; top: .8em; width: 13em; height: 13em; border-radius: 50%; border: 3px solid var(--gold2); box-shadow: 0 0 0 2px #14111c, 0 4px 14px #000a; background: #0b0d14; image-rendering: pixelated; }
+
+/* ---- trade window ---- */
+#trade { left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(46em, 94vw); max-height: 90vh; overflow: auto; }
+#trade .thead { display: flex; gap: .9em; align-items: flex-start; margin-bottom: .5em; } #trade .portrait { width: 5.4em; image-rendering: pixelated; flex: none; }
+#trade .who { font-weight: 700; font-size: 1.15em; color: #ffe9a8; } #trade .txt { opacity: .9; margin: .15em 0 .3em; } #trade .purse { font-weight: 700; color: #8fd8ff; }
+#trade h4 { margin: .3em 0 .3em; color: #ffe9a8; letter-spacing: .06em; }
+#trade .tcols { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+.trow { display: flex; align-items: center; gap: .6em; margin: .3em 0; padding: .3em .4em; background: rgba(255,255,255,.04); border-radius: 6px; }
+.trow .tico { width: 2.9em; height: 2.9em; border: 2px solid; border-radius: 6px; background: #14111c; flex: none; display: flex; align-items: center; justify-content: center; }
+.trow .tx { flex: 1; min-width: 0; } .trow .tx b { display: block; font-size: .92em; } .trow .tx small { display: block; opacity: .75; font-size: .75em; }
+.trow .btn { margin: 0; min-width: 4.8em; padding: .4em .5em; font-size: .85em; }
+#trade .empty { opacity: .6; padding: .6em; } #trade .tfoot { text-align: right; margin-top: .4em; }
+@media (max-width: 900px) { #trade .tcols { grid-template-columns: 1fr; } }

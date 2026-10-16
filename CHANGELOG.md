@@ -16,3 +16,6 @@
 
 ## 0.4.0
 - Xianxia art overhaul, animated characters, martial-arts combat (combo, dash, 4 techniques), 6-zone open world, new boss, skinned UI.
+
+## 0.5.0
+- Procedural audio, minimap, shop + alchemy, weapon rarity, Nine-Tailed Fox boss, quest chain of three, save v3.

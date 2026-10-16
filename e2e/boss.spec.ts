@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { acceptFirst, goToNpc, killOne, newGame, shot, st, talk } from './helpers';
+import { finishPests, goToNpc, newGame, shot, st, talk } from './helpers';
 
 const nearBoss = async (page: import('@playwright/test').Page, dx = -100) => {
   const s = await st(page);
@@ -50,7 +50,7 @@ test.describe('#7 boss', () => {
     await nearBoss(page, -110);
     await expect.poll(async () => (await st(page)).boss?.engaged).toBe(true);
     await page.evaluate(() => window.__rpg!.setBossHpRatio(0.6));
-    await expect(page.locator('.toast', { hasText: 'summons his sword spirits' })).toBeVisible();
+    await expect(page.locator('.toast', { hasText: 'calls its minions' })).toBeVisible();
     await expect.poll(async () => (await st(page)).enemies.filter((e) => e.minion).length, { timeout: 40_000 }).toBeGreaterThan(0);
     expect((await st(page)).boss!.phase).toBe(2);
     await page.evaluate(() => window.__rpg!.setBossHpRatio(0.2));
@@ -60,21 +60,49 @@ test.describe('#7 boss', () => {
     await shot(page, 'boss-phase3');
   });
 
-  test('defeating the boss drops its reward, completes the quest chain, and persists', async ({ page }) => {
+  test('the quest chain runs pests -> fox -> immortal; the fox boss drops its saber', async ({ page }) => {
+    await newGame(page, 'Fox Hunter');
+    await finishPests(page);
+    await expect(page.locator('#dlg')).toContainText('nine-tailed fox');
+    await page.click('#dlg button[data-opt="0"]'); // accept the fox quest
+    await expect(page.locator('#quest')).toContainText('The Fox of the Peach Grove');
+    const s0 = await st(page);
+    expect(s0.bosses.map((b) => b.id).sort()).toEqual(['ninetail', 'warden']);
+    await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 110, y as number), [s0.den.x, s0.den.y]);
+    await expect.poll(async () => (await st(page)).bosses.find((b) => b.id === 'ninetail')?.engaged).toBe(true);
+    await expect(page.locator('#bossname')).toContainText('Nine-Tailed Fox');
+    await shot(page, 'boss-fox');
+    await page.evaluate(() => { window.__rpg!.setRoll(0); window.__rpg!.setBossHpRatio(0.001, 'ninetail'); });
+    const b = (await st(page)).bosses.find((x) => x.id === 'ninetail')!;
+    await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 26, y as number), [b.x, b.y]);
+    await page.evaluate(([x, y]) => window.__rpg!.attack(x as number, y as number), [b.x, b.y]);
+    await expect.poll(async () => (await st(page)).bossesDefeated, { timeout: 30_000 }).toContain('ninetail');
+    expect((await st(page)).items.join(',')).toContain('spirit-saber:1');
+    await expect(page.locator('#quest')).toContainText('1/1');
+    await goToNpc(page); await talk(page); await page.click('#dlg button[data-opt="0"]');
+    await expect.poll(async () => (await st(page)).quests.fox).toBe('turnedIn');
+    await expect(page.locator('#dlg')).toContainText('Fallen Sword Immortal'); // the final quest is now offered
+  });
+
+  test('defeating the Fallen Sword Immortal drops his blade, completes the chain, and persists', async ({ page }) => {
     await newGame(page, 'Slayer');
-    await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.setRoll(0.5); });
-    // fast-forward quest 1 through the real dialogue so quest 2 can be accepted
-    await goToNpc(page); await talk(page); await acceptFirst(page);
-    await page.evaluate(() => { window.__rpg!.give('spirit-herb', 2); });
-    for (let i = 0; i < 4; i++) await killOne(page, 'wolf');
-    await goToNpc(page); await talk(page); await page.click('#dlg button[data-opt="0"]'); // claim
+    await finishPests(page);
+    await page.click('#dlg button[data-opt="0"]'); // accept fox
+    await page.evaluate(() => { window.__rpg!.setRoll(0); window.__rpg!.setBossHpRatio(0.001, 'ninetail'); });
+    const den = (await st(page)).den;
+    await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 90, y as number), [den.x, den.y]);
+    await expect.poll(async () => (await st(page)).bosses.find((b) => b.id === 'ninetail')?.engaged).toBe(true);
+    const fox = (await st(page)).bosses.find((x) => x.id === 'ninetail')!;
+    await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 26, y as number), [fox.x, fox.y]);
+    await page.evaluate(([x, y]) => window.__rpg!.attack(x as number, y as number), [fox.x, fox.y]);
+    await expect.poll(async () => (await st(page)).bossesDefeated, { timeout: 30_000 }).toContain('ninetail');
+    await goToNpc(page); await talk(page); await page.click('#dlg button[data-opt="0"]'); // claim fox
     await expect(page.locator('#dlg')).toContainText('Fallen Sword Immortal');
-    await page.click('#dlg button[data-opt="0"]'); // accept the Warden quest from the chained dialogue
+    await page.click('#dlg button[data-opt="0"]'); // accept the final quest
     await expect(page.locator('#quest')).toContainText('The Fallen Sword Immortal');
     await nearBoss(page, -100);
     await expect.poll(async () => (await st(page)).boss?.engaged).toBe(true);
-    await page.evaluate(() => window.__rpg!.setRoll(0));
-    await page.evaluate(() => window.__rpg!.setBossHpRatio(0.001));
+    await page.evaluate(() => { window.__rpg!.setRoll(0); window.__rpg!.setBossHpRatio(0.001); });
     const b = (await st(page)).boss!;
     await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 24, y as number), [b.x, b.y]);
     await page.evaluate(([x, y]) => window.__rpg!.attack(x as number, y as number), [b.x, b.y]);
@@ -86,13 +114,13 @@ test.describe('#7 boss', () => {
     await expect(page.locator('#quest')).toContainText('1/1');
     await goToNpc(page); await talk(page); await page.click('#dlg button[data-opt="0"]');
     await expect.poll(async () => (await st(page)).quests.warden).toBe('turnedIn');
-    expect((await st(page)).quests.warden).toBe('turnedIn');
     await expect(page.locator('#dlg')).toContainText('quiet');
-    // persistence: after reload + Continue the boss stays dead
-    await page.keyboard.press('Escape'); // closes the chained dialogue
+    // persistence: after reload + Continue both bosses stay dead
+    await page.keyboard.press('Escape');
     await expect(page.locator('#dlg')).toBeHidden();
     await page.keyboard.press('Escape'); await page.click('#btn-save');
     await page.reload(); await page.click('#btn-continue'); await page.waitForFunction(() => window.__rpg);
-    expect((await st(page)).boss).toBeNull(); expect((await st(page)).bossDefeated).toBe(true);
+    const after = await st(page);
+    expect(after.bosses).toEqual([]); expect(after.bossesDefeated.sort()).toEqual(['ninetail', 'warden']);
   });
 });

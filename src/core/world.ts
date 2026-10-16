@@ -21,6 +21,8 @@ export interface WorldMap {
   props: PropInst[];
   spawn: Vec2; // world units
   lair: Vec2;
+  /** Nine-Tailed Fox den (in the peach grove) */
+  den: Vec2;
   anchors: Record<ZoneId, Vec2>;
   npcs: Record<string, Vec2>;
   herbs: Vec2[];
@@ -38,13 +40,15 @@ export const tileToWorld = (t: { x: number; y: number }): Vec2 => ({ x: (t.x + 0
 
 const BORDER = 3;
 const LAIR_RADIUS = 9;
+const DEN_TILE = { x: 21, y: 15 };
+const DEN_RADIUS = 7;
 
 /** Polyline of tile waypoints joining the village to a zone anchor (shape chosen so roads avoid the sect hall and gates). */
 const ROADS: Record<Exclude<ZoneId, 'village'>, [number, number][]> = {
   bamboo: [[40, 42], [27, 42], [13, 42]],
   marsh: [[40, 42], [40, 56], [40, 68]],
   ruins: [[40, 42], [54, 45], [68, 48]],
-  grove: [[40, 42], [32, 37], [30, 26], [30, 14]],
+  grove: [[40, 42], [32, 37], [30, 26], [30, 14], [21, 15]],
   lair: [[40, 42], [52, 38], [54, 24], [58, 13], [66, 13]],
 };
 
@@ -125,6 +129,8 @@ export function generateWorld(seed: number, width = 80, height = 80): WorldMap {
     if (ground[t] === 'water') ground[t] = 'moss';
     if (ground[t] !== 'stone') ground[t] = 'path';
   }
+  // fox den: a mossy clearing
+  for (let ty = 0; ty < height; ty++) for (let tx = 0; tx < width; tx++) if (Math.hypot(tx - DEN_TILE.x, ty - DEN_TILE.y) < DEN_RADIUS && ground[at(tx, ty)] !== 'path') ground[at(tx, ty)] = 'moss';
   // water must not sit on reserved/halo tiles
   for (let i = 0; i < N; i++) if (ground[i] === 'water' && (reserved[i] || halo[i])) ground[i] = 'moss';
   // sand shore around water
@@ -210,6 +216,14 @@ export function generateWorld(seed: number, width = 80, height = 80): WorldMap {
   place('goldgate', lair.x - LAIR_RADIUS - 3, lair.y + 1, { force: true, margin: 0 });
   place('lotusthrone', lair.x + 4, lair.y - 5, { force: true, margin: 0 });
   props.push({ kind: 'array', x: lw.x, y: lw.y + 8 });
+  // fox den: ring of peach trees with an altar of stone in the middle
+  const dw = tileToWorld(DEN_TILE);
+  for (let a = 0; a < 12; a++) {
+    const ang = (a / 12) * Math.PI * 2;
+    if (Math.cos(ang) > 0.75) continue; // road side stays open
+    place('peachtree', Math.round(DEN_TILE.x + Math.cos(ang) * (DEN_RADIUS - 0.5)), Math.round(DEN_TILE.y + Math.sin(ang) * (DEN_RADIUS - 1)), { force: true, margin: 0 });
+  }
+  props.push({ kind: 'array', x: dw.x, y: dw.y + 6 });
 
   // herbs: spirit-herb gathering nodes (lingzhi)
   const herbs: Vec2[] = [];
@@ -238,7 +252,7 @@ export function generateWorld(seed: number, width = 80, height = 80): WorldMap {
     'alchemist-yun': tileToWorld({ x: vx - 7, y: vy + 1 }),
   };
 
-  return { width, height, ground, zone, blocked, props, spawn: tileToWorld({ x: vx, y: vy + 7 }), lair: lw, anchors, npcs, herbs, arrayPos };
+  return { width, height, ground, zone, blocked, props, spawn: tileToWorld({ x: vx, y: vy + 7 }), lair: lw, den: dw, anchors, npcs, herbs, arrayPos };
 }
 
 function boxBlocked(m: WorldMap, x: number, y: number, r: number): boolean {

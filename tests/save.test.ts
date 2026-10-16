@@ -37,6 +37,8 @@ describe('save/load', () => {
     ['unknown item', (e: Env) => { e.state.inventory.slots[3] = { id: 'god-sword', count: 1 }; }],
     ['over-stacked item', (e: Env) => { e.state.inventory.slots[3] = { id: 'iron-sword', count: 5 }; }],
     ['bad hero', (e: Env) => { e.state.character.hero = 'ghost' as never; }],
+    ['unknown boss id', (e: Env) => { e.state.bosses = ['dragon-god']; }],
+    ['duplicate boss', (e: Env) => { e.state.bosses = ['warden', 'warden']; }],
     ['negative stones', (e: Env) => { e.state.stones = -1; }],
     ['bad root', (e: Env) => { e.state.character.root = 'hax' as never; }],
     ['bad name', (e: Env) => { e.state.character.name = ''; }],

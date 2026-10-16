@@ -8,6 +8,7 @@ import { hasSaveData, loadGame } from './game/storage';
 import { buildHud, showHud } from './ui/hud';
 import { hideScreen, showCreation, showLoading, showMainMenu } from './ui/menu';
 import { installSkin } from './ui/skin';
+import { audio } from './game/audio';
 
 const WORLD_SEED = 20261016;
 
@@ -24,6 +25,7 @@ const game = new Phaser.Game({
 const host: GameHost = { quitToMenu: () => { game.scene.stop('World'); showHud(false); mainMenu(); } };
 
 function begin(gs: GameState): void {
+  audio.startMusic();
   hideScreen();
   showHud(true);
   game.scene.start('World', { state: gs, host });
@@ -46,7 +48,14 @@ function mainMenu(error?: string): void {
 
 const loading = showLoading();
 game.events.on('load-progress', (p: number) => loading.set(p));
-game.events.once('assets-ready', () => { installSkin(); buildHud(); showHud(false); mainMenu(); });
+game.events.once('assets-ready', () => {
+  installSkin(); buildHud(); showHud(false); mainMenu();
+  const btn = document.createElement('button');
+  btn.id = 'btn-audio'; btn.title = 'Sound (N)'; btn.textContent = '♪'; btn.className = audio.muted ? 'off' : '';
+  btn.onclick = () => { audio.setMuted(!audio.muted); btn.classList.toggle('off', audio.muted); };
+  document.getElementById('ui')!.appendChild(btn);
+});
+document.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('button') && !(e.target as HTMLElement).closest('#btn-audio')) { audio.ensure(); audio.sfx('click'); if (document.getElementById('screen')) audio.startMusic(); } }, true);
 
 // Test hook for e2e verification only.
 (window as unknown as { __game: Phaser.Game }).__game = game;

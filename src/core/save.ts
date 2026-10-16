@@ -1,6 +1,7 @@
 import { ITEMS } from '../data/items';
 import { QUESTS } from '../data/quests';
 import { REALMS } from '../data/realms';
+import { BOSS_IDS } from '../data/boss';
 import { HEROES } from '../data/heroes';
 import { ROOTS } from '../data/roots';
 import { MAX_LEVEL } from './progression';
@@ -8,7 +9,7 @@ import { NAME_MAX } from './character';
 import { SLOT_COUNT } from './inventory';
 import type { GameState } from './gameState';
 
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
 
 interface Envelope { version: number; savedAt: number; checksum: string; state: GameState }
 
@@ -52,7 +53,8 @@ function validate(s: unknown): string | null {
     if (!isObj(st) || !['inactive', 'active', 'turnedIn'].includes(st.status as string) || !isObj(st.kills)) return 'bad quest state';
     for (const v of Object.values(st.kills)) if (!num(v, 0, 1000)) return 'bad quest progress';
   }
-  if (!num(s.kills, 0, 1e9) || !num(s.stones, 0, 1e9) || typeof s.bossDefeated !== 'boolean') return 'bad counters';
+  if (!num(s.kills, 0, 1e9) || !num(s.stones, 0, 1e9)) return 'bad counters';
+  if (!Array.isArray(s.bosses) || s.bosses.some((b) => typeof b !== 'string' || !BOSS_IDS.includes(b)) || new Set(s.bosses).size !== s.bosses.length) return 'bad bosses';
   if (!num(s.hp, 0, 1e5) || !num(s.mana, 0, 1e5)) return 'bad vitals';
   if (!isObj(pos) || !num(pos.x, 0, 1e5) || !num(pos.y, 0, 1e5)) return 'bad position';
   return null;

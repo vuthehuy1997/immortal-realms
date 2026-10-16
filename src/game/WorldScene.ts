@@ -5,7 +5,7 @@ import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo,
 import { attemptBreakthrough, canBreakthrough, meditate } from '../core/cultivation';
 import { getDialogue } from '../core/dialogue';
 import { newEnemyAI, updateEnemyAI, type EnemyAI } from '../core/enemyAI';
-import { gatherHerb, grantXp, registerKill, statsOf, turnInQuest, unequipWeapon, useItemSlot, WARDEN_ID, type GameState } from '../core/gameState';
+import { gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, turnInQuest, unequipWeapon, useItemSlot, type GameState } from '../core/gameState';
 import { inArc, inCircle, normalize } from '../core/hit';
 import { addItem, equipFromSlot } from '../core/inventory';
 import { impulse, stepKnockback } from '../core/knockback';
@@ -13,7 +13,7 @@ import { step, type Vec2 } from '../core/movement';
 import { acceptQuest } from '../core/quest';
 import { createRng } from '../core/rng';
 import { generateWorld, isBlockedTile, moveWithCollision, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
-import { WARDEN, type BossDef } from '../data/boss';
+import { BOSSES, type BossDef } from '../data/boss';
 import { ENEMIES, type EnemyDef } from '../data/enemies';
 import { HEROES } from '../data/heroes';
 import { ITEMS } from '../data/items';
@@ -24,7 +24,12 @@ import { ZONES } from '../data/zones';
 import { buildPanels, closePanels, isDialogueOpen, isPanelOpen, refreshPanels, showDialogue, togglePanel } from '../ui/panels';
 import { hideScreen, showPause } from '../ui/menu';
 import { setBossBar, setPrompt, showZoneBanner, toast, updateHud } from '../ui/hud';
+import { initMinimap, removeMinimap, updateMinimap } from '../ui/minimap';
+import { closeTrade, isTradeOpen, renderTrade, showTrade } from '../ui/trade';
+import { craft } from '../core/alchemy';
+import { buy, sell, sellValue } from '../core/shop';
 import { Ambient } from './ambient';
+import { audio, type Mood } from './audio';
 import { Actor } from './actor';
 import { COLORS, Fx, ROOT_COLOR } from './fx';
 import { KeyInput } from './input';
@@ -81,7 +86,9 @@ export class WorldScene extends Phaser.Scene {
   private enemies: Enemy[] = [];
   private bolts: Bolt[] = [];
   private rains: RainZone[] = [];
-  private boss: BossEnt | null = null;
+  private bosses: BossEnt[] = [];
+  /** the main boss (Fallen Sword Immortal), or the first one present — used by the minimal test hooks */
+  private get boss(): BossEnt | null { return this.bosses.find((b) => b.def.id === 'warden') ?? this.bosses[0] ?? null; }
   private herbs: HerbNode[] = [];
   private occluders: Occluder[] = [];
   private npcs: Npc[] = [];
@@ -111,7 +118,7 @@ export class WorldScene extends Phaser.Scene {
   init(data: { state: GameState; host: GameHost }): void { this.gs = data.state; this.host = data.host; }
 
   create(): void {
-    this.enemies = []; this.bolts = []; this.rains = []; this.boss = null; this.npcs = []; this.timers = [];
+    this.enemies = []; this.bolts = []; this.rains = []; this.bosses = []; this.npcs = []; this.timers = [];
     this.now = 0; this.cds = new Cooldowns(); this.combo = newCombo(); this.dashState = newDash();
     this.meditating = false; this.uiPause = false; this.respawnTimer = 0; this.autosaveTimer = 0; this.dead = false;
     this.playerLockUntil = 0; this.hurtInvulnUntil = 0; this.playerKb = { x: 0, y: 0 }; this.hitStopUntil = 0; this.lastZoneBanner = null;
@@ -122,6 +129,7 @@ export class WorldScene extends Phaser.Scene {
 
     const rendered = renderWorld(this, this.world, WORLD_SEED);
     this.herbs = rendered.herbs; this.occluders = rendered.occluders;
+    initMinimap(this.world);
     this.fx = new Fx(this);
     this.ambient = new Ambient(this, worldW, worldH);
 
@@ -141,7 +149,7 @@ export class WorldScene extends Phaser.Scene {
     }
 
     for (const z of Object.values(ZONES)) for (const [type, n] of Object.entries(z.spawns)) for (let i = 0; i < n; i++) this.spawnInZone(z.id, type);
-    if (!this.gs.bossDefeated) this.spawnBoss();
+    for (const def of Object.values(BOSSES)) if (!isBossDefeated(this.gs, def.id)) this.spawnBoss(def);
     this.hpBars = this.add.graphics().setDepth(1e5);
 
     const kb = this.kb = new KeyInput();
@@ -153,6 +161,7 @@ export class WorldScene extends Phaser.Scene {
     kb.onPress('KeyE', () => this.interact());
     kb.onPress('KeyM', () => this.toggleMeditate()); kb.onPress('KeyB', () => this.breakthrough());
     kb.onPress('KeyI', () => { if (!this.uiPause) togglePanel('inv'); }); kb.onPress('KeyC', () => { if (!this.uiPause) togglePanel('chr'); });
+    kb.onPress('KeyN', () => { audio.setMuted(!audio.muted); toast(audio.muted ? 'Sound off' : 'Sound on', 1000); document.getElementById('btn-audio')?.classList.toggle('off', audio.muted); });
     kb.onPress('Escape', () => this.escape());
     kb.onPress('KeyR', () => { if (this.dead) this.respawn(); });
     this.input.on('pointerdown', () => { if (!this.uiPause) this.attack(); });
@@ -166,7 +175,7 @@ export class WorldScene extends Phaser.Scene {
     if (!location.search.includes('novig')) { try { cam.filters.external.addVignette(0.5, 0.5, 1.0, 0.32); } catch { /* filters unavailable (Canvas fallback) */ } }
     this.hpBars.setDepth(1e5);
     this.events.once('shutdown', () => {
-      this.kb.dispose(); this.scale.off('resize'); closePanels(); showDialogue(null, () => undefined); setBossBar(null); setPrompt(null);
+      this.kb.dispose(); closeTrade(); removeMinimap(); audio.stopMusic(); this.scale.off('resize'); closePanels(); showDialogue(null, () => undefined); setBossBar(null); setPrompt(null);
       this.anims.globalTimeScale = 1;
     });
 
@@ -178,6 +187,7 @@ export class WorldScene extends Phaser.Scene {
     });
     this.installTestHooks();
     this.warmUp();
+    audio.startMusic();
   }
 
   /** Draws every effect type once, invisibly, so shaders compile now instead of during the first fight (avoids a hitch). */
@@ -225,6 +235,7 @@ export class WorldScene extends Phaser.Scene {
       if (w.zone[ty * w.width + tx] !== z || isBlockedTile(w, tx, ty)) continue;
       const p = { x: (tx + 0.5) * TILE_SIZE, y: (ty + 0.5) * TILE_SIZE };
       if (Math.hypot(p.x - w.spawn.x, p.y - w.spawn.y) < 130) continue; // keep the village approach safe
+      if (Math.hypot(p.x - w.den.x, p.y - w.den.y) < 130 || Math.hypot(p.x - w.lair.x, p.y - w.lair.y) < 170) continue; // boss courts stay clear of wanderers
       if (farFrom && Math.hypot(p.x - farFrom.x, p.y - farFrom.y) < minDist) continue;
       if (isBlockedTile(w, tx + 1, ty) || isBlockedTile(w, tx - 1, ty) || isBlockedTile(w, tx, ty + 1) || isBlockedTile(w, tx, ty - 1)) continue;
       return p;
@@ -250,13 +261,12 @@ export class WorldScene extends Phaser.Scene {
     return e;
   }
 
-  private spawnBoss(): void {
-    const def = WARDEN;
+  private spawnBoss(def: BossDef): void {
     const c: Combatant = { hp: def.maxHp, maxHp: def.maxHp, mana: 0, maxMana: 0, atk: def.atk, def: def.def, critChance: 0, critMult: 1, manaRegen: 0 };
-    const pos = { ...this.world.lair };
+    const pos = { ...(def.home === 'lair' ? this.world.lair : this.world.den) };
     const actor = new Actor(this, def.sprite, pos.x, pos.y, def.scale, 56);
     actor.setPos(pos.x, pos.y);
-    this.boss = { slams: 0, def, c, ai: newBossAI(), pos, actor, engaged: false, tele: null, lockUntil: 0, kb: { x: 0, y: 0 } };
+    this.bosses.push({ slams: 0, def, c, ai: newBossAI(), pos, actor, engaged: false, tele: null, lockUntil: 0, kb: { x: 0, y: 0 } });
   }
 
   // ---------- input actions ----------
@@ -266,6 +276,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private escape(): void {
+    if (isTradeOpen()) { closeTrade(); this.uiPause = false; return; }
     if (isDialogueOpen()) { showDialogue(null, () => undefined); this.uiPause = false; return; }
     if (isPanelOpen('inv') || isPanelOpen('chr')) { closePanels(); return; }
     if (this.uiPause) { this.resume(); return; }
@@ -288,14 +299,14 @@ export class WorldScene extends Phaser.Scene {
     this.meditating = false;
     if (res.success) {
       this.mutate(() => { const s = statsOf(this.gs); this.gs.hp = s.maxHp; this.gs.mana = s.maxMana; });
-      toast(`Breakthrough! You reach ${REALMS[this.gs.cultivation.realm]!.name}.`, 3600);
+      toast(`Breakthrough! You reach ${REALMS[this.gs.cultivation.realm]!.name}.`, 3600); audio.sfx('breakthrough');
       this.fx.play('xf_ascend', this.pos.x, this.pos.y, { scale: 0.55, tint: COLORS.gold });
       this.fx.play('xf_taiji', this.pos.x, this.pos.y - 14, { scale: 0.4, tint: COLORS.gold });
       this.fx.ring(this.pos.x, this.pos.y, 70, COLORS.gold, 600);
       this.fx.shake(250, 0.004);
       this.save(false);
     } else {
-      toast('The breakthrough fails — your qi scatters. Half of it is lost.', 3200);
+      toast('The breakthrough fails — your qi scatters. Half of it is lost.', 3200); audio.sfx('fail');
       this.fx.play('xf_mirror_shatter', this.pos.x, this.pos.y - 14, { scale: 0.3, tint: COLORS.hurt });
     }
   }
@@ -317,7 +328,7 @@ export class WorldScene extends Phaser.Scene {
     if (def.heal && !def.mana && !def.qi && this.pc.hp >= st.maxHp) { toast('HP is already full.', 1200); return; }
     if (def.mana && !def.heal && !def.qi && this.pc.mana >= st.maxMana) { toast('Mana is already full.', 1200); return; }
     this.mutate(() => useItemSlot(this.gs, i));
-    toast(`Used ${def.name}.`, 1200);
+    toast(`Used ${def.name}.`, 1200); audio.sfx('potion');
     this.fx.play('xf_pill_light', this.pos.x, this.pos.y - 14, { scale: 0.22, tint: def.heal ? COLORS.heal : def.mana ? COLORS.mana : COLORS.gold });
   }
 
@@ -344,13 +355,13 @@ export class WorldScene extends Phaser.Scene {
     const ok = this.mutate(() => gatherHerb(this.gs));
     if (!ok) { toast('Your inventory is full.', 1600); return; }
     h.alive = false; h.respawnAt = this.now + HERB_RESPAWN_SECONDS; h.img.setVisible(false); h.glow.setVisible(false);
-    toast('Gathered Spirit Herb.', 1500);
+    toast('Gathered Spirit Herb.', 1500); audio.sfx('gather');
     this.fx.play('xf_soul_wisp', h.x, h.y - 8, { scale: 0.18, tint: COLORS.gold });
     this.fx.burst(h.x, h.y - 6, COLORS.gold, 10);
   }
 
   private openDialogue(npcId: string): void {
-    if (npcId !== 'elder-lin') { toast('They nod politely. (Trade and alchemy arrive in a later update.)', 2600); return; }
+    if (npcId === 'merchant-qiao' || npcId === 'alchemist-yun') { this.openTrade(npcId === 'merchant-qiao' ? 'shop' : 'alchemy'); return; }
     this.uiPause = true;
     showDialogue(getDialogue('elder-lin', this.gs.quests, this.gs.inventory), (a) => {
       if (a.type === 'close') { showDialogue(null, () => undefined); this.uiPause = false; return; }
@@ -370,8 +381,34 @@ export class WorldScene extends Phaser.Scene {
     });
   }
 
+  private openTrade(kind: 'shop' | 'alchemy'): void {
+    this.uiPause = true;
+    const refresh = () => renderTrade(this.gs);
+    const close = () => { closeTrade(); this.uiPause = false; };
+    showTrade(kind, this.gs, {
+      close,
+      buy: (id) => {
+        const r = this.mutate(() => buy(this.gs, id));
+        if (r.ok) { toast(`Bought ${ITEMS[id]!.name}.`, 1400); audio.sfx('pickup'); } else toast(r.reason === 'stones' ? 'Not enough spirit stones.' : r.reason === 'full' ? 'Your bag is full.' : 'Not available.', 1800);
+        refresh();
+      },
+      sell: (slot) => {
+        const id = this.gs.inventory.slots[slot]?.id;
+        const r = this.mutate(() => sell(this.gs, slot, 1));
+        if (r.ok && id) { toast(`Sold ${ITEMS[id]!.name} (+${sellValue(id)} ◆).`, 1400); audio.sfx('pickup'); }
+        refresh();
+      },
+      craft: (rid) => {
+        const r = this.mutate(() => craft(this.gs, rid));
+        if (r.ok) { toast('The furnace glows — brewing complete.', 1800); audio.sfx('potion'); this.fx.play('xf_pill_light', this.pos.x, this.pos.y - 14, { scale: 0.26, tint: COLORS.gold }); }
+        else toast(r.reason === 'herbs' ? 'You need more Spirit Herbs.' : r.reason === 'stones' ? 'Not enough spirit stones.' : 'Your bag is full.', 2000);
+        refresh();
+      },
+    });
+  }
+
   private levelUpFx(): void {
-    toast(`Level up! You are now level ${this.gs.progress.level}.`, 3000);
+    toast(`Level up! You are now level ${this.gs.progress.level}.`, 3000); audio.sfx('levelup');
     const unlocked = SKILLS.filter((s) => s.unlockLevel === this.gs.progress.level);
     for (const s of unlocked) toast(`Technique learned: ${s.name} (${s.alt})`, 4200);
     this.fx.play('xf_ascend', this.pos.x, this.pos.y, { scale: 0.4, tint: COLORS.gold });
@@ -401,6 +438,7 @@ export class WorldScene extends Phaser.Scene {
     this.playerLockUntil = this.now + hit.recover * 0.85;
     this.playerLockAnim = hit.anim;
     this.player.play(hit.anim, { force: true, duration: hit.windup + hit.recover + 0.18 });
+    audio.sfx(stepIdx === 0 ? 'slash1' : stepIdx === 1 ? 'slash2' : 'slash3');
     this.schedule(hit.windup, () => {
       const dmgDir = dir;
       const lunged = moveWithCollision(this.world, this.pos, { x: this.pos.x + dmgDir.x * hit.lunge, y: this.pos.y + dmgDir.y * hit.lunge }, PLAYER_RADIUS);
@@ -427,6 +465,7 @@ export class WorldScene extends Phaser.Scene {
     this.playerLockUntil = this.now + DASH.duration;
     this.playerLockAnim = 'dash';
     this.player.play('dash', { force: true, duration: DASH.duration + 0.12 });
+    audio.sfx('dash');
     this.fx.play('xf_gale_vortex', this.pos.x, this.pos.y, { scale: 0.18, tint: 0xcfefff, alpha: 0.7 });
     this.afterimageTimer = 0;
   }
@@ -444,12 +483,14 @@ export class WorldScene extends Phaser.Scene {
     this.playerLockUntil = this.now + 0.38;
     this.playerLockAnim = 'cast';
     this.player.play('cast', { force: true, duration: 0.42 });
+    audio.sfx('cast');
     this.schedule(0.16, () => this.releaseSkill(sk, dir, aim));
   }
 
   private releaseSkill(sk: SkillDef, dir: Vec2, aim?: Vec2): void {
     const ox = this.pos.x + dir.x * 10, oy = this.pos.y - 12 + dir.y * 6;
     const color = this.heroColor;
+    audio.sfx(sk.shape === 'projectile' ? 'sword' : sk.shape === 'wave' ? 'moon' : sk.shape === 'burst' ? 'lotus' : 'rain');
     if (sk.shape === 'projectile') {
       const sprite = this.fx.play(sk.fx.replace('fx.', ''), ox, oy, { scale: 0.2, rot: Math.atan2(dir.y, dir.x), tint: color, loop: true, depth: 1e4 });
       this.addBolt({ kind: 'sword', pos: { x: ox, y: oy + 12 }, vel: { x: dir.x * (sk.speed ?? 300), y: dir.y * (sk.speed ?? 300) }, max: sk.range, damage: sk.damageMult, pierce: sk.pierce ?? 1, radius: 7, sprite, color });
@@ -490,7 +531,7 @@ export class WorldScene extends Phaser.Scene {
   // ---------- combat: shared ----------
   private targets(): Target[] {
     const t: Target[] = this.enemies.map((e) => ({ pos: e.pos, radius: e.def.radius, key: e, hit: (m: number, o?: HitOpts) => this.hitEnemy(e, m, o) }));
-    if (this.boss) { const b = this.boss; t.push({ pos: b.pos, radius: b.def.radius, key: b, hit: (m: number, o?: HitOpts) => this.hitBoss(b, m, o) }); }
+    for (const b of this.bosses) t.push({ pos: b.pos, radius: b.def.radius, key: b, hit: (m: number, o?: HitOpts) => this.hitBoss(b, m, o) });
     return t;
   }
 
@@ -499,6 +540,7 @@ export class WorldScene extends Phaser.Scene {
     const r = computeDamage(this.pc, e.c, mult, this.rng);
     const killed = applyDamage(e.c, r.amount);
     this.floatText(e.pos, String(r.amount), r.crit ? '#ffd23f' : '#ffffff', r.crit);
+    audio.sfx(r.crit ? 'crit' : 'hit');
     e.actor.flash(80);
     this.fx.burst(e.pos.x, e.pos.y - 10, r.crit ? COLORS.gold : this.heroColor, r.crit ? 14 : 8);
     this.fx.play('xf_ink_splash', e.pos.x, e.pos.y - 10, { scale: r.crit ? 0.2 : 0.13, tint: r.crit ? COLORS.gold : COLORS.white });
@@ -513,13 +555,14 @@ export class WorldScene extends Phaser.Scene {
 
   private killEnemy(e: Enemy): void {
     this.enemies = this.enemies.filter((x) => x !== e);
+    audio.sfx('kill');
     const actor = e.actor;
     actor.play('death', { force: true });
     this.fx.play('xf_soul_wisp', e.pos.x, e.pos.y - 14, { scale: 0.2, tint: e.elite ? COLORS.gold : COLORS.wisp });
     this.fx.burst(e.pos.x, e.pos.y - 8, e.elite ? COLORS.gold : COLORS.wisp, 14);
     this.tweens.add({ targets: [actor.sprite], alpha: 0, duration: 700, delay: 500, onComplete: () => actor.destroy() });
     this.tweens.add({ targets: [actor.shadow], alpha: 0, duration: 700, delay: 500 });
-    if (!e.minion) this.onKill(e.def.id, e.pos, e.elite);
+    if (!e.minion) this.onKill(e.def.id, e.pos, e.elite, e.zone);
   }
 
   private hitBoss(b: BossEnt, mult: number, o: HitOpts = {}): void {
@@ -527,14 +570,15 @@ export class WorldScene extends Phaser.Scene {
     const r = computeDamage(this.pc, b.c, mult, this.rng);
     const killed = applyDamage(b.c, r.amount);
     this.floatText(b.pos, String(r.amount), r.crit ? '#ffd23f' : '#ffffff', r.crit);
+    audio.sfx(r.crit ? 'crit' : 'hit');
     b.actor.flash(70);
     this.fx.burst(b.pos.x, b.pos.y - 22, r.crit ? COLORS.gold : this.heroColor, 10);
     if (o.kb && !killed) b.kb = impulse({ x: b.pos.x - (o.from ?? this.pos).x, y: b.pos.y - (o.from ?? this.pos).y }, o.kb * 0.15);
     if (!killed) return;
     b.tele?.destroy();
-    this.boss = null;
-    for (const m of this.enemies.filter((x) => x.minion)) m.actor.destroy();
-    this.enemies = this.enemies.filter((x) => !x.minion);
+    this.bosses = this.bosses.filter((x) => x !== b);
+    for (const m of this.enemies.filter((x) => x.minion && x.zone === (b.def.home === 'lair' ? 'lair' : 'grove'))) m.actor.destroy();
+    this.enemies = this.enemies.filter((x) => !(x.minion && x.zone === (b.def.home === 'lair' ? 'lair' : 'grove')));
     setBossBar(null);
     const actor = b.actor;
     actor.play('death', { force: true });
@@ -544,16 +588,16 @@ export class WorldScene extends Phaser.Scene {
     this.hitStop(160);
     this.tweens.add({ targets: [actor.sprite], alpha: 0, duration: 1200, delay: 1200, onComplete: () => actor.destroy() });
     this.tweens.add({ targets: [actor.shadow], alpha: 0, duration: 1200, delay: 1200 });
-    this.onKill(WARDEN_ID, b.pos, false);
-    toast('The Fallen Sword Immortal has been laid to rest!', 4500);
+    this.onKill(b.def.id, b.pos, false);
+    toast(`${b.def.name} has been defeated!`, 4500); audio.sfx('roar');
     this.save(false);
   }
 
-  private onKill(type: string, at: Vec2, elite: boolean): void {
-    const r = this.mutate(() => registerKill(this.gs, type, this.roll, { elite }));
+  private onKill(type: string, at: Vec2, elite: boolean, zone?: string): void {
+    const r = this.mutate(() => registerKill(this.gs, type, this.roll, { elite, zone }));
     this.floatText({ x: at.x, y: at.y - 12 }, `+${r.xp} XP`, '#b9a3ff', false, 8);
     if (r.stones > 0) this.floatText({ x: at.x + 8, y: at.y - 2 }, `+${r.stones} ◆`, '#7fd8ff', false, 8);
-    for (const d of r.drops) toast(`Found ${ITEMS[d.id]!.name}`, 1800);
+    for (const d of r.drops) { toast(`Found ${ITEMS[d.id]!.name}`, 1800); audio.sfx('pickup'); }
     for (const o of r.overflow) toast(`Inventory full: lost ${ITEMS[o]!.name}`, 2200);
     if (r.levelsGained > 0) { this.levelUpFx(); this.save(false); }
   }
@@ -573,7 +617,7 @@ export class WorldScene extends Phaser.Scene {
     this.fx.burst(this.pos.x, this.pos.y - 12, COLORS.hurt, 8);
     this.fx.shake(90, 0.003);
     if (from) this.playerKb = impulse({ x: this.pos.x - from.x, y: this.pos.y - from.y }, 40);
-    this.hitStop(35);
+    this.hitStop(35); audio.sfx('hurt');
     if (this.pc.hp <= 0) { this.die(); return; }
     this.player.play('hurt', { force: true });
     this.playerLockUntil = Math.max(this.playerLockUntil, this.now + 0.22); this.playerLockAnim = 'hurt';
@@ -581,7 +625,7 @@ export class WorldScene extends Phaser.Scene {
   private lastDodgeText = -9;
 
   private die(): void {
-    this.dead = true; this.meditating = false;
+    this.dead = true; this.meditating = false; audio.sfx('death');
     this.player.play('death', { force: true });
     this.fx.shake(300, 0.005);
     this.save(false);
@@ -613,7 +657,9 @@ export class WorldScene extends Phaser.Scene {
     if (zone !== this.currentZone) this.currentZone = zone;
     if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; showZoneBanner(ZONES[zone].name, ZONES[zone].level); }
     this.ambient.update(dt, zone);
-    updateOccluders(this.occluders, [{ x: this.pos.x, y: this.pos.y }, ...this.enemies.map((e) => e.pos), ...(this.boss ? [this.boss.pos] : [])], dt);
+    const mood: Mood = this.bosses.some((b) => b.engaged) ? 'boss' : zone === 'marsh' ? 'mist' : zone === 'ruins' || zone === 'lair' || this.enemies.some((e) => e.ai.state !== 'idle' && !e.minion) ? 'danger' : 'calm';
+    audio.setMood(mood);
+    updateOccluders(this.occluders, [{ x: this.pos.x, y: this.pos.y }, ...this.enemies.map((e) => e.pos), ...this.bosses.flatMap((b) => [b.pos, { x: b.pos.x, y: b.pos.y - 26 }, { x: b.pos.x - 26, y: b.pos.y - 10 }, { x: b.pos.x + 26, y: b.pos.y - 10 }])], dt);
 
     const npc = this.nearestNpc(), herb = this.nearestHerb();
     const nearArray = Math.hypot(this.pos.x - this.world.arrayPos.x, this.pos.y - this.world.arrayPos.y) < ARRAY_RADIUS;
@@ -629,6 +675,10 @@ export class WorldScene extends Phaser.Scene {
       n.mark.y = n.pos.y - 38 + Math.sin(this.time.now / 260) * 2;
     }
 
+    updateMinimap({
+      player: this.pos, facing: this.facing, enemies: this.enemies.filter((e) => !e.minion).map((e) => ({ x: e.pos.x, y: e.pos.y, elite: e.elite })),
+      bosses: this.bosses.map((b) => b.pos), npcs: this.npcs.map((n) => n.pos), herbs: this.herbs.filter((h) => h.alive),
+    }, dt);
     this.pushToState();
     updateHud({
       gs: this.gs, maxHp: this.pc.maxHp, maxMana: this.pc.maxMana, meditating: this.meditating,
@@ -651,7 +701,7 @@ export class WorldScene extends Phaser.Scene {
     if (alive) this.updatePlayer(dt);
     const target = alive ? this.pos : { x: 1e9, y: 1e9 };
     for (const e of [...this.enemies]) this.updateEnemy(e, target, alive, dt);
-    if (this.boss) this.updateBossEntity(this.boss, target, alive, dt);
+    for (const b of [...this.bosses]) this.updateBossEntity(b, target, alive, dt);
     this.updateBolts(dt, alive);
     this.updateRains(dt);
 
@@ -806,14 +856,14 @@ export class WorldScene extends Phaser.Scene {
       vel = out.vel;
       b.pos = moveWithCollision(this.world, b.pos, { x: b.pos.x + out.vel.x * dt, y: b.pos.y + out.vel.y * dt }, b.def.radius - 4);
       for (const ev of out.events) {
-        if (ev.type === 'phase') { toast(ev.phase === 2 ? 'The Fallen Immortal summons his sword spirits!' : 'The Fallen Immortal is enraged!', 2800); this.fx.shake(300, 0.006); this.fx.ring(b.pos.x, b.pos.y, 90, COLORS.boss, 600); }
+        if (ev.type === 'phase') { audio.sfx('roar'); toast(ev.phase === 2 ? `${b.def.name} calls its minions!` : `${b.def.name} is enraged!`, 2800); this.fx.shake(300, 0.006); this.fx.ring(b.pos.x, b.pos.y, 90, COLORS.boss, 600); }
         else if (ev.type === 'slam-telegraph') {
           b.tele?.destroy();
           const g = this.add.graphics().setDepth(5);
           g.fillStyle(0xff3b30, 0.26).fillCircle(ev.at.x, ev.at.y, ev.radius).lineStyle(2.5, 0xff5a4a, 0.95).strokeCircle(ev.at.x, ev.at.y, ev.radius);
-          b.tele = g; b.actor.play('attack_a', { force: true, duration: ev.duration }); b.lockUntil = this.now + ev.duration + 0.5;
+          audio.sfx('telegraph'); b.tele = g; b.actor.play('attack_a', { force: true, duration: ev.duration }); b.lockUntil = this.now + ev.duration + 0.5;
         } else if (ev.type === 'slam') {
-          b.slams++; b.tele?.destroy(); b.tele = null;
+          b.slams++; b.tele?.destroy(); b.tele = null; audio.sfx('slam');
           this.fx.ring(ev.at.x, ev.at.y, ev.radius, 0xff7043, 420);
           for (let i = 0; i < 8; i++) { const a = (i / 8) * Math.PI * 2; this.fx.play('xf_stone_spike', ev.at.x + Math.cos(a) * ev.radius * 0.7, ev.at.y + Math.sin(a) * ev.radius * 0.7, { scale: 0.24, tint: 0xffb28a, blend: 'normal', depth: ev.at.y + Math.sin(a) * ev.radius }); }
           this.fx.shake(220, 0.007);
@@ -859,12 +909,13 @@ export class WorldScene extends Phaser.Scene {
     w.__rpg = {
       state: () => ({
         now: this.now, hp: this.pc.hp, mana: this.pc.mana, maxHp: this.pc.maxHp, kills: this.gs.kills, xp: this.gs.progress.xp, level: this.gs.progress.level,
-        realm: this.gs.cultivation.realm, qi: this.gs.cultivation.qi, weapon: this.gs.inventory.weapon, meditating: this.meditating, bossDefeated: this.gs.bossDefeated,
+        realm: this.gs.cultivation.realm, qi: this.gs.cultivation.qi, weapon: this.gs.inventory.weapon, meditating: this.meditating, bossDefeated: isBossDefeated(this.gs, 'warden'), bossesDefeated: [...this.gs.bosses],
         hero: this.gs.character.hero, stones: this.gs.stones, zone: this.currentZone, dead: this.dead, comboStep: this.combo.step, dashing: isDashing(this.dashState, this.now), invulnerable: isInvulnerable(this.dashState, this.now),
         quests: Object.fromEntries(Object.entries(this.gs.quests).map(([k, v]) => [k, v.status])),
         enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, zone: e.zone, anim: e.actor.anim })),
+        bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state, slams: b.slams })),
         boss: this.boss ? { hp: this.boss.c.hp, maxHp: this.boss.c.maxHp, x: this.boss.pos.x, y: this.boss.pos.y, engaged: this.boss.engaged, phase: this.boss.ai.phase, state: this.boss.ai.state, slams: this.boss.slams } : null,
-        palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, arrayPos: this.world.arrayPos,
+        palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, arrayPos: this.world.arrayPos,
         herbs: this.herbs.map((h) => ({ x: h.x, y: h.y, alive: h.alive })), anchors: this.world.anchors,
         playerAnim: this.player.anim, items: this.gs.inventory.slots.filter((s) => s).map((s) => `${s!.id}:${s!.count}`),
       }),
@@ -876,7 +927,7 @@ export class WorldScene extends Phaser.Scene {
       clear: () => { this.enemies.forEach((e) => e.actor.destroy()); this.enemies = []; },
       setRoll: (v: number | null) => { this.rngOverride = v; },
       setQi: (v: number) => { this.gs.cultivation.qi = v; },
-      setBossHpRatio: (r: number) => { if (this.boss) this.boss.c.hp = Math.max(1, Math.round(this.boss.c.maxHp * r)); },
+      setBossHpRatio: (r: number, id = 'warden') => { const b = this.bosses.find((x) => x.def.id === id); if (b) b.c.hp = Math.max(1, Math.round(b.c.maxHp * r)); },
       giveXp: (n: number) => this.mutate(() => grantXp(this.gs, n)),
       give: (id: string, n: number) => this.mutate(() => addItem(this.gs.inventory, id, n)),
       setHp: (n: number) => { this.pc.hp = n; },

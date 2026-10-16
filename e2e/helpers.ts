@@ -7,6 +7,8 @@ export interface RpgState {
   dead: boolean; comboStep: number; dashing: boolean; invulnerable: boolean; playerAnim: string;
   enemies: EnemyState[];
   boss: { hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number } | null;
+  bosses: { id: string; hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number }[];
+  bossesDefeated: string[]; den: { x: number; y: number };
   palace?: { x: number; y: number };
   lair: { x: number; y: number }; spawn: { x: number; y: number }; npc: { x: number; y: number }; npcs: Record<string, { x: number; y: number }>;
   arrayPos: { x: number; y: number }; herbs: { x: number; y: number; alive: boolean }[]; anchors: Record<string, { x: number; y: number }>; items: string[];
@@ -14,7 +16,7 @@ export interface RpgState {
 interface Rpg {
   state(): RpgState; cast(i: number, x: number, y: number): void; attack(x: number, y: number): void; dash(): void; teleport(x: number, y: number): void;
   spawn(type: string, x: number, y: number): void; clear(): void; setRoll(v: number | null): void; setQi(v: number): void;
-  setBossHpRatio(r: number): void; giveXp(n: number): void; give(id: string, n: number): void; setHp(n: number): void;
+  setBossHpRatio(r: number, id?: string): void; giveXp(n: number): void; give(id: string, n: number): void; setHp(n: number): void;
   killPlayer(): void; respawnNow(): void; useSlot(i: number): void; gather(): void;
 }
 declare global { interface Window { __rpg?: Rpg; __world?: () => { x: number; y: number } } }
@@ -81,3 +83,14 @@ export async function acceptFirst(page: Page): Promise<void> {
 }
 
 export const shot = (page: Page, name: string) => page.screenshot({ path: `qc-artifacts/${name}.png` });
+
+/** Quest 1 end-to-end through the real dialogue: accept, hunt 4 wolves, hand in 2 herbs, claim. Leaves Elder Lin's next offer open. */
+export async function finishPests(page: Page): Promise<void> {
+  await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.setRoll(0.5); });
+  await goToNpc(page); await talk(page); await acceptFirst(page);
+  for (let i = 0; i < 4; i++) await killOne(page, 'wolf');
+  await page.evaluate(() => window.__rpg!.give('spirit-herb', 2));
+  await goToNpc(page); await talk(page);
+  await page.click('#dlg button[data-opt="0"]'); // claim
+  await expect(page.locator('.toast', { hasText: 'Quest complete' })).toBeVisible();
+}

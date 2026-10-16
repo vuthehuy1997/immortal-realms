@@ -46,3 +46,9 @@
 - Found & fixed via screenshots: tiled-looking ground (domain warp), hard-edged mist rectangles (soft blobs), tall bamboo hiding the hero (occluder fading), tint channel overflow, dialogue/inventory overlap at 1024px, first-fight shader hitch (warm-up).
 - QC: lint, typecheck, build, 106 unit, 41 e2e green (software-GL Chromium).
 - UNVERIFIED: audio (none), real-GPU perf, balance/feel by a human.
+
+## 2026-10-17 (later) — audio, minimap, economy, second boss
+- Added procedural audio engine (SFX + mood-following music), circular minimap, Merchant Qiao shop, Alchemist Yun furnace, weapon rarity + elite weapon drops, Nine-Tailed Fox boss + 3-step quest chain, save v3 (bosses list).
+- QC: lint, typecheck, build, 118 unit, 51 e2e green. Screenshots reviewed: boss telegraph/boss bar, shop, minimap, den.
+- Fixed via review: boss hidden by canopies (multi-point occlusion), inventory/quest/minimap overlaps (layout), toast/test text drift.
+- UNVERIFIED: how the audio sounds, real-GPU perf, balance/feel by a human.

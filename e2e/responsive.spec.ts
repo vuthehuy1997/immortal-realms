@@ -31,17 +31,32 @@ test.describe('#15 responsive desktop UI', () => {
       await goToNpc(page); await talk(page);
       await page.waitForTimeout(300);
       await shot(page, `ui-${v.w}-game`);
-      const ids = ['#inv', '#chr', '#dlg', '#skills', '#pcard', '#quest'];
+      const ids = ['#inv', '#chr', '#dlg', '#skills', '#pcard', '#quest', '#minimap'];
       const boxes: Record<string, { x: number; y: number; width: number; height: number }> = {};
       for (const id of ids) {
         const b = await box(page, id); expect(b, id).not.toBeNull(); boxes[id] = b!;
         expect(b!.x, id).toBeGreaterThanOrEqual(-0.5); expect(b!.y, id).toBeGreaterThanOrEqual(-0.5);
         expect(b!.x + b!.width, id).toBeLessThanOrEqual(v.w + 0.5); expect(b!.y + b!.height, `${id} bottom`).toBeLessThanOrEqual(v.h + 0.5);
       }
-      for (const [a, b] of [['#inv', '#chr'], ['#inv', '#dlg'], ['#chr', '#dlg'], ['#dlg', '#skills'], ['#inv', '#quest'], ['#chr', '#pcard'], ['#inv', '#skills'], ['#chr', '#skills']] as const) {
+      for (const [a, b] of [['#inv', '#chr'], ['#inv', '#dlg'], ['#chr', '#dlg'], ['#dlg', '#skills'], ['#inv', '#quest'], ['#chr', '#pcard'], ['#quest', '#minimap'], ['#inv', '#minimap'], ['#inv', '#skills'], ['#chr', '#skills']] as const) {
         expect(overlap(boxes[a]!, boxes[b]!), `${a} overlaps ${b}`).toBe(false);
       }
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    });
+  }
+
+  for (const v of VIEWPORTS) {
+    test(`${v.w}x${v.h}: the trade window fits the screen`, async ({ page }) => {
+      await page.setViewportSize({ width: v.w, height: v.h });
+      await newGame(page, 'Trade Fit');
+      await goToNpc(page, 'merchant-qiao'); await page.keyboard.press('e');
+      await expect(page.locator('#trade')).toBeVisible();
+      await page.waitForTimeout(200);
+      const b = (await page.locator('#trade').boundingBox())!;
+      expect(b.x).toBeGreaterThanOrEqual(-0.5); expect(b.y).toBeGreaterThanOrEqual(-0.5);
+      expect(b.x + b.width).toBeLessThanOrEqual(v.w + 0.5); expect(b.y + b.height).toBeLessThanOrEqual(v.h + 0.5);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+      await shot(page, `ui-${v.w}-trade`);
     });
   }
 });

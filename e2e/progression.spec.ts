@@ -157,7 +157,7 @@ test.describe('#12 NPC dialogue + quests', () => {
     const s = await st(page);
     expect(s.quests.pests).toBe('turnedIn');
     expect(s.items.join(',')).toContain('iron-sword:1');
-    await expect(page.locator('#dlg')).toContainText('Fallen Sword Immortal'); // chained offer
+    await expect(page.locator('#dlg')).toContainText('nine-tailed fox'); // chained offer: the fox is next
     await page.keyboard.press('Escape');
     await expect(page.locator('#dlg')).toBeHidden();
   });
@@ -165,22 +165,18 @@ test.describe('#12 NPC dialogue + quests', () => {
   test('second quest is not offered before the first is finished', async ({ page }) => {
     await newGame(page);
     await goToNpc(page); await talk(page);
-    await expect(page.locator('#dlg')).not.toContainText('Fallen Sword Immortal');
+    await expect(page.locator('#dlg')).not.toContainText('nine-tailed');
     await page.keyboard.press('2');
     await expect(page.locator('#dlg')).toBeHidden();
     expect((await st(page)).quests.pests).toBe('inactive');
   });
 
-  test('cannot talk from far away; simulation is paused during dialogue; other villagers have no shop yet', async ({ page }) => {
+  test('cannot talk from far away; simulation is paused during dialogue', async ({ page }) => {
     await newGame(page);
     await page.keyboard.press('e');
     await expect(page.locator('#dlg')).toBeHidden();
     await goToNpc(page); await talk(page);
     const t0 = (await st(page)).now; await page.waitForTimeout(400);
     expect((await st(page)).now).toBe(t0);
-    await page.keyboard.press('Escape');
-    await goToNpc(page, 'merchant-qiao');
-    await page.keyboard.press('e');
-    await expect(page.locator('.toast', { hasText: 'later update' })).toBeVisible();
   });
 });

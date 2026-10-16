@@ -35,9 +35,10 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [x] ART-1/2 replaced placeholder art with CC0 Xianxia Pixel Pack (animated heroes/mobs/bosses/props/FX/UI)
 - [x] Procedural ground, 80x80 world with 6 zones, roads, props with collision, occluder fading
 - [x] Martial arts: combo, dash, 4 techniques, enemy roster (17 mobs + elites), new boss Fallen Sword Immortal
-- [ ] AUDIO-1 SFX + ambient music (procedural WebAudio, licence-free)
-- [ ] MAP-1 minimap / world map
-- [ ] ECON-1 merchant (spirit stones), ALCH-1 alchemy (herbs -> pills), LOOT-1 weapon tiers using the pack's 60 weapons
-- [ ] BOSS-2 Nine-Tail Fox and Jiao Dragon bosses (sprites already bundled)
+- [x] AUDIO-1 SFX + ambient music (procedural WebAudio, licence-free)
+- [x] MAP-1 minimap (world map overlay still TODO)
+- [x] ECON-1 merchant, ALCH-1 alchemy, LOOT-1 weapon tiers + rarity (more of the pack's 60 weapons can be added)
+- [x] BOSS-2 Nine-Tailed Fox boss (den in the Peach Grove)
+- [ ] BOSS-3 Jiao Dragon (sprites bundled)
 - [ ] ART-3 replace/commission identity art before commercial release (AI provenance risk, see audit)
 - [ ] M0-4 real-GPU perf measurement

@@ -4,6 +4,9 @@ export const ITEM_ICON: Record<string, { kind: 'ui' | 'icon'; key: string }> = {
   'mana-potion': { kind: 'ui', key: 'item_conch' },
   'qi-pill': { kind: 'ui', key: 'item_pill_bottle' },
   'spirit-herb': { kind: 'ui', key: 'item_lingzhi' },
+  'bronze-blade': { kind: 'icon', key: 'blade_01_00' },
   'iron-sword': { kind: 'icon', key: 'blade_01_01' },
+  'steel-blade': { kind: 'icon', key: 'blade_01_03' },
+  'spirit-saber': { kind: 'icon', key: 'heavy_01_03' },
   'jade-sword': { kind: 'icon', key: 'blade_01_05' },
 };

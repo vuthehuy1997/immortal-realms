@@ -22,8 +22,16 @@ export const QUESTS: Record<string, QuestDef> = {
     ],
     reward: { xp: 80, items: [{ id: 'iron-sword', count: 1 }, { id: 'hp-potion', count: 3 }] },
   },
+  fox: {
+    id: 'fox', name: 'The Fox of the Peach Grove', giver: 'elder-lin', requires: 'pests',
+    intro: 'Well done. Now a greater trouble: a nine-tailed fox spirit has made its den in the Peach Grove, north-west of here, and bewitches travellers. Slay it.',
+    reminder: 'The fox spirit still haunts the grove. Follow the north road, then west into the peach trees.',
+    completeText: 'The grove breathes again. This blade came from my own youth. Take it.',
+    objectives: [{ type: 'kill', target: 'ninetail', count: 1, label: 'Slay the Nine-Tailed Fox Spirit' }],
+    reward: { xp: 150, items: [{ id: 'steel-blade', count: 1 }, { id: 'qi-pill', count: 2 }, { id: 'hp-potion', count: 3 }] },
+  },
   warden: {
-    id: 'warden', name: 'The Fallen Sword Immortal', giver: 'elder-lin', requires: 'pests',
+    id: 'warden', name: 'The Fallen Sword Immortal', giver: 'elder-lin', requires: 'fox',
     intro: 'Beyond the Peach Grove, in the north-east court, a sword immortal who fell from grace stirs once more. Defeat the Fallen Sword Immortal and the sect may finally rest.',
     reminder: 'The Fallen Immortal still lives. Follow the north-east road to his court.',
     completeText: 'The Fallen Immortal is no more. You have the makings of a true cultivator.',
@@ -32,4 +40,4 @@ export const QUESTS: Record<string, QuestDef> = {
   },
 };
 
-export const NPCS = { 'elder-lin': { name: 'Elder Lin', quests: ['pests', 'warden'], idle: 'Peace to you, traveler. The grove is quiet now.' } } as const;
+export const NPCS = { 'elder-lin': { name: 'Elder Lin', quests: ['pests', 'fox', 'warden'], idle: 'Peace to you, traveler. The grove is quiet now.' } } as const;
