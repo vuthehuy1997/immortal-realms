@@ -1,0 +1,2 @@
+# Art Bible
+HD-pixel 2D, cohesive xianxia palette (jade, ink, gold, crimson). Modern VFX via particles/shaders. 32px base tile, 2x–3x upscaled crisp rendering. No flat rectangles/circles as final art; placeholders marked PLACEHOLDER with replacement tasks. Asset source strategy is an OPEN DECISION (see DECISIONS ADR-004): commissioned, self-made, CC0/commercial-licensed packs, or AI-generated with verified commercial terms.

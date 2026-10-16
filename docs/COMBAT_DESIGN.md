@@ -1,0 +1,2 @@
+# Combat Design
+Real-time, top-down. Player: move, dodge-roll (i-frames), 3 skills (cooldown + mana). Damage = max(1, (atk * skillMult - def*0.5) * crit) with seeded RNG; formulas live in `src/core/combat`. Hit feedback: hit-stop, screen shake, damage numbers, VFX. Enemy types: melee rusher, ranged caster, tank/charger. Boss: phased, telegraphed AoE, summons, enrage. Values are tunable data; all formulas unit-tested.
