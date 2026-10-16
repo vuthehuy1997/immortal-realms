@@ -11,3 +11,8 @@ Status: [x] done, [ ] todo. Format: ID — task (deps) — acceptance.
 - [ ] M2-2 Enemy FSM x3 types.
 - [ ] M3-x Skills/VFX/boss; M4-x progression/cultivation; M5-x NPC/quest/inventory; M6-x save/load/menu/creation; M7-x polish/perf/security.
 Placeholders to replace: BootScene text (src/game/BootScene.ts).
+
+## Art tasks
+- [ ] ART-1 Load Kenney tilesheets in Phaser (spritesheet 16x16, integer scaling, nearest filter) — used in M1.
+- [ ] ART-2 Original xianxia pass: recolor palette, add Eastern buildings/robes/banners, qi VFX (our own).
+- [ ] ART-3 Pre-release art review: replace/commission anything inconsistent; re-verify all licenses.

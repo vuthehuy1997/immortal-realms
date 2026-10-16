@@ -11,3 +11,6 @@
 - Note: sandbox HTTP proxy intercepts loopback; playwright.config.ts sets NO_PROXY.
 - UNVERIFIED: real-GPU rendering (e2e uses SwiftShader software GL); Firefox/WebKit; performance numbers.
 - Next: M0-4 perf spike, then M1 (tilemap/camera/movement).
+
+## 2026-10-16 — Art source
+- Owner chose free web art. Verified & imported Kenney Tiny Dungeon + Tiny Town (CC0) with License.txt and sha256. Style is Western-fantasy; xianxia identity needs original work (ART-2).

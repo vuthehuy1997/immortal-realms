@@ -12,5 +12,10 @@ typescript-eslint 8.71.2 peers `typescript <6.1`, so TS 7.x is not installable w
 
 ## ADR-002 Architecture: deterministic core sim separated from rendering. Fixed timestep, seeded RNG, data-driven content.
 ## ADR-003 Test stack: Vitest (logic), Playwright (browser e2e/perf smoke).
-## ADR-004 Art direction: original HD-pixel fantasy-xianxia; art must be self-made/AI-generated-with-verified-terms or CC0/commercial-licensed. Pending owner choice of art source.
+## ADR-004 Art source: free CC0/commercial-OK assets from the web — APPROVED by owner 2026-10-16
+Slice art base: Kenney Tiny Dungeon + Tiny Town (16x16, CC0), verified (see ASSET_LICENSE_AUDIT).
+Known trade-offs (honest): packs are Western-fantasy pixel style, not xianxia; free packs rarely match each other, so mixing sources risks an inconsistent look. This does not meet "HD-pixel, unified, xianxia" for release.
+Plan: use Kenney for the vertical slice; recolor/extend with original tiles (e.g. Eastern roofs, robes, sect banners, qi VFX we draw/shader ourselves); keep a per-asset replacement list; reassess commissioned or original art before commercial release.
+Rule: every new asset gets a registry row + license file copy + sha256 before use.
+
 ## ADR-005 Persistence: versioned JSON save in IndexedDB/localStorage with migrations.
