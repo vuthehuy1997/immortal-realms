@@ -12,7 +12,10 @@ export interface WorldMap {
   ground: GroundKind[];
   deco: DecoKind[];
   spawn: Vec2; // pixel coordinates
+  lair: Vec2; // boss arena centre, pixel coordinates
 }
+
+export const LAIR_RADIUS_TILES = 8;
 
 const BLOCKING: ReadonlySet<DecoKind> = new Set(['treeGreen', 'treeOrange', 'bush']);
 
@@ -47,7 +50,18 @@ export function generateWorld(seed: number, width = 64, height = 64): WorldMap {
       deco.push(k);
     }
   }
-  return { width, height, ground, deco, spawn: { x: (cx + 0.5) * TILE_SIZE, y: (cy + 0.5) * TILE_SIZE } };
+  // Boss arena in the north-east: cleared of obstacles and paved with the dirt tile as a visual cue.
+  const lx = width - 13, ly = 12;
+  for (let ty = 0; ty < height; ty++) {
+    for (let tx = 0; tx < width; tx++) {
+      if (Math.hypot(tx - lx, ty - ly) <= LAIR_RADIUS_TILES) { deco[idx({ width }, tx, ty)] = 'none'; ground[idx({ width }, tx, ty)] = 'path'; }
+    }
+  }
+  return {
+    width, height, ground, deco,
+    spawn: { x: (cx + 0.5) * TILE_SIZE, y: (cy + 0.5) * TILE_SIZE },
+    lair: { x: (lx + 0.5) * TILE_SIZE, y: (ly + 0.5) * TILE_SIZE },
+  };
 }
 
 function boxBlocked(m: WorldMap, x: number, y: number, r: number): boolean {

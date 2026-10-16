@@ -22,3 +22,11 @@ Placeholders to replace: BootScene text (src/game/BootScene.ts).
 Placeholders (M1): NPC wizard position/sprite in WorldScene; hero sprite = Kenney hero 85; world is procedural scatter, no authored zones yet; ground drawn as individual images (switch to Phaser tilemap/GPU layer under M0-4).
 
 Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEHOLDER; enemy sprites reuse Kenney Tiny Dungeon (wraith=ghost, brute=cyclops); skill names are working titles; balance numbers untuned; player has no XP->level yet (M4).
+
+## Slice status (see docs/QC_ACCEPTANCE.md)
+- [x] M3 boss Stone Warden (3 phases, telegraphed slam, summons, enrage ring, drops) — core+e2e tested; art/VFX placeholder
+- [x] M4 progression (XP/levels) + cultivation (meditate, breakthrough w/ failure cost, realm bonuses)
+- [x] M5 NPC dialogue + 2-quest chain; inventory (20 slots, stacks, use, equip, drops) with UI
+- [x] M6 main menu, character creation (3 roots), pause, save/load (versioned, validated, checksum), autosave
+- [x] M7 responsive DOM UI verified at 3 desktop viewports; QC loop (`npm run qc`)
+- [ ] NEXT: owner playtest + tuning; real VFX/hit-stop/audio (ART-2/M3b); xianxia art pass; Firefox/WebKit; transitive license scan (M0-5); real-GPU perf (M0-4)

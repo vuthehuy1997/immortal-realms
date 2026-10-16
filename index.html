@@ -1,27 +1,14 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Immortal Realms</title>
-    <style>html,body{margin:0;height:100%;background:#0b0d14}#game{width:100%;height:100%}#hud{position:fixed;left:12px;top:10px;color:#e8d9a8;font:13px/1.2 system-ui,sans-serif;text-shadow:0 1px 2px #000;pointer-events:none}#bars{position:fixed;left:12px;top:34px;width:220px;font:11px system-ui,sans-serif;color:#fff}
-    .bar{position:relative;height:14px;margin-bottom:4px;background:#1b1d29;border:1px solid #000;border-radius:3px;overflow:hidden}
-    .bar i{display:block;height:100%;width:100%}.bar.hp i{background:#c0392b}.bar.mp i{background:#2e86de}
-    .bar b{position:absolute;inset:0;text-align:center;line-height:14px;font-weight:600;text-shadow:0 1px 1px #000}
-    #stats{color:#e8d9a8;margin-top:2px;text-shadow:0 1px 2px #000}
-    #skills{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:8px}
-    .slot{position:relative;width:64px;height:64px;background:#1b1d29;border:2px solid #6b5d3a;border-radius:6px;color:#e8d9a8;font:11px system-ui,sans-serif;text-align:center;overflow:hidden}
-    .slot .k{position:absolute;left:4px;top:2px;font-weight:700}.slot .n{position:absolute;bottom:4px;left:0;right:0}
-    .slot .cd{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.65)}.slot.nomana{border-color:#2e86de88}
-    #msg{position:fixed;inset:0;display:none;align-items:center;justify-content:center;color:#e8d9a8;font:28px system-ui,sans-serif;background:rgba(0,0,0,.55);text-shadow:0 2px 4px #000}
-  </style>
+    <style>html,body{margin:0;height:100%;background:#0b0d14;overflow:hidden}#game{width:100%;height:100%}</style>
   </head>
   <body>
     <div id="game"></div>
-    <div id="bars"><div class="bar hp"><i id="hp"></i><b id="hptxt"></b></div><div class="bar mp"><i id="mp"></i><b id="mptxt"></b></div><div id="stats"></div></div>
-    <div id="skills"></div>
-    <div id="msg"></div>
-    <div id="hud">WASD move · mouse aim · click/Space/1 slash · 2 bolt · 3 burst &nbsp;|&nbsp; Art: Kenney (CC0) &nbsp;|&nbsp; M2 prototype</div>
+    <div id="ui"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

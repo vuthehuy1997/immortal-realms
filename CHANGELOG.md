@@ -10,3 +10,6 @@
 
 ## 0.2.0
 - Real-time combat: 3 skills, 3 enemy behaviours, HUD, damage numbers.
+
+## 0.3.0
+- Vertical slice: menu, character creation, progression, cultivation, inventory, NPC quests, boss, save/load, responsive UI, QC suite.

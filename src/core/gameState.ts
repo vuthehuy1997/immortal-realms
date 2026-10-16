@@ -95,3 +95,12 @@ export function useItemSlot(gs: GameState, slot: number): boolean {
 }
 
 export const questItemCount = (gs: GameState, id: string): number => countOf(gs.inventory, id);
+
+/** Moves the equipped weapon back into the bag. Fails (no change) if the bag is full. */
+export function unequipWeapon(gs: GameState): boolean {
+  const w = gs.inventory.weapon;
+  if (!w) return false;
+  if (addItem(gs.inventory, w, 1) > 0) return false;
+  gs.inventory.weapon = null;
+  return true;
+}

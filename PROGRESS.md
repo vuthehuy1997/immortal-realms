@@ -29,3 +29,8 @@
 - Perf baseline: 60 FPS with ~6000 game objects in headless Chromium/SwiftShader (frame-capped; not a real-GPU number).
 - UNVERIFIED: game feel/balance (never played by a human), real-GPU perf, touch/gamepad, boss, audio.
 - Next: M3 boss + VFX polish, or M4 progression (XP/level) — owner choice.
+
+## 2026-10-16 — Vertical slice feature-complete + QC loop
+- Implemented all 15 slice requirements; `npm run qc` green: lint, typecheck, build, 89 unit tests, 38 e2e tests (190/190 on 5x repeat, serial).
+- Dev->test loop found and fixed 7 bugs (BUGS.md), notably a Phaser 4.2.1 keyboard double-fire.
+- UNVERIFIED: human feel/balance, art quality, real-GPU perf, non-Chromium browsers.

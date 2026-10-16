@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { getDialogue } from '../src/core/dialogue';
-import { newGameState, registerKill, statsOf, turnInQuest, useItemSlot, WARDEN_ID } from '../src/core/gameState';
+import { newGameState, registerKill, statsOf, turnInQuest, unequipWeapon, useItemSlot, WARDEN_ID } from '../src/core/gameState';
 import { addItem, countOf } from '../src/core/inventory';
 import { acceptQuest } from '../src/core/quest';
 
@@ -103,5 +103,20 @@ describe('kills, drops and level-up', () => {
     expect(useItemSlot(gs, slot)).toBe(true);
     expect(gs.hp).toBe(50); expect(countOf(gs.inventory, 'hp-potion')).toBe(1);
     expect(useItemSlot(gs, 19)).toBe(false);
+  });
+});
+
+describe('unequip', () => {
+  it('returns the weapon to the bag and lowers attack', () => {
+    const gs = mk(); gs.inventory.weapon = 'iron-sword';
+    const atk = statsOf(gs).atk;
+    expect(unequipWeapon(gs)).toBe(true);
+    expect(gs.inventory.weapon).toBeNull(); expect(countOf(gs.inventory, 'iron-sword')).toBe(1);
+    expect(statsOf(gs).atk).toBe(atk - 4);
+    expect(unequipWeapon(gs)).toBe(false);
+  });
+  it('fails without changes when the bag is full', () => {
+    const gs = mk(); gs.inventory.weapon = 'iron-sword'; gs.inventory.slots.fill({ id: 'iron-sword', count: 1 });
+    expect(unequipWeapon(gs)).toBe(false); expect(gs.inventory.weapon).toBe('iron-sword');
   });
 });
