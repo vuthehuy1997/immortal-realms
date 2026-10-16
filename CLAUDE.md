@@ -7,7 +7,8 @@ Read CLAUDE.md, TASKS.md, PROGRESS.md before working.
 
 ## Environment
 - Node is installed at `~/.local/node/current/bin` (add to PATH if missing).
-- Commands: `npm run dev | build | typecheck | test | test:e2e`.
+- Sandbox proxy breaks loopback: export `NO_PROXY=127.0.0.1,localhost` (set in playwright.config.ts). Never `pkill -f` patterns that match your own command line.
+- Commands: `npm run lint` too; `npm run dev | build | typecheck | test | test:e2e`.
 
 ## Rules
 1. Never copy code/art/characters/text from Tale of Immortal or any unverified source.
