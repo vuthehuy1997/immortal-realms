@@ -1,6 +1,7 @@
 import { DROPS } from '../data/items';
 import { ENEMIES } from '../data/enemies';
 import { QUESTS } from '../data/quests';
+import type { HeroId } from '../data/heroes';
 import type { RootId } from '../data/roots';
 import { deriveStats, type CharacterInfo, type DerivedStats } from './character';
 import { addQi, type Cultivation } from './cultivation';
@@ -15,6 +16,7 @@ export interface GameState {
   inventory: Inventory;
   quests: QuestLog;
   kills: number;
+  stones: number;
   bossDefeated: boolean;
   hp: number;
   mana: number;
@@ -23,10 +25,10 @@ export interface GameState {
 
 export const WARDEN_ID = 'warden';
 
-export function newGameState(name: string, root: RootId, spawn: { x: number; y: number }): GameState {
+export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
-    character: { name, root }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, bossDefeated: false, hp: 0, mana: 0, pos: { ...spawn },
+    character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 0, bossDefeated: false, hp: 0, mana: 0, pos: { ...spawn },
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);
@@ -51,22 +53,26 @@ export function grantXp(gs: GameState, amount: number): number {
   return gained;
 }
 
-export interface KillResult { xp: number; levelsGained: number; drops: { id: string; count: number }[]; overflow: string[] }
+export interface KillResult { xp: number; stones: number; levelsGained: number; drops: { id: string; count: number }[]; overflow: string[] }
 
-export function registerKill(gs: GameState, enemyType: string, rng: () => number): KillResult {
-  const xp = enemyType === WARDEN_ID ? 120 : ENEMIES[enemyType]?.xp ?? 0;
+export function registerKill(gs: GameState, enemyType: string, rng: () => number, opts: { elite?: boolean } = {}): KillResult {
+  const mult = opts.elite ? 3 : 1;
+  const xp = (enemyType === WARDEN_ID ? 220 : ENEMIES[enemyType]?.xp ?? 0) * mult;
+  const range = enemyType === WARDEN_ID ? [40, 60] : ENEMIES[enemyType]?.stones ?? [0, 0];
+  const stones = (range[0]! + Math.floor(rng() * (range[1]! - range[0]! + 1))) * mult;
+  gs.stones += stones;
   gs.kills++;
   if (enemyType === WARDEN_ID) gs.bossDefeated = true;
   onKill(gs.quests, enemyType);
   const drops: { id: string; count: number }[] = [];
   const overflow: string[] = [];
   for (const d of DROPS[enemyType] ?? []) {
-    if (rng() < d.chance) {
+    if (rng() < Math.min(1, d.chance * (opts.elite ? 2 : 1))) {
       if (addItem(gs.inventory, d.item, 1) === 0) drops.push({ id: d.item, count: 1 });
       else overflow.push(d.item);
     }
   }
-  return { xp, levelsGained: grantXp(gs, xp), drops, overflow };
+  return { xp, stones, levelsGained: grantXp(gs, xp), drops, overflow };
 }
 
 /** Atomic turn-in: nothing changes unless the quest is complete and rewards fit in the inventory. */
@@ -103,4 +109,9 @@ export function unequipWeapon(gs: GameState): boolean {
   if (addItem(gs.inventory, w, 1) > 0) return false;
   gs.inventory.weapon = null;
   return true;
+}
+
+/** Picks a spirit herb from a gathering node. Fails (no change) if the bag is full. */
+export function gatherHerb(gs: GameState): boolean {
+  return addItem(gs.inventory, 'spirit-herb', 1) === 0;
 }

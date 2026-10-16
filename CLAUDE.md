@@ -12,7 +12,8 @@ Read CLAUDE.md, TASKS.md, PROGRESS.md before working.
 
 ## Rules
 1. Never copy code/art/characters/text from Tale of Immortal or any unverified source.
-2. Every dependency/asset goes in `docs/ASSET_LICENSE_AUDIT.md` with license evidence BEFORE use. Unverified assets never ship.
+2. Every dependency/asset goes in `docs/ASSET_LICENSE_AUDIT.md` with license evidence + provenance BEFORE use. Unverified assets never ship.
+2b. Visual/feel quality is an acceptance criterion: review screenshots (not only tests) and read docs/QC_ACCEPTANCE.md 'Visual & feel gate'. Owner rejected a technically-passing but plain build.
 3. Game rules live in `src/core` (pure TS, no Phaser imports, deterministic, unit-tested). `src/game` is rendering/input only.
 4. Content is data-driven (`src/data/*`), validated by schema tests.
 5. Never skip TypeScript/lint/test failures. Never claim done without running build+test and reporting output.

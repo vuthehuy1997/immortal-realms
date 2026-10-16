@@ -13,3 +13,6 @@
 
 ## 0.3.0
 - Vertical slice: menu, character creation, progression, cultivation, inventory, NPC quests, boss, save/load, responsive UI, QC suite.
+
+## 0.4.0
+- Xianxia art overhaul, animated characters, martial-arts combat (combo, dash, 4 techniques), 6-zone open world, new boss, skinned UI.

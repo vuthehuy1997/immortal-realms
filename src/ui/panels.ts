@@ -1,29 +1,20 @@
-import townUrl from '../../assets/third_party/kenney-tiny-town/Tilemap/tilemap_packed.png';
-import dungeonUrl from '../../assets/third_party/kenney-tiny-dungeon/Tilemap/tilemap_packed.png';
 import { statsOf, type GameState } from '../core/gameState';
 import { BASE_BREAKTHROUGH_CHANCE, canBreakthrough, hasNextRealm } from '../core/cultivation';
 import type { Dialogue, DialogueAction } from '../core/dialogue';
-import { ITEM_ICON } from '../data/icons';
 import { ITEMS } from '../data/items';
 import { REALMS } from '../data/realms';
 import { ROOTS } from '../data/roots';
 import { SLOT_COUNT } from '../core/inventory';
 import { $, el } from './dom';
+import { itemIconHtml, portraitUrl } from './skin';
 
 export interface PanelActions { clickSlot(i: number): void; unequip(): void; toggleMeditate(): void; breakthrough(): void }
 
-const SHEET = { town: townUrl, dungeon: dungeonUrl };
 let actions: PanelActions;
 let built = false;
 let lastInv = '', lastChr = '';
 
-function icon(id: string): string {
-  const ic = ITEM_ICON[id];
-  if (!ic) return '';
-  const s = 3; // sheet is 192x176 px => scale 3 and offset by frame
-  const col = ic.frame % 12, row = Math.floor(ic.frame / 12);
-  return `<div class="ico" style="background-image:url(${SHEET[ic.sheet]});background-size:${192 * s}px ${176 * s}px;background-position:${-col * 16 * s}px ${-row * 16 * s}px;width:${16 * s}px;height:${16 * s}px;margin:auto;inset:0"></div>`;
-}
+const icon = (id: string): string => itemIconHtml(id, 40);
 
 export function buildPanels(a: PanelActions): void {
   actions = a;
@@ -81,7 +72,7 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
   const row = (k: string, v: string | number) => `<div class="row"><span>${k}</span><span>${v}</span></div>`;
   body.innerHTML = [
     row('Name', gs.character.name), row('Root', root.name), row('Level', gs.progress.level),
-    row('Realm', realm.name), row('Qi', `${Math.floor(gs.cultivation.qi)} / ${realm.qiMax}`), '<hr>',
+    row('Realm', realm.name), row('Qi', `${Math.floor(gs.cultivation.qi)} / ${realm.qiMax}`), row('Spirit stones', gs.stones), '<hr>',
     row('HP', `${Math.ceil(gs.hp)} / ${st.maxHp}`), row('Mana', `${Math.floor(gs.mana)} / ${st.maxMana}`),
     row('Attack', st.atk), row('Defence', st.def), row('Crit', `${Math.round(st.critChance * 100)}%`), row('Mana regen', `${st.manaRegen}/s`),
     row('Kills', gs.kills),
@@ -98,8 +89,9 @@ export function showDialogue(d: Dialogue | null, onAction: (a: DialogueAction) =
   const box = $('dlg');
   if (!d) { box.classList.add('hidden'); box.innerHTML = ''; return; }
   box.classList.remove('hidden');
-  box.innerHTML = `<div class="who">${d.speaker}</div><div class="txt">${d.text}</div>`;
-  if (d.progress) box.insertAdjacentHTML('beforeend', `<ul>${d.progress.map((p) => `<li>${p.label}: ${p.have}/${p.need}</li>`).join('')}</ul>`);
+  const pic = portraitUrl(d.speaker === 'Elder Lin' ? 'elder_neutral' : 'abbot_neutral');
+  box.innerHTML = `<div class="dlgrow">${pic ? `<img class="portrait" src="${pic}" alt="">` : ''}<div class="dlgtext"><div class="who">${d.speaker}</div><div class="txt">${d.text}</div></div></div>`;
+  if (d.progress) box.querySelector('.dlgtext')!.insertAdjacentHTML('beforeend', `<ul>${d.progress.map((p) => `<li>${p.label}: ${p.have}/${p.need}</li>`).join('')}</ul>`);
   d.options.forEach((o, i) => {
     const b = el('button', 'btn', `${i + 1}. ${o.label}`); b.dataset.opt = String(i); b.onclick = () => onAction(o.action);
     box.appendChild(b);

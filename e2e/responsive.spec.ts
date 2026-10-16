@@ -12,10 +12,11 @@ test.describe('#15 responsive desktop UI', () => {
     test(`${v.w}x${v.h}: menu, creation and every panel fit without overflow or overlap`, async ({ page }) => {
       await page.setViewportSize({ width: v.w, height: v.h });
       await page.goto('/');
+      await expect(page.locator('#btn-new')).toBeVisible({ timeout: 60_000 });
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
       await shot(page, `ui-${v.w}-menu`);
       await page.click('#btn-new');
-      for (const sel of ['#name', '.root >> nth=0', '.root >> nth=2', '#btn-start', '#btn-back']) {
+      for (const sel of ['#name', '.hero >> nth=0', '.hero >> nth=5', '.root >> nth=0', '.root >> nth=2', '#btn-start', '#btn-back']) {
         const b = (await page.locator(sel).boundingBox())!;
         expect(b.x, sel).toBeGreaterThanOrEqual(0); expect(b.x + b.width, sel).toBeLessThanOrEqual(v.w);
         expect(b.y, sel).toBeGreaterThanOrEqual(0); expect(b.y + b.height, `${sel} bottom`).toBeLessThanOrEqual(v.h);
@@ -30,14 +31,14 @@ test.describe('#15 responsive desktop UI', () => {
       await goToNpc(page); await talk(page);
       await page.waitForTimeout(300);
       await shot(page, `ui-${v.w}-game`);
-      const ids = ['#inv', '#chr', '#dlg', '#skills', '#bars', '#quest'];
+      const ids = ['#inv', '#chr', '#dlg', '#skills', '#pcard', '#quest'];
       const boxes: Record<string, { x: number; y: number; width: number; height: number }> = {};
       for (const id of ids) {
         const b = await box(page, id); expect(b, id).not.toBeNull(); boxes[id] = b!;
         expect(b!.x, id).toBeGreaterThanOrEqual(-0.5); expect(b!.y, id).toBeGreaterThanOrEqual(-0.5);
         expect(b!.x + b!.width, id).toBeLessThanOrEqual(v.w + 0.5); expect(b!.y + b!.height, `${id} bottom`).toBeLessThanOrEqual(v.h + 0.5);
       }
-      for (const [a, b] of [['#inv', '#chr'], ['#inv', '#dlg'], ['#chr', '#dlg'], ['#dlg', '#skills'], ['#inv', '#quest'], ['#chr', '#bars'], ['#inv', '#skills'], ['#chr', '#skills']] as const) {
+      for (const [a, b] of [['#inv', '#chr'], ['#inv', '#dlg'], ['#chr', '#dlg'], ['#dlg', '#skills'], ['#inv', '#quest'], ['#chr', '#pcard'], ['#inv', '#skills'], ['#chr', '#skills']] as const) {
         expect(overlap(boxes[a]!, boxes[b]!), `${a} overlaps ${b}`).toBe(false);
       }
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);

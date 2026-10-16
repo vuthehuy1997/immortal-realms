@@ -1,9 +1,9 @@
-/** Item icons are frames of the CC0 Kenney sheets (12 cols, 16px). */
-export const ITEM_ICON: Record<string, { sheet: 'town' | 'dungeon'; frame: number }> = {
-  'hp-potion': { sheet: 'dungeon', frame: 115 },
-  'mana-potion': { sheet: 'dungeon', frame: 116 },
-  'qi-pill': { sheet: 'dungeon', frame: 114 },
-  'spirit-herb': { sheet: 'town', frame: 17 },
-  'iron-sword': { sheet: 'dungeon', frame: 104 },
-  'jade-sword': { sheet: 'dungeon', frame: 106 },
+/** Item icons come from the Xianxia Pixel Pack UI kit (`ui`) and weapon icon sheet (`icon`). */
+export const ITEM_ICON: Record<string, { kind: 'ui' | 'icon'; key: string }> = {
+  'hp-potion': { kind: 'ui', key: 'item_gourd' },
+  'mana-potion': { kind: 'ui', key: 'item_conch' },
+  'qi-pill': { kind: 'ui', key: 'item_pill_bottle' },
+  'spirit-herb': { kind: 'ui', key: 'item_lingzhi' },
+  'iron-sword': { kind: 'icon', key: 'blade_01_01' },
+  'jade-sword': { kind: 'icon', key: 'blade_01_05' },
 };

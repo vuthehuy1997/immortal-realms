@@ -39,3 +39,10 @@
 - Repo: https://github.com/vuthehuy1997/immortal-realms (public). Live: https://vuthehuy1997.github.io/immortal-realms/
 - Deploy: `.github/workflows/pages.yml` (lint, typecheck, unit tests, build, then GitHub Pages) on every push to `main`. e2e (`npm run qc`) is local-only for now.
 - Verified live: index HTTP 200; new game starts in headless Chromium, WebGL renderer, 8 enemies, 0 console errors, 0 failed requests.
+
+## 2026-10-17 — Visual & gameplay overhaul
+- Owner: game was "simple and ugly; where are martial arts, xianxia, graphics, animation". Rebuilt presentation around the CC0 Xianxia Pixel Pack (AI-generated per its author; risk logged).
+- World 80x80, 6 zones, procedural ground, ~450 props, herb nodes, spirit array; 17 enemy types (+elites), new boss; hero looks (6); combo/dash/4 techniques with FX; skinned HUD; animated menus.
+- Found & fixed via screenshots: tiled-looking ground (domain warp), hard-edged mist rectangles (soft blobs), tall bamboo hiding the hero (occluder fading), tint channel overflow, dialogue/inventory overlap at 1024px, first-fight shader hitch (warm-up).
+- QC: lint, typecheck, build, 106 unit, 41 e2e green (software-GL Chromium).
+- UNVERIFIED: audio (none), real-GPU perf, balance/feel by a human.

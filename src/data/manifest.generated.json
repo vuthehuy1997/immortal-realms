@@ -1,0 +1,3487 @@
+{
+ "fx": {
+  "xf_amb_auspicious_00": {
+   "anchor": "bottom",
+   "fh": 40,
+   "frames": 1,
+   "fw": 500,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_amb_auspicious_00.png"
+  },
+  "xf_amb_crane_flap_far": {
+   "anchor": "center",
+   "fh": 27,
+   "frames": 4,
+   "fw": 32,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_amb_crane_flap_far.png"
+  },
+  "xf_amb_firefly": {
+   "anchor": "screen",
+   "fh": 256,
+   "frames": 48,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_amb_firefly.png"
+  },
+  "xf_amb_mist_00": {
+   "anchor": "bottom",
+   "fh": 40,
+   "frames": 1,
+   "fw": 809,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_amb_mist_00.png"
+  },
+  "xf_amb_mist_01": {
+   "anchor": "bottom",
+   "fh": 50,
+   "frames": 1,
+   "fw": 530,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_amb_mist_01.png"
+  },
+  "xf_amb_peach": {
+   "anchor": "screen",
+   "fh": 256,
+   "frames": 48,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_amb_peach.png"
+  },
+  "xf_amb_rain": {
+   "anchor": "screen",
+   "fh": 256,
+   "frames": 48,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_amb_rain.png"
+  },
+  "xf_amb_willow": {
+   "anchor": "screen",
+   "fh": 256,
+   "frames": 48,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_amb_willow.png"
+  },
+  "xf_array_seal": {
+   "anchor": "bottom",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_array_seal.png"
+  },
+  "xf_ascend": {
+   "anchor": "bottom",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_ascend.png"
+  },
+  "xf_bell_ward": {
+   "anchor": "bottom",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_bell_ward.png"
+  },
+  "xf_bgan_halo": {
+   "anchor": "center",
+   "fh": 332,
+   "frames": 16,
+   "fw": 448,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_bgan_halo.png"
+  },
+  "xf_bgan_portal": {
+   "anchor": "center",
+   "fh": 240,
+   "frames": 16,
+   "fw": 406,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_bgan_portal.png"
+  },
+  "xf_bgan_waterfall": {
+   "anchor": "center",
+   "fh": 343,
+   "frames": 16,
+   "fw": 383,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_bgan_waterfall.png"
+  },
+  "xf_crane": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 17,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_crane.png"
+  },
+  "xf_dragon_coil": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_dragon_coil.png"
+  },
+  "xf_flying_sword": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 18,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_flying_sword.png"
+  },
+  "xf_frost_shard": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 18,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_frost_shard.png"
+  },
+  "xf_gale_vortex": {
+   "anchor": "bottom",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_gale_vortex.png"
+  },
+  "xf_ink_splash": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 11,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_ink_splash.png"
+  },
+  "xf_lotus": {
+   "anchor": "bottom",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_lotus.png"
+  },
+  "xf_mirror_shatter": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 16,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_mirror_shatter.png"
+  },
+  "xf_moon_arc": {
+   "anchor": "left",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.0,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_moon_arc.png"
+  },
+  "xf_phoenix": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_phoenix.png"
+  },
+  "xf_pill_light": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 18,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_pill_light.png"
+  },
+  "xf_qi_palm": {
+   "anchor": "left",
+   "fh": 256,
+   "frames": 17,
+   "fw": 256,
+   "ox": 0.0,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_qi_palm.png"
+  },
+  "xf_soul_wisp": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_soul_wisp.png"
+  },
+  "xf_star_array": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_star_array.png"
+  },
+  "xf_stone_spike": {
+   "anchor": "bottom",
+   "fh": 256,
+   "frames": 11,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_stone_spike.png"
+  },
+  "xf_sword_qi": {
+   "anchor": "left",
+   "fh": 256,
+   "frames": 13,
+   "fw": 256,
+   "ox": 0.0,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_sword_qi.png"
+  },
+  "xf_sword_rain": {
+   "anchor": "bottom",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_sword_rain.png"
+  },
+  "xf_taiji": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 18,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_taiji.png"
+  },
+  "xf_talisman": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_talisman.png"
+  },
+  "xf_tiger_claw": {
+   "anchor": "center",
+   "fh": 256,
+   "frames": 18,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 0.5,
+   "url": "assets/xp/fx/xf_tiger_claw.png"
+  },
+  "xf_tribulation": {
+   "anchor": "bottom",
+   "fh": 256,
+   "frames": 12,
+   "fw": 256,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/fx/xf_tribulation.png"
+  }
+ },
+ "icons": {
+  "blade_01_00": {
+   "url": "assets/xp/icons/icon_xianxia_blade_01_00.png"
+  },
+  "blade_01_01": {
+   "url": "assets/xp/icons/icon_xianxia_blade_01_01.png"
+  },
+  "blade_01_02": {
+   "url": "assets/xp/icons/icon_xianxia_blade_01_02.png"
+  },
+  "blade_01_03": {
+   "url": "assets/xp/icons/icon_xianxia_blade_01_03.png"
+  },
+  "blade_01_04": {
+   "url": "assets/xp/icons/icon_xianxia_blade_01_04.png"
+  },
+  "blade_01_05": {
+   "url": "assets/xp/icons/icon_xianxia_blade_01_05.png"
+  },
+  "dark_01_00": {
+   "url": "assets/xp/icons/icon_xianxia_dark_01_00.png"
+  },
+  "dark_01_01": {
+   "url": "assets/xp/icons/icon_xianxia_dark_01_01.png"
+  },
+  "dark_01_02": {
+   "url": "assets/xp/icons/icon_xianxia_dark_01_02.png"
+  },
+  "dark_01_03": {
+   "url": "assets/xp/icons/icon_xianxia_dark_01_03.png"
+  },
+  "dark_01_04": {
+   "url": "assets/xp/icons/icon_xianxia_dark_01_04.png"
+  },
+  "dark_01_05": {
+   "url": "assets/xp/icons/icon_xianxia_dark_01_05.png"
+  },
+  "heavy_01_00": {
+   "url": "assets/xp/icons/icon_xianxia_heavy_01_00.png"
+  },
+  "heavy_01_01": {
+   "url": "assets/xp/icons/icon_xianxia_heavy_01_01.png"
+  },
+  "heavy_01_02": {
+   "url": "assets/xp/icons/icon_xianxia_heavy_01_02.png"
+  },
+  "heavy_01_03": {
+   "url": "assets/xp/icons/icon_xianxia_heavy_01_03.png"
+  },
+  "heavy_01_04": {
+   "url": "assets/xp/icons/icon_xianxia_heavy_01_04.png"
+  },
+  "heavy_01_05": {
+   "url": "assets/xp/icons/icon_xianxia_heavy_01_05.png"
+  },
+  "ranged_01_00": {
+   "url": "assets/xp/icons/icon_xianxia_ranged_01_00.png"
+  },
+  "ranged_01_01": {
+   "url": "assets/xp/icons/icon_xianxia_ranged_01_01.png"
+  },
+  "ranged_01_02": {
+   "url": "assets/xp/icons/icon_xianxia_ranged_01_02.png"
+  },
+  "ranged_01_03": {
+   "url": "assets/xp/icons/icon_xianxia_ranged_01_03.png"
+  },
+  "ranged_01_04": {
+   "url": "assets/xp/icons/icon_xianxia_ranged_01_04.png"
+  },
+  "ranged_01_05": {
+   "url": "assets/xp/icons/icon_xianxia_ranged_01_05.png"
+  },
+  "relic_01_00": {
+   "url": "assets/xp/icons/icon_xianxia_relic_01_00.png"
+  },
+  "relic_01_01": {
+   "url": "assets/xp/icons/icon_xianxia_relic_01_01.png"
+  },
+  "relic_01_02": {
+   "url": "assets/xp/icons/icon_xianxia_relic_01_02.png"
+  },
+  "relic_01_03": {
+   "url": "assets/xp/icons/icon_xianxia_relic_01_03.png"
+  },
+  "relic_01_04": {
+   "url": "assets/xp/icons/icon_xianxia_relic_01_04.png"
+  },
+  "relic_01_05": {
+   "url": "assets/xp/icons/icon_xianxia_relic_01_05.png"
+  },
+  "relic_02_00": {
+   "url": "assets/xp/icons/icon_xianxia_relic_02_00.png"
+  },
+  "relic_02_01": {
+   "url": "assets/xp/icons/icon_xianxia_relic_02_01.png"
+  },
+  "relic_02_02": {
+   "url": "assets/xp/icons/icon_xianxia_relic_02_02.png"
+  },
+  "relic_02_03": {
+   "url": "assets/xp/icons/icon_xianxia_relic_02_03.png"
+  },
+  "relic_02_04": {
+   "url": "assets/xp/icons/icon_xianxia_relic_02_04.png"
+  },
+  "relic_02_05": {
+   "url": "assets/xp/icons/icon_xianxia_relic_02_05.png"
+  }
+ },
+ "portraits": {
+  "abbot_calm": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_abbot_calm.png",
+   "w": 145
+  },
+  "abbot_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_abbot_happy.png",
+   "w": 145
+  },
+  "abbot_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_abbot_neutral.png",
+   "w": 145
+  },
+  "alchemist_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_alchemist_happy.png",
+   "w": 102
+  },
+  "alchemist_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_alchemist_neutral.png",
+   "w": 102
+  },
+  "alchemist_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_alchemist_surprised.png",
+   "w": 102
+  },
+  "beggar_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_beggar_angry.png",
+   "w": 117
+  },
+  "beggar_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_beggar_happy.png",
+   "w": 117
+  },
+  "beggar_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_beggar_neutral.png",
+   "w": 117
+  },
+  "blacksmith_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_blacksmith_angry.png",
+   "w": 138
+  },
+  "blacksmith_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_blacksmith_happy.png",
+   "w": 138
+  },
+  "blacksmith_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_blacksmith_neutral.png",
+   "w": 138
+  },
+  "boatman_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_boatman_angry.png",
+   "w": 135
+  },
+  "boatman_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_boatman_happy.png",
+   "w": 135
+  },
+  "boatman_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_boatman_neutral.png",
+   "w": 135
+  },
+  "bookboy_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_bookboy_happy.png",
+   "w": 90
+  },
+  "bookboy_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_bookboy_neutral.png",
+   "w": 90
+  },
+  "bookboy_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_bookboy_surprised.png",
+   "w": 90
+  },
+  "child_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_child_happy.png",
+   "w": 130
+  },
+  "child_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_child_neutral.png",
+   "w": 130
+  },
+  "child_pout": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_child_pout.png",
+   "w": 130
+  },
+  "constable_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_constable_angry.png",
+   "w": 124
+  },
+  "constable_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_constable_happy.png",
+   "w": 124
+  },
+  "constable_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_constable_neutral.png",
+   "w": 124
+  },
+  "demonlord_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_demonlord_angry.png",
+   "w": 117
+  },
+  "demonlord_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_demonlord_neutral.png",
+   "w": 117
+  },
+  "demonlord_smirk": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_demonlord_smirk.png",
+   "w": 117
+  },
+  "doctor_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_doctor_angry.png",
+   "w": 119
+  },
+  "doctor_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_doctor_neutral.png",
+   "w": 119
+  },
+  "doctor_smirk": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_doctor_smirk.png",
+   "w": 119
+  },
+  "drunkard_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_drunkard_happy.png",
+   "w": 158
+  },
+  "drunkard_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_drunkard_neutral.png",
+   "w": 158
+  },
+  "drunkard_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_drunkard_surprised.png",
+   "w": 158
+  },
+  "elder_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_elder_angry.png",
+   "w": 124
+  },
+  "elder_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_elder_happy.png",
+   "w": 124
+  },
+  "elder_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_elder_neutral.png",
+   "w": 124
+  },
+  "fairy_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_fairy_angry.png",
+   "w": 122
+  },
+  "fairy_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_fairy_happy.png",
+   "w": 122
+  },
+  "fairy_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_fairy_neutral.png",
+   "w": 122
+  },
+  "fortune_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_fortune_happy.png",
+   "w": 129
+  },
+  "fortune_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_fortune_neutral.png",
+   "w": 129
+  },
+  "fortune_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_fortune_surprised.png",
+   "w": 129
+  },
+  "general_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_general_angry.png",
+   "w": 127
+  },
+  "general_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_general_happy.png",
+   "w": 127
+  },
+  "general_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_general_neutral.png",
+   "w": 127
+  },
+  "granny_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_granny_happy.png",
+   "w": 115
+  },
+  "granny_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_granny_neutral.png",
+   "w": 115
+  },
+  "granny_worried": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_granny_worried.png",
+   "w": 115
+  },
+  "herbalist_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_herbalist_angry.png",
+   "w": 119
+  },
+  "herbalist_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_herbalist_happy.png",
+   "w": 119
+  },
+  "herbalist_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_herbalist_neutral.png",
+   "w": 119
+  },
+  "hermit_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_hermit_happy.png",
+   "w": 121
+  },
+  "hermit_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_hermit_neutral.png",
+   "w": 121
+  },
+  "hermit_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_hermit_surprised.png",
+   "w": 121
+  },
+  "hunter_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_hunter_angry.png",
+   "w": 135
+  },
+  "hunter_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_hunter_happy.png",
+   "w": 135
+  },
+  "hunter_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_hunter_neutral.png",
+   "w": 135
+  },
+  "immortalboy_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_immortalboy_happy.png",
+   "w": 99
+  },
+  "immortalboy_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_immortalboy_neutral.png",
+   "w": 99
+  },
+  "immortalboy_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_immortalboy_surprised.png",
+   "w": 99
+  },
+  "innkeeper_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_innkeeper_happy.png",
+   "w": 128
+  },
+  "innkeeper_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_innkeeper_neutral.png",
+   "w": 128
+  },
+  "innkeeper_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_innkeeper_surprised.png",
+   "w": 128
+  },
+  "maid_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_maid_happy.png",
+   "w": 128
+  },
+  "maid_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_maid_neutral.png",
+   "w": 128
+  },
+  "maid_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_maid_surprised.png",
+   "w": 128
+  },
+  "nun_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_nun_angry.png",
+   "w": 125
+  },
+  "nun_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_nun_neutral.png",
+   "w": 125
+  },
+  "nun_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_nun_surprised.png",
+   "w": 125
+  },
+  "peddler_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_peddler_happy.png",
+   "w": 177
+  },
+  "peddler_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_peddler_neutral.png",
+   "w": 177
+  },
+  "peddler_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_peddler_surprised.png",
+   "w": 177
+  },
+  "princess_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_princess_angry.png",
+   "w": 104
+  },
+  "princess_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_princess_happy.png",
+   "w": 104
+  },
+  "princess_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_princess_neutral.png",
+   "w": 104
+  },
+  "scholar_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_scholar_happy.png",
+   "w": 122
+  },
+  "scholar_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_scholar_neutral.png",
+   "w": 122
+  },
+  "scholar_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_scholar_surprised.png",
+   "w": 122
+  },
+  "storyteller_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_storyteller_happy.png",
+   "w": 109
+  },
+  "storyteller_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_storyteller_neutral.png",
+   "w": 109
+  },
+  "storyteller_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_storyteller_surprised.png",
+   "w": 109
+  },
+  "swordsman_angry": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_swordsman_angry.png",
+   "w": 135
+  },
+  "swordsman_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_swordsman_happy.png",
+   "w": 135
+  },
+  "swordsman_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_swordsman_neutral.png",
+   "w": 135
+  },
+  "taoist_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_taoist_happy.png",
+   "w": 111
+  },
+  "taoist_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_taoist_neutral.png",
+   "w": 111
+  },
+  "taoist_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_taoist_surprised.png",
+   "w": 111
+  },
+  "teahouse_happy": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_teahouse_happy.png",
+   "w": 137
+  },
+  "teahouse_neutral": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_teahouse_neutral.png",
+   "w": 137
+  },
+  "teahouse_surprised": {
+   "h": 128,
+   "url": "assets/xp/portraits/xf_npc_teahouse_surprised.png",
+   "w": 137
+  }
+ },
+ "props": {
+  "array": {
+   "h": 240,
+   "url": "assets/xp/props/array.png",
+   "w": 406
+  },
+  "bamboo": {
+   "h": 352,
+   "url": "assets/xp/props/bamboo.png",
+   "w": 292
+  },
+  "bambooshoot": {
+   "h": 275,
+   "url": "assets/xp/props/bambooshoot.png",
+   "w": 253
+  },
+  "corridor": {
+   "h": 245,
+   "url": "assets/xp/props/corridor.png",
+   "w": 400
+  },
+  "dragonpillar": {
+   "h": 359,
+   "url": "assets/xp/props/dragonpillar.png",
+   "w": 195
+  },
+  "farbuddha": {
+   "h": 332,
+   "url": "assets/xp/props/farbuddha.png",
+   "w": 448
+  },
+  "fargalaxy": {
+   "h": 246,
+   "url": "assets/xp/props/fargalaxy.png",
+   "w": 665
+  },
+  "fargate": {
+   "h": 304,
+   "url": "assets/xp/props/fargate.png",
+   "w": 527
+  },
+  "farisle": {
+   "h": 343,
+   "url": "assets/xp/props/farisle.png",
+   "w": 383
+  },
+  "farpagoda": {
+   "h": 349,
+   "url": "assets/xp/props/farpagoda.png",
+   "w": 401
+  },
+  "farpalace": {
+   "h": 266,
+   "url": "assets/xp/props/farpalace.png",
+   "w": 665
+  },
+  "floatisle": {
+   "h": 354,
+   "url": "assets/xp/props/floatisle.png",
+   "w": 297
+  },
+  "goldgate": {
+   "h": 307,
+   "url": "assets/xp/props/goldgate.png",
+   "w": 439
+  },
+  "goldpaifang": {
+   "h": 358,
+   "url": "assets/xp/props/goldpaifang.png",
+   "w": 431
+  },
+  "jadebridge": {
+   "h": 180,
+   "url": "assets/xp/props/jadebridge.png",
+   "w": 435
+  },
+  "lingzhi": {
+   "h": 247,
+   "url": "assets/xp/props/lingzhi.png",
+   "w": 258
+  },
+  "lotusbowl": {
+   "h": 260,
+   "url": "assets/xp/props/lotusbowl.png",
+   "w": 374
+  },
+  "lotuspond": {
+   "h": 196,
+   "url": "assets/xp/props/lotuspond.png",
+   "w": 368
+  },
+  "lotusthrone": {
+   "h": 224,
+   "url": "assets/xp/props/lotusthrone.png",
+   "w": 334
+  },
+  "moonwall": {
+   "h": 237,
+   "url": "assets/xp/props/moonwall.png",
+   "w": 395
+  },
+  "orchid": {
+   "h": 275,
+   "url": "assets/xp/props/orchid.png",
+   "w": 321
+  },
+  "pagoda7": {
+   "h": 407,
+   "url": "assets/xp/props/pagoda7.png",
+   "w": 246
+  },
+  "paifang": {
+   "h": 286,
+   "url": "assets/xp/props/paifang.png",
+   "w": 395
+  },
+  "palace": {
+   "h": 306,
+   "url": "assets/xp/props/palace.png",
+   "w": 436
+  },
+  "pavilion": {
+   "h": 334,
+   "url": "assets/xp/props/pavilion.png",
+   "w": 426
+  },
+  "peachtree": {
+   "h": 380,
+   "url": "assets/xp/props/peachtree.png",
+   "w": 449
+  },
+  "petals": {
+   "h": 80,
+   "url": "assets/xp/props/petals.png",
+   "w": 344
+  },
+  "pine": {
+   "h": 347,
+   "url": "assets/xp/props/pine.png",
+   "w": 396
+  },
+  "rock": {
+   "h": 275,
+   "url": "assets/xp/props/rock.png",
+   "w": 206
+  },
+  "stairs": {
+   "h": 194,
+   "url": "assets/xp/props/stairs.png",
+   "w": 420
+  },
+  "standstone": {
+   "h": 185,
+   "url": "assets/xp/props/standstone.png",
+   "w": 53
+  },
+  "stonebridge": {
+   "h": 200,
+   "url": "assets/xp/props/stonebridge.png",
+   "w": 436
+  },
+  "stonecircle": {
+   "h": 339,
+   "url": "assets/xp/props/stonecircle.png",
+   "w": 225
+  },
+  "taihurocks": {
+   "h": 282,
+   "url": "assets/xp/props/taihurocks.png",
+   "w": 319
+  },
+  "tower": {
+   "h": 368,
+   "url": "assets/xp/props/tower.png",
+   "w": 286
+  },
+  "willow": {
+   "h": 325,
+   "url": "assets/xp/props/willow.png",
+   "w": 338
+  }
+ },
+ "sheets": {
+  "boss.fallenimmortal.attack_a": {
+   "fh": 174,
+   "fps": 8,
+   "frames": 3,
+   "fw": 311,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.fallenimmortal.attack_a.png"
+  },
+  "boss.fallenimmortal.attack_b": {
+   "fh": 174,
+   "fps": 8,
+   "frames": 3,
+   "fw": 311,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.fallenimmortal.attack_b.png"
+  },
+  "boss.fallenimmortal.death": {
+   "fh": 174,
+   "fps": 8,
+   "frames": 4,
+   "fw": 311,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.fallenimmortal.death.png"
+  },
+  "boss.fallenimmortal.hurt": {
+   "fh": 174,
+   "fps": 8,
+   "frames": 1,
+   "fw": 311,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.fallenimmortal.hurt.png"
+  },
+  "boss.fallenimmortal.idle": {
+   "fh": 174,
+   "fps": 8,
+   "frames": 2,
+   "fw": 311,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.fallenimmortal.idle.png"
+  },
+  "boss.fallenimmortal.move": {
+   "fh": 174,
+   "fps": 8,
+   "frames": 2,
+   "fw": 311,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.fallenimmortal.move.png"
+  },
+  "boss.fallenimmortal.special": {
+   "fh": 174,
+   "fps": 8,
+   "frames": 3,
+   "fw": 311,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.fallenimmortal.special.png"
+  },
+  "boss.jiaolong.attack_a": {
+   "fh": 242,
+   "fps": 8,
+   "frames": 3,
+   "fw": 432,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.jiaolong.attack_a.png"
+  },
+  "boss.jiaolong.attack_b": {
+   "fh": 242,
+   "fps": 8,
+   "frames": 3,
+   "fw": 432,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.jiaolong.attack_b.png"
+  },
+  "boss.jiaolong.death": {
+   "fh": 242,
+   "fps": 8,
+   "frames": 4,
+   "fw": 432,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.jiaolong.death.png"
+  },
+  "boss.jiaolong.hurt": {
+   "fh": 242,
+   "fps": 8,
+   "frames": 1,
+   "fw": 432,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.jiaolong.hurt.png"
+  },
+  "boss.jiaolong.idle": {
+   "fh": 242,
+   "fps": 8,
+   "frames": 2,
+   "fw": 432,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.jiaolong.idle.png"
+  },
+  "boss.jiaolong.move": {
+   "fh": 242,
+   "fps": 8,
+   "frames": 2,
+   "fw": 432,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.jiaolong.move.png"
+  },
+  "boss.jiaolong.special": {
+   "fh": 242,
+   "fps": 8,
+   "frames": 3,
+   "fw": 432,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.jiaolong.special.png"
+  },
+  "boss.ninetail.attack_a": {
+   "fh": 230,
+   "fps": 8,
+   "frames": 3,
+   "fw": 381,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.ninetail.attack_a.png"
+  },
+  "boss.ninetail.attack_b": {
+   "fh": 230,
+   "fps": 8,
+   "frames": 3,
+   "fw": 381,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.ninetail.attack_b.png"
+  },
+  "boss.ninetail.death": {
+   "fh": 230,
+   "fps": 8,
+   "frames": 4,
+   "fw": 381,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.ninetail.death.png"
+  },
+  "boss.ninetail.hurt": {
+   "fh": 230,
+   "fps": 8,
+   "frames": 1,
+   "fw": 381,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.ninetail.hurt.png"
+  },
+  "boss.ninetail.idle": {
+   "fh": 230,
+   "fps": 8,
+   "frames": 2,
+   "fw": 381,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.ninetail.idle.png"
+  },
+  "boss.ninetail.move": {
+   "fh": 230,
+   "fps": 8,
+   "frames": 2,
+   "fw": 381,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.ninetail.move.png"
+  },
+  "boss.ninetail.special": {
+   "fh": 230,
+   "fps": 8,
+   "frames": 3,
+   "fw": 381,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/boss.ninetail.special.png"
+  },
+  "hero.archer.idle": {
+   "fh": 84,
+   "fps": 12,
+   "frames": 12,
+   "fw": 60,
+   "loop": true,
+   "ox": 0.4333,
+   "oy": 0.9405,
+   "url": "assets/xp/sprites/hero.archer.idle.png"
+  },
+  "hero.archer.walk": {
+   "fh": 94,
+   "fps": 12,
+   "frames": 13,
+   "fw": 69,
+   "loop": true,
+   "ox": 0.5072,
+   "oy": 0.9362,
+   "url": "assets/xp/sprites/hero.archer.walk.png"
+  },
+  "hero.fanscholar.block": {
+   "fh": 73,
+   "fps": 8,
+   "frames": 2,
+   "fw": 159,
+   "loop": false,
+   "ox": 0.5094,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.fanscholar.block.png"
+  },
+  "hero.fanscholar.cast": {
+   "fh": 73,
+   "fps": 8,
+   "frames": 3,
+   "fw": 159,
+   "loop": false,
+   "ox": 0.5094,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.fanscholar.cast.png"
+  },
+  "hero.fanscholar.combo1": {
+   "fh": 87,
+   "fps": 12,
+   "frames": 9,
+   "fw": 148,
+   "loop": false,
+   "ox": 0.3311,
+   "oy": 0.9425,
+   "url": "assets/xp/sprites/hero.fanscholar.combo1.png"
+  },
+  "hero.fanscholar.combo2": {
+   "fh": 87,
+   "fps": 12,
+   "frames": 9,
+   "fw": 148,
+   "loop": false,
+   "ox": 0.3311,
+   "oy": 0.9425,
+   "url": "assets/xp/sprites/hero.fanscholar.combo2.png"
+  },
+  "hero.fanscholar.combo3": {
+   "fh": 87,
+   "fps": 12,
+   "frames": 8,
+   "fw": 148,
+   "loop": false,
+   "ox": 0.3311,
+   "oy": 0.9425,
+   "url": "assets/xp/sprites/hero.fanscholar.combo3.png"
+  },
+  "hero.fanscholar.dash": {
+   "fh": 73,
+   "fps": 8,
+   "frames": 2,
+   "fw": 159,
+   "loop": false,
+   "ox": 0.5094,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.fanscholar.dash.png"
+  },
+  "hero.fanscholar.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 97,
+   "loop": false,
+   "ox": 0.2887,
+   "oy": 0.9125,
+   "url": "assets/xp/sprites/hero.fanscholar.death.png"
+  },
+  "hero.fanscholar.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 2,
+   "fw": 97,
+   "loop": false,
+   "ox": 0.2887,
+   "oy": 0.9125,
+   "url": "assets/xp/sprites/hero.fanscholar.hurt.png"
+  },
+  "hero.fanscholar.idle": {
+   "fh": 84,
+   "fps": 12,
+   "frames": 47,
+   "fw": 48,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 0.9405,
+   "url": "assets/xp/sprites/hero.fanscholar.idle.png"
+  },
+  "hero.fanscholar.walk": {
+   "fh": 84,
+   "fps": 12,
+   "frames": 13,
+   "fw": 60,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 0.9405,
+   "url": "assets/xp/sprites/hero.fanscholar.walk.png"
+  },
+  "hero.heroine.block": {
+   "fh": 73,
+   "fps": 8,
+   "frames": 2,
+   "fw": 157,
+   "loop": false,
+   "ox": 0.5605,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.heroine.block.png"
+  },
+  "hero.heroine.cast": {
+   "fh": 73,
+   "fps": 8,
+   "frames": 3,
+   "fw": 157,
+   "loop": false,
+   "ox": 0.5605,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.heroine.cast.png"
+  },
+  "hero.heroine.combo1": {
+   "fh": 102,
+   "fps": 12,
+   "frames": 8,
+   "fw": 132,
+   "loop": false,
+   "ox": 0.4242,
+   "oy": 0.9216,
+   "url": "assets/xp/sprites/hero.heroine.combo1.png"
+  },
+  "hero.heroine.combo2": {
+   "fh": 102,
+   "fps": 12,
+   "frames": 9,
+   "fw": 132,
+   "loop": false,
+   "ox": 0.4242,
+   "oy": 0.9216,
+   "url": "assets/xp/sprites/hero.heroine.combo2.png"
+  },
+  "hero.heroine.combo3": {
+   "fh": 102,
+   "fps": 12,
+   "frames": 8,
+   "fw": 132,
+   "loop": false,
+   "ox": 0.4242,
+   "oy": 0.9216,
+   "url": "assets/xp/sprites/hero.heroine.combo3.png"
+  },
+  "hero.heroine.dash": {
+   "fh": 73,
+   "fps": 8,
+   "frames": 2,
+   "fw": 157,
+   "loop": false,
+   "ox": 0.5605,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.heroine.dash.png"
+  },
+  "hero.heroine.death": {
+   "fh": 81,
+   "fps": 8,
+   "frames": 4,
+   "fw": 105,
+   "loop": false,
+   "ox": 0.419,
+   "oy": 0.963,
+   "url": "assets/xp/sprites/hero.heroine.death.png"
+  },
+  "hero.heroine.hurt": {
+   "fh": 81,
+   "fps": 8,
+   "frames": 2,
+   "fw": 105,
+   "loop": false,
+   "ox": 0.419,
+   "oy": 0.963,
+   "url": "assets/xp/sprites/hero.heroine.hurt.png"
+  },
+  "hero.heroine.idle": {
+   "fh": 83,
+   "fps": 12,
+   "frames": 22,
+   "fw": 58,
+   "loop": true,
+   "ox": 0.4828,
+   "oy": 0.9398,
+   "url": "assets/xp/sprites/hero.heroine.idle.png"
+  },
+  "hero.heroine.walk": {
+   "fh": 83,
+   "fps": 12,
+   "frames": 12,
+   "fw": 76,
+   "loop": true,
+   "ox": 0.4737,
+   "oy": 0.9277,
+   "url": "assets/xp/sprites/hero.heroine.walk.png"
+  },
+  "hero.monk.block": {
+   "fh": 82,
+   "fps": 8,
+   "frames": 2,
+   "fw": 193,
+   "loop": false,
+   "ox": 0.5285,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.monk.block.png"
+  },
+  "hero.monk.cast": {
+   "fh": 82,
+   "fps": 8,
+   "frames": 3,
+   "fw": 193,
+   "loop": false,
+   "ox": 0.5285,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.monk.cast.png"
+  },
+  "hero.monk.combo1": {
+   "fh": 140,
+   "fps": 12,
+   "frames": 9,
+   "fw": 176,
+   "loop": false,
+   "ox": 0.392,
+   "oy": 0.9071,
+   "url": "assets/xp/sprites/hero.monk.combo1.png"
+  },
+  "hero.monk.combo2": {
+   "fh": 140,
+   "fps": 12,
+   "frames": 8,
+   "fw": 176,
+   "loop": false,
+   "ox": 0.392,
+   "oy": 0.9071,
+   "url": "assets/xp/sprites/hero.monk.combo2.png"
+  },
+  "hero.monk.combo3": {
+   "fh": 140,
+   "fps": 12,
+   "frames": 9,
+   "fw": 176,
+   "loop": false,
+   "ox": 0.392,
+   "oy": 0.9071,
+   "url": "assets/xp/sprites/hero.monk.combo3.png"
+  },
+  "hero.monk.dash": {
+   "fh": 82,
+   "fps": 8,
+   "frames": 2,
+   "fw": 193,
+   "loop": false,
+   "ox": 0.5285,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.monk.dash.png"
+  },
+  "hero.monk.death": {
+   "fh": 88,
+   "fps": 8,
+   "frames": 4,
+   "fw": 118,
+   "loop": false,
+   "ox": 0.339,
+   "oy": 0.9432,
+   "url": "assets/xp/sprites/hero.monk.death.png"
+  },
+  "hero.monk.hurt": {
+   "fh": 88,
+   "fps": 8,
+   "frames": 2,
+   "fw": 118,
+   "loop": false,
+   "ox": 0.339,
+   "oy": 0.9432,
+   "url": "assets/xp/sprites/hero.monk.hurt.png"
+  },
+  "hero.monk.idle": {
+   "fh": 93,
+   "fps": 12,
+   "frames": 40,
+   "fw": 67,
+   "loop": true,
+   "ox": 0.5522,
+   "oy": 0.9462,
+   "url": "assets/xp/sprites/hero.monk.idle.png"
+  },
+  "hero.monk.walk": {
+   "fh": 98,
+   "fps": 12,
+   "frames": 12,
+   "fw": 75,
+   "loop": true,
+   "ox": 0.4933,
+   "oy": 0.9388,
+   "url": "assets/xp/sprites/hero.monk.walk.png"
+  },
+  "hero.saber.block": {
+   "fh": 75,
+   "fps": 8,
+   "frames": 2,
+   "fw": 170,
+   "loop": false,
+   "ox": 0.4529,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.saber.block.png"
+  },
+  "hero.saber.cast": {
+   "fh": 75,
+   "fps": 8,
+   "frames": 3,
+   "fw": 170,
+   "loop": false,
+   "ox": 0.4529,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.saber.cast.png"
+  },
+  "hero.saber.combo1": {
+   "fh": 110,
+   "fps": 12,
+   "frames": 9,
+   "fw": 150,
+   "loop": false,
+   "ox": 0.4333,
+   "oy": 0.8636,
+   "url": "assets/xp/sprites/hero.saber.combo1.png"
+  },
+  "hero.saber.combo2": {
+   "fh": 110,
+   "fps": 12,
+   "frames": 9,
+   "fw": 150,
+   "loop": false,
+   "ox": 0.4333,
+   "oy": 0.8636,
+   "url": "assets/xp/sprites/hero.saber.combo2.png"
+  },
+  "hero.saber.combo3": {
+   "fh": 110,
+   "fps": 12,
+   "frames": 9,
+   "fw": 150,
+   "loop": false,
+   "ox": 0.4333,
+   "oy": 0.8636,
+   "url": "assets/xp/sprites/hero.saber.combo3.png"
+  },
+  "hero.saber.dash": {
+   "fh": 75,
+   "fps": 8,
+   "frames": 2,
+   "fw": 170,
+   "loop": false,
+   "ox": 0.4529,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.saber.dash.png"
+  },
+  "hero.saber.death": {
+   "fh": 79,
+   "fps": 8,
+   "frames": 4,
+   "fw": 91,
+   "loop": false,
+   "ox": 0.2967,
+   "oy": 0.9494,
+   "url": "assets/xp/sprites/hero.saber.death.png"
+  },
+  "hero.saber.hurt": {
+   "fh": 79,
+   "fps": 8,
+   "frames": 2,
+   "fw": 91,
+   "loop": false,
+   "ox": 0.2967,
+   "oy": 0.9494,
+   "url": "assets/xp/sprites/hero.saber.hurt.png"
+  },
+  "hero.saber.idle": {
+   "fh": 83,
+   "fps": 12,
+   "frames": 45,
+   "fw": 62,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 0.9398,
+   "url": "assets/xp/sprites/hero.saber.idle.png"
+  },
+  "hero.saber.walk": {
+   "fh": 81,
+   "fps": 12,
+   "frames": 12,
+   "fw": 78,
+   "loop": true,
+   "ox": 0.4615,
+   "oy": 0.9259,
+   "url": "assets/xp/sprites/hero.saber.walk.png"
+  },
+  "hero.spearman.idle": {
+   "fh": 101,
+   "fps": 12,
+   "frames": 35,
+   "fw": 60,
+   "loop": true,
+   "ox": 0.5667,
+   "oy": 0.9505,
+   "url": "assets/xp/sprites/hero.spearman.idle.png"
+  },
+  "hero.spearman.walk": {
+   "fh": 102,
+   "fps": 12,
+   "frames": 12,
+   "fw": 71,
+   "loop": true,
+   "ox": 0.4648,
+   "oy": 0.9412,
+   "url": "assets/xp/sprites/hero.spearman.walk.png"
+  },
+  "hero.staffbeggar.idle": {
+   "fh": 83,
+   "fps": 12,
+   "frames": 46,
+   "fw": 55,
+   "loop": true,
+   "ox": 0.5455,
+   "oy": 0.9398,
+   "url": "assets/xp/sprites/hero.staffbeggar.idle.png"
+  },
+  "hero.staffbeggar.walk": {
+   "fh": 85,
+   "fps": 12,
+   "frames": 13,
+   "fw": 72,
+   "loop": true,
+   "ox": 0.4306,
+   "oy": 0.9294,
+   "url": "assets/xp/sprites/hero.staffbeggar.walk.png"
+  },
+  "hero.swordsman.block": {
+   "fh": 86,
+   "fps": 8,
+   "frames": 2,
+   "fw": 159,
+   "loop": false,
+   "ox": 0.5409,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.swordsman.block.png"
+  },
+  "hero.swordsman.cast": {
+   "fh": 86,
+   "fps": 8,
+   "frames": 3,
+   "fw": 159,
+   "loop": false,
+   "ox": 0.5409,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.swordsman.cast.png"
+  },
+  "hero.swordsman.combo1": {
+   "fh": 109,
+   "fps": 12,
+   "frames": 8,
+   "fw": 133,
+   "loop": false,
+   "ox": 0.4211,
+   "oy": 0.9358,
+   "url": "assets/xp/sprites/hero.swordsman.combo1.png"
+  },
+  "hero.swordsman.combo2": {
+   "fh": 109,
+   "fps": 12,
+   "frames": 8,
+   "fw": 133,
+   "loop": false,
+   "ox": 0.4211,
+   "oy": 0.9358,
+   "url": "assets/xp/sprites/hero.swordsman.combo2.png"
+  },
+  "hero.swordsman.combo3": {
+   "fh": 109,
+   "fps": 12,
+   "frames": 9,
+   "fw": 133,
+   "loop": false,
+   "ox": 0.4211,
+   "oy": 0.9358,
+   "url": "assets/xp/sprites/hero.swordsman.combo3.png"
+  },
+  "hero.swordsman.dash": {
+   "fh": 86,
+   "fps": 8,
+   "frames": 2,
+   "fw": 159,
+   "loop": false,
+   "ox": 0.5409,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.swordsman.dash.png"
+  },
+  "hero.swordsman.death": {
+   "fh": 81,
+   "fps": 8,
+   "frames": 4,
+   "fw": 111,
+   "loop": false,
+   "ox": 0.4144,
+   "oy": 0.9753,
+   "url": "assets/xp/sprites/hero.swordsman.death.png"
+  },
+  "hero.swordsman.hurt": {
+   "fh": 81,
+   "fps": 8,
+   "frames": 2,
+   "fw": 111,
+   "loop": false,
+   "ox": 0.4144,
+   "oy": 0.9753,
+   "url": "assets/xp/sprites/hero.swordsman.hurt.png"
+  },
+  "hero.swordsman.idle": {
+   "fh": 85,
+   "fps": 12,
+   "frames": 32,
+   "fw": 57,
+   "loop": true,
+   "ox": 0.4561,
+   "oy": 0.9294,
+   "url": "assets/xp/sprites/hero.swordsman.idle.png"
+  },
+  "hero.swordsman.walk": {
+   "fh": 85,
+   "fps": 12,
+   "frames": 12,
+   "fw": 83,
+   "loop": true,
+   "ox": 0.4337,
+   "oy": 0.9294,
+   "url": "assets/xp/sprites/hero.swordsman.walk.png"
+  },
+  "hero.twinblade.block": {
+   "fh": 78,
+   "fps": 8,
+   "frames": 2,
+   "fw": 180,
+   "loop": false,
+   "ox": 0.5833,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.twinblade.block.png"
+  },
+  "hero.twinblade.cast": {
+   "fh": 78,
+   "fps": 8,
+   "frames": 3,
+   "fw": 180,
+   "loop": false,
+   "ox": 0.5833,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.twinblade.cast.png"
+  },
+  "hero.twinblade.combo1": {
+   "fh": 108,
+   "fps": 12,
+   "frames": 8,
+   "fw": 115,
+   "loop": false,
+   "ox": 0.4696,
+   "oy": 0.9259,
+   "url": "assets/xp/sprites/hero.twinblade.combo1.png"
+  },
+  "hero.twinblade.combo2": {
+   "fh": 108,
+   "fps": 12,
+   "frames": 7,
+   "fw": 115,
+   "loop": false,
+   "ox": 0.4696,
+   "oy": 0.9259,
+   "url": "assets/xp/sprites/hero.twinblade.combo2.png"
+  },
+  "hero.twinblade.combo3": {
+   "fh": 108,
+   "fps": 12,
+   "frames": 9,
+   "fw": 115,
+   "loop": false,
+   "ox": 0.4696,
+   "oy": 0.9259,
+   "url": "assets/xp/sprites/hero.twinblade.combo3.png"
+  },
+  "hero.twinblade.dash": {
+   "fh": 78,
+   "fps": 8,
+   "frames": 2,
+   "fw": 180,
+   "loop": false,
+   "ox": 0.5833,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/hero.twinblade.dash.png"
+  },
+  "hero.twinblade.death": {
+   "fh": 84,
+   "fps": 8,
+   "frames": 4,
+   "fw": 94,
+   "loop": false,
+   "ox": 0.383,
+   "oy": 0.9762,
+   "url": "assets/xp/sprites/hero.twinblade.death.png"
+  },
+  "hero.twinblade.hurt": {
+   "fh": 84,
+   "fps": 8,
+   "frames": 2,
+   "fw": 94,
+   "loop": false,
+   "ox": 0.383,
+   "oy": 0.9762,
+   "url": "assets/xp/sprites/hero.twinblade.hurt.png"
+  },
+  "hero.twinblade.idle": {
+   "fh": 84,
+   "fps": 12,
+   "frames": 12,
+   "fw": 49,
+   "loop": true,
+   "ox": 0.4082,
+   "oy": 0.9405,
+   "url": "assets/xp/sprites/hero.twinblade.idle.png"
+  },
+  "hero.twinblade.walk": {
+   "fh": 85,
+   "fps": 12,
+   "frames": 13,
+   "fw": 59,
+   "loop": true,
+   "ox": 0.4576,
+   "oy": 0.9294,
+   "url": "assets/xp/sprites/hero.twinblade.walk.png"
+  },
+  "mob.bat.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 87,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.bat.attack.png"
+  },
+  "mob.bat.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 87,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.bat.death.png"
+  },
+  "mob.bat.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 87,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.bat.hurt.png"
+  },
+  "mob.bat.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 87,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.bat.idle.png"
+  },
+  "mob.bat.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 87,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.bat.move.png"
+  },
+  "mob.foxdemon.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 161,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxdemon.attack.png"
+  },
+  "mob.foxdemon.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 161,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxdemon.death.png"
+  },
+  "mob.foxdemon.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 161,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxdemon.hurt.png"
+  },
+  "mob.foxdemon.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 161,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxdemon.idle.png"
+  },
+  "mob.foxdemon.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 161,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxdemon.move.png"
+  },
+  "mob.foxfire.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire.attack.png"
+  },
+  "mob.foxfire.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire.death.png"
+  },
+  "mob.foxfire.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire.hurt.png"
+  },
+  "mob.foxfire.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire.idle.png"
+  },
+  "mob.foxfire.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire.move.png"
+  },
+  "mob.foxfire_v_green.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_green.attack.png"
+  },
+  "mob.foxfire_v_green.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_green.death.png"
+  },
+  "mob.foxfire_v_green.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_green.hurt.png"
+  },
+  "mob.foxfire_v_green.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_green.idle.png"
+  },
+  "mob.foxfire_v_green.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_green.move.png"
+  },
+  "mob.foxfire_v_red.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_red.attack.png"
+  },
+  "mob.foxfire_v_red.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_red.death.png"
+  },
+  "mob.foxfire_v_red.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 130,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_red.hurt.png"
+  },
+  "mob.foxfire_v_red.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_red.idle.png"
+  },
+  "mob.foxfire_v_red.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 130,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.foxfire_v_red.move.png"
+  },
+  "mob.ghost.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost.attack.png"
+  },
+  "mob.ghost.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost.death.png"
+  },
+  "mob.ghost.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost.hurt.png"
+  },
+  "mob.ghost.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost.idle.png"
+  },
+  "mob.ghost.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost.move.png"
+  },
+  "mob.ghost_v_crimson.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_crimson.attack.png"
+  },
+  "mob.ghost_v_crimson.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_crimson.death.png"
+  },
+  "mob.ghost_v_crimson.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_crimson.hurt.png"
+  },
+  "mob.ghost_v_crimson.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_crimson.idle.png"
+  },
+  "mob.ghost_v_crimson.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_crimson.move.png"
+  },
+  "mob.ghost_v_gold.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_gold.attack.png"
+  },
+  "mob.ghost_v_gold.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_gold.death.png"
+  },
+  "mob.ghost_v_gold.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_gold.hurt.png"
+  },
+  "mob.ghost_v_gold.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_gold.idle.png"
+  },
+  "mob.ghost_v_gold.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_gold.move.png"
+  },
+  "mob.ghost_v_violet.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_violet.attack.png"
+  },
+  "mob.ghost_v_violet.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_violet.death.png"
+  },
+  "mob.ghost_v_violet.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 102,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_violet.hurt.png"
+  },
+  "mob.ghost_v_violet.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_violet.idle.png"
+  },
+  "mob.ghost_v_violet.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 102,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.ghost_v_violet.move.png"
+  },
+  "mob.golem.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 133,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.golem.attack.png"
+  },
+  "mob.golem.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 133,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.golem.death.png"
+  },
+  "mob.golem.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 133,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.golem.hurt.png"
+  },
+  "mob.golem.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 133,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.golem.idle.png"
+  },
+  "mob.golem.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 133,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.golem.move.png"
+  },
+  "mob.jiangshi.attack": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi.attack.png"
+  },
+  "mob.jiangshi.death": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 4,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi.death.png"
+  },
+  "mob.jiangshi.hurt": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 1,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi.hurt.png"
+  },
+  "mob.jiangshi.idle": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi.idle.png"
+  },
+  "mob.jiangshi.move": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi.move.png"
+  },
+  "mob.jiangshi_v_purple.attack": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_purple.attack.png"
+  },
+  "mob.jiangshi_v_purple.death": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 4,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_purple.death.png"
+  },
+  "mob.jiangshi_v_purple.hurt": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 1,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_purple.hurt.png"
+  },
+  "mob.jiangshi_v_purple.idle": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_purple.idle.png"
+  },
+  "mob.jiangshi_v_purple.move": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_purple.move.png"
+  },
+  "mob.jiangshi_v_red.attack": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_red.attack.png"
+  },
+  "mob.jiangshi_v_red.death": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 4,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_red.death.png"
+  },
+  "mob.jiangshi_v_red.hurt": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 1,
+   "fw": 135,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_red.hurt.png"
+  },
+  "mob.jiangshi_v_red.idle": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_red.idle.png"
+  },
+  "mob.jiangshi_v_red.move": {
+   "fh": 90,
+   "fps": 8,
+   "frames": 3,
+   "fw": 135,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.jiangshi_v_red.move.png"
+  },
+  "mob.paperdoll.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 91,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.paperdoll.attack.png"
+  },
+  "mob.paperdoll.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 91,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.paperdoll.death.png"
+  },
+  "mob.paperdoll.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 91,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.paperdoll.hurt.png"
+  },
+  "mob.paperdoll.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 91,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.paperdoll.idle.png"
+  },
+  "mob.paperdoll.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 91,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.paperdoll.move.png"
+  },
+  "mob.peachspirit.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 108,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.peachspirit.attack.png"
+  },
+  "mob.peachspirit.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 108,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.peachspirit.death.png"
+  },
+  "mob.peachspirit.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 108,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.peachspirit.hurt.png"
+  },
+  "mob.peachspirit.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 108,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.peachspirit.idle.png"
+  },
+  "mob.peachspirit.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 108,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.peachspirit.move.png"
+  },
+  "mob.skeleton.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 153,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.skeleton.attack.png"
+  },
+  "mob.skeleton.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 153,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.skeleton.death.png"
+  },
+  "mob.skeleton.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 153,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.skeleton.hurt.png"
+  },
+  "mob.skeleton.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 153,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.skeleton.idle.png"
+  },
+  "mob.skeleton.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 153,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.skeleton.move.png"
+  },
+  "mob.snake.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 205,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.snake.attack.png"
+  },
+  "mob.snake.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 205,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.snake.death.png"
+  },
+  "mob.snake.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 205,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.snake.hurt.png"
+  },
+  "mob.snake.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 205,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.snake.idle.png"
+  },
+  "mob.snake.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 205,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.snake.move.png"
+  },
+  "mob.soldier.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 123,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.soldier.attack.png"
+  },
+  "mob.soldier.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 123,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.soldier.death.png"
+  },
+  "mob.soldier.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 123,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.soldier.hurt.png"
+  },
+  "mob.soldier.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 123,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.soldier.idle.png"
+  },
+  "mob.soldier.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 123,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.soldier.move.png"
+  },
+  "mob.swordspirit.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit.attack.png"
+  },
+  "mob.swordspirit.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit.death.png"
+  },
+  "mob.swordspirit.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit.hurt.png"
+  },
+  "mob.swordspirit.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit.idle.png"
+  },
+  "mob.swordspirit.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit.move.png"
+  },
+  "mob.swordspirit_v_blood.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_blood.attack.png"
+  },
+  "mob.swordspirit_v_blood.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_blood.death.png"
+  },
+  "mob.swordspirit_v_blood.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_blood.hurt.png"
+  },
+  "mob.swordspirit_v_blood.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_blood.idle.png"
+  },
+  "mob.swordspirit_v_blood.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_blood.move.png"
+  },
+  "mob.swordspirit_v_gold.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_gold.attack.png"
+  },
+  "mob.swordspirit_v_gold.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_gold.death.png"
+  },
+  "mob.swordspirit_v_gold.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 263,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_gold.hurt.png"
+  },
+  "mob.swordspirit_v_gold.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_gold.idle.png"
+  },
+  "mob.swordspirit_v_gold.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 263,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.swordspirit_v_gold.move.png"
+  },
+  "mob.thunderbird.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 131,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.thunderbird.attack.png"
+  },
+  "mob.thunderbird.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 131,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.thunderbird.death.png"
+  },
+  "mob.thunderbird.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 131,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.thunderbird.hurt.png"
+  },
+  "mob.thunderbird.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 131,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.thunderbird.idle.png"
+  },
+  "mob.thunderbird.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 131,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.thunderbird.move.png"
+  },
+  "mob.toad.attack": {
+   "fh": 92,
+   "fps": 8,
+   "frames": 3,
+   "fw": 203,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.toad.attack.png"
+  },
+  "mob.toad.death": {
+   "fh": 92,
+   "fps": 8,
+   "frames": 4,
+   "fw": 203,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.toad.death.png"
+  },
+  "mob.toad.hurt": {
+   "fh": 92,
+   "fps": 8,
+   "frames": 1,
+   "fw": 203,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.toad.hurt.png"
+  },
+  "mob.toad.idle": {
+   "fh": 92,
+   "fps": 8,
+   "frames": 3,
+   "fw": 203,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.toad.idle.png"
+  },
+  "mob.toad.move": {
+   "fh": 92,
+   "fps": 8,
+   "frames": 3,
+   "fw": 203,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.toad.move.png"
+  },
+  "mob.treant.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 95,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.treant.attack.png"
+  },
+  "mob.treant.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 95,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.treant.death.png"
+  },
+  "mob.treant.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 95,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.treant.hurt.png"
+  },
+  "mob.treant.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 95,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.treant.idle.png"
+  },
+  "mob.treant.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 95,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.treant.move.png"
+  },
+  "mob.waterghost.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 193,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.waterghost.attack.png"
+  },
+  "mob.waterghost.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 193,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.waterghost.death.png"
+  },
+  "mob.waterghost.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 193,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.waterghost.hurt.png"
+  },
+  "mob.waterghost.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 193,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.waterghost.idle.png"
+  },
+  "mob.waterghost.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 193,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.waterghost.move.png"
+  },
+  "mob.wolf.attack": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 160,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.wolf.attack.png"
+  },
+  "mob.wolf.death": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 4,
+   "fw": 160,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.wolf.death.png"
+  },
+  "mob.wolf.hurt": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 1,
+   "fw": 160,
+   "loop": false,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.wolf.hurt.png"
+  },
+  "mob.wolf.idle": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 160,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.wolf.idle.png"
+  },
+  "mob.wolf.move": {
+   "fh": 80,
+   "fps": 8,
+   "frames": 3,
+   "fw": 160,
+   "loop": true,
+   "ox": 0.5,
+   "oy": 1.0,
+   "url": "assets/xp/sprites/mob.wolf.move.png"
+  }
+ },
+ "ui": {
+  "01_check_off": {
+   "h": 48,
+   "url": "assets/xp/ui/ui_xianxia_01_check_off.png",
+   "w": 48
+  },
+  "01_check_on": {
+   "h": 48,
+   "url": "assets/xp/ui/ui_xianxia_01_check_on.png",
+   "w": 48
+  },
+  "01_corner": {
+   "h": 61,
+   "url": "assets/xp/ui/ui_xianxia_01_corner.png",
+   "w": 61
+  },
+  "01_corner_bl": {
+   "h": 61,
+   "url": "assets/xp/ui/ui_xianxia_01_corner_bl.png",
+   "w": 61
+  },
+  "01_corner_br": {
+   "h": 61,
+   "url": "assets/xp/ui/ui_xianxia_01_corner_br.png",
+   "w": 61
+  },
+  "01_corner_tl": {
+   "h": 61,
+   "url": "assets/xp/ui/ui_xianxia_01_corner_tl.png",
+   "w": 61
+  },
+  "01_corner_tr": {
+   "h": 61,
+   "url": "assets/xp/ui/ui_xianxia_01_corner_tr.png",
+   "w": 61
+  },
+  "01_cursor_sword": {
+   "h": 48,
+   "url": "assets/xp/ui/ui_xianxia_01_cursor_sword.png",
+   "w": 48
+  },
+  "01_cursor_whisk": {
+   "h": 46,
+   "url": "assets/xp/ui/ui_xianxia_01_cursor_whisk.png",
+   "w": 52
+  },
+  "01_divider_cloud": {
+   "h": 31,
+   "url": "assets/xp/ui/ui_xianxia_01_divider_cloud.png",
+   "w": 155
+  },
+  "01_divider_jade": {
+   "h": 21,
+   "url": "assets/xp/ui/ui_xianxia_01_divider_jade.png",
+   "w": 136
+  },
+  "01_slider_knob": {
+   "h": 46,
+   "url": "assets/xp/ui/ui_xianxia_01_slider_knob.png",
+   "w": 57
+  },
+  "01_slider_track": {
+   "h": 13,
+   "url": "assets/xp/ui/ui_xianxia_01_slider_track.png",
+   "w": 323
+  },
+  "bar_01_frame": {
+   "h": 37,
+   "url": "assets/xp/ui/ui_xianxia_bar_01_frame.png",
+   "w": 399
+  },
+  "bar_01_hp": {
+   "h": 37,
+   "url": "assets/xp/ui/ui_xianxia_bar_01_hp.png",
+   "w": 399
+  },
+  "bar_01_mp": {
+   "h": 37,
+   "url": "assets/xp/ui/ui_xianxia_bar_01_mp.png",
+   "w": 399
+  },
+  "bar_01_spirit": {
+   "h": 37,
+   "url": "assets/xp/ui/ui_xianxia_bar_01_spirit.png",
+   "w": 399
+  },
+  "button_01_jade_hover": {
+   "h": 54,
+   "url": "assets/xp/ui/ui_xianxia_button_01_jade_hover.png",
+   "w": 130
+  },
+  "button_01_jade_normal": {
+   "h": 54,
+   "url": "assets/xp/ui/ui_xianxia_button_01_jade_normal.png",
+   "w": 130
+  },
+  "button_01_jade_pressed": {
+   "h": 54,
+   "url": "assets/xp/ui/ui_xianxia_button_01_jade_pressed.png",
+   "w": 130
+  },
+  "button_01_silk_hover": {
+   "h": 56,
+   "url": "assets/xp/ui/ui_xianxia_button_01_silk_hover.png",
+   "w": 130
+  },
+  "button_01_silk_normal": {
+   "h": 56,
+   "url": "assets/xp/ui/ui_xianxia_button_01_silk_normal.png",
+   "w": 130
+  },
+  "button_01_silk_pressed": {
+   "h": 56,
+   "url": "assets/xp/ui/ui_xianxia_button_01_silk_pressed.png",
+   "w": 130
+  },
+  "item_coin_string": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_coin_string.png",
+   "w": 32
+  },
+  "item_compass": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_compass.png",
+   "w": 32
+  },
+  "item_conch": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_conch.png",
+   "w": 32
+  },
+  "item_furnace": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_furnace.png",
+   "w": 32
+  },
+  "item_ginseng": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_ginseng.png",
+   "w": 32
+  },
+  "item_gourd": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_gourd.png",
+   "w": 32
+  },
+  "item_immortal_rope": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_immortal_rope.png",
+   "w": 32
+  },
+  "item_jade_slip": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_jade_slip.png",
+   "w": 32
+  },
+  "item_lantern": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_lantern.png",
+   "w": 32
+  },
+  "item_lingzhi": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_lingzhi.png",
+   "w": 32
+  },
+  "item_peach": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_peach.png",
+   "w": 32
+  },
+  "item_pill_bottle": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_pill_bottle.png",
+   "w": 32
+  },
+  "item_spirit_stone": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_spirit_stone.png",
+   "w": 32
+  },
+  "item_talisman": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_talisman.png",
+   "w": 32
+  },
+  "item_token": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_item_token.png",
+   "w": 32
+  },
+  "panel_01_ink": {
+   "h": 117,
+   "url": "assets/xp/ui/ui_xianxia_panel_01_ink.png",
+   "w": 216
+  },
+  "panel_01_jade": {
+   "h": 118,
+   "url": "assets/xp/ui/ui_xianxia_panel_01_jade.png",
+   "w": 218
+  },
+  "panel_01_rosewood": {
+   "h": 118,
+   "url": "assets/xp/ui/ui_xianxia_panel_01_rosewood.png",
+   "w": 218
+  },
+  "panel_01_silk": {
+   "h": 119,
+   "url": "assets/xp/ui/ui_xianxia_panel_01_silk.png",
+   "w": 218
+  },
+  "status_bleed": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_status_bleed.png",
+   "w": 32
+  },
+  "status_burn": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_status_burn.png",
+   "w": 32
+  },
+  "status_freeze": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_status_freeze.png",
+   "w": 32
+  },
+  "status_golden_shield": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_status_golden_shield.png",
+   "w": 32
+  },
+  "status_paralyze": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_status_paralyze.png",
+   "w": 32
+  },
+  "status_poison": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_status_poison.png",
+   "w": 32
+  },
+  "status_seal": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_status_seal.png",
+   "w": 32
+  },
+  "status_swift": {
+   "h": 32,
+   "url": "assets/xp/ui/ui_xianxia_status_swift.png",
+   "w": 32
+  }
+ }
+}

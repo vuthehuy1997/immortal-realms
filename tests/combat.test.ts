@@ -34,13 +34,13 @@ describe('hp & mana', () => {
 });
 
 describe('tryCast / cooldowns', () => {
-  const bolt = SKILLS.find((s) => s.id === 'spirit-bolt')!;
+  const bolt = SKILLS.find((s) => s.id === 'flying-sword')!;
   it('spends mana and enforces cooldown', () => {
     const c = mk({ mana: 20 }); const cd = new Cooldowns();
     expect(tryCast(c, cd, bolt, 0)).toEqual({ ok: true });
     expect(c.mana).toBe(12);
     expect(tryCast(c, cd, bolt, 0.5)).toEqual({ ok: false, reason: 'cooldown' });
-    expect(cd.remaining(bolt.id, 0.5)).toBeCloseTo(0.7);
+    expect(cd.remaining(bolt.id, 0.5)).toBeCloseTo(bolt.cooldown - 0.5);
     expect(tryCast(c, cd, bolt, bolt.cooldown)).toEqual({ ok: true });
   });
   it('fails without mana and does not start cooldown', () => {
@@ -54,9 +54,11 @@ describe('tryCast / cooldowns', () => {
 });
 
 describe('skill data', () => {
-  it('has three valid skills with unique ids', () => {
-    expect(SKILLS).toHaveLength(3);
-    expect(new Set(SKILLS.map((s) => s.id)).size).toBe(3);
+  it('has four valid techniques with unique ids and rising unlock levels', () => {
+    expect(SKILLS).toHaveLength(4);
+    expect(new Set(SKILLS.map((s) => s.id)).size).toBe(4);
+    for (let i = 1; i < SKILLS.length; i++) expect(SKILLS[i]!.unlockLevel).toBeGreaterThanOrEqual(SKILLS[i - 1]!.unlockLevel);
+    expect(new Set(SKILLS.map((s) => s.shape)).size).toBe(4);
     for (const s of SKILLS) { expect(s.cooldown).toBeGreaterThan(0); expect(s.damageMult).toBeGreaterThan(0); expect(s.manaCost).toBeGreaterThanOrEqual(0); }
   });
 });

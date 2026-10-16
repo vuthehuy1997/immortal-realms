@@ -1,88 +1,102 @@
 import { describe, expect, it } from 'vitest';
-import { generateWorld, isBlockedTile, moveWithCollision, TILE_SIZE, type WorldMap } from '../src/core/world';
+import { generateWorld, isBlockedTile, moveWithCollision, TILE_SIZE, tileToWorld, zoneAt, type WorldMap } from '../src/core/world';
 import { step } from '../src/core/movement';
 import { createRng } from '../src/core/rng';
+import { createNoise, fbm } from '../src/core/noise';
+import { ZONE_IDS, ZONES } from '../src/data/zones';
 
 const open = (w = 8, h = 8): WorldMap => ({
   width: w, height: h,
-  ground: Array(w * h).fill('grass'),
-  deco: Array(w * h).fill('none'),
-  spawn: { x: 40, y: 40 },
-  lair: { x: 100, y: 100 },
+  ground: Array(w * h).fill('grass'), zone: Array(w * h).fill('village'), blocked: new Uint8Array(w * h), props: [],
+  spawn: { x: 40, y: 40 }, lair: { x: 100, y: 100 }, anchors: {} as WorldMap['anchors'], npcs: {}, herbs: [], arrayPos: { x: 0, y: 0 },
 });
+const block = (m: WorldMap, tx: number, ty: number) => { m.blocked[ty * m.width + tx] = 1; };
 
-describe('rng', () => {
-  it('is deterministic per seed and differs across seeds', () => {
+const reachable = (m: WorldMap, from: { x: number; y: number }) => {
+  const seen = new Set<number>(); const q: [number, number][] = [[Math.floor(from.x / TILE_SIZE), Math.floor(from.y / TILE_SIZE)]];
+  while (q.length) {
+    const [x, y] = q.pop()!; const k = y * m.width + x;
+    if (seen.has(k) || isBlockedTile(m, x, y)) continue;
+    seen.add(k); q.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
+  }
+  return (p: { x: number; y: number }) => seen.has(Math.floor(p.y / TILE_SIZE) * m.width + Math.floor(p.x / TILE_SIZE));
+};
+
+describe('rng & noise', () => {
+  it('rng is deterministic per seed and differs across seeds', () => {
     const a = createRng(1), b = createRng(1), c = createRng(2);
     const sa = [a(), a(), a()], sb = [b(), b(), b()];
-    expect(sa).toEqual(sb);
-    expect(sa).not.toEqual([c(), c(), c()]);
+    expect(sa).toEqual(sb); expect(sa).not.toEqual([c(), c(), c()]);
     expect(sa.every((v) => v >= 0 && v < 1)).toBe(true);
+  });
+  it('noise is deterministic, in range and smooth', () => {
+    const n1 = createNoise(5), n2 = createNoise(5);
+    expect(n1(3.3, 4.4)).toBe(n2(3.3, 4.4));
+    for (let i = 0; i < 100; i++) { const v = fbm(n1, i * 0.37, i * 0.21); expect(v).toBeGreaterThanOrEqual(0); expect(v).toBeLessThanOrEqual(1); }
+    expect(Math.abs(n1(10, 10) - n1(10.01, 10))).toBeLessThan(0.05);
   });
 });
 
 describe('generateWorld', () => {
-  it('is deterministic', () => {
-    expect(generateWorld(42)).toEqual(generateWorld(42));
-  });
-  it('spawn is not blocked and border is blocked', () => {
+  const SEEDS = [1, 7, 42, 20261016, 99999];
+  it('is deterministic', () => { expect(generateWorld(42)).toEqual(generateWorld(42)); });
+  it('has an impassable border and an open spawn', () => {
     const m = generateWorld(7);
     expect(isBlockedTile(m, Math.floor(m.spawn.x / TILE_SIZE), Math.floor(m.spawn.y / TILE_SIZE))).toBe(false);
-    for (let i = 0; i < m.width; i++) expect(isBlockedTile(m, i, 0)).toBe(true);
+    for (let i = 0; i < m.width; i++) { expect(isBlockedTile(m, i, 0)).toBe(true); expect(isBlockedTile(m, i, m.height - 1)).toBe(true); }
     expect(isBlockedTile(m, -1, 5)).toBe(true);
   });
-  it('spawn can reach the open area around it (no enclosed spawn)', () => {
-    const m = generateWorld(7);
-    let p = { ...m.spawn };
-    for (let i = 0; i < 60; i++) p = moveWithCollision(m, p, step(p, { x: 1, y: 0 }, 60, 1 / 60), 5);
-    expect(p.x).toBeGreaterThan(m.spawn.x + 20);
+  it('contains all six zones and the spawn is in the village', () => {
+    const m = generateWorld(20261016);
+    expect(new Set(m.zone)).toEqual(new Set(ZONE_IDS));
+    expect(zoneAt(m, m.spawn)).toBe('village');
+    for (const z of ZONE_IDS) expect(zoneAt(m, tileToWorld(ZONES[z].anchor))).toBe(z);
   });
-});
-
-describe('lair', () => {
-  const reachable = (m: WorldMap, from: { x: number; y: number }) => {
-    const seen = new Set<number>(); const q: [number, number][] = [[Math.floor(from.x / TILE_SIZE), Math.floor(from.y / TILE_SIZE)]];
-    while (q.length) {
-      const [x, y] = q.pop()!; const k = y * m.width + x;
-      if (seen.has(k) || isBlockedTile(m, x, y)) continue;
-      seen.add(k); q.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
-    }
-    return seen;
-  };
-  it('arena centre is open and walkable from the spawn (several seeds)', () => {
-    for (const seed of [1, 7, 42, 20261016, 99999]) {
-      const m = generateWorld(seed);
-      const seen = reachable(m, m.spawn);
-      expect(seen.has(Math.floor(m.lair.y / TILE_SIZE) * m.width + Math.floor(m.lair.x / TILE_SIZE))).toBe(true);
+  it('everything the player needs is reachable from the spawn (several seeds)', () => {
+    for (const seed of SEEDS) {
+      const m = generateWorld(seed); const ok = reachable(m, m.spawn);
+      for (const z of ZONE_IDS) expect(ok(m.anchors[z]), `${seed}: ${z}`).toBe(true);
+      for (const [name, p] of Object.entries(m.npcs)) expect(ok(p), `${seed}: npc ${name}`).toBe(true);
+      expect(ok(m.arrayPos)).toBe(true);
+      for (const h of m.herbs) expect(ok({ x: h.x, y: h.y - 4 }), `${seed}: herb`).toBe(true);
     }
   });
-  it('is cleared of obstacles', () => {
-    const m = generateWorld(7);
-    for (let a = 0; a < 12; a++) {
-      const x = m.lair.x + Math.cos(a) * 5 * TILE_SIZE, y = m.lair.y + Math.sin(a) * 5 * TILE_SIZE;
-      expect(isBlockedTile(m, Math.floor(x / TILE_SIZE), Math.floor(y / TILE_SIZE))).toBe(false);
-    }
+  it('is varied scenery: many props, herbs in several zones, water in the marsh', () => {
+    const m = generateWorld(20261016);
+    expect(m.props.length).toBeGreaterThan(150);
+    expect(new Set(m.props.map((p) => p.kind)).size).toBeGreaterThan(15);
+    expect(m.herbs.length).toBeGreaterThanOrEqual(15);
+    expect(m.ground.filter((g) => g === 'water').length).toBeGreaterThan(40);
+    expect(m.props.some((p) => p.kind === 'palace') && m.props.some((p) => p.kind === 'pagoda7')).toBe(true);
+  });
+  it('solid props block movement; the boss gate leaves a walkable gap', () => {
+    const m = generateWorld(20261016);
+    const pal = m.props.find((p) => p.kind === 'palace')!;
+    expect(isBlockedTile(m, Math.floor(pal.x / TILE_SIZE), Math.floor((pal.y - 6) / TILE_SIZE))).toBe(true);
+    const gate = m.props.find((p) => p.kind === 'goldgate')!;
+    expect(isBlockedTile(m, Math.floor(gate.x / TILE_SIZE), Math.floor((gate.y - 4) / TILE_SIZE))).toBe(false);
+  });
+  it('NPCs stand on open ground and roads link the village to every zone', () => {
+    const m = generateWorld(1);
+    for (const p of Object.values(m.npcs)) expect(isBlockedTile(m, Math.floor(p.x / TILE_SIZE), Math.floor(p.y / TILE_SIZE))).toBe(false);
+    expect(m.ground.filter((g) => g === 'path').length).toBeGreaterThan(200);
   });
 });
 
 describe('moveWithCollision', () => {
-  it('moves freely in open space', () => {
-    expect(moveWithCollision(open(), { x: 40, y: 40 }, { x: 45, y: 42 }, 5)).toEqual({ x: 45, y: 42 });
-  });
+  it('moves freely in open space', () => { expect(moveWithCollision(open(), { x: 40, y: 40 }, { x: 45, y: 42 }, 5)).toEqual({ x: 45, y: 42 }); });
   it('is stopped by a blocking tile', () => {
-    const m = open();
-    m.deco[2 * m.width + 4] = 'treeGreen'; // tile (4,2) => x 64..80, y 32..48
-    const p = moveWithCollision(m, { x: 56, y: 40 }, { x: 62, y: 40 }, 5);
-    expect(p.x).toBe(56);
+    const m = open(); block(m, 4, 2); // x 64..80, y 32..48
+    expect(moveWithCollision(m, { x: 56, y: 40 }, { x: 62, y: 40 }, 5).x).toBe(56);
   });
   it('slides along a wall on the free axis', () => {
-    const m = open();
-    m.deco[2 * m.width + 4] = 'bush';
-    const p = moveWithCollision(m, { x: 56, y: 40 }, { x: 62, y: 44 }, 5);
-    expect(p).toEqual({ x: 56, y: 44 });
+    const m = open(); block(m, 4, 2);
+    expect(moveWithCollision(m, { x: 56, y: 40 }, { x: 62, y: 44 }, 5)).toEqual({ x: 56, y: 44 });
   });
-  it('cannot leave the map', () => {
-    const p = moveWithCollision(open(), { x: 8, y: 40 }, { x: -3, y: 40 }, 5);
-    expect(p.x).toBe(8);
+  it('cannot leave the map', () => { expect(moveWithCollision(open(), { x: 8, y: 40 }, { x: -3, y: 40 }, 5).x).toBe(8); });
+  it('walking east from the spawn eventually hits something, never leaves the map', () => {
+    const m = generateWorld(7); let p = { ...m.spawn };
+    for (let i = 0; i < 1200; i++) p = moveWithCollision(m, p, step(p, { x: 1, y: 0 }, 70, 1 / 60), 5);
+    expect(p.x).toBeGreaterThan(m.spawn.x); expect(p.x).toBeLessThan(m.width * TILE_SIZE);
   });
 });

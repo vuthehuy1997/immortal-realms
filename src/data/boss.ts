@@ -1,5 +1,9 @@
 export interface BossDef {
   id: string; name: string;
+  /** sprite prefix in the manifest */
+  sprite: string;
+  scale: number;
+  radius: number;
   maxHp: number; atk: number; def: number; speed: number;
   slam: { radius: number; windup: number; recover: number; cooldown: number; damageMult: number; triggerRange: number };
   summon: { windup: number; cooldown: number; count: number; maxMinions: number; minionType: string };
@@ -9,10 +13,10 @@ export interface BossDef {
 }
 
 export const WARDEN: BossDef = {
-  id: 'warden', name: 'Stone Warden',
-  maxHp: 420, atk: 14, def: 5, speed: 30,
-  slam: { radius: 40, windup: 0.9, recover: 0.5, cooldown: 4, damageMult: 1.8, triggerRange: 70 },
-  summon: { windup: 0.8, cooldown: 12, count: 2, maxMinions: 4, minionType: 'slime' },
+  id: 'warden', name: 'Fallen Sword Immortal', sprite: 'boss.fallenimmortal', scale: 0.55, radius: 18,
+  maxHp: 620, atk: 16, def: 6, speed: 36,
+  slam: { radius: 56, windup: 0.9, recover: 0.5, cooldown: 4, damageMult: 1.8, triggerRange: 90 },
+  summon: { windup: 0.8, cooldown: 12, count: 2, maxMinions: 4, minionType: 'swordspirit' },
   ring: { windup: 0.8, cooldown: 6, projectiles: 8, damageMult: 1.0 },
   phase2At: 0.66, phase3At: 0.33,
   enrage: { speedMult: 1.4, cooldownMult: 0.7 },

@@ -5,8 +5,8 @@ import { acceptQuest } from '../src/core/quest';
 import { checksum, parseSave, serialize, SAVE_VERSION } from '../src/core/save';
 
 const sample = () => {
-  const gs = newGameState('Tester', 'tide', { x: 100, y: 120 });
-  acceptQuest(gs.quests, 'pests'); registerKill(gs, 'slime', () => 0); gs.cultivation.qi = 33; gs.hp = 42;
+  const gs = newGameState('Tester', 'tide', 'monk', { x: 100, y: 120 });
+  acceptQuest(gs.quests, 'pests'); registerKill(gs, 'wolf', () => 0); gs.cultivation.qi = 33; gs.hp = 42;
   return gs;
 };
 interface Env { version: number; checksum: string; state: GameState }
@@ -36,6 +36,8 @@ describe('save/load', () => {
     ['NaN-ish level', (e: Env) => { e.state.progress.level = 999; }],
     ['unknown item', (e: Env) => { e.state.inventory.slots[3] = { id: 'god-sword', count: 1 }; }],
     ['over-stacked item', (e: Env) => { e.state.inventory.slots[3] = { id: 'iron-sword', count: 5 }; }],
+    ['bad hero', (e: Env) => { e.state.character.hero = 'ghost' as never; }],
+    ['negative stones', (e: Env) => { e.state.stones = -1; }],
     ['bad root', (e: Env) => { e.state.character.root = 'hax' as never; }],
     ['bad name', (e: Env) => { e.state.character.name = ''; }],
     ['wrong slot count', (e: Env) => { e.state.inventory.slots.pop(); }],

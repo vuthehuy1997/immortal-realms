@@ -3,6 +3,7 @@ process.env.NO_PROXY = '127.0.0.1,localhost'; // sandbox proxy would otherwise i
 
 export default defineConfig({
   testDir: 'e2e',
+  timeout: 90_000,
   workers: 1, // software-GL browsers compete for CPU; parallel runs distort game-time and the fps smoke test
   expect: { timeout: 10_000 },
   webServer: { command: 'npm run build && npx vite preview --port 4173 --host 127.0.0.1', url: 'http://127.0.0.1:4173', reuseExistingServer: false, timeout: 120_000 },

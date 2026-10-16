@@ -11,15 +11,21 @@ Columns: Name | Source URL | Author | Version | License | Commercial OK | Attrib
 | eslint, @eslint/js | https://www.npmjs.com/package/eslint | OpenJS Foundation | see package-lock | MIT | Yes | Notice | Verified (registry) | npm view |
 | typescript-eslint | https://www.npmjs.com/package/typescript-eslint | typescript-eslint team | 8.71.2 | MIT | Yes | Notice | Verified (registry) | npm view |
 
-## Art assets (third-party, in `assets/third_party/`)
+## Art assets (third-party)
 | Name | Source URL | Author | Version | License | Commercial | Attribution | Status | Evidence |
 |---|---|---|---|---|---|---|---|---|
-| Kenney Tiny Dungeon (16x16) | https://kenney.nl/assets/tiny-dungeon | Kenney | 1.0 (2022) | CC0 1.0 | Yes | Not required (credit "Kenney" optional; do not use Kenney logo) | Verified 2026-10-16 | kenney.nl/support quote "public domain licensed (CC0)... free to use, even in commercial projects"; bundled `License.txt` in `assets/third_party/kenney-tiny-dungeon/`; zip sha256 `c109438ab06f65fd80f9b2686a4cf9c7c11dc64444b47333ec71d602f8bb5fc7` |
-| Kenney Tiny Town (16x16) | https://kenney.nl/assets/tiny-town | Kenney | 1.1 | CC0 1.0 | Yes | Same as above | Verified 2026-10-16 | bundled `License.txt` in `assets/third_party/kenney-tiny-town/`; zip sha256 `9768692dccff1d706408a5aedd6ca4f6cd1409506cbc84cb2f862919764be977` |
+| **Xianxia Pixel Pack** (heroes, mobs, bosses, NPC portraits, props, spell FX, UI kit, icons) | https://willyee.itch.io/xianxia-pixel-pack | willYEE | 2.1 (released 2026-09-22) | CC0 1.0 Universal | Yes | Not required | Verified 2026-10-17 | itch.io page states "CC0 1.0 Universal, full text in LICENSE.txt"; bundled `LICENSE.txt` (copied to `public/assets/xp/LICENSE.txt`); README "License: CC0 1.0 ... Use it commercially, modify it, ship it, resell what you make with it. No credit required."; zip sha256 `76b73304cb3f961fc071b5cb4e15d9da9ab247c1e68bb98dd97211f5b50b2d8f` |
 
-### Candidates found, NOT downloaded, NOT verified (do not use until verified from the download page)
-- Puny World tileset (Shade, OpenGameArt, listed CC0), RPG Tileset by russpuppy (https://opengameart.org/content/rpg-tileset, page lists CC0), Adventure Awaits Pack 1.0 (IshtartPixels, "free for commercial"), OPP2017 Village (multi-license, confirm CC0 option).
-- Rejected: Minimalist Chinese Temple tileset (CC-BY 3.0, attribution, side-view); LPC assets (CC-BY-SA share-alike risk) — not evaluated further.
-- Caveat: OpenGameArt pages can be edited; re-check license at download time and store a snapshot.
+**Provenance risk (AI-generated art) — owner must accept before commercial release.** The pack's README and page state: "Every image in this pack was generated with Google Gemini from written text prompts, then cut, cleaned, aligned and assembled by hand"; character animations were produced from AI video (Google Veo) and cleaned frame by frame. The author dedicates the pack to CC0, but: (1) copyright protection for AI-generated material is uncertain in many jurisdictions, so we may be unable to stop others copying our art; (2) platform rules (e.g. Steam, app stores) may require AI-content disclosure; (3) we rely on the author's statement that no third-party artwork was used as input. Mitigation plan: keep an asset replacement list (docs/TASKS.md), disclose AI-assisted art in release notes/store pages, and commission or hand-make key identity art (hero, bosses, logo) before launch.
+
+How the subset is built: `tools/build_assets.py <pack dir>` selects ~217 animation strips, 36 props, 35 fx strips, UI kit, icons, portraits and palette-quantises them into `public/assets/xp/` (about 5 MB). The source zip is not committed.
+
+Superseded (removed from the repo): Kenney Tiny Dungeon / Tiny Town (CC0). Registry rows kept in git history (commit f3767ba).
+
+### Procedural / original assets
+Ground textures, shadows, glows, petals and sparks are generated in code (`src/game/ground.ts`, `src/game/assets.ts`) — original, no licence needed.
+
+### Candidates evaluated, not used
+Puny World, RPG Tileset (russpuppy), Adventure Awaits, OPP2017 Village — unverified; Minimalist Chinese Temple (CC-BY 3.0, side-view); LPC (CC-BY-SA).
 
 TODO: transitive dependency scan (license-checker) before release. No art/audio assets used yet.

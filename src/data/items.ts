@@ -23,8 +23,21 @@ export const ITEMS: Record<string, ItemDef> = {
 
 /** Drop tables: chance per kill. */
 export const DROPS: Record<string, { item: string; chance: number }[]> = {
-  slime: [{ item: 'spirit-herb', chance: 0.5 }, { item: 'hp-potion', chance: 0.15 }],
-  wraith: [{ item: 'mana-potion', chance: 0.3 }, { item: 'qi-pill', chance: 0.12 }],
-  brute: [{ item: 'hp-potion', chance: 0.4 }, { item: 'qi-pill', chance: 0.25 }],
+  wolf: [{ item: 'hp-potion', chance: 0.12 }],
+  snake: [{ item: 'hp-potion', chance: 0.1 }],
+  foxfire: [{ item: 'mana-potion', chance: 0.25 }],
+  treant: [{ item: 'qi-pill', chance: 0.3 }, { item: 'hp-potion', chance: 0.4 }],
+  toad: [{ item: 'hp-potion', chance: 0.2 }],
+  waterghost: [{ item: 'mana-potion', chance: 0.25 }],
+  ghost: [{ item: 'mana-potion', chance: 0.3 }, { item: 'qi-pill', chance: 0.1 }],
+  peachspirit: [{ item: 'mana-potion', chance: 0.3 }, { item: 'qi-pill', chance: 0.12 }],
+  bat: [],
+  paperdoll: [{ item: 'hp-potion', chance: 0.1 }],
+  swordspirit: [{ item: 'qi-pill', chance: 0.2 }],
+  thunderbird: [{ item: 'qi-pill', chance: 0.3 }, { item: 'mana-potion', chance: 0.3 }],
+  skeleton: [{ item: 'hp-potion', chance: 0.2 }],
+  jiangshi: [{ item: 'qi-pill', chance: 0.25 }],
+  soldier: [{ item: 'hp-potion', chance: 0.25 }],
+  golem: [{ item: 'qi-pill', chance: 0.35 }, { item: 'hp-potion', chance: 0.4 }],
   warden: [{ item: 'jade-sword', chance: 1 }, { item: 'qi-pill', chance: 1 }],
 };

@@ -29,3 +29,14 @@ Non-functional: 0 page errors in all e2e; lint/typecheck clean; 60 FPS baseline 
 - 2026-10-16: `npm run qc` green: lint clean, typecheck clean, build OK, 89+ unit tests, 38 e2e tests (also 5x repeat = 190/190 with serial workers). Screenshots in `qc-artifacts/` (gitignored, regenerated each run).
 - Bugs found & fixed by QC (see BUGS.md): HUD hid the menu; Phaser 4.2.1 keyboard queue replays events (double-toggled panels) -> own DOM KeyInput; level label wrapped at 1024px; tests relied on wall-clock instead of game time.
 - Still NOT verified by automation: fun/feel/balance, art quality, real-GPU perf, Firefox/WebKit, touch/gamepad, audio (none yet), long sessions.
+
+## Visual & feel gate (added after owner feedback 2026-10-17)
+Automated tests cannot judge beauty. A milestone also needs screenshot review (`qc-artifacts/`, plus the zone/combat screenshots in the session log) against this list:
+- [x] Characters, enemies and bosses are animated (idle/walk/attack/hurt/death) — hero idle/walk/3-hit combo/dash/cast, mobs idle/move/attack/hurt/death, boss telegraphs.
+- [x] Martial-arts kit: 3-hit combo, dash with i-frames, 4 techniques (projectile, piercing wave, stunning burst, ground rain) with tinted spell FX, hit-stop, knockback, camera shake, damage numbers.
+- [x] Xianxia identity: sect village with palace/pagoda/gates, bamboo forest, marsh, peach grove, ruins, boss court; zone banners; spirit array meditation; peach petals, fireflies, mist.
+- [x] Skinned UI (jade/gold) with animated hero previews at character creation.
+- [ ] Audio (SFX + music) — NOT done.
+- [ ] Minimap / world map — NOT done.
+- [ ] Merchant, alchemy, loot tiers, second boss — NOT done (merchant/alchemist NPCs stand in the village, no shop yet).
+- [ ] Real-GPU performance — only software GL measured (~37 fps in the headless test machine).

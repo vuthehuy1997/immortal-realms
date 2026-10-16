@@ -12,22 +12,22 @@ export interface QuestDef {
 
 export const QUESTS: Record<string, QuestDef> = {
   pests: {
-    id: 'pests', name: 'Pests of the Grove', giver: 'elder-lin',
-    intro: 'The slimes are choking the spirit grove. Slay four of them and bring me two Spirit Herbs they have fouled. I will make it worth your while.',
-    reminder: 'The grove is still overrun. Four slimes, two Spirit Herbs.',
+    id: 'pests', name: 'Wolves of the Bamboo', giver: 'elder-lin',
+    intro: 'Spirit wolves prowl the Whispering Bamboo Forest to the west and trample the herb beds. Slay four of them and gather two Spirit Herbs (lingzhi, press E beside the glowing mushrooms). The sect will reward you.',
+    reminder: 'The forest is still overrun. Four wolves, two Spirit Herbs.',
     completeText: 'You have done well. Take this — and my thanks.',
     objectives: [
-      { type: 'kill', target: 'slime', count: 4, label: 'Slay Moss Slimes' },
+      { type: 'kill', target: 'wolf', count: 4, label: 'Slay Spirit Wolves' },
       { type: 'collect', item: 'spirit-herb', count: 2, label: 'Gather Spirit Herbs' },
     ],
     reward: { xp: 80, items: [{ id: 'iron-sword', count: 1 }, { id: 'hp-potion', count: 3 }] },
   },
   warden: {
-    id: 'warden', name: 'The Stone Warden', giver: 'elder-lin', requires: 'pests',
-    intro: 'Something older stirs in the lair to the north-east: the Stone Warden. Defeat it and the grove may finally rest.',
-    reminder: 'The Warden still lives. Seek the lair, north-east of here.',
-    completeText: 'The Warden is no more. You have the makings of a true cultivator.',
-    objectives: [{ type: 'kill', target: 'warden', count: 1, label: 'Defeat the Stone Warden' }],
+    id: 'warden', name: 'The Fallen Sword Immortal', giver: 'elder-lin', requires: 'pests',
+    intro: 'Beyond the Peach Grove, in the north-east court, a sword immortal who fell from grace stirs once more. Defeat the Fallen Sword Immortal and the sect may finally rest.',
+    reminder: 'The Fallen Immortal still lives. Follow the north-east road to his court.',
+    completeText: 'The Fallen Immortal is no more. You have the makings of a true cultivator.',
+    objectives: [{ type: 'kill', target: 'warden', count: 1, label: 'Defeat the Fallen Sword Immortal' }],
     reward: { xp: 200, items: [{ id: 'qi-pill', count: 2 }] },
   },
 };

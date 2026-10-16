@@ -36,7 +36,7 @@ test.describe('#14 save / load', () => {
     await newGame(page, 'Auto');
     await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.giveXp(19); }); // level 1 needs 20 xp
     expect(await page.evaluate((k) => localStorage.getItem(k), SAVE_KEY)).toBeNull(); // direct grants do not save
-    await killOne(page, 'slime'); // +10 xp => level 2 => autosave
+    await killOne(page, 'wolf'); // +12 xp => level 2 => autosave
     await expect.poll(() => page.evaluate((k) => localStorage.getItem(k) !== null, SAVE_KEY)).toBe(true);
     const saved = await page.evaluate((k) => JSON.parse(localStorage.getItem(k)!) as { state: { progress: { level: number } } }, SAVE_KEY);
     expect(saved.state.progress.level).toBe(2);
@@ -50,7 +50,7 @@ test.describe('#14 save / load', () => {
     const cases: [string, string][] = [
       ['garbage', 'not json at all {{{'],
       ['edited hp', good.replace(/"hp":\d+/, '"hp":99999')],
-      ['wrong version', good.replace('"version":1', '"version":99')],
+      ['wrong version', good.replace(/"version":\d+/, '"version":99')],
     ];
     for (const [name, bad] of cases) {
       await page.evaluate(([k, v]) => localStorage.setItem(k as string, v as string), [SAVE_KEY, bad]);

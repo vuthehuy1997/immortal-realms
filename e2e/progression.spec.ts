@@ -12,18 +12,20 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await expect(page.locator('#lvl')).toContainText('Lv 2');
   });
 
-  test('a level-up from a real kill shows a toast', async ({ page }) => {
+  test('a level-up from a real kill shows a toast and a technique unlock notice', async ({ page }) => {
     await newGame(page);
-    await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.giveXp(19); });
-    await killOne(page, 'slime');
+    await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.giveXp(19); }); // level 1 needs 20 xp
+    await killOne(page, 'wolf');
     await expect(page.locator('.toast', { hasText: 'Level up' })).toBeVisible();
+    await expect(page.locator('.toast', { hasText: 'Technique learned: Crescent Moon Slash' })).toBeVisible();
+    await expect(page.locator('#slot1')).not.toHaveClass(/locked/);
   });
 
   test('killing an enemy fills the XP bar', async ({ page }) => {
     await newGame(page);
     await page.evaluate(() => window.__rpg!.setHp(1e5));
-    await killOne(page, 'slime');
-    await expect(page.locator('#xptxt')).toContainText('XP 10 / 20');
+    await killOne(page, 'wolf');
+    await expect(page.locator('#xptxt')).toContainText('XP 12 / 20');
   });
 
   test('meditation accrues qi, is cancelled by moving, and shows in the HUD', async ({ page }) => {
@@ -37,6 +39,18 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     expect((await st(page)).meditating).toBe(false);
   });
 
+  test('meditating on the spirit array gathers qi much faster', async ({ page }) => {
+    await newGame(page);
+    const a = (await st(page)).arrayPos;
+    await page.evaluate(([x, y]) => window.__rpg!.teleport(x as number, y as number), [a.x, a.y]);
+    await expect(page.locator('#prompt')).toContainText('Spirit array');
+    await page.keyboard.press('m');
+    await waitGame(page, 2);
+    const near = (await st(page)).qi;
+    expect(near).toBeGreaterThan(40); // 12 qi/s * 2.5 * 2s = 60, vs ~24 elsewhere
+    await shot(page, 'meditation-array');
+  });
+
   test('breakthrough fails without full qi; failure halves qi; success raises the realm and stats', async ({ page }) => {
     await newGame(page);
     await page.keyboard.press('b');
@@ -44,12 +58,13 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await page.evaluate(() => { window.__rpg!.setQi(100); window.__rpg!.setRoll(0.99); });
     const hp0 = (await st(page)).maxHp;
     await page.keyboard.press('b');
-    let s = await st(page);
-    expect(s.realm).toBe(0); expect(s.qi).toBe(50);
+    await expect.poll(async () => (await st(page)).qi).toBe(50);
+    expect((await st(page)).realm).toBe(0);
     await page.evaluate(() => { window.__rpg!.setQi(100); window.__rpg!.setRoll(0.1); });
     await page.keyboard.press('b');
-    s = await st(page);
-    expect(s.realm).toBe(1); expect(s.qi).toBe(0); expect(s.maxHp).toBeGreaterThan(hp0);
+    await expect.poll(async () => (await st(page)).realm).toBe(1);
+    const s = await st(page);
+    expect(s.qi).toBe(0); expect(s.maxHp).toBeGreaterThan(hp0);
     await expect(page.locator('#lvl')).toContainText('Qi Condensation II');
     await shot(page, 'breakthrough');
   });
@@ -64,15 +79,16 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await expect(page.locator('#chrbody')).toContainText('Qi Condensation II');
   });
 
-  test('potions: Q hotkey and inventory click both heal and consume; no waste at full hp', async ({ page }) => {
+  test('potions: F hotkey and inventory click both heal and consume; no waste at full hp', async ({ page }) => {
     await newGame(page);
-    await page.keyboard.press('q');
+    await page.keyboard.press('f');
     await expect(page.locator('.toast', { hasText: 'already full' })).toBeVisible();
     expect((await st(page)).items).toContain('hp-potion:2');
     await page.evaluate(() => window.__rpg!.setHp(20));
-    await page.keyboard.press('q');
+    await page.keyboard.press('f');
     await expect.poll(async () => (await st(page)).hp).toBeGreaterThanOrEqual(60);
     expect((await st(page)).items).toContain('hp-potion:1');
+    await expect(page.locator('#cnt-hp')).toHaveText('1');
     await page.evaluate(() => window.__rpg!.setHp(20));
     await page.keyboard.press('i');
     await page.click('#invgrid .cell[data-slot="0"]');
@@ -86,8 +102,6 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await page.keyboard.press('i'); await page.keyboard.press('c');
     const atk = async () => Number((await page.locator('#chrbody .row', { hasText: 'Attack' }).innerText()).match(/\d+/)![0]);
     const a0 = await atk();
-    const idx = (await st(page)).items.length; // sword is the 2nd stack => slot 1
-    expect(idx).toBeGreaterThan(1);
     await page.click('#invgrid .cell[data-slot="1"]');
     await expect.poll(atk).toBe(a0 + 4);
     expect((await st(page)).weapon).toBe('iron-sword');
@@ -98,29 +112,42 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await shot(page, 'inventory');
   });
 
-  test('drops land in the inventory', async ({ page }) => {
+  test('drops and spirit stones land in the bag; herbs are gathered from glowing lingzhi', async ({ page }) => {
     await newGame(page);
     await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.setRoll(0); });
-    await killOne(page, 'slime');
-    const items = (await st(page)).items.join(',');
-    expect(items).toContain('spirit-herb:1'); expect(items).toContain('hp-potion:3');
+    await killOne(page, 'wolf');
+    const s = await st(page);
+    expect(s.items.join(',')).toContain('hp-potion:3'); expect(s.stones).toBeGreaterThan(0);
+    const h = s.herbs.find((x) => x.alive)!;
+    await page.evaluate(([x, y]) => window.__rpg!.teleport(x as number, (y as number) + 4), [h.x, h.y]);
+    await expect(page.locator('#prompt')).toContainText('gather the Spirit Herb');
+    await page.keyboard.press('e');
+    await expect.poll(async () => (await st(page)).items.join(',')).toContain('spirit-herb:1');
+    expect((await st(page)).herbs.filter((x) => x.alive).length).toBe(s.herbs.length - 1);
   });
 });
 
 test.describe('#12 NPC dialogue + quests', () => {
-  test('full chain: accept -> progress -> turn in -> reward -> second quest offered', async ({ page }) => {
+  test('full chain: accept -> hunt wolves and gather herbs -> turn in -> reward -> second quest offered', async ({ page }) => {
     await newGame(page, 'Quester');
-    await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.setRoll(0); });
+    await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.setRoll(0.5); });
     await goToNpc(page);
     await expect(page.locator('#prompt')).toContainText('talk to Elder Lin');
     await talk(page);
-    await expect(page.locator('#dlg')).toContainText('slimes are choking');
+    await expect(page.locator('#dlg')).toContainText('Spirit wolves prowl');
+    await expect(page.locator('#dlg .portrait')).toBeVisible();
     await shot(page, 'dialogue-offer');
-    await acceptFirst(page); // accept via number key
-    await expect(page.locator('#quest')).toContainText('Pests of the Grove');
+    await acceptFirst(page);
+    await expect(page.locator('#quest')).toContainText('Wolves of the Bamboo');
     await expect(page.locator('#quest')).toContainText('0/4');
-    for (let i = 0; i < 4; i++) await killOne(page, 'slime');
+    for (let i = 0; i < 4; i++) await killOne(page, 'wolf');
     await expect(page.locator('#quest')).toContainText('4/4');
+    const herbs = (await st(page)).herbs;
+    for (let i = 0; i < 2; i++) {
+      await page.evaluate(([x, y]) => window.__rpg!.teleport(x as number, (y as number) + 4), [herbs[i]!.x, herbs[i]!.y]);
+      await page.keyboard.press('e');
+      await expect.poll(async () => (await st(page)).herbs.filter((h) => h.alive).length).toBe(herbs.length - i - 1);
+    }
     await expect(page.locator('#quest')).toContainText('Gather Spirit Herbs 2/2');
     await goToNpc(page);
     await talk(page);
@@ -130,7 +157,7 @@ test.describe('#12 NPC dialogue + quests', () => {
     const s = await st(page);
     expect(s.quests.pests).toBe('turnedIn');
     expect(s.items.join(',')).toContain('iron-sword:1');
-    await expect(page.locator('#dlg')).toContainText('Stone Warden'); // chained offer
+    await expect(page.locator('#dlg')).toContainText('Fallen Sword Immortal'); // chained offer
     await page.keyboard.press('Escape');
     await expect(page.locator('#dlg')).toBeHidden();
   });
@@ -138,18 +165,22 @@ test.describe('#12 NPC dialogue + quests', () => {
   test('second quest is not offered before the first is finished', async ({ page }) => {
     await newGame(page);
     await goToNpc(page); await talk(page);
-    await expect(page.locator('#dlg')).not.toContainText('Stone Warden');
+    await expect(page.locator('#dlg')).not.toContainText('Fallen Sword Immortal');
     await page.keyboard.press('2');
     await expect(page.locator('#dlg')).toBeHidden();
     expect((await st(page)).quests.pests).toBe('inactive');
   });
 
-  test('cannot talk from far away; simulation is paused during dialogue', async ({ page }) => {
+  test('cannot talk from far away; simulation is paused during dialogue; other villagers have no shop yet', async ({ page }) => {
     await newGame(page);
     await page.keyboard.press('e');
     await expect(page.locator('#dlg')).toBeHidden();
     await goToNpc(page); await talk(page);
     const t0 = (await st(page)).now; await page.waitForTimeout(400);
     expect((await st(page)).now).toBe(t0);
+    await page.keyboard.press('Escape');
+    await goToNpc(page, 'merchant-qiao');
+    await page.keyboard.press('e');
+    await expect(page.locator('.toast', { hasText: 'later update' })).toBeVisible();
   });
 });

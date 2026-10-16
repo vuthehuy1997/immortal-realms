@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { getDialogue } from '../src/core/dialogue';
-import { newGameState, registerKill, statsOf, turnInQuest, unequipWeapon, useItemSlot, WARDEN_ID } from '../src/core/gameState';
+import { gatherHerb, newGameState, registerKill, statsOf, turnInQuest, unequipWeapon, useItemSlot, WARDEN_ID } from '../src/core/gameState';
 import { addItem, countOf } from '../src/core/inventory';
 import { acceptQuest } from '../src/core/quest';
 
-const mk = () => newGameState('Tester', 'flame', { x: 10, y: 10 });
+const mk = () => newGameState('Tester', 'flame', 'swordsman', { x: 10, y: 10 });
 const never = () => 0.999; // no drops
 const always = () => 0; // all drops
 
@@ -17,7 +17,7 @@ describe('dialogue reflects quest state', () => {
     expect(acceptQuest(gs.quests, 'pests')).toBe(false);
     d = getDialogue('elder-lin', gs.quests, gs.inventory);
     expect(d.options[0]!.action).toEqual({ type: 'close' }); expect(d.progress).toHaveLength(2);
-    for (let i = 0; i < 4; i++) registerKill(gs, 'slime', never);
+    for (let i = 0; i < 4; i++) registerKill(gs, 'wolf', never);
     addItem(gs.inventory, 'spirit-herb', 2);
     d = getDialogue('elder-lin', gs.quests, gs.inventory);
     expect(d.options[0]!.action).toEqual({ type: 'turnin', questId: 'pests' });
@@ -45,7 +45,7 @@ describe('quest turn-in', () => {
   });
   it('consumes collect items and pays rewards', () => {
     const gs = mk(); acceptQuest(gs.quests, 'pests');
-    for (let i = 0; i < 4; i++) registerKill(gs, 'slime', never);
+    for (let i = 0; i < 4; i++) registerKill(gs, 'wolf', never);
     addItem(gs.inventory, 'spirit-herb', 3);
     const r = turnInQuest(gs, 'pests');
     expect(r.ok).toBe(true);
@@ -56,7 +56,7 @@ describe('quest turn-in', () => {
   });
   it('fails atomically when rewards do not fit', () => {
     const gs = mk(); acceptQuest(gs.quests, 'pests');
-    for (let i = 0; i < 4; i++) registerKill(gs, 'slime', never);
+    for (let i = 0; i < 4; i++) registerKill(gs, 'wolf', never);
     gs.inventory.slots.fill({ id: 'iron-sword', count: 1 }); // every slot taken (swords do not stack)
     gs.inventory.slots[0] = { id: 'spirit-herb', count: 2 }; // turn-in frees exactly one slot; rewards need two
     const before = JSON.stringify(gs);
@@ -66,7 +66,7 @@ describe('quest turn-in', () => {
   });
   it('turn-in works when it frees just enough room', () => {
     const gs = mk(); acceptQuest(gs.quests, 'pests');
-    for (let i = 0; i < 4; i++) registerKill(gs, 'slime', never);
+    for (let i = 0; i < 4; i++) registerKill(gs, 'wolf', never);
     gs.inventory.slots.fill({ id: 'iron-sword', count: 1 });
     gs.inventory.slots[0] = { id: 'spirit-herb', count: 1 };
     gs.inventory.slots[1] = { id: 'spirit-herb', count: 1 }; // turn-in frees both slots => exactly enough for 2 reward stacks
@@ -79,14 +79,25 @@ describe('quest turn-in', () => {
 
 describe('kills, drops and level-up', () => {
   it('kill awards xp, counts, drops items', () => {
-    const gs = mk(); const r = registerKill(gs, 'slime', always);
-    expect(gs.kills).toBe(1); expect(r.xp).toBe(10);
-    expect(r.drops.map((d) => d.id)).toEqual(['spirit-herb', 'hp-potion']);
+    const gs = mk(); const r = registerKill(gs, 'wolf', always);
+    expect(gs.kills).toBe(1); expect(r.xp).toBe(12);
+    expect(r.drops.map((d) => d.id)).toEqual(['hp-potion']);
+    expect(r.stones).toBeGreaterThan(0); expect(gs.stones).toBe(r.stones);
+  });
+  it('elites give triple xp/stones and better drop odds', () => {
+    const a = mk(), b = mk();
+    const normal = registerKill(a, 'wolf', () => 0.2), elite = registerKill(b, 'wolf', () => 0.2, { elite: true });
+    expect(elite.xp).toBe(normal.xp * 3);
+    expect(normal.drops).toHaveLength(0); expect(elite.drops).toHaveLength(1); // 0.2 >= 0.12 but < 0.24
+  });
+  it('gathering a herb adds it to the bag', () => {
+    const gs = mk(); expect(gatherHerb(gs)).toBe(true); expect(countOf(gs.inventory, 'spirit-herb')).toBe(1);
+    gs.inventory.slots.fill({ id: 'iron-sword', count: 1 }); expect(gatherHerb(gs)).toBe(false);
   });
   it('level-up fully heals', () => {
     const gs = mk(); gs.hp = 1;
     const need = 20; // xpToNext(1)
-    registerKill(gs, 'brute', never); registerKill(gs, 'brute', never);
+    registerKill(gs, 'golem', never); registerKill(gs, 'golem', never);
     expect(gs.progress.level).toBeGreaterThan(1);
     expect(gs.hp).toBe(statsOf(gs).maxHp);
     expect(need).toBe(20);

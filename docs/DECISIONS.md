@@ -12,10 +12,11 @@ typescript-eslint 8.71.2 peers `typescript <6.1`, so TS 7.x is not installable w
 
 ## ADR-002 Architecture: deterministic core sim separated from rendering. Fixed timestep, seeded RNG, data-driven content.
 ## ADR-003 Test stack: Vitest (logic), Playwright (browser e2e/perf smoke).
-## ADR-004 Art source: free CC0/commercial-OK assets from the web — APPROVED by owner 2026-10-16
-Slice art base: Kenney Tiny Dungeon + Tiny Town (16x16, CC0), verified (see ASSET_LICENSE_AUDIT).
-Known trade-offs (honest): packs are Western-fantasy pixel style, not xianxia; free packs rarely match each other, so mixing sources risks an inconsistent look. This does not meet "HD-pixel, unified, xianxia" for release.
-Plan: use Kenney for the vertical slice; recolor/extend with original tiles (e.g. Eastern roofs, robes, sect banners, qi VFX we draw/shader ourselves); keep a per-asset replacement list; reassess commissioned or original art before commercial release.
-Rule: every new asset gets a registry row + license file copy + sha256 before use.
+## ADR-004 Art source: free web assets — UPDATED 2026-10-17
+Phase 1 used Kenney 16px packs as placeholders; the owner rejected the result ("simple and ugly, where are the martial arts/xianxia/graphics/animation").
+Now: **willYEE Xianxia Pixel Pack (CC0)** — animated xianxia heroes/monsters/bosses, scenery, 27 spell effects, jade UI kit. Verified at source (see ASSET_LICENSE_AUDIT). Disclosed by the author as AI-generated (Gemini/Veo) — risk and mitigation recorded in the audit; owner decision required before commercial release.
+Perspective: top-down 2.5D world with side-view sprites (mirrored by negative X scale), y-sorted scenery, tall props fade when they hide a character.
+Ground is original and procedural (baked canvas texture: warped biome borders, flagstones, pebbles, ripples).
+Spell FX are monochrome strips tinted by the character's Spirit Root colour (flame/tide/verdant) and drawn additively.
 
 ## ADR-005 Persistence: versioned JSON save in IndexedDB/localStorage with migrations.

@@ -1,8 +1,9 @@
 import { ITEMS } from '../data/items';
 import { REALMS } from '../data/realms';
+import type { HeroId } from '../data/heroes';
 import { ROOTS, type RootId } from '../data/roots';
 
-export interface CharacterInfo { name: string; root: RootId }
+export interface CharacterInfo { name: string; root: RootId; hero: HeroId }
 
 export interface DerivedStats {
   maxHp: number; maxMana: number; atk: number; def: number;

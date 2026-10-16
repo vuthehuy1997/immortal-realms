@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { newEnemyAI, updateEnemyAI } from '../src/core/enemyAI';
-import { ENEMIES } from '../src/data/enemies';
+import { ENEMIES, type EnemyDef } from '../src/data/enemies';
 
 const P = (x: number, y = 0) => ({ x, y });
-const run = (def: typeof ENEMIES[string], selfX: number, targetX: number, secs: number, dt = 0.05) => {
+const run = (def: EnemyDef, selfX: number, targetX: number, secs: number, dt = 0.05) => {
   const ai = newEnemyAI(); let x = selfX; const attacks: number[] = []; const states: string[] = [];
   for (let t = 0; t < secs; t += dt) {
     const o = updateEnemyAI(ai, def, P(x), P(targetX), dt);
@@ -12,8 +12,8 @@ const run = (def: typeof ENEMIES[string], selfX: number, targetX: number, secs: 
   return { ai, x, attacks, states };
 };
 
-describe('rusher (slime)', () => {
-  const d = ENEMIES.slime!;
+describe('rusher (wolf)', () => {
+  const d = ENEMIES.wolf!;
   it('stays idle outside aggro range', () => {
     const r = run(d, 0, d.aggroRange + 50, 2);
     expect(r.ai.state).toBe('idle'); expect(r.x).toBe(0);
@@ -31,8 +31,8 @@ describe('rusher (slime)', () => {
   });
 });
 
-describe('caster (wraith)', () => {
-  const d = ENEMIES.wraith!;
+describe('caster (foxfire wisp)', () => {
+  const d = ENEMIES.foxfire!;
   it('fires projectiles from range and keeps its distance', () => {
     const r = run(d, 0, 95, 5);
     expect(r.attacks.length).toBeGreaterThanOrEqual(2);
@@ -40,15 +40,14 @@ describe('caster (wraith)', () => {
   });
   it('retreats when the player is too close', () => {
     const r = run(d, 0, 10, 2);
-    expect(r.states).toContain('retreat');
-    expect(r.x).toBeLessThan(0);
+    expect(r.states).toContain('retreat'); expect(r.x).toBeLessThan(0);
   });
 });
 
-describe('charger (brute)', () => {
-  const d = ENEMIES.brute!;
+describe('charger (stone golem)', () => {
+  const d = ENEMIES.golem!;
   it('telegraphs with a windup before dashing and hitting', () => {
-    const r = run(d, 0, 60, 4);
+    const r = run(d, 0, 60, 5);
     const w = r.states.indexOf('windup'), da = r.states.indexOf('dash');
     expect(w).toBeGreaterThanOrEqual(0); expect(da).toBeGreaterThan(w);
     expect(r.attacks.length).toBeGreaterThanOrEqual(1);
@@ -59,8 +58,22 @@ describe('charger (brute)', () => {
   });
 });
 
-describe('enemy data', () => {
-  it('covers three behaviours', () => {
-    expect(new Set(Object.values(ENEMIES).map((e) => e.behavior))).toEqual(new Set(['rusher', 'caster', 'charger']));
+describe('enemy roster data', () => {
+  it('covers all three behaviours and has sane, unique entries', () => {
+    const all = Object.values(ENEMIES);
+    expect(new Set(all.map((e) => e.behavior))).toEqual(new Set(['rusher', 'caster', 'charger']));
+    expect(all.length).toBeGreaterThanOrEqual(15);
+    for (const e of all) {
+      expect(e.id in ENEMIES).toBe(true);
+      expect(e.sprite).toBe(`mob.${e.id}`);
+      expect(e.maxHp).toBeGreaterThan(0); expect(e.speed).toBeGreaterThan(0); expect(e.radius).toBeGreaterThan(0);
+      expect(e.stones[1]).toBeGreaterThanOrEqual(e.stones[0]);
+      if (e.behavior === 'caster') expect(e.preferredRange).toBeGreaterThan(0);
+      if (e.behavior === 'charger') expect(e.windup).toBeGreaterThan(0);
+    }
+  });
+  it('every zone spawn table only references real enemies', async () => {
+    const { ZONES } = await import('../src/data/zones');
+    for (const z of Object.values(ZONES)) for (const id of Object.keys(z.spawns)) expect(ENEMIES[id], `${z.id}:${id}`).toBeDefined();
   });
 });

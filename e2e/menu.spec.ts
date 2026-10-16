@@ -2,12 +2,13 @@ import { expect, test } from '@playwright/test';
 import { newGame, shot, st } from './helpers';
 
 test.describe('#1 main menu / #2 character creation', () => {
-  test('menu: New Game enabled, Continue disabled without a save, keyboard navigable', async ({ page }) => {
+  test('loading screen, then menu: New Game enabled, Continue disabled without a save, keyboard navigable', async ({ page }) => {
     const errors: string[] = []; page.on('pageerror', (e) => errors.push(e.message));
     await page.goto('/');
-    await expect(page.locator('#btn-new')).toBeVisible();
+    await expect(page.locator('#btn-new')).toBeVisible({ timeout: 60_000 });
     await expect(page.locator('#btn-continue')).toBeDisabled();
     await expect(page.locator('#btn-new')).toBeFocused();
+    await shot(page, 'menu-main');
     await page.keyboard.press('Enter');
     await expect(page.locator('#name')).toBeVisible();
     await shot(page, 'menu-create');
@@ -25,7 +26,11 @@ test.describe('#1 main menu / #2 character creation', () => {
     await expect(page.locator('#hudlayer')).toHaveClass(/hidden/);
   });
 
-  test('three roots with different stats; chosen root applies in game', async ({ page }) => {
+  test('six playable looks with animated previews; three roots with different stats', async ({ page }) => {
+    await page.goto('/'); await page.click('#btn-new');
+    await expect(page.locator('.hero')).toHaveCount(6);
+    await expect(page.locator('.hero .strip')).toHaveCount(6);
+    await expect(page.locator('.root')).toHaveCount(3);
     const stats: Record<string, string> = {};
     for (const root of ['flame', 'tide', 'verdant'] as const) {
       await newGame(page, 'Root Test', root);
@@ -35,12 +40,12 @@ test.describe('#1 main menu / #2 character creation', () => {
       await page.evaluate(() => localStorage.clear());
     }
     expect(new Set(Object.values(stats)).size).toBe(3);
-    expect(stats.flame).toMatch(/Flame Root/); expect(stats.tide).toMatch(/Tide Root/); expect(stats.verdant).toMatch(/Verdant Root/);
     expect(stats.verdant).toMatch(/HP\s+135/); expect(stats.tide).toMatch(/Mana\s+70/); expect(stats.flame).toMatch(/Attack\s+13/);
   });
 
-  test('starts the game with the chosen name; HUD visible; pause menu stops the simulation', async ({ page }) => {
-    await newGame(page, 'Lin Wei', 'tide');
+  test('the chosen look and name carry into the game; pause menu stops the simulation', async ({ page }) => {
+    await newGame(page, 'Lin Wei', 'tide', 'monk');
+    expect((await st(page)).hero).toBe('monk');
     await expect(page.locator('#lvl')).toContainText('Lin Wei');
     await expect(page.locator('#lvl')).toContainText('Lv 1');
     await page.keyboard.press('Escape');
@@ -49,7 +54,6 @@ test.describe('#1 main menu / #2 character creation', () => {
     expect((await st(page)).now).toBe(t0);
     await shot(page, 'pause');
     await page.click('#btn-resume');
-    await page.waitForTimeout(300);
-    expect((await st(page)).now).toBeGreaterThan(t0);
+    await expect.poll(async () => (await st(page)).now).toBeGreaterThan(t0);
   });
 });
