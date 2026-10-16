@@ -21,3 +21,11 @@
 - Found & fixed during review: trees drawn half-height; HUD text offscreen under camera zoom.
 - UNVERIFIED: real-GPU perf (4096 ground images are individual sprites; M0-4 pending), gamepad/touch, window-resize behaviour, FPS numbers.
 - Next: M0-4 perf spike (tilemap layer), then M2 combat core.
+
+## 2026-10-16 — M2 Combat
+- Added core/combat, core/enemyAI, core/hit, data/skills, data/enemies, HUD (DOM), combat in WorldScene, e2e combat tests.
+- Verified: lint clean, build OK, unit 36/36, e2e 5/5; screenshot reviewed (burst ring, damage numbers, crit, bars, cooldown slots).
+- Bug caught in review before running: enemy velocity was passed through step() (normalises) => would move at 1 px/s; fixed.
+- Perf baseline: 60 FPS with ~6000 game objects in headless Chromium/SwiftShader (frame-capped; not a real-GPU number).
+- UNVERIFIED: game feel/balance (never played by a human), real-GPU perf, touch/gamepad, boss, audio.
+- Next: M3 boss + VFX polish, or M4 progression (XP/level) — owner choice.

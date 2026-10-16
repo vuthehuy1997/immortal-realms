@@ -7,9 +7,11 @@ Status: [x] done, [ ] todo. Format: ID — task (deps) — acceptance.
 - [ ] M0-5 Transitive license scan (license-checker) into ASSET_LICENSE_AUDIT.
 - [x] M1-1 World + camera — 64x64 deterministic map (seeded), camera follows with integer zoom, bounds.
 - [x] M1-2 Input + movement with tile collision (WASD/arrows, wall sliding) — unit + e2e tested.
-- [ ] M2-1 Combat core (damage, cooldown, hp/mana) with unit tests.
-- [ ] M2-2 Enemy FSM x3 types.
-- [ ] M3-x Skills/VFX/boss; M4-x progression/cultivation; M5-x NPC/quest/inventory; M6-x save/load/menu/creation; M7-x polish/perf/security.
+- [x] M2-1 Combat core (damage, crit, cooldown, hp/mana, tryCast) — 12 unit tests.
+- [x] M2-2 Enemy FSM: rusher (Moss Slime), caster (Wisp Wraith), charger with telegraphed windup (Stone Brute) — unit + e2e tested.
+- [x] M2-3 Playable combat: 3 skills (slash arc / bolt / burst), mouse aim, HUD, damage numbers, hit flash.
+- [ ] M0-4 follow-up: baseline 60 FPS @ ~6000 objects (software GL, capped). Real stress test + tilemap layer still TODO.
+- [ ] M3-x VFX polish (hit-stop, shake, real particles), boss; M4-x progression/cultivation; M5-x NPC/quest/inventory; M6-x save/load/menu/creation; M7-x polish/perf/security.
 Placeholders to replace: BootScene text (src/game/BootScene.ts).
 
 ## Art tasks
@@ -18,3 +20,5 @@ Placeholders to replace: BootScene text (src/game/BootScene.ts).
 - [ ] ART-3 Pre-release art review: replace/commission anything inconsistent; re-verify all licenses.
 
 Placeholders (M1): NPC wizard position/sprite in WorldScene; hero sprite = Kenney hero 85; world is procedural scatter, no authored zones yet; ground drawn as individual images (switch to Phaser tilemap/GPU layer under M0-4).
+
+Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEHOLDER; enemy sprites reuse Kenney Tiny Dungeon (wraith=ghost, brute=cyclops); skill names are working titles; balance numbers untuned; player has no XP->level yet (M4).

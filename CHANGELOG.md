@@ -7,3 +7,6 @@
 
 ## 0.1.0
 - Walkable overworld with Kenney CC0 art, collision, camera follow.
+
+## 0.2.0
+- Real-time combat: 3 skills, 3 enemy behaviours, HUD, damage numbers.
