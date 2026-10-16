@@ -34,3 +34,8 @@
 - Implemented all 15 slice requirements; `npm run qc` green: lint, typecheck, build, 89 unit tests, 38 e2e tests (190/190 on 5x repeat, serial).
 - Dev->test loop found and fixed 7 bugs (BUGS.md), notably a Phaser 4.2.1 keyboard double-fire.
 - UNVERIFIED: human feel/balance, art quality, real-GPU perf, non-Chromium browsers.
+
+## 2026-10-16 — Published
+- Repo: https://github.com/vuthehuy1997/immortal-realms (public). Live: https://vuthehuy1997.github.io/immortal-realms/
+- Deploy: `.github/workflows/pages.yml` (lint, typecheck, unit tests, build, then GitHub Pages) on every push to `main`. e2e (`npm run qc`) is local-only for now.
+- Verified live: index HTTP 200; new game starts in headless Chromium, WebGL renderer, 8 enemies, 0 console errors, 0 failed requests.

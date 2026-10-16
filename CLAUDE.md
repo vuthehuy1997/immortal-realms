@@ -19,3 +19,6 @@ Read CLAUDE.md, TASKS.md, PROGRESS.md before working.
 6. Placeholders must be labelled `PLACEHOLDER` in code and listed in TASKS.md for replacement.
 7. One milestone at a time; update TASKS.md, PROGRESS.md, BUGS.md, CHANGELOG.md after each.
 8. No claims of beating competitors without benchmark/playtest evidence.
+
+## Deploy
+Push to `main` auto-deploys to GitHub Pages (https://vuthehuy1997.github.io/immortal-realms/). Never commit tokens/credentials; pass them per-command only.
