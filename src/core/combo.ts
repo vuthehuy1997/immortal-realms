@@ -12,9 +12,9 @@ export interface ComboHit {
 }
 
 export const COMBO: readonly ComboHit[] = [
-  { mult: 0.9, range: 38, windup: 0.14, recover: 0.3, lunge: 8, knockback: 50, anim: 'combo1' },
-  { mult: 1.05, range: 40, windup: 0.14, recover: 0.3, lunge: 8, knockback: 60, anim: 'combo2' },
-  { mult: 1.7, range: 46, windup: 0.2, recover: 0.5, lunge: 14, knockback: 150, anim: 'combo3' },
+  { mult: 0.75, range: 38, windup: 0.14, recover: 0.3, lunge: 8, knockback: 50, anim: 'combo1' },
+  { mult: 0.85, range: 40, windup: 0.14, recover: 0.3, lunge: 8, knockback: 60, anim: 'combo2' },
+  { mult: 1.4, range: 46, windup: 0.2, recover: 0.5, lunge: 14, knockback: 150, anim: 'combo3' },
 ];
 export const COMBO_WINDOW = 0.9; // seconds after the last hit during which the chain continues
 

@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import { newBossAI, updateBoss, type BossAI } from '../core/boss';
 import { applyDamage, computeDamage, Cooldowns, regenMana, tryCast, type Combatant } from '../core/combat';
 import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo, newDash, nextStep, tryDash, type ComboState, type DashState } from '../core/combo';
-import { attemptBreakthrough, canBreakthrough, meditate } from '../core/cultivation';
+import { scaledEnemy } from '../core/balance';
+import { attemptBreakthrough, BACKLASH, canBreakthrough, meditate, nextRealmLevel } from '../core/cultivation';
 import { getDialogue } from '../core/dialogue';
 import { newEnemyAI, updateEnemyAI, type EnemyAI } from '../core/enemyAI';
 import { gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, turnInQuest, unequipWeapon, useItemSlot, type GameState } from '../core/gameState';
@@ -50,7 +51,7 @@ export interface GameHost { quitToMenu(): void }
 
 interface Enemy {
   id: number; def: EnemyDef; c: Combatant; ai: EnemyAI; pos: Vec2; actor: Actor; kb: Vec2; stun: number;
-  lockUntil: number; minion: boolean; elite: boolean; zone: ZoneId; vel: Vec2;
+  lockUntil: number; minion: boolean; elite: boolean; zone: ZoneId; vel: Vec2; home: Vec2;
 }
 interface BossEnt {
   slams: number; def: BossDef; c: Combatant; ai: BossAI; pos: Vec2; actor: Actor; engaged: boolean; tele: Phaser.GameObjects.Graphics | null; lockUntil: number; kb: Vec2;
@@ -251,12 +252,12 @@ export class WorldScene extends Phaser.Scene {
     const def = ENEMIES[type];
     if (!def) return null;
     const elite = !minion && !!def.eliteSprites && this.rng() < 0.1;
-    const m = elite ? 2.2 : 1;
-    const c: Combatant = { hp: def.maxHp * m, maxHp: def.maxHp * m, mana: 0, maxMana: 0, atk: Math.round(def.atk * (elite ? 1.3 : 1)), def: def.def, critChance: 0, critMult: 1, manaRegen: 0 };
+    const sc = scaledEnemy(def, zone, elite);
+    const c: Combatant = { hp: sc.maxHp, maxHp: sc.maxHp, mana: 0, maxMana: 0, atk: sc.atk, def: sc.def, critChance: 0, critMult: 1, manaRegen: 0 };
     const prefix = elite ? def.eliteSprites![Math.floor(this.rng() * def.eliteSprites!.length)]! : def.sprite;
     const actor = new Actor(this, prefix, pos.x, pos.y, def.scale * (elite ? 1.18 : 1), def.radius * 3);
     actor.setPos(pos.x, pos.y);
-    const e: Enemy = { id: this.nextId++, def, c, ai: newEnemyAI(), pos: { ...pos }, actor, kb: { x: 0, y: 0 }, stun: 0, lockUntil: 0, minion, elite, zone, vel: { x: 0, y: 0 } };
+    const e: Enemy = { id: this.nextId++, def, c, ai: newEnemyAI(), pos: { ...pos }, actor, kb: { x: 0, y: 0 }, stun: 0, lockUntil: 0, minion, elite, zone, vel: { x: 0, y: 0 }, home: { ...pos } };
     this.enemies.push(e);
     return e;
   }
@@ -293,8 +294,10 @@ export class WorldScene extends Phaser.Scene {
 
   private breakthrough(): void {
     if (this.uiPause || this.dead) return;
-    if (!canBreakthrough(this.gs.cultivation)) { toast('Your qi is not full enough to break through.', 1800); return; }
-    const res = this.mutate(() => attemptBreakthrough(this.gs.cultivation, this.roll));
+    const lvl = this.gs.progress.level;
+    if (this.gs.cultivation.qi >= REALMS[this.gs.cultivation.realm]!.qiMax && lvl < nextRealmLevel(this.gs.cultivation) && nextRealmLevel(this.gs.cultivation) < Infinity) { toast(`Your foundation is too shallow: reach level ${nextRealmLevel(this.gs.cultivation)} first.`, 2600); return; }
+    if (!canBreakthrough(this.gs.cultivation, lvl)) { toast('Your qi is not full enough to break through.', 1800); return; }
+    const res = this.mutate(() => attemptBreakthrough(this.gs.cultivation, this.roll, 0, lvl));
     if (!res.ok) return;
     this.meditating = false;
     if (res.success) {
@@ -306,7 +309,9 @@ export class WorldScene extends Phaser.Scene {
       this.fx.shake(250, 0.004);
       this.save(false);
     } else {
-      toast('The breakthrough fails — your qi scatters. Half of it is lost.', 3200); audio.sfx('fail');
+      const back = Math.min(this.pc.hp - 1, Math.floor(this.pc.maxHp * BACKLASH));
+      this.pc.hp -= Math.max(0, back); this.floatText(this.pos, String(Math.max(0, back)), '#ff6b6b', true, 11);
+      toast('The breakthrough fails — qi backlash! Half of your qi is lost and you are wounded.', 3600); audio.sfx('fail');
       this.fx.play('xf_mirror_shatter', this.pos.x, this.pos.y - 14, { scale: 0.3, tint: COLORS.hurt });
     }
   }
@@ -779,6 +784,17 @@ export class WorldScene extends Phaser.Scene {
     if (e.stun <= 0) {
       const out = updateEnemyAI(e.ai, e.def, e.pos, target, dt);
       e.vel = out.vel;
+      if (e.ai.state === 'idle' && !e.minion) { // lost the target: walk home and recover, so luring enemies away cannot be exploited
+        const hx = e.home.x - e.pos.x, hy = e.home.y - e.pos.y, hd = Math.hypot(hx, hy);
+        if (hd > 6) e.vel = { x: (hx / hd) * e.def.speed * 0.7, y: (hy / hd) * e.def.speed * 0.7 };
+        if (e.c.hp < e.c.maxHp) e.c.hp = Math.min(e.c.maxHp, e.c.hp + e.c.maxHp * 0.08 * dt);
+      }
+      // soft separation so packs spread out instead of stacking into one sprite
+      for (const o of this.enemies) {
+        if (o === e) continue;
+        const dx = e.pos.x - o.pos.x, dy = e.pos.y - o.pos.y, d = Math.hypot(dx, dy), min = (e.def.radius + o.def.radius) * 1.1;
+        if (d < min && d > 0.01) { const push = ((min - d) / min) * e.def.speed * 1.4; e.vel = { x: e.vel.x + (dx / d) * push, y: e.vel.y + (dy / d) * push }; }
+      }
       e.pos = moveWithCollision(this.world, e.pos, { x: e.pos.x + out.vel.x * dt, y: e.pos.y + out.vel.y * dt }, e.def.radius);
       attackKind = out.attack?.kind;
     }
@@ -873,7 +889,7 @@ export class WorldScene extends Phaser.Scene {
           for (let i = 0; i < ev.count; i++) {
             const a = this.rng() * Math.PI * 2;
             const p = { x: b.pos.x + Math.cos(a) * 36, y: b.pos.y + Math.sin(a) * 36 };
-            if (!isBlockedTile(this.world, Math.floor(p.x / TILE_SIZE), Math.floor(p.y / TILE_SIZE))) { this.spawnEnemy(ev.minionType, p, true, 'lair'); this.fx.play('xf_soul_wisp', p.x, p.y - 10, { scale: 0.2, tint: COLORS.boss }); }
+            if (!isBlockedTile(this.world, Math.floor(p.x / TILE_SIZE), Math.floor(p.y / TILE_SIZE))) { this.spawnEnemy(ev.minionType, p, true, b.def.home === 'lair' ? 'lair' : 'grove'); this.fx.play('xf_soul_wisp', p.x, p.y - 10, { scale: 0.2, tint: COLORS.boss }); }
           }
         } else if (ev.type === 'ring-telegraph') { b.actor.play('attack_b', { force: true, duration: ev.duration }); b.lockUntil = this.now + ev.duration + 0.4; this.fx.flare(b.pos.x, b.pos.y - 24, COLORS.wisp, 70, ev.duration * 1000); }
         else if (ev.type === 'ring') {

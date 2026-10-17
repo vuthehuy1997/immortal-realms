@@ -33,7 +33,7 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await page.keyboard.press('m');
     await waitGame(page, 1.5);
     const s = await st(page);
-    expect(s.meditating).toBe(true); expect(s.qi).toBeGreaterThan(10);
+    expect(s.meditating).toBe(true); expect(s.qi).toBeGreaterThan(3); // 3 qi/s of game time
     await expect(page.locator('#lvl')).toContainText('meditating');
     await page.keyboard.down('d'); await page.waitForTimeout(150); await page.keyboard.up('d');
     expect((await st(page)).meditating).toBe(false);
@@ -47,33 +47,40 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await page.keyboard.press('m');
     await waitGame(page, 2);
     const near = (await st(page)).qi;
-    expect(near).toBeGreaterThan(40); // 12 qi/s * 2.5 * 2s = 60, vs ~24 elsewhere
+    expect(near).toBeGreaterThan(12); // 3 qi/s * 2.5 * 2s = 15 on the array, vs ~6 elsewhere
     await shot(page, 'meditation-array');
   });
 
-  test('breakthrough fails without full qi; failure halves qi; success raises the realm and stats', async ({ page }) => {
+  test('breakthrough needs full qi AND level; failure halves qi and wounds you; success raises the realm and stats', async ({ page }) => {
     await newGame(page);
     await page.keyboard.press('b');
     await expect(page.locator('.toast', { hasText: 'not full enough' })).toBeVisible();
-    await page.evaluate(() => { window.__rpg!.setQi(100); window.__rpg!.setRoll(0.99); });
-    const hp0 = (await st(page)).maxHp;
+    await page.evaluate(() => window.__rpg!.setQi(120));
     await page.keyboard.press('b');
-    await expect.poll(async () => (await st(page)).qi).toBe(50);
+    await expect(page.locator('.toast', { hasText: 'foundation is too shallow: reach level 5' })).toBeVisible();
     expect((await st(page)).realm).toBe(0);
-    await page.evaluate(() => { window.__rpg!.setQi(100); window.__rpg!.setRoll(0.1); });
+    await page.evaluate(() => { window.__rpg!.giveXp(400); window.__rpg!.setQi(120); window.__rpg!.setRoll(0.99); });
+    const before = await st(page);
+    await page.keyboard.press('b');
+    await expect.poll(async () => (await st(page)).qi).toBe(60);
+    const failed = await st(page);
+    expect(failed.realm).toBe(0); expect(failed.hp).toBeLessThan(before.maxHp); expect(failed.hp).toBeGreaterThan(0);
+    await page.evaluate(() => { window.__rpg!.setQi(120); window.__rpg!.setRoll(0.1); });
     await page.keyboard.press('b');
     await expect.poll(async () => (await st(page)).realm).toBe(1);
     const s = await st(page);
-    expect(s.qi).toBe(0); expect(s.maxHp).toBeGreaterThan(hp0);
+    expect(s.qi).toBe(0); expect(s.maxHp).toBeGreaterThan(before.maxHp);
     await expect(page.locator('#lvl')).toContainText('Qi Condensation II');
     await shot(page, 'breakthrough');
   });
 
   test('character panel button drives breakthrough', async ({ page }) => {
     await newGame(page);
+    await page.evaluate(() => { window.__rpg!.giveXp(400); });
     await page.keyboard.press('c');
     await expect(page.locator('#btn-breakthrough')).toBeDisabled();
-    await page.evaluate(() => { window.__rpg!.setQi(100); window.__rpg!.setRoll(0.1); });
+    await expect(page.locator('#chrbody')).toContainText('level 5');
+    await page.evaluate(() => { window.__rpg!.setQi(120); window.__rpg!.setRoll(0.1); });
     await expect(page.locator('#btn-breakthrough')).toBeEnabled();
     await page.click('#btn-breakthrough');
     await expect(page.locator('#chrbody')).toContainText('Qi Condensation II');

@@ -95,6 +95,13 @@ describe('kills, drops and level-up', () => {
     expect(elite.xp).toBe(normal.xp * 3);
     expect(normal.drops).toHaveLength(0); expect(elite.drops).toHaveLength(1); // 0.2 >= 0.12 but < 0.24
   });
+  it('killing feeds cultivation and zone tier raises the reward', () => {
+    const a = mk(), b = mk();
+    registerKill(a, 'wolf', never, { zone: 'bamboo' }); registerKill(b, 'wolf', never, { zone: 'ruins' });
+    expect(a.cultivation.qi).toBeGreaterThan(0);
+    expect(b.progress.xp + b.progress.level * 1000).toBeGreaterThan(a.progress.xp + a.progress.level * 1000);
+    expect(b.stones).toBeGreaterThan(a.stones);
+  });
   it('gathering a herb adds it to the bag', () => {
     const gs = mk(); expect(gatherHerb(gs)).toBe(true); expect(countOf(gs.inventory, 'spirit-herb')).toBe(1);
     gs.inventory.slots.fill({ id: 'iron-sword', count: 1 }); expect(gatherHerb(gs)).toBe(false);
@@ -116,7 +123,7 @@ describe('kills, drops and level-up', () => {
   });
   it('the fox boss drops its saber; elite kills in a zone can drop that zone\'s weapon', () => {
     const gs = mk(); const r = registerKill(gs, 'ninetail', never);
-    expect(countOf(gs.inventory, 'spirit-saber')).toBe(1); expect(r.xp).toBe(140);
+    expect(countOf(gs.inventory, 'spirit-saber')).toBe(1); expect(r.xp).toBe(420);
     const g2 = mk(); registerKill(g2, 'wolf', () => 0, { elite: true, zone: 'marsh' });
     expect(countOf(g2.inventory, 'steel-blade')).toBe(1);
     const g3 = mk(); registerKill(g3, 'wolf', () => 0.99, { elite: true, zone: 'marsh' });

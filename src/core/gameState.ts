@@ -1,4 +1,6 @@
 import { BOSSES } from '../data/boss';
+import { scaledEnemy } from './balance';
+import type { ZoneId } from '../data/zones';
 import { DROPS, ELITE_WEAPON } from '../data/items';
 import { ENEMIES } from '../data/enemies';
 import { QUESTS } from '../data/quests';
@@ -59,11 +61,12 @@ export function grantXp(gs: GameState, amount: number): number {
 export interface KillResult { xp: number; stones: number; levelsGained: number; drops: { id: string; count: number }[]; overflow: string[] }
 
 export function registerKill(gs: GameState, enemyType: string, rng: () => number, opts: { elite?: boolean; zone?: string } = {}): KillResult {
-  const mult = opts.elite ? 3 : 1;
-  const boss = BOSSES[enemyType];
-  const xp = (boss ? boss.xp : ENEMIES[enemyType]?.xp ?? 0) * mult;
-  const range = boss ? boss.stones : ENEMIES[enemyType]?.stones ?? [0, 0];
-  const stones = (range[0]! + Math.floor(rng() * (range[1]! - range[0]! + 1))) * mult;
+  const boss = BOSSES[enemyType], edef = ENEMIES[enemyType];
+  const sc = edef ? scaledEnemy(edef, (opts.zone as ZoneId | undefined) ?? 'bamboo', !!opts.elite) : undefined;
+  const xp = boss ? boss.xp : sc?.xp ?? 0;
+  const range = boss ? boss.stones : sc?.stones ?? [0, 0];
+  const stones = range[0]! + Math.floor(rng() * (range[1]! - range[0]! + 1));
+  addQi(gs.cultivation, Math.round(xp * 0.12)); // fighting also feeds cultivation
   gs.stones += stones;
   gs.kills++;
   if (boss && !gs.bosses.includes(enemyType)) gs.bosses.push(enemyType);

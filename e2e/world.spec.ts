@@ -78,10 +78,10 @@ test.describe('#3 world, #4 movement, #5 combat zone, #6 enemies, #8/#9 skills &
     await newGame(page);
     const p = await me(page);
     await page.evaluate(([x, y]) => window.__rpg!.spawn('golem', (x as number) + 90, y as number), [p.x, p.y]);
-    const m0 = (await st(page)).mana;
+    const m0 = (await st(page)).mana, hp0 = (await st(page)).enemies[0]!.hp;
     await page.evaluate(([x, y]) => window.__rpg!.cast(0, (x as number) + 150, y as number), [p.x, p.y]);
     await expect.poll(async () => (await st(page)).mana, { timeout: 20_000 }).toBeLessThan(m0 - 5);
-    await expect.poll(async () => (await st(page)).enemies[0]?.hp, { timeout: 30_000 }).toBeLessThan(130);
+    await expect.poll(async () => (await st(page)).enemies[0]?.hp, { timeout: 30_000 }).toBeLessThan(hp0);
     await page.keyboard.press('3');
     await expect(page.locator('.toast', { hasText: 'unlocks at level 4' })).toBeVisible();
     await expect(page.locator('#slot2')).toHaveClass(/locked/);
@@ -91,7 +91,7 @@ test.describe('#3 world, #4 movement, #5 combat zone, #6 enemies, #8/#9 skills &
 
   test('lotus burst kills and stuns nearby enemies; kill gives xp and stones', async ({ page }) => {
     await newGame(page);
-    await page.evaluate(() => { window.__rpg!.giveXp(250); window.__rpg!.setHp(1e5); }); // level 4 unlocks Lotus Burst
+    await page.evaluate(() => { window.__rpg!.giveXp(2500); window.__rpg!.setHp(1e5); }); // high enough level that one burst kills the snakes
     const p = await me(page);
     await page.evaluate(([x, y]) => { window.__rpg!.spawn('snake', (x as number) + 24, y as number); window.__rpg!.spawn('snake', (x as number) - 24, y as number); }, [p.x, p.y]);
     await page.evaluate(([x, y]) => window.__rpg!.cast(2, x as number, y as number), [p.x, p.y]);

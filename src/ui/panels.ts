@@ -1,5 +1,5 @@
 import { statsOf, type GameState } from '../core/gameState';
-import { BASE_BREAKTHROUGH_CHANCE, canBreakthrough, hasNextRealm } from '../core/cultivation';
+import { BASE_BREAKTHROUGH_CHANCE, canBreakthrough, hasNextRealm, nextRealmLevel } from '../core/cultivation';
 import type { Dialogue, DialogueAction } from '../core/dialogue';
 import { ITEMS, RARITY_COLOR } from '../data/items';
 import { REALMS } from '../data/realms';
@@ -79,10 +79,10 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
     row('Kills', gs.kills),
   ].join('');
   const med = el('button', 'btn', meditating ? 'Stop meditating (M)' : 'Meditate (M)'); med.id = 'btn-meditate'; med.onclick = () => actions.toggleMeditate();
-  const bt = el('button', 'btn', 'Breakthrough (B)'); bt.id = 'btn-breakthrough'; bt.disabled = !canBreakthrough(gs.cultivation); bt.onclick = () => actions.breakthrough();
+  const bt = el('button', 'btn', 'Breakthrough (B)'); bt.id = 'btn-breakthrough'; bt.disabled = !canBreakthrough(gs.cultivation, gs.progress.level); bt.onclick = () => actions.breakthrough();
   body.appendChild(med); body.appendChild(bt);
   body.appendChild(el('div', '', hasNextRealm(gs.cultivation)
-    ? `Breakthrough needs full qi. Success chance ${Math.round(BASE_BREAKTHROUGH_CHANCE * 100)}%; failure loses half your qi.`
+    ? `Breakthrough needs full qi and level ${nextRealmLevel(gs.cultivation)}. Success chance ${Math.round(BASE_BREAKTHROUGH_CHANCE * 100)}%; failure loses half your qi and wounds you (25% HP).`
     : 'You have reached the highest realm available in this build.'));
 }
 
