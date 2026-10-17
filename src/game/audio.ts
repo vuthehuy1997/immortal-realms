@@ -149,7 +149,7 @@ class AudioEngine {
     this.tonic = tonic[z] ?? 62;
     this.scale = z === 'marsh' || z === 'ruins' || z === 'lair' ? MIST_SCALE : PENTA;
     let h = 7; for (const ch of z) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-    this.motif = Array.from({ length: 4 }, () => { h = (h * 1103515245 + 12345) >>> 0; return (h >> 8) % (this.scale.length * 2); });
+    this.motif = Array.from({ length: 4 }, () => { h = (h * 1103515245 + 12345) >>> 0; return (h >>> 8) % (this.scale.length * 2); });
   }
 
   startMusic(): void {

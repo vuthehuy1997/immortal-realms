@@ -33,7 +33,7 @@ export class KeyInput {
 
   private onKeyDown = (e: KeyboardEvent): void => {
     const t = e.target as HTMLElement | null;
-    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+    if (t && (t.tagName === 'TEXTAREA' || (t.tagName === 'INPUT' && (t as HTMLInputElement).type !== 'range'))) return;
     if (this.handlers.has(e.code) || e.code === 'Space' || e.code.startsWith('Arrow')) e.preventDefault();
     if (e.repeat || this.down.has(e.code)) return;
     this.down.add(e.code);

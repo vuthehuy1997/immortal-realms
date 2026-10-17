@@ -108,7 +108,7 @@ export function showPause(opts: { onResume(): void; onSave(): void; onQuit(): vo
   const sv = el('button', 'menu-btn', 'Save Game'); sv.id = 'btn-save'; sv.onclick = opts.onSave;
   const q = el('button', 'menu-btn', 'Save & Quit to Menu'); q.id = 'btn-quit'; q.onclick = opts.onQuit;
   const vol = el('label', 'volrow', 'Volume '); const range = el('input'); range.type = 'range'; range.min = '0'; range.max = '100'; range.id = 'vol'; range.value = String(Math.round(audio.volume * 100));
-  range.oninput = () => { audio.setVolume(Number(range.value) / 100); audio.sfx('click'); }; vol.appendChild(range);
+  range.oninput = () => { audio.setVolume(Number(range.value) / 100); audio.sfx('click'); }; range.onchange = () => range.blur(); vol.appendChild(range);
   fg.append(r, sv, q, vol);
   if (opts.message) fg.appendChild(el('div', 'sub', opts.message));
   s.appendChild(fg);

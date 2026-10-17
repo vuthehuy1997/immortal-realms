@@ -47,13 +47,24 @@ manifest = {'sheets': {}, 'props': {}, 'fx': {}, 'ui': {}, 'icons': {}, 'portrai
 saved = {'src': 0, 'out': 0}
 
 
-def optimise(src, dst):
+MAX_TEX = 4096  # many mobile GPUs cap textures at 4096 px; wider strips are re-packed into a multi-row grid (Phaser reads grids row by row)
+
+
+def optimise(src, dst, frames=None):
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     im = Image.open(src).convert('RGBA')
+    size = im.size
+    if frames and im.width > MAX_TEX:
+        fw, fh = im.width // frames, im.height
+        cols = max(1, MAX_TEX // fw); rows = -(-frames // cols)
+        grid = Image.new('RGBA', (cols * fw, rows * fh), (0, 0, 0, 0))
+        for i in range(frames):
+            grid.paste(im.crop((i * fw, 0, (i + 1) * fw, fh)), ((i % cols) * fw, (i // cols) * fh))
+        im = grid
     q = im.quantize(colors=256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE)
     q.save(dst, optimize=True)
     saved['src'] += os.path.getsize(src); saved['out'] += os.path.getsize(dst)
-    return im.size
+    return size
 
 
 def rel(p): return 'assets/xp/' + os.path.relpath(p, OUT).replace(os.sep, '/')
@@ -61,7 +72,7 @@ def rel(p): return 'assets/xp/' + os.path.relpath(p, OUT).replace(os.sep, '/')
 
 def add_sheet(key, src, frames, fps, loop, ox, oy):
     dst = os.path.join(OUT, 'sprites', key + '.png')
-    w, h = optimise(src, dst)
+    w, h = optimise(src, dst, frames)
     fw = w // frames
     manifest['sheets'][key] = {'url': rel(dst), 'fw': fw, 'fh': h, 'frames': frames, 'fps': fps, 'loop': loop, 'ox': round(ox / fw, 4), 'oy': round(oy / h, 4)}
 
@@ -103,7 +114,7 @@ for k, m in pack['fx'].items():
     if k.startswith('xf_amb') and k not in AMBIENT:
         continue
     dst = os.path.join(OUT, 'fx', k + '.png')
-    w, h = optimise(os.path.join(SRC, 'fx', k + '.png'), dst)
+    w, h = optimise(os.path.join(SRC, 'fx', k + '.png'), dst, m.get('frames', 1) if m.get('frames', 1) > 1 else None)
     anchor = m.get('anchor') or 'center'
     ox, oy = FX_ANCHOR.get(anchor, (0.5, 0.5))
     frames = m.get('frames', 1)  # ambient strips like mist/cloud are single tileable images
