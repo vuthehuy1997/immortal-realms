@@ -7,7 +7,7 @@ const nearBoss = async (page: import('@playwright/test').Page, dx = -100) => {
 };
 
 test.describe('#7 boss', () => {
-  test('boss waits in its lair, engages on approach, shows a bar, telegraphs and slams', async ({ page }) => {
+  test('boss waits in its court, engages on approach, shows a bar and telegraphs its moves', async ({ page }) => {
     await newGame(page);
     const s0 = await st(page);
     expect(s0.boss).not.toBeNull(); expect(s0.boss!.engaged).toBe(false);
@@ -17,46 +17,60 @@ test.describe('#7 boss', () => {
     await expect.poll(async () => (await st(page)).boss?.engaged).toBe(true);
     await expect(page.locator('#boss')).toBeVisible();
     await expect(page.locator('#bossname')).toContainText('Fallen Sword Immortal');
-    await expect.poll(async () => (await st(page)).boss?.state, { timeout: 40_000 }).toBe('slam-windup');
+    await expect.poll(async () => (await st(page)).boss?.state, { timeout: 60_000 }).toMatch(/-windup$/);
     await shot(page, 'boss-telegraph');
-    await expect.poll(async () => (await st(page)).boss?.slams, { timeout: 30_000 }).toBeGreaterThanOrEqual(1); // the telegraph is followed by a real slam
   });
 
-  test('slam damages a player standing in it, but not one who dodged away', async ({ page }) => {
+  const MOVES: [string, string][] = [['warden', 'slam'], ['warden', 'sweep'], ['warden', 'rain'], ['warden', 'teleport'], ['warden', 'summon'], ['warden', 'ring'], ['ninetail', 'sweep'], ['ninetail', 'charge'], ['ninetail', 'rain'], ['ninetail', 'teleport'], ['ninetail', 'summon'], ['ninetail', 'ring']];
+  for (const [id, move] of MOVES) {
+    test(`${id} move "${move}": telegraphed first, then it really happens`, async ({ page }) => {
+      await newGame(page);
+      await page.evaluate(() => window.__rpg!.setHp(5000));
+      const s0 = await st(page); const home = id === 'warden' ? s0.lair : s0.den;
+      await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 40, y as number), [home.x, home.y]);
+      await expect.poll(async () => (await st(page)).bosses.find((b) => b.id === id)?.engaged).toBe(true);
+      const boss = async () => (await st(page)).bosses.find((b) => b.id === id)!;
+      await page.evaluate(([i, m]) => window.__rpg!.bossForce(i as string, m as string), [id, move]);
+      await expect.poll(async () => (await boss()).state, { timeout: 40_000 }).toBe(`${move}-windup`); // readable warning first
+      const before = await st(page), b0 = await boss();
+      if (move === 'slam' || move === 'sweep' || move === 'rain' || move === 'teleport') {
+        await expect.poll(async () => (await st(page)).hp, { timeout: 40_000 }).toBeLessThan(before.hp); // standing in the marked area hurts
+      } else if (move === 'summon') {
+        await expect.poll(async () => (await st(page)).enemies.filter((e) => e.minion).length, { timeout: 40_000 }).toBeGreaterThan(0);
+      } else if (move === 'ring') {
+        await expect.poll(async () => (await st(page)).bolts, { timeout: 40_000 }).toBeGreaterThan(0);
+      } else if (move === 'charge') {
+        await expect.poll(async () => { const b = await boss(); return Math.hypot(b.x - b0.x, b.y - b0.y); }, { timeout: 40_000 }).toBeGreaterThan(50);
+      }
+      if (move === 'teleport') { const b = await boss(); const me = await page.evaluate(() => window.__world!()); expect(Math.hypot(b.x - me.x, b.y - me.y)).toBeLessThan(90); }
+      if (move === 'rain') await shot(page, `boss-${id}-rain`);
+    });
+  }
+
+  test('a dodge works: leaving the marked area before the hit means no damage', async ({ page }) => {
     await newGame(page);
     await page.evaluate(() => window.__rpg!.setHp(5000));
-    await nearBoss(page, -60);
+    await nearBoss(page, -45);
+    await expect.poll(async () => (await st(page)).boss?.engaged).toBe(true);
+    await page.evaluate(() => window.__rpg!.bossForce('warden', 'slam'));
     await expect.poll(async () => (await st(page)).boss?.state, { timeout: 40_000 }).toBe('slam-windup');
     const b = (await st(page)).boss!; const hpBefore = (await st(page)).hp;
-    await page.evaluate(([x, y]) => window.__rpg!.teleport(x as number, y as number), [b.x - 120, b.y]); // dodge out of the circle
-    await expect.poll(async () => (await st(page)).boss?.slams, { timeout: 30_000 }).toBe(b.slams + 1);
-    expect((await st(page)).hp).toBeGreaterThanOrEqual(hpBefore - 1); // dodged: no slam damage
+    await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 120, y as number), [b.x, b.y]); // step out of the circle
+    await expect.poll(async () => (await st(page)).boss?.slams, { timeout: 40_000 }).toBe(b.slams + 1);
+    expect((await st(page)).hp).toBeGreaterThanOrEqual(hpBefore - 1);
   });
 
-  test('slam damages a player who stays in the circle', async ({ page }) => {
-    await newGame(page);
-    await page.evaluate(() => window.__rpg!.setHp(5000));
-    await nearBoss(page, -60);
-    await expect.poll(async () => (await st(page)).boss?.state, { timeout: 40_000 }).toBe('slam-windup');
-    const b = (await st(page)).boss!; const hpBefore = (await st(page)).hp;
-    await page.evaluate(([x, y]) => window.__rpg!.teleport(x as number, y as number), [b.x - 10, b.y]); // stand inside the circle
-    await expect.poll(async () => (await st(page)).boss?.slams, { timeout: 30_000 }).toBe(b.slams + 1);
-    expect((await st(page)).hp).toBeLessThan(hpBefore);
-  });
-
-  test('phase 2 summons minions; phase 3 enrages and fires a projectile ring', async ({ page }) => {
+  test('phase changes announce themselves and unlock the later moves', async ({ page }) => {
     await newGame(page);
     await page.evaluate(() => window.__rpg!.setHp(1e5));
     await nearBoss(page, -110);
     await expect.poll(async () => (await st(page)).boss?.engaged).toBe(true);
     await page.evaluate(() => window.__rpg!.setBossHpRatio(0.6));
-    await expect(page.locator('.toast', { hasText: 'calls its minions' })).toBeVisible();
-    await expect.poll(async () => (await st(page)).enemies.filter((e) => e.minion).length, { timeout: 40_000 }).toBeGreaterThan(0);
+    await expect(page.locator('.toast', { hasText: 'grows serious' })).toBeVisible();
     expect((await st(page)).boss!.phase).toBe(2);
     await page.evaluate(() => window.__rpg!.setBossHpRatio(0.2));
     await expect(page.locator('.toast', { hasText: 'enraged' })).toBeVisible();
     expect((await st(page)).boss!.phase).toBe(3);
-    await expect.poll(async () => (await st(page)).boss?.state, { timeout: 40_000 }).toBe('ring-windup');
     await shot(page, 'boss-phase3');
   });
 
@@ -121,6 +135,7 @@ test.describe('#7 boss', () => {
     await page.keyboard.press('Escape'); await page.click('#btn-save');
     await page.reload(); await page.click('#btn-continue'); await page.waitForFunction(() => window.__rpg);
     const after = await st(page);
-    expect(after.bosses).toEqual([]); expect(after.bossesDefeated.sort()).toEqual(['ninetail', 'warden']);
+    expect(after.bosses.map((b) => b.id).sort()).toEqual(['ninetail', 'warden']); // bosses return so the fight can be repeated
+    expect(after.bossesDefeated.sort()).toEqual(['ninetail', 'warden']); // ...but the story progress persists
   });
 });

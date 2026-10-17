@@ -52,3 +52,9 @@
 - QC: lint, typecheck, build, 118 unit, 51 e2e green. Screenshots reviewed: boss telegraph/boss bar, shop, minimap, den.
 - Fixed via review: boss hidden by canopies (multi-point occlusion), inventory/quest/minimap overlaps (layout), toast/test text drift.
 - UNVERIFIED: how the audio sounds, real-GPU perf, balance/feel by a human.
+
+## 2026-10-17 — QA round 1 -> fixes
+- Independent QA agent scored the build (see docs/QA_REPORT_1.md): strong visuals/UI, but thin, trivially easy game, AI, bosses, cultivation; found a quest softlock and a zombie save.
+- Implemented fixes in worktree branch balance-pass, merged to main. QC: lint, typecheck, build, 187 unit, 80 e2e green (software-GL Chromium).
+- Self-found bug during the loop: separation/home steering was computed but not applied (movement used the old velocity) - caught while rewriting, covered by e2e 'a pack spreads out'.
+- UNVERIFIED: real-GPU perf, audio by ear, whether the new difficulty is FUN (needs a human or QA round 2).

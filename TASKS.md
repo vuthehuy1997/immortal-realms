@@ -42,3 +42,11 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [ ] BOSS-3 Jiao Dragon (sprites bundled)
 - [ ] ART-3 replace/commission identity art before commercial release (AI provenance risk, see audit)
 - [ ] M0-4 real-GPU perf measurement
+
+## 2026-10-17 QA round 1 -> round 2 (done in worktree ir-work, merged to main)
+- [x] All S1/S2 findings from docs/QA_REPORT_1.md; most S3 findings
+- [ ] S4-3 trace the 8 WebGL texImage2D warnings on load
+- [ ] S4-4 multiple save slots + backup; export/import save
+- [ ] S3-4 sharper ground texture at 1080p
+- [ ] More content: 3rd boss (Jiao Dragon), side quests, dungeon/trial tower, more realms
+- [ ] Controller / touch support

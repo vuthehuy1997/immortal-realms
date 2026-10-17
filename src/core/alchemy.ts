@@ -7,6 +7,7 @@ export interface Recipe { id: string; name: string; output: string; herbs: numbe
 export const RECIPES: readonly Recipe[] = [
   { id: 'brew-hp', name: 'Vitality Draught', output: 'hp-potion', herbs: 1, stones: 3, note: 'Restores 40 HP' },
   { id: 'brew-mana', name: 'Clarity Draught', output: 'mana-potion', herbs: 1, stones: 3, note: 'Restores 30 mana' },
+  { id: 'brew-foundation', name: 'Foundation Pill', output: 'foundation-pill', herbs: 3, stones: 25, note: 'Needed for every breakthrough' },
   { id: 'brew-qi', name: 'Qi Gathering Pill', output: 'qi-pill', herbs: 2, stones: 8, note: 'Adds 60 qi' },
 ];
 

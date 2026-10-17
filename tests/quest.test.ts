@@ -154,3 +154,26 @@ describe('unequip', () => {
     expect(unequipWeapon(gs)).toBe(false); expect(gs.inventory.weapon).toBe('iron-sword');
   });
 });
+
+describe('regressions found by QA', () => {
+  it('S1: killing a boss BEFORE accepting its quest still completes the quest later (no softlock)', () => {
+    const gs = mk(); gs.quests.pests!.status = 'turnedIn';
+    registerKill(gs, 'ninetail', never); // killed early, quest not yet accepted
+    expect(acceptQuest(gs.quests, 'fox')).toBe(true);
+    const d = getDialogue('elder-lin', gs.quests, gs.inventory, gs.bosses);
+    expect(d.options[0]!.action).toEqual({ type: 'turnin', questId: 'fox' });
+    expect(turnInQuest(gs, 'fox').ok).toBe(true);
+    // the chain continues to the final boss, and the same works for it
+    registerKill(gs, WARDEN_ID, never);
+    expect(acceptQuest(gs.quests, 'warden')).toBe(true);
+    expect(turnInQuest(gs, 'warden').ok).toBe(true);
+  });
+  it('bosses can be fought again: repeat kills give reduced xp and no unique drop', () => {
+    const gs = mk(); registerKill(gs, WARDEN_ID, never);
+    const xp1 = gs.progress.xp + gs.progress.level * 100000;
+    const second = registerKill(gs, WARDEN_ID, never);
+    expect(countOf(gs.inventory, 'jade-sword')).toBe(1); // still just the one
+    expect(second.xp).toBeLessThan(900 * 0.5); expect(second.xp).toBeGreaterThan(0);
+    expect(gs.progress.xp + gs.progress.level * 100000).toBeGreaterThan(xp1);
+  });
+});

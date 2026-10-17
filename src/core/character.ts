@@ -21,18 +21,23 @@ export function validateName(raw: string): { ok: true; name: string } | { ok: fa
 }
 
 /** All stats are derived (never stored) so levels, realm and gear stay consistent. */
-export function deriveStats(root: RootId, level: number, realmIndex: number, weaponId: string | null): DerivedStats {
+export interface Gear { weapon?: string | null; armor?: string | null; charm?: string | null }
+
+/** `gear` may be just a weapon id (older call sites) or a full Gear record. */
+export function deriveStats(root: RootId, level: number, realmIndex: number, gearIn: string | null | Gear): DerivedStats {
+  const gear: Gear = typeof gearIn === 'string' || gearIn === null ? { weapon: gearIn } : gearIn;
+  const armor = gear.armor ? ITEMS[gear.armor] : undefined, charm = gear.charm ? ITEMS[gear.charm] : undefined;
   const b = ROOTS[root].bonus;
   const realmMult = REALMS[Math.min(realmIndex, REALMS.length - 1)]?.statMult ?? 1;
-  const weapon = weaponId ? ITEMS[weaponId]?.weaponAtk ?? 0 : 0;
+  const weapon = gear.weapon ? ITEMS[gear.weapon]?.weaponAtk ?? 0 : 0;
   const L = level - 1;
   return {
-    maxHp: Math.round((100 + 12 * L + b.maxHp) * realmMult),
-    maxMana: Math.round((50 + 4 * L + b.maxMana) * realmMult),
-    atk: Math.round((10 + 2 * L + b.atk) * realmMult) + weapon,
-    def: Math.round((2 + L + b.def) * realmMult),
-    critChance: 0.1 + b.critChance,
+    maxHp: Math.round((100 + 12 * L + b.maxHp) * realmMult) + (armor?.hpBonus ?? 0),
+    maxMana: Math.round((50 + 4 * L + b.maxMana) * realmMult) + (charm?.manaBonus ?? 0),
+    atk: Math.round((10 + 2 * L + b.atk) * realmMult) + weapon + (charm?.atkBonus ?? 0),
+    def: Math.round((2 + L + b.def) * realmMult) + (armor?.defBonus ?? 0),
+    critChance: 0.1 + b.critChance + (charm?.critBonus ?? 0),
     critMult: 1.75,
-    manaRegen: 3 + b.manaRegen,
+    manaRegen: 3 + b.manaRegen + (charm?.regenBonus ?? 0),
   };
 }

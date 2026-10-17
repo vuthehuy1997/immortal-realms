@@ -87,7 +87,8 @@ describe('bosses', () => {
       const effective = comboDps(level, b.def) * 0.5; // you spend about half the fight dodging
       const ttk = b.maxHp / effective;
       expect(ttk).toBeGreaterThan(40); expect(ttk).toBeLessThan(150);
-      const slam = Math.max(1, b.atk * b.slam.damageMult - p.def * 0.5);
+      const hits = Object.values(b.moves).map((m) => (m && 'damageMult' in m ? Math.max(1, b.atk * (m as { damageMult: number }).damageMult - p.def * 0.5) : 0));
+      const slam = Math.max(...hits); // the hardest single hit
       expect(slam / p.maxHp).toBeGreaterThan(0.12); expect(slam / p.maxHp).toBeLessThan(0.38);
     });
   }

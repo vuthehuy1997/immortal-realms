@@ -5,11 +5,13 @@ import { BOSS_IDS } from '../data/boss';
 import { HEROES } from '../data/heroes';
 import { ROOTS } from '../data/roots';
 import { MAX_LEVEL } from './progression';
+import { SKILLS } from '../data/skills';
+import { SKILL_MAX, spentPoints, totalPoints } from './skills';
 import { NAME_MAX } from './character';
 import { SLOT_COUNT } from './inventory';
 import type { GameState } from './gameState';
 
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 
 interface Envelope { version: number; savedAt: number; checksum: string; state: GameState }
 
@@ -46,7 +48,10 @@ function validate(s: unknown): string | null {
     if (!isObj(sl) || typeof sl.id !== 'string' || !(sl.id in ITEMS)) return 'unknown item';
     if (!num(sl.count, 1, ITEMS[sl.id]!.maxStack) || !Number.isInteger(sl.count)) return 'bad item count';
   }
-  if (inv.weapon !== null && (typeof inv.weapon !== 'string' || ITEMS[inv.weapon]?.type !== 'equipment')) return 'bad weapon';
+  for (const [key, slot] of [['weapon', 'weapon'], ['armor', 'armor'], ['charm', 'charm']] as const) {
+    const v = inv[key];
+    if (v !== null && (typeof v !== 'string' || ITEMS[v]?.type !== 'equipment' || (ITEMS[v]?.slot ?? 'weapon') !== slot)) return `bad ${key}`;
+  }
   if (!isObj(q)) return 'bad quests';
   for (const id of Object.keys(QUESTS)) {
     const st = q[id];
@@ -54,6 +59,10 @@ function validate(s: unknown): string | null {
     for (const v of Object.values(st.kills)) if (!num(v, 0, 1000)) return 'bad quest progress';
   }
   if (!num(s.kills, 0, 1e9) || !num(s.stones, 0, 1e9)) return 'bad counters';
+  if (!num(s.tut, 0, 15) || !Number.isInteger(s.tut)) return 'bad tutorial';
+  if (!isObj(s.skills)) return 'bad skills';
+  for (const [k, v] of Object.entries(s.skills)) if (!SKILLS.some((d) => d.id === k) || !num(v, 0, SKILL_MAX - 1) || !Number.isInteger(v)) return 'bad skill level';
+  if (spentPoints({ skills: s.skills as Record<string, number> }) > totalPoints({ progress: p as { level: number; xp: number }, cultivation: cu as { realm: number; qi: number } })) return 'too many skill points';
   if (!Array.isArray(s.bosses) || s.bosses.some((b) => typeof b !== 'string' || !BOSS_IDS.includes(b)) || new Set(s.bosses).size !== s.bosses.length) return 'bad bosses';
   if (!num(s.hp, 0, 1e5) || !num(s.mana, 0, 1e5)) return 'bad vitals';
   if (!isObj(pos) || !num(pos.x, 0, 1e5) || !num(pos.y, 0, 1e5)) return 'bad position';

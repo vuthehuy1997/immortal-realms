@@ -26,13 +26,14 @@ export function onKill(log: QuestLog, enemyType: string): void {
 
 export interface ObjectiveProgress { label: string; have: number; need: number }
 
-export function progressOf(def: QuestDef, st: QuestState, inv: Inventory): ObjectiveProgress[] {
+/** `bosses` = ids of bosses the player has already defeated: a boss kill counts even if the quest was accepted later (no softlock). */
+export function progressOf(def: QuestDef, st: QuestState, inv: Inventory, bosses: readonly string[] = []): ObjectiveProgress[] {
   return def.objectives.map((o) => ({
     label: o.label,
     need: o.count,
-    have: o.type === 'kill' ? Math.min(o.count, st.kills[o.target] ?? 0) : Math.min(o.count, countOf(inv, o.item)),
+    have: o.type === 'kill' ? Math.min(o.count, bosses.includes(o.target) ? o.count : st.kills[o.target] ?? 0) : Math.min(o.count, countOf(inv, o.item)),
   }));
 }
 
-export const isComplete = (def: QuestDef, st: QuestState, inv: Inventory): boolean =>
-  st.status === 'active' && progressOf(def, st, inv).every((p) => p.have >= p.need);
+export const isComplete = (def: QuestDef, st: QuestState, inv: Inventory, bosses: readonly string[] = []): boolean =>
+  st.status === 'active' && progressOf(def, st, inv, bosses).every((p) => p.have >= p.need);

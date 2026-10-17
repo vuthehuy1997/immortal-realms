@@ -4,7 +4,7 @@ import { newGameState, type GameState } from './core/gameState';
 import { generateWorld } from './core/world';
 import { BootScene } from './game/BootScene';
 import { WorldScene, type GameHost } from './game/WorldScene';
-import { hasSaveData, loadGame } from './game/storage';
+import { hasSaveData, loadGame, saveGame } from './game/storage';
 import { buildHud, showHud } from './ui/hud';
 import { hideScreen, showCreation, showLoading, showMainMenu } from './ui/menu';
 import { installSkin } from './ui/skin';
@@ -36,8 +36,8 @@ function mainMenu(error?: string): void {
     hasSave: hasSaveData(),
     error,
     onNew: () => showCreation({
-      onBack: () => mainMenu(),
-      onStart: (name, root, hero) => begin(newGameState(name, root, hero, generateWorld(WORLD_SEED).spawn)),
+      onBack: () => mainMenu(), replacesSave: hasSaveData(),
+      onStart: (name, root, hero) => { const gs = newGameState(name, root, hero, generateWorld(WORLD_SEED).spawn); saveGame(gs); begin(gs); },
     }),
     onContinue: () => {
       const r = loadGame();

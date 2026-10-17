@@ -31,12 +31,50 @@ describe('rusher (wolf)', () => {
   });
 });
 
+describe('melee telegraph (rushers are dodgeable)', () => {
+  it('every rusher strike is preceded by a stationary strike windup; the hit never lands on the tick the windup starts', () => {
+    for (const id of ['wolf', 'toad', 'skeleton']) {
+      const d = ENEMIES[id]!, ai = newEnemyAI(); let strikeTicks = 0, attacks = 0, prev = ai.state;
+      for (let t = 0; t < 6; t += 0.02) {
+        const o = updateEnemyAI(ai, d, P(0), P(d.attackRange - 2), 0.02);
+        if (ai.state === 'strike') { strikeTicks++; expect(o.vel).toEqual({ x: 0, y: 0 }); expect(o.attack).toBeUndefined(); }
+        if (o.attack) { attacks++; expect(prev, `${id}: attack must follow a strike windup`).toBe('strike'); }
+        prev = ai.state === 'strike' ? 'strike' : ai.state;
+      }
+      expect(attacks).toBeGreaterThanOrEqual(2);
+      expect(strikeTicks * 0.02, `${id} windup length`).toBeGreaterThanOrEqual(attacks * (d.strikeWindup ?? 0.3) * 0.8);
+    }
+  });
+  it('windups are readable but not slow: between 0.15 and 0.5 seconds', () => {
+    for (const d of Object.values(ENEMIES)) if (d.behavior === 'rusher') { expect(d.strikeWindup ?? 0.3).toBeGreaterThanOrEqual(0.15); expect(d.strikeWindup ?? 0.3).toBeLessThanOrEqual(0.5); }
+  });
+});
+
 describe('caster (foxfire wisp)', () => {
+  it('circles its target while waiting to fire instead of standing still, and flips direction', () => {
+    const d = ENEMIES.ghost!, ai = newEnemyAI(); ai.state = 'attack'; ai.attackCd = 5;
+    let sx = 0, flips = 0, last = 0;
+    for (let t = 0; t < 8; t += 0.05) {
+      const o = updateEnemyAI(ai, d, P(0, 0), P(95, 0), 0.05);
+      expect(Math.abs(o.vel.y)).toBeGreaterThan(0); // moves sideways relative to a target on the x axis
+      expect(Math.abs(o.vel.x)).toBeLessThan(1e-6);
+      const sign = Math.sign(o.vel.y); if (last && sign !== last) flips++; last = sign; sx += Math.abs(o.vel.y);
+    }
+    expect(sx).toBeGreaterThan(0); expect(flips).toBeGreaterThanOrEqual(2);
+  });
+  it('multi-shot casters fire a volley', () => {
+    for (const id of ['thunderbird', 'peachspirit']) {
+      const d = ENEMIES[id]!, ai = newEnemyAI(); ai.state = 'attack'; ai.attackCd = 0;
+      const o = updateEnemyAI(ai, d, P(0), P(d.attackRange * 0.9), 0.02);
+      expect(o.attack).toEqual({ kind: 'projectile', count: d.volley });
+      expect(d.volley).toBeGreaterThan(1);
+    }
+  });
   const d = ENEMIES.foxfire!;
   it('fires projectiles from range and keeps its distance', () => {
     const r = run(d, 0, 95, 5);
     expect(r.attacks.length).toBeGreaterThanOrEqual(2);
-    expect(Math.abs(95 - r.x)).toBeGreaterThanOrEqual(d.preferredRange! * 0.6 - 2);
+    expect(Math.abs(95 - r.x)).toBeGreaterThanOrEqual(d.preferredRange! * 0.75 - 2);
   });
   it('retreats when the player is too close', () => {
     const r = run(d, 0, 10, 2);

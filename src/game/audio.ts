@@ -26,6 +26,14 @@ class AudioEngine {
   private droneGain: GainNode | null = null;
   private droneFilter: BiquadFilterNode | null = null;
   private lastMelody = 4;
+  private jit = 1;
+  private zone = 'village';
+  private tonic = 62;
+  private scale: number[] = PENTA;
+  private motif: number[] = [0, 2, 4, 2];
+  private dangerUntil = 0;
+  private ambNext = 0;
+  private windGain: GainNode | null = null;
   muted = false;
   volume = 0.7;
   readonly stats = { sfx: 0, notes: 0, last: '' as string };
@@ -60,6 +68,12 @@ class AudioEngine {
     return true;
   }
 
+  setVolume(v: number): void {
+    this.volume = Math.max(0, Math.min(1, v));
+    try { localStorage.setItem('ir-vol', String(this.volume)); } catch { /* ignore */ }
+    if (this.ctx && !this.muted) this.master.gain.setTargetAtTime(this.volume, this.ctx.currentTime, 0.05);
+  }
+
   setMuted(m: boolean): void {
     this.muted = m;
     try { localStorage.setItem('ir-muted', m ? '1' : '0'); } catch { /* ignore */ }
@@ -70,8 +84,8 @@ class AudioEngine {
   private tone(freq: number, dur: number, type: OscillatorType, gain: number, o: { slideTo?: number; delay?: number; bus?: GainNode; attack?: number } = {}): void {
     const c = this.ctx!, t = c.currentTime + (o.delay ?? 0);
     const osc = c.createOscillator(), g = c.createGain();
-    osc.type = type; osc.frequency.setValueAtTime(freq, t);
-    if (o.slideTo) osc.frequency.exponentialRampToValueAtTime(Math.max(20, o.slideTo), t + dur);
+    freq *= this.jit; osc.type = type; osc.frequency.setValueAtTime(freq, t);
+    if (o.slideTo) osc.frequency.exponentialRampToValueAtTime(Math.max(20, o.slideTo * this.jit), t + dur);
     g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(gain, t + (o.attack ?? 0.008)); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     osc.connect(g); g.connect(o.bus ?? this.sfxBus); osc.start(t); osc.stop(t + dur + 0.05);
   }
@@ -79,7 +93,7 @@ class AudioEngine {
     const c = this.ctx!, t = c.currentTime + (o.delay ?? 0);
     const src = c.createBufferSource(); src.buffer = this.noiseBuf; src.loop = true;
     const f = c.createBiquadFilter(); f.type = o.type ?? 'bandpass'; f.Q.value = o.q ?? 1.2;
-    f.frequency.setValueAtTime(f0, t); f.frequency.exponentialRampToValueAtTime(Math.max(40, f1), t + dur);
+    f.frequency.setValueAtTime(f0 * this.jit, t); f.frequency.exponentialRampToValueAtTime(Math.max(40, f1 * this.jit), t + dur);
     const g = c.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(gain, t + Math.min(0.02, dur / 3)); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     src.connect(f); f.connect(g); g.connect(this.sfxBus); src.start(t); src.stop(t + dur + 0.05);
   }
@@ -90,6 +104,7 @@ class AudioEngine {
   /** Plays a sound effect. Safe to call before the context exists (it is simply skipped). */
   sfx(name: SfxName): void {
     this.stats.sfx++; this.stats.last = name;
+    this.jit = name === 'levelup' || name === 'breakthrough' || name === 'click' ? 1 : 0.93 + Math.random() * 0.14; // every swing/hit sounds a little different
     if (!this.ctx || this.ctx.state !== 'running' || this.muted) return;
     switch (name) {
       case 'slash1': this.noise(0.16, 900, 3200, 0.5, { q: 1.5 }); this.tone(380, 0.12, 'sawtooth', 0.05, { slideTo: 160 }); break;
@@ -120,7 +135,22 @@ class AudioEngine {
   }
 
   // ---------- music ----------
-  setMood(m: Mood): void { this.mood = m; if (this.droneFilter && this.ctx) this.droneFilter.frequency.setTargetAtTime(m === 'calm' ? 500 : m === 'mist' ? 380 : m === 'danger' ? 900 : 1300, this.ctx.currentTime, 1.5); }
+  setMood(m: Mood): void {
+    const t = this.ctx?.currentTime ?? 0;
+    if (m === 'danger' || m === 'boss') this.dangerUntil = t + 5; // combat music lingers for a few seconds after the last threat
+    else if (this.mood !== m && t < this.dangerUntil && (this.mood === 'danger' || this.mood === 'boss')) return;
+    this.mood = m; if (this.droneFilter && this.ctx) this.droneFilter.frequency.setTargetAtTime(m === 'calm' ? 500 : m === 'mist' ? 380 : m === 'danger' ? 900 : 1300, this.ctx.currentTime, 1.5); }
+
+  /** Each zone has its own tonic, scale and a short motif so the music has a recognisable identity. */
+  setZone(z: string): void {
+    if (z === this.zone) return;
+    this.zone = z;
+    const tonic: Record<string, number> = { village: 62, bamboo: 64, marsh: 58, grove: 67, ruins: 57, lair: 55 };
+    this.tonic = tonic[z] ?? 62;
+    this.scale = z === 'marsh' || z === 'ruins' || z === 'lair' ? MIST_SCALE : PENTA;
+    let h = 7; for (const ch of z) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    this.motif = Array.from({ length: 4 }, () => { h = (h * 1103515245 + 12345) >>> 0; return (h >> 8) % (this.scale.length * 2); });
+  }
 
   startMusic(): void {
     if (this.musicOn || !this.ensure()) return;
@@ -160,6 +190,22 @@ class AudioEngine {
     this.stats.notes++;
   }
 
+  /** Wind bed + sparse birds (day) or water drops (marsh); started lazily with the music. */
+  private ambience(when: number): void {
+    const c = this.ctx!;
+    if (!this.windGain) {
+      const src = c.createBufferSource(); src.buffer = this.noiseBuf; src.loop = true;
+      const f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 520; f.Q.value = 0.6;
+      const lfo = c.createOscillator(), lg = c.createGain(); lfo.frequency.value = 0.12; lg.gain.value = 260; lfo.connect(lg); lg.connect(f.frequency); lfo.start();
+      const g = c.createGain(); g.gain.value = 0.018; src.connect(f); f.connect(g); g.connect(this.musicBus); src.start(); this.windGain = g;
+    }
+    this.windGain.gain.setTargetAtTime(this.zone === 'marsh' ? 0.035 : this.zone === 'lair' || this.zone === 'ruins' ? 0.03 : 0.016, when, 1.5);
+    if (when < this.ambNext) return;
+    this.ambNext = when + 3 + Math.random() * 6;
+    if (this.zone === 'marsh') { for (let i = 0; i < 3; i++) this.tone(700 + Math.random() * 500, 0.12, 'sine', 0.05, { delay: i * 0.17, slideTo: 1500, bus: this.musicBus }); }
+    else if (this.zone !== 'lair' && this.zone !== 'ruins' && this.mood === 'calm') { const f0 = 2400 + Math.random() * 900; this.tone(f0, 0.07, 'sine', 0.04, { slideTo: f0 * 1.25, bus: this.musicBus }); this.tone(f0 * 1.1, 0.09, 'sine', 0.035, { delay: 0.11, slideTo: f0 * 1.4, bus: this.musicBus }); }
+  }
+
   private drum(when: number, deep: boolean): void {
     const c = this.ctx!;
     const o = c.createOscillator(), g = c.createGain();
@@ -173,11 +219,13 @@ class AudioEngine {
     const density = this.mood === 'calm' ? 0.34 : this.mood === 'mist' ? 0.3 : this.mood === 'danger' ? 0.55 : 0.7;
     if (Math.random() < density) {
       // melodic random walk over two octaves of the scale
-      this.lastMelody = Math.max(0, Math.min(scale.length * 2 - 1, this.lastMelody + Math.floor(Math.random() * 5) - 2));
-      const deg = this.lastMelody, note = 62 + scale[deg % scale.length]! + 12 * Math.floor(deg / scale.length);
+      const useMotif = step % 4 === 0 && Math.random() < 0.65; // the zone motif returns every beat or so, with free melody in between
+      this.lastMelody = useMotif ? this.motif[(step >> 2) % this.motif.length]! : Math.max(0, Math.min(scale.length * 2 - 1, this.lastMelody + Math.floor(Math.random() * 5) - 2));
+      const deg = this.lastMelody, note = this.tonic + scale[deg % scale.length]! + 12 * Math.floor(deg / scale.length);
       this.pluck(midi(note), when, 0.16 + Math.random() * 0.06);
     }
-    if (step % 16 === 0) this.pluck(midi(50), when, 0.2); // low root every bar
+    if (step % 16 === 0) this.pluck(midi(this.tonic - 12), when, 0.2); // low root every bar
+    this.ambience(when);
     if ((this.mood === 'danger' || this.mood === 'boss') && step % 4 === 0) this.drum(when, step % 8 === 0);
     if (this.mood === 'boss' && step % 2 === 1) this.drum(when, false);
   }

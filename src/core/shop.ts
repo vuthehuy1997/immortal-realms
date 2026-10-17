@@ -5,7 +5,7 @@ import { addItem, countOf, type Inventory } from './inventory';
 export interface ShopEntry { id: string; price: number }
 
 /** Merchant Qiao's stock (spirit stones). Prices come from item values so the economy stays consistent. */
-export const SHOP_STOCK: readonly ShopEntry[] = ['hp-potion', 'mana-potion', 'qi-pill', 'bronze-blade', 'steel-blade'].map((id) => ({ id, price: ITEMS[id]!.value }));
+export const SHOP_STOCK: readonly ShopEntry[] = ['hp-potion', 'mana-potion', 'qi-pill', 'foundation-pill', 'bronze-blade', 'steel-blade', 'cloth-robe', 'sect-robe', 'jade-pendant', 'spirit-ring'].map((id) => ({ id, price: ITEMS[id]!.value }));
 
 export const SELL_RATE = 0.4;
 export const sellValue = (id: string): number => Math.max(1, Math.floor((ITEMS[id]?.value ?? 0) * SELL_RATE));

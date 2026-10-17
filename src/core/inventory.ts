@@ -1,11 +1,11 @@
 import { ITEMS } from '../data/items';
 
 export interface Stack { id: string; count: number }
-export interface Inventory { slots: (Stack | null)[]; weapon: string | null }
+export interface Inventory { slots: (Stack | null)[]; weapon: string | null; armor: string | null; charm: string | null }
 
 export const SLOT_COUNT = 20;
 
-export const newInventory = (): Inventory => ({ slots: Array<Stack | null>(SLOT_COUNT).fill(null), weapon: null });
+export const newInventory = (): Inventory => ({ slots: Array<Stack | null>(SLOT_COUNT).fill(null), weapon: null, armor: null, charm: null });
 
 export const countOf = (inv: Inventory, id: string): number =>
   inv.slots.reduce((n, s) => n + (s?.id === id ? s.count : 0), 0);
@@ -58,13 +58,25 @@ export function useConsumable(inv: Inventory, slot: number): UseEffect | null {
   return { heal: def.heal ?? 0, mana: def.mana ?? 0, qi: def.qi ?? 0 };
 }
 
-/** Equips a weapon from a slot; the previously equipped weapon goes into that slot. */
+export type EquipKey = 'weapon' | 'armor' | 'charm';
+
+/** Equips an item from a bag slot into its equipment slot; the previously equipped item goes into that bag slot. */
 export function equipFromSlot(inv: Inventory, slot: number): boolean {
   const s = inv.slots[slot];
   const def = s ? ITEMS[s.id] : undefined;
   if (!s || !def || def.type !== 'equipment') return false;
-  const prev = inv.weapon;
-  inv.weapon = s.id;
+  const key: EquipKey = def.slot ?? 'weapon';
+  const prev = inv[key];
+  inv[key] = s.id;
   inv.slots[slot] = prev ? { id: prev, count: 1 } : null;
+  return true;
+}
+
+/** Returns an equipped item to the bag. Fails (no change) if the bag is full. */
+export function unequip(inv: Inventory, key: EquipKey): boolean {
+  const id = inv[key];
+  if (!id) return false;
+  if (addItem(inv, id, 1) > 0) return false;
+  inv[key] = null;
   return true;
 }

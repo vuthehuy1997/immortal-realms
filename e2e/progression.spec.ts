@@ -60,6 +60,9 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await expect(page.locator('.toast', { hasText: 'foundation is too shallow: reach level 5' })).toBeVisible();
     expect((await st(page)).realm).toBe(0);
     await page.evaluate(() => { window.__rpg!.giveXp(400); window.__rpg!.setQi(120); window.__rpg!.setRoll(0.99); });
+    await page.keyboard.press('b');
+    await expect(page.locator('.toast', { hasText: 'Foundation Pill' })).toBeVisible(); // no pill, no attempt
+    await page.evaluate(() => window.__rpg!.give('foundation-pill', 2));
     const before = await st(page);
     await page.keyboard.press('b');
     await expect.poll(async () => (await st(page)).qi).toBe(60);
@@ -68,6 +71,7 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await page.evaluate(() => { window.__rpg!.setQi(120); window.__rpg!.setRoll(0.1); });
     await page.keyboard.press('b');
     await expect.poll(async () => (await st(page)).realm).toBe(1);
+    expect((await st(page)).items.some((i) => i.startsWith('foundation-pill'))).toBe(false); // both pills were consumed
     const s = await st(page);
     expect(s.qi).toBe(0); expect(s.maxHp).toBeGreaterThan(before.maxHp);
     await expect(page.locator('#lvl')).toContainText('Qi Condensation II');
@@ -81,6 +85,8 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await expect(page.locator('#btn-breakthrough')).toBeDisabled();
     await expect(page.locator('#chrbody')).toContainText('level 5');
     await page.evaluate(() => { window.__rpg!.setQi(120); window.__rpg!.setRoll(0.1); });
+    await expect(page.locator('#btn-breakthrough')).toBeDisabled(); // needs a pill as well
+    await page.evaluate(() => window.__rpg!.give('foundation-pill', 1));
     await expect(page.locator('#btn-breakthrough')).toBeEnabled();
     await page.click('#btn-breakthrough');
     await expect(page.locator('#chrbody')).toContainText('Qi Condensation II');
@@ -97,6 +103,10 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     expect((await st(page)).items).toContain('hp-potion:1');
     await expect(page.locator('#cnt-hp')).toHaveText('1');
     await page.evaluate(() => window.__rpg!.setHp(20));
+    await page.keyboard.press('f');
+    await expect(page.locator('.toast', { hasText: 'settling' })).toBeVisible(); // draughts share a short cooldown
+    expect((await st(page)).items).toContain('hp-potion:1');
+    await waitGame(page, 2.7);
     await page.keyboard.press('i');
     await page.click('#invgrid .cell[data-slot="0"]');
     await expect.poll(async () => (await st(page)).hp).toBeGreaterThanOrEqual(60);

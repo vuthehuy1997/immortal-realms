@@ -1,7 +1,7 @@
 import type { Vec2 } from './movement';
 import type { EnemyDef } from '../data/enemies';
 
-export type EnemyAIState = 'idle' | 'chase' | 'attack' | 'retreat' | 'windup' | 'dash';
+export type EnemyAIState = 'idle' | 'chase' | 'attack' | 'retreat' | 'windup' | 'dash' | 'strike';
 
 export interface EnemyAI {
   state: EnemyAIState;
@@ -10,7 +10,7 @@ export interface EnemyAI {
   dir: Vec2; // locked direction while charging
 }
 
-export type AttackIntent = { kind: 'melee' | 'projectile' };
+export type AttackIntent = { kind: 'melee' | 'projectile'; /** projectiles to fan out (casters) */ count?: number };
 
 export interface AIOutput { vel: Vec2; attack?: AttackIntent }
 
@@ -34,6 +34,12 @@ export function updateEnemyAI(ai: EnemyAI, def: EnemyDef, self: Vec2, target: Ve
     if (ai.timer <= 0) { ai.state = 'dash'; ai.timer = def.dashTime ?? 0.4; }
     return { vel: ZERO };
   }
+  if (ai.state === 'strike') { // rusher melee telegraph: stand still, then strike (the hit only lands if the target is still in reach)
+    ai.timer -= dt;
+    if (ai.timer > 0) return { vel: ZERO };
+    ai.state = 'attack'; ai.attackCd = def.attackCooldown;
+    return { vel: ZERO, attack: { kind: 'melee' } };
+  }
   if (ai.state === 'dash') {
     ai.timer -= dt;
     const out: AIOutput = { vel: scale(ai.dir, def.speed * (def.dashSpeedMult ?? 4)) };
@@ -48,7 +54,7 @@ export function updateEnemyAI(ai: EnemyAI, def: EnemyDef, self: Vec2, target: Ve
       return { vel: ZERO };
     case 'chase': {
       if (dist > def.aggroRange * 1.5) { ai.state = 'idle'; return { vel: ZERO }; }
-      if (def.behavior === 'caster' && dist < (def.preferredRange ?? 0) * 0.6) { ai.state = 'retreat'; return { vel: ZERO }; }
+      if (def.behavior === 'caster' && dist < (def.preferredRange ?? 0) * 0.75) { ai.state = 'retreat'; return { vel: ZERO }; }
       if (def.behavior === 'charger') {
         if (dist <= def.attackRange && ai.attackCd <= 0) {
           ai.state = 'windup'; ai.timer = def.windup ?? 0.6; ai.dir = toward(self, target);
@@ -60,12 +66,21 @@ export function updateEnemyAI(ai: EnemyAI, def: EnemyDef, self: Vec2, target: Ve
     }
     case 'attack': {
       if (dist > def.attackRange * 1.2) { ai.state = 'chase'; return { vel: ZERO }; }
-      if (def.behavior === 'caster' && dist < (def.preferredRange ?? 0) * 0.6) { ai.state = 'retreat'; return { vel: ZERO }; }
-      if (ai.attackCd <= 0) {
-        ai.attackCd = def.attackCooldown;
-        return { vel: ZERO, attack: { kind: def.behavior === 'caster' ? 'projectile' : 'melee' } };
+      if (def.behavior === 'caster' && dist < (def.preferredRange ?? 0) * 0.75) { ai.state = 'retreat'; return { vel: ZERO }; }
+      // casters circle the target (flip direction every ~1.3s) instead of standing still like turrets
+      let vel = ZERO;
+      if (def.behavior === 'caster') {
+        ai.timer -= dt;
+        if (ai.timer <= 0) { ai.timer = 1.1 + (Math.abs(Math.sin(self.x * 0.37 + self.y * 0.11)) * 0.5); ai.dir = { x: ai.dir.x >= 0 ? -1 : 1, y: 0 }; }
+        const dx = target.x - self.x, dy = target.y - self.y, d = dist || 1;
+        vel = scale({ x: (-dy / d) * ai.dir.x, y: (dx / d) * ai.dir.x }, def.speed * 0.55);
       }
-      return { vel: ZERO };
+      if (ai.attackCd <= 0) {
+        if (def.behavior === 'caster') { ai.attackCd = def.attackCooldown; return { vel, attack: { kind: 'projectile', count: def.volley ?? 1 } }; }
+        ai.state = 'strike'; ai.timer = def.strikeWindup ?? 0.3;
+        return { vel: ZERO };
+      }
+      return { vel };
     }
     case 'retreat': {
       if (dist >= (def.preferredRange ?? 0)) { ai.state = 'attack'; return { vel: ZERO }; }

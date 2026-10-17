@@ -35,6 +35,7 @@ test.describe('#14 save / load', () => {
   test('autosaves when a kill causes a level-up', async ({ page }) => {
     await newGame(page, 'Auto');
     await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.giveXp(19); }); // level 1 needs 20 xp
+    await page.evaluate((k) => localStorage.removeItem(k), SAVE_KEY); // (a new game now saves immediately; start from a clean slate)
     expect(await page.evaluate((k) => localStorage.getItem(k), SAVE_KEY)).toBeNull(); // direct grants do not save
     await killOne(page, 'wolf'); // +12 xp => level 2 => autosave
     await expect.poll(() => page.evaluate((k) => localStorage.getItem(k) !== null, SAVE_KEY)).toBe(true);

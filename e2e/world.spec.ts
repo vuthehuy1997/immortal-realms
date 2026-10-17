@@ -122,9 +122,11 @@ test.describe('#3 world, #4 movement, #5 combat zone, #6 enemies, #8/#9 skills &
     const hp0 = (await st(page)).hp;
     await expect.poll(async () => (await st(page)).hp, { timeout: 40_000 }).toBeLessThan(hp0);
     await page.evaluate(() => window.__rpg!.killPlayer());
-    await expect(page.locator('#prompt')).toContainText('press R');
+    await expect(page.locator('#death')).toBeVisible();
+    await expect(page.locator('#death h2')).toHaveText('Defeated');
     expect((await st(page)).dead).toBe(true);
     await page.keyboard.press('r');
+    await expect(page.locator('#death')).toBeHidden();
     await expect.poll(async () => (await st(page)).dead, { timeout: 30_000 }).toBe(false);
     expect((await st(page)).hp).toBeGreaterThan(50);
   });

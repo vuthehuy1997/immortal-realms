@@ -21,7 +21,7 @@ export function installSkin(): void {
 export function fxIconStyle(fxKey: string, frame: number, box: number): string {
   const f = MANIFEST.fx[fxKey]!;
   const s = box / Math.max(f.fw, f.fh);
-  return `background-image:url("${abs(f.url)}");background-size:${f.fw * f.frames * s}px ${f.fh * s}px;background-position:${-frame * f.fw * s}px ${(box - f.fh * s) / 2}px;background-repeat:no-repeat;width:${box}px;height:${box}px`;
+  return `background-image:url(&quot;${abs(f.url)}&quot;);background-size:${f.fw * f.frames * s}px ${f.fh * s}px;background-position:${-frame * f.fw * s}px ${(box - f.fh * s) / 2}px;background-repeat:no-repeat;width:${box}px;height:${box}px`;
 }
 
 /** `<div>` HTML for an item icon at `box` px. Returns '' for unknown items. */

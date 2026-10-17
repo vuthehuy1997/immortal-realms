@@ -19,3 +19,6 @@
 
 ## 0.5.0
 - Procedural audio, minimap, shop + alchemy, weapon rarity, Nine-Tailed Fox boss, quest chain of three, save v3.
+
+## 0.6.0
+- QA round 1 fixes: difficulty & cultivation pacing, enemy AI, boss kits, gear slots, skill upgrades, root passives, elite traits, tutorial/objectives/map/journal, death screen, audio themes, save fixes.
