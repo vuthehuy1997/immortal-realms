@@ -135,7 +135,7 @@ export class WorldScene extends Phaser.Scene {
     this.enemies = []; this.bolts = []; this.rains = []; this.bosses = []; this.npcs = []; this.timers = [];
     this.now = 0; this.cds = new Cooldowns(); this.combo = newCombo(); this.dashState = newDash();
     this.meditating = false; this.uiPause = false; this.respawnTimer = 0; this.autosaveTimer = 0; this.dead = false;
-    this.potionReadyAt = 0; this.playerLockUntil = 0; this.hurtInvulnUntil = 0; this.playerKb = { x: 0, y: 0 }; this.hitStopUntil = 0; this.lastZoneBanner = null;
+    this.potionReadyAt = 0; this.playerLockUntil = 0; this.hurtInvulnUntil = 3; this.lastCombat = -99; this.playerKb = { x: 0, y: 0 }; this.hitStopUntil = 0; this.lastZoneBanner = null;
     this.anims.globalTimeScale = 1;
     this.rng = createRng(WORLD_SEED + 1);
     this.world = generateWorld(WORLD_SEED);
@@ -928,7 +928,7 @@ export class WorldScene extends Phaser.Scene {
       e.sees = alive && (e.minion || this.now < e.alertUntil || canSee(e.pos, e.ai.facing, target, range, (x, y) => isBlockedTile(this.world, Math.floor(x / TILE_SIZE), Math.floor(y / TILE_SIZE))));
       const wasState = e.ai.state, wasLost = e.ai.lostT;
       const out = updateEnemyAI(e.ai, e.def, e.pos, target, dt, e.sees);
-      if (wasState === 'idle' && e.ai.state === 'chase') this.floatText(e.pos, '!', '#ff5a4a', true, 8);
+      if (wasState === 'idle' && e.ai.state === 'chase') this.floatText(e.pos, '!', '#ff5a4a', true, 13);
       else if (wasState === 'chase' && wasLost === 0 && e.ai.lostT > 0) this.floatText(e.pos, '?', '#ffd23f', true, 8);
       let vx = out.vel.x, vy = out.vel.y;
       attack = out.attack;
@@ -1004,8 +1004,8 @@ export class WorldScene extends Phaser.Scene {
   private alertEnemy(e: Enemy): void {
     e.alertUntil = this.now + 2.5;
     e.ai.facing = normalize({ x: this.pos.x - e.pos.x, y: this.pos.y - e.pos.y });
-    e.ai.lastSeen = { ...this.pos }; e.ai.lostT = 0;
-    if (e.ai.state === 'idle') { e.ai.state = 'chase'; this.floatText(e.pos, '!', '#ff5a4a', true, 8); }
+    e.ai.lastSeen = { ...this.pos }; e.ai.lostT = 0; e.ai.leash = 2.6; // struck from afar: keep hunting well beyond the normal leash
+    if (e.ai.state === 'idle') { e.ai.state = 'chase'; this.floatText(e.pos, '!', '#ff5a4a', true, 13); }
   }
 
   /** Eyes follow what the enemy is doing: the target while it sees it, the last-seen spot while searching, its walking direction or a slow look-around while idle. */
@@ -1181,8 +1181,8 @@ export class WorldScene extends Phaser.Scene {
       if (e.minion || e.ai.state !== 'idle' || e.c.hp <= 0) continue;
       if (Math.hypot(e.pos.x - this.pos.x, e.pos.y - this.pos.y) > 260) continue;
       const a = Math.atan2(e.ai.facing.y, e.ai.facing.x), r = e.def.aggroRange;
-      this.vision.fillStyle(0xffd23f, 0.09).slice(e.pos.x, e.pos.y, r, a - FOV / 2, a + FOV / 2, false).fillPath();
-      this.vision.fillStyle(0xffd23f, 0.07).fillCircle(e.pos.x, e.pos.y, SENSE_RADIUS);
+      this.vision.fillStyle(0xffd23f, 0.17).lineStyle(1, 0xffd23f, 0.45).slice(e.pos.x, e.pos.y, r, a - FOV / 2, a + FOV / 2, false).fillPath().strokePath();
+      this.vision.fillStyle(0xffd23f, 0.12).fillCircle(e.pos.x, e.pos.y, SENSE_RADIUS);
     }
     for (const e of this.enemies) {
       if (e.c.hp >= e.c.maxHp && e.ai.state === 'idle' && !e.elite) continue;

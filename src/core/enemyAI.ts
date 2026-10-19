@@ -12,13 +12,14 @@ export interface EnemyAI {
   facing: Vec2; // where the eyes point (vision cone is centred on this)
   lastSeen: Vec2 | null; // last place the target was visible
   lostT: number; // seconds since the target was last visible
+  leash: number; // give-up distance as a multiple of aggroRange (raised when the enemy was struck from afar)
 }
 
 export type AttackIntent = { kind: 'melee' | 'projectile'; /** projectiles to fan out (casters) */ count?: number };
 
 export interface AIOutput { vel: Vec2; attack?: AttackIntent }
 
-export const newEnemyAI = (): EnemyAI => ({ state: 'idle', attackCd: 0, timer: 0, dir: { x: 0, y: 0 }, facing: { x: 1, y: 0 }, lastSeen: null, lostT: 0 });
+export const newEnemyAI = (): EnemyAI => ({ state: 'idle', attackCd: 0, timer: 0, dir: { x: 0, y: 0 }, facing: { x: 1, y: 0 }, lastSeen: null, lostT: 0, leash: 1.5 });
 
 const toward = (from: Vec2, to: Vec2, sign = 1): Vec2 => {
   const dx = to.x - from.x, dy = to.y - from.y;
@@ -57,12 +58,12 @@ export function updateEnemyAI(ai: EnemyAI, def: EnemyDef, self: Vec2, target: Ve
       if (sees && dist <= def.aggroRange) { ai.state = 'chase'; ai.lastSeen = { ...target }; ai.lostT = 0; }
       return { vel: ZERO };
     case 'chase': {
-      if (dist > def.aggroRange * 1.5) { ai.state = 'idle'; return { vel: ZERO }; }
+      if (dist > def.aggroRange * ai.leash) { ai.state = 'idle'; ai.leash = 1.5; return { vel: ZERO }; }
       if (sees) { ai.lastSeen = { ...target }; ai.lostT = 0; }
       else { // target is out of sight (behind us / behind cover): hunt its last known position, then give up
         ai.lostT += dt;
         const ls = ai.lastSeen ?? self;
-        if (ai.lostT > MEMORY_SECONDS) { ai.state = 'idle'; ai.lastSeen = null; return { vel: ZERO }; }
+        if (ai.lostT > MEMORY_SECONDS) { ai.state = 'idle'; ai.leash = 1.5; ai.lastSeen = null; return { vel: ZERO }; }
         if (Math.hypot(ls.x - self.x, ls.y - self.y) < 6) return { vel: ZERO };
         return { vel: scale(toward(self, ls), def.speed * 0.8) };
       }

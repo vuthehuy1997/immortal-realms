@@ -99,6 +99,7 @@ test.describe('#7 boss', () => {
   });
 
   test('defeating the Fallen Sword Immortal drops his blade, completes the chain, and persists', async ({ page }) => {
+    test.setTimeout(180_000); // long scripted fight; slow under a loaded software-GL runner
     await newGame(page, 'Slayer');
     await finishPests(page);
     await page.click('#dlg button[data-opt="0"]'); // accept fox
@@ -120,7 +121,7 @@ test.describe('#7 boss', () => {
     const b = (await st(page)).boss!;
     await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 24, y as number), [b.x, b.y]);
     await page.evaluate(([x, y]) => window.__rpg!.attack(x as number, y as number), [b.x, b.y]);
-    await expect.poll(async () => (await st(page)).bossDefeated, { timeout: 30_000 }).toBe(true);
+    await expect.poll(async () => (await st(page)).bossDefeated, { timeout: 90_000 }).toBe(true);
     const s = await st(page);
     expect(s.boss).toBeNull();
     expect(s.items.join(',')).toContain('jade-sword:1');

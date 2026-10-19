@@ -176,3 +176,4 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .slot.locked .nm, .slot.locked .k { visibility: hidden; } .slot .lock { z-index: 2; }
 @media (max-height: 680px) { #quest { font-size: .8em; top: 22em; max-height: 34vh; overflow: hidden; } }
+#mmlabel { line-height: 1.05; top: 15.9em; } #mmlabel b { font-size: .8em; } #mmlabel small { font-size: .7em; }
