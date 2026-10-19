@@ -39,6 +39,9 @@ export const newBossAI = (): BossAI => ({ phase: 1, state: 'chase', move: null, 
 const ZERO: Vec2 = { x: 0, y: 0 };
 const norm = (v: Vec2): Vec2 => { const l = Math.hypot(v.x, v.y) || 1; return { x: v.x / l, y: v.y / l }; };
 
+/** A telegraph never gets shorter than this fraction of its nominal windup (fairness floor). */
+export const WINDUP_MIN_FACTOR = 0.85;
+
 function windupOf(def: BossDef, m: MoveId): number {
   const mv = def.moves;
   return m === 'slam' ? mv.slam!.windup : m === 'sweep' ? mv.sweep!.windup : m === 'charge' ? mv.charge!.windup : m === 'rain' ? mv.rain!.windup
@@ -105,7 +108,7 @@ export function updateBoss(ai: BossAI, def: BossDef, hpRatio: number, self: Vec2
   }
   if (ai.state === 'recover') {
     ai.timer -= dt;
-    if (ai.timer <= 0) { ai.state = 'chase'; ai.move = null; ai.gap = (ai.phase === 3 ? 0.35 : ai.phase === 2 ? 0.6 : 0.9); }
+    if (ai.timer <= 0) { ai.state = 'chase'; ai.move = null; ai.gap = (ai.phase === 3 ? 0.35 : ai.phase === 2 ? 0.6 : 0.9) * (0.7 + rng() * 0.7); }
     return { vel: ZERO, events };
   }
 
@@ -115,7 +118,7 @@ export function updateBoss(ai: BossAI, def: BossDef, hpRatio: number, self: Vec2
     ai.force = null;
     if (pool.length) {
       const m = pool[Math.min(pool.length - 1, Math.floor(rng() * pool.length))]!;
-      const dir = norm({ x: dx, y: dy }), mv = def.moves, w = windupOf(def, m);
+      const dir = norm({ x: dx, y: dy }), mv = def.moves, w = windupOf(def, m) * (WINDUP_MIN_FACTOR + rng() * 0.45); // variable tempo: the cue can't be metronome-timed
       ai.state = 'windup'; ai.move = m; ai.timer = w; ai.last = m; ai.lockDir = dir; ai.lockAt = { ...self };
       if (m === 'slam') events.push({ type: 'telegraph', move: m, duration: w, at: { ...self }, dir, radius: mv.slam!.radius });
       else if (m === 'sweep') events.push({ type: 'telegraph', move: m, duration: w, at: { ...self }, dir, range: mv.sweep!.range, halfAngle: mv.sweep!.halfAngle });

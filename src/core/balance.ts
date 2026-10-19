@@ -3,7 +3,7 @@ import { ZONES, type ZoneId } from '../data/zones';
 
 /** Base enemy health is multiplied by this before the zone tier, so a fight lasts several seconds instead of one combo. */
 export const HP_BASE = 4;
-export const ELITE = { hp: 2.2, atk: 1.3, xp: 3 } as const;
+export const ELITE = { hp: 2.8, atk: 1.4, xp: 3 } as const;
 
 export interface ScaledEnemy { maxHp: number; atk: number; def: number; xp: number; stones: [number, number] }
 

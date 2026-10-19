@@ -131,7 +131,11 @@ export function setObjectiveArrow(target: { sx: number; sy: number; dist: number
   a.classList.toggle('hidden', onScreen);
   if (onScreen) return;
   const dx = target.sx - cx, dy = target.sy - cy, k = Math.min((vw / 2 - m) / Math.abs(dx || 1e-6), (vh / 2 - m) / Math.abs(dy || 1e-6));
-  a.style.transform = `translate(${cx + dx * k}px, ${cy + dy * k}px)`;
+  let ax = cx + dx * k, ay = cy + dy * k;
+  ay = Math.max(150, Math.min(vh - 130, ay)); // keep clear of the top bars and the skill bar
+  if (ax > vw - 300 && ay < 360) ax = vw - 310; // ...and of the minimap / quest panel
+  if (ax < 320 && ay < 200) ay = 200;
+  a.style.transform = `translate(${ax}px, ${ay}px)`;
   (a.firstElementChild as HTMLElement).style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
   setText($('objdist'), `${Math.max(1, Math.round(target.dist / 16))}`);
 }
@@ -139,6 +143,7 @@ export function setObjectiveArrow(target: { sx: number; sy: number; dist: number
 export function showDeath(show: boolean, text = '', handlers?: { respawn(): void; menu(): void }): void {
   const d = $('death'); d.classList.toggle('hidden', !show);
   if (!show) return;
+  $('zonebanner').classList.remove('show');
   setText($('deathtxt'), text);
   if (handlers) { $('btn-respawn').onclick = handlers.respawn; $('btn-death-menu').onclick = handlers.menu; }
 }

@@ -5,6 +5,7 @@ import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo,
 import { scaledEnemy } from '../core/balance';
 import { BACKLASH, meditate, nextRealmLevel } from '../core/cultivation';
 import { getDialogue } from '../core/dialogue';
+import { deathTax, hpRegenPerSec } from '../core/recovery';
 import { canSee, FOV, SENSE_RADIUS, turnToward, TURN_RATE } from '../core/perception';
 import { newEnemyAI, updateEnemyAI, type EnemyAI } from '../core/enemyAI';
 import { gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, tryBreakthrough, turnInQuest, unequipSlot, useItemSlot, type GameState } from '../core/gameState';
@@ -159,7 +160,7 @@ export class WorldScene extends Phaser.Scene {
       const actor = new Actor(this, npcSprite[id] ?? 'hero.staffbeggar', p.x, p.y, 0.34, 22);
       actor.setPos(p.x, p.y);
       const roles: Record<string, string> = { 'elder-lin': 'Elder Lin · Quests', 'merchant-qiao': 'Merchant Qiao · Shop', 'alchemist-yun': 'Alchemist Yun · Alchemy' };
-      this.add.text(p.x, p.y + 7, roles[id] ?? id, { color: '#f1e3b0', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#0b0d14', strokeThickness: 3 }).setOrigin(0.5, 0).setDepth(9e4);
+      this.add.text(p.x, p.y + 7, roles[id] ?? id, { color: '#f1e3b0', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#0b0d14', strokeThickness: 2, backgroundColor: 'rgba(11,13,20,0.72)', padding: { x: 3, y: 1 } }).setOrigin(0.5, 0).setDepth(9e4);
       const mark = this.add.text(p.x, p.y - 38, '!', { color: '#ffd23f', fontSize: '14px', fontStyle: 'bold', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5).setDepth(1e5);
       this.npcs.push({ id, pos: p, actor, mark });
     }
@@ -593,6 +594,7 @@ export class WorldScene extends Phaser.Scene {
     const r = computeDamage(this.pc, e.c, mult, this.rng);
     let amount = r.amount;
     if (e.shield > 0) { const ab = Math.min(e.shield, amount); e.shield -= ab; amount -= ab; if (e.shield <= 0) this.floatText(e.pos, 'Ward broken', '#9fd8ff', false, 8); }
+    this.lastCombat = this.now;
     const killed = amount > 0 ? applyDamage(e.c, amount) : false;
     this.floatText(e.pos, String(r.amount), e.shield > 0 ? '#9fd8ff' : r.crit ? '#ffd23f' : '#ffffff', r.crit);
     audio.sfx(r.crit ? 'crit' : 'hit');
@@ -617,9 +619,10 @@ export class WorldScene extends Phaser.Scene {
       const burn = { t: 3, dps: Math.max(1, (dealt * 0.35) / 3), tick: 0.5 };
       if (e) e.burn = burn; else if (b) b.burn = burn;
     } else if (root === 'tide') {
-      if (e) e.slow = Math.max(e.slow, 1.8); else if (b) b.slow = Math.max(b.slow, 0.9);
+      if (e) e.slow = Math.max(e.slow, 2.4); else if (b) b.slow = Math.max(b.slow, 1.2);
+      this.pc.mana = Math.min(this.pc.maxMana, this.pc.mana + 1.5); // tide: qi flows back with every strike
     } else if (this.pc.hp > 0 && this.pc.hp < this.pc.maxHp) {
-      const heal = Math.max(1, Math.round(dealt * 0.05));
+      const heal = Math.max(1, Math.round(dealt * 0.09));
       this.pc.hp = Math.min(this.pc.maxHp, this.pc.hp + heal);
       if (Math.random() < 0.35) this.floatText(this.pos, `+${heal}`, '#7dffb0', false, 8);
     }
@@ -663,6 +666,7 @@ export class WorldScene extends Phaser.Scene {
 
   private hitBoss(b: BossEnt, mult: number, o: HitOpts = {}): void {
     if (!b.engaged) b.engaged = true;
+    this.lastCombat = this.now;
     const r = computeDamage(this.pc, b.c, mult, this.rng);
     const killed = applyDamage(b.c, r.amount);
     this.floatText(b.pos, String(r.amount), r.crit ? '#ffd23f' : '#ffffff', r.crit);
@@ -701,6 +705,7 @@ export class WorldScene extends Phaser.Scene {
 
   private hurtPlayer(attackValue: number, from?: Vec2): void {
     if (this.dead) return;
+    this.lastCombat = this.now;
     if (isInvulnerable(this.dashState, this.now) || this.now < this.hurtInvulnUntil) {
       if (isInvulnerable(this.dashState, this.now) && this.now - this.lastDodgeText > 0.4) { this.lastDodgeText = this.now; this.floatText(this.pos, 'Dodge', '#bfe9ff', false, 9); }
       return;
@@ -720,10 +725,11 @@ export class WorldScene extends Phaser.Scene {
     this.playerLockUntil = Math.max(this.playerLockUntil, this.now + 0.22); this.playerLockAnim = 'hurt';
   }
   private lastDodgeText = -9;
+  private lastCombat = -99;
 
   private die(): void {
     this.dead = true; this.meditating = false; audio.sfx('death');
-    const lost = Math.floor(this.gs.stones * 0.1); this.gs.stones -= lost;
+    const lost = deathTax(this.gs.stones); this.gs.stones -= lost;
     showDeath(true, lost > 0 ? `You lose ${lost} spirit stones. Nothing else is lost: gather yourself and try again.` : 'Gather yourself and try again.', { respawn: () => this.respawn(), menu: () => { this.save(false); hideScreen(); this.host.quitToMenu(); } });
     this.player.play('death', { force: true });
     this.fx.shake(300, 0.005);
@@ -755,7 +761,7 @@ export class WorldScene extends Phaser.Scene {
 
     const zone = zoneAt(this.world, this.pos);
     if (zone !== this.currentZone) this.currentZone = zone;
-    if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; showZoneBanner(ZONES[zone].name, ZONES[zone].level); setMinimapZone(ZONES[zone].name, ZONES[zone].level); }
+    if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; if (!this.dead && !this.bosses.some((b) => b.engaged)) showZoneBanner(ZONES[zone].name, ZONES[zone].level); setMinimapZone(ZONES[zone].name, ZONES[zone].level); }
     this.ambient.update(dt, zone);
     const mood: Mood = this.bosses.some((b) => b.engaged) ? 'boss' : zone === 'marsh' ? 'mist' : zone === 'ruins' || zone === 'lair' || this.enemies.some((e) => e.ai.state !== 'idle' && !e.minion) ? 'danger' : 'calm';
     audio.setMood(mood); audio.setZone(zone);
@@ -763,7 +769,7 @@ export class WorldScene extends Phaser.Scene {
 
     const npc = this.nearestNpc(), herb = this.nearestHerb();
     const nearArray = Math.hypot(this.pos.x - this.world.arrayPos.x, this.pos.y - this.world.arrayPos.y) < ARRAY_RADIUS;
-    const prompt = this.dead ? 'You have fallen — press R to respawn'
+    const prompt = this.dead ? null // the death screen already offers respawn
       : this.uiPause ? null
       : npc ? `Press E to talk to ${npc.id === 'elder-lin' ? 'Elder Lin' : npc.id === 'merchant-qiao' ? 'Merchant Qiao' : 'Alchemist Yun'}`
       : herb ? 'Press E to gather the Spirit Herb'
@@ -800,14 +806,15 @@ export class WorldScene extends Phaser.Scene {
   /** What the player should do next, and where it is (drives the objective line, the edge arrow and the minimap ring). */
   private objective(): { text: string; target: Vec2 | null } {
     const gs = this.gs, elder = this.world.npcs['elder-lin']!;
-    if (gs.tut < 15) {
+    const activeQ = Object.values(QUESTS).find((q) => gs.quests[q.id]?.status === 'active');
+    if (gs.tut < 15 && !activeQ) { // the tutorial yields as soon as there is a real quest to follow
       if (!(gs.tut & 1)) return { text: 'Walk around with WASD', target: null };
       if (!(gs.tut & 2)) return { text: 'Attack: click or press Space (chain three hits)', target: null };
       if (!(gs.tut & 4)) return { text: 'Dodge: press Shift to dash (you are invulnerable for a moment)', target: null };
       return { text: 'Talk to Elder Lin: walk to the glowing ! and press E', target: elder };
     }
     const pts = freePoints(gs) > 0 ? `  ·  ${freePoints(gs)} skill point${freePoints(gs) > 1 ? 's' : ''} to spend (C)` : '';
-    const active = Object.values(QUESTS).find((q) => gs.quests[q.id]?.status === 'active');
+    const active = activeQ;
     if (!active) {
       const next = Object.values(QUESTS).find((q) => gs.quests[q.id]?.status === 'inactive' && (!q.requires || gs.quests[q.requires]?.status === 'turnedIn'));
       return next ? { text: `Talk to Elder Lin: "${next.name}"${pts}`, target: elder } : { text: `Explore the realms, grow stronger, cultivate${pts}`, target: null };
@@ -874,6 +881,11 @@ export class WorldScene extends Phaser.Scene {
     }
 
     regenMana(this.pc, dt);
+    if (!this.dead) {
+      const nearArr = Math.hypot(this.pos.x - this.world.arrayPos.x, this.pos.y - this.world.arrayPos.y) < ARRAY_RADIUS;
+      const heal = hpRegenPerSec(this.pc.maxHp, this.now - this.lastCombat, nearArr) * dt;
+      if (heal > 0 && this.pc.hp < this.pc.maxHp) { this.pc.hp = Math.min(this.pc.maxHp, this.pc.hp + heal); this.pushToState(); }
+    }
     if (this.meditating) {
       this.pushToState();
       const nearArray = Math.hypot(this.pos.x - this.world.arrayPos.x, this.pos.y - this.world.arrayPos.y) < ARRAY_RADIUS;
@@ -896,7 +908,7 @@ export class WorldScene extends Phaser.Scene {
     }
 
     this.autosaveTimer += dt;
-    if (this.autosaveTimer >= AUTOSAVE_SECONDS) { this.autosaveTimer = 0; this.save(false); }
+    if (this.autosaveTimer >= AUTOSAVE_SECONDS && !this.bosses.some((b) => b.engaged)) { this.autosaveTimer = 0; this.save(false); }
   }
 
   private updateEnemy(e: Enemy, target: Vec2, alive: boolean, dt: number): void {
@@ -984,7 +996,7 @@ export class WorldScene extends Phaser.Scene {
     this.turnEnemy(e, target, dt);
     if (Math.abs(e.ai.facing.x) > 0.2) e.actor.face(e.ai.facing.x < 0 ? -1 : 1);
     e.actor.setPos(e.pos.x, e.pos.y);
-    e.label?.setPosition(e.pos.x, e.pos.y - e.def.scale * 92 - 12);
+    if (e.label) { e.label.setPosition(e.pos.x, e.pos.y - e.def.scale * 92 - 12); e.label.setVisible(dist < 150); }
     if (e.ai.state === 'windup' || e.ai.state === 'strike') e.actor.tint(0xffb066); else if (e.elite) e.actor.tint(0xffe9a8); else e.actor.untint();
   }
 

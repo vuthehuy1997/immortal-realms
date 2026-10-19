@@ -173,3 +173,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #mmlabel { position: absolute; right: 1em; top: 16.2em; width: 15em; text-align: center; display: flex; flex-direction: column; gap: .1em; text-shadow: 0 1px 3px #000; }
 #mmlabel b { color: var(--gold2); font-weight: 600; } #mmlabel small { opacity: .7; font-size: .8em; }
 #mmlabel b { font-size: .85em; } #mmlabel small { display: block; }
+
+.slot.locked .nm, .slot.locked .k { visibility: hidden; } .slot .lock { z-index: 2; }
+@media (max-height: 680px) { #quest { font-size: .8em; top: 22em; max-height: 34vh; overflow: hidden; } }

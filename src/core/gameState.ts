@@ -71,7 +71,8 @@ export function registerKill(gs: GameState, enemyType: string, rng: () => number
   const firstBossKill = !!boss && !gs.bosses.includes(enemyType);
   const xp = boss ? (firstBossKill ? boss.xp : Math.round(boss.xp * 0.3)) : sc?.xp ?? 0;
   const range = boss ? boss.stones : sc?.stones ?? [0, 0];
-  const stones = range[0]! + Math.floor(rng() * (range[1]! - range[0]! + 1));
+  const base = range[0]! + Math.floor(rng() * (range[1]! - range[0]! + 1));
+  const stones = boss && !firstBossKill ? Math.round(base * 0.3) : base; // repeat boss kills pay 30%
   addQi(gs.cultivation, Math.round(xp * 0.12)); // fighting also feeds cultivation
   gs.stones += stones;
   gs.kills++;

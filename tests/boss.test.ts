@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { newBossAI, updateBoss, type BossEvent } from '../src/core/boss';
+import { newBossAI, updateBoss, WINDUP_MIN_FACTOR, type BossEvent } from '../src/core/boss';
 import { createRng } from '../src/core/rng';
 import { BOSSES, type BossDef, type MoveId } from '../src/data/boss';
 
@@ -43,7 +43,7 @@ for (const def of Object.values(BOSSES)) {
         const move = d.e.type as MoveId;
         const prev = [...tele].reverse().find((x) => x.e.move === move && x.t <= d.t);
         expect(prev, `${move} had no telegraph`).toBeDefined();
-        expect(d.t - prev!.t, `${move} telegraph lead time`).toBeGreaterThanOrEqual(minWindup[move]! - 0.06);
+        expect(d.t - prev!.t, `${move} telegraph lead time`).toBeGreaterThanOrEqual(minWindup[move]! * WINDUP_MIN_FACTOR - 0.06);
         seen++;
       }
       expect(seen).toBeGreaterThan(10);
