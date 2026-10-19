@@ -16,7 +16,7 @@ const SLOT_ICONS = [{ fx: 'xf_flying_sword', frame: 7 }, { fx: 'xf_moon_arc', fr
 
 export function buildHud(): void {
   if (built) return;
-  $('ui').insertAdjacentHTML('beforeend', `<div id="hudlayer" class="hidden">
+  $('ui').insertAdjacentHTML('beforeend', `<div id="hudlayer" class="hidden"><div id="vig"></div>
     <div id="pcard">
       <div id="lvl"></div>
       <div class="xbar hp"><i id="hp"></i><b id="hptxt"></b></div>

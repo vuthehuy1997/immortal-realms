@@ -115,3 +115,35 @@ describe('enemy roster data', () => {
     for (const z of Object.values(ZONES)) for (const id of Object.keys(z.spawns)) expect(ENEMIES[id], `${z.id}:${id}`).toBeDefined();
   });
 });
+
+describe('vision & perception', () => {
+  const d = ENEMIES.wolf!;
+  it('does not notice a target behind it, but does when it is close or in front', async () => {
+    const { inVisionCone, canSee } = await import('../src/core/perception');
+    const self = P(0), facing = P(1);
+    expect(inVisionCone(self, facing, P(80), 110)).toBe(true);
+    expect(inVisionCone(self, facing, P(-80), 110)).toBe(false);
+    expect(inVisionCone(self, facing, P(-15), 110)).toBe(true); // sense radius
+    expect(inVisionCone(self, facing, P(200), 110)).toBe(false); // too far
+    expect(canSee(self, facing, P(80), 110, (x) => x > 40)).toBe(false); // wall in between
+  });
+  it('stays idle while it cannot see the target', () => {
+    const ai = newEnemyAI();
+    for (let i = 0; i < 40; i++) updateEnemyAI(ai, d, P(0), P(60), 0.05, false);
+    expect(ai.state).toBe('idle');
+  });
+  it('never attacks without sight, hunts the last seen spot, then gives up', () => {
+    const ai = newEnemyAI(); let attacks = 0, x = 0;
+    for (let i = 0; i < 20; i++) { const o = updateEnemyAI(ai, d, P(x), P(60), 0.05, true); x += o.vel.x * 0.05; }
+    expect(ai.state).not.toBe('idle');
+    ai.state = 'attack'; ai.attackCd = 0;
+    for (let i = 0; i < 100; i++) { const o = updateEnemyAI(ai, d, P(x), P(x + 5, 300), 0.05, false); x += o.vel.x * 0.05; if (o.attack) attacks++; }
+    expect(attacks).toBe(0);
+    expect(ai.state).toBe('idle'); // memory expired (3s)
+  });
+  it('turns at a limited rate', async () => {
+    const { turnToward } = await import('../src/core/perception');
+    const f = turnToward(P(1), P(-1, 0.0001), 0.5);
+    expect(Math.atan2(f.y, f.x)).toBeCloseTo(0.5, 1);
+  });
+});

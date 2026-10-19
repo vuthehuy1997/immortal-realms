@@ -1,5 +1,6 @@
 import type { Vec2 } from './movement';
 import type { EnemyDef } from '../data/enemies';
+import { MEMORY_SECONDS } from './perception';
 
 export type EnemyAIState = 'idle' | 'chase' | 'attack' | 'retreat' | 'windup' | 'dash' | 'strike';
 
@@ -8,13 +9,16 @@ export interface EnemyAI {
   attackCd: number; // seconds until next attack allowed
   timer: number; // windup/dash remaining
   dir: Vec2; // locked direction while charging
+  facing: Vec2; // where the eyes point (vision cone is centred on this)
+  lastSeen: Vec2 | null; // last place the target was visible
+  lostT: number; // seconds since the target was last visible
 }
 
 export type AttackIntent = { kind: 'melee' | 'projectile'; /** projectiles to fan out (casters) */ count?: number };
 
 export interface AIOutput { vel: Vec2; attack?: AttackIntent }
 
-export const newEnemyAI = (): EnemyAI => ({ state: 'idle', attackCd: 0, timer: 0, dir: { x: 0, y: 0 } });
+export const newEnemyAI = (): EnemyAI => ({ state: 'idle', attackCd: 0, timer: 0, dir: { x: 0, y: 0 }, facing: { x: 1, y: 0 }, lastSeen: null, lostT: 0 });
 
 const toward = (from: Vec2, to: Vec2, sign = 1): Vec2 => {
   const dx = to.x - from.x, dy = to.y - from.y;
@@ -25,7 +29,7 @@ const scale = (v: Vec2, s: number): Vec2 => ({ x: v.x * s, y: v.y * s });
 const ZERO: Vec2 = { x: 0, y: 0 };
 
 /** Deterministic FSM tick. Caller integrates `vel` (with collision) and applies `attack`. */
-export function updateEnemyAI(ai: EnemyAI, def: EnemyDef, self: Vec2, target: Vec2, dt: number): AIOutput {
+export function updateEnemyAI(ai: EnemyAI, def: EnemyDef, self: Vec2, target: Vec2, dt: number, sees = true): AIOutput {
   ai.attackCd = Math.max(0, ai.attackCd - dt);
   const dist = Math.hypot(target.x - self.x, target.y - self.y);
 
@@ -50,10 +54,18 @@ export function updateEnemyAI(ai: EnemyAI, def: EnemyDef, self: Vec2, target: Ve
 
   switch (ai.state) {
     case 'idle':
-      if (dist <= def.aggroRange) ai.state = 'chase';
+      if (sees && dist <= def.aggroRange) { ai.state = 'chase'; ai.lastSeen = { ...target }; ai.lostT = 0; }
       return { vel: ZERO };
     case 'chase': {
       if (dist > def.aggroRange * 1.5) { ai.state = 'idle'; return { vel: ZERO }; }
+      if (sees) { ai.lastSeen = { ...target }; ai.lostT = 0; }
+      else { // target is out of sight (behind us / behind cover): hunt its last known position, then give up
+        ai.lostT += dt;
+        const ls = ai.lastSeen ?? self;
+        if (ai.lostT > MEMORY_SECONDS) { ai.state = 'idle'; ai.lastSeen = null; return { vel: ZERO }; }
+        if (Math.hypot(ls.x - self.x, ls.y - self.y) < 6) return { vel: ZERO };
+        return { vel: scale(toward(self, ls), def.speed * 0.8) };
+      }
       if (def.behavior === 'caster' && dist < (def.preferredRange ?? 0) * 0.75) { ai.state = 'retreat'; return { vel: ZERO }; }
       if (def.behavior === 'charger') {
         if (dist <= def.attackRange && ai.attackCd <= 0) {
@@ -65,6 +77,7 @@ export function updateEnemyAI(ai: EnemyAI, def: EnemyDef, self: Vec2, target: Ve
       return { vel: dist > stop ? scale(toward(self, target), def.speed) : ZERO };
     }
     case 'attack': {
+      if (!sees) { ai.state = 'chase'; return { vel: ZERO }; } // never attacks what it cannot see
       if (dist > def.attackRange * 1.2) { ai.state = 'chase'; return { vel: ZERO }; }
       if (def.behavior === 'caster' && dist < (def.preferredRange ?? 0) * 0.75) { ai.state = 'retreat'; return { vel: ZERO }; }
       // casters circle the target (flip direction every ~1.3s) instead of standing still like turrets

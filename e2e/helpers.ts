@@ -19,7 +19,7 @@ interface Rpg {
   state(): RpgState; cast(i: number, x: number, y: number): void; attack(x: number, y: number): void; dash(): void; teleport(x: number, y: number): void;
   spawn(type: string, x: number, y: number): void; clear(): void; setRoll(v: number | null): void; setQi(v: number): void;
   setBossHpRatio(r: number, id?: string): void; giveXp(n: number): void; give(id: string, n: number): void; setHp(n: number): void;
-  killPlayer(): void; respawnNow(): void; useSlot(i: number): void; gather(): void; bossForce(id: string, move: string): void; setStones(n: number): void; spawnElite(type: string, x: number, y: number): void; setTut(n: number): void;
+  killPlayer(): void; respawnNow(): void; useSlot(i: number): void; gather(): void; bossForce(id: string, move: string): void; setStones(n: number): void; spawnElite(type: string, x: number, y: number): void; spawnUnaware(type: string, x: number, y: number): number; strikeEnemy(id: number): void; alertAll(): void; setTut(n: number): void;
 }
 declare global { interface Window { __rpg?: Rpg; __world?: () => { x: number; y: number } } }
 

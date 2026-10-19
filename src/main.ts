@@ -17,7 +17,7 @@ const game = new Phaser.Game({
   parent: 'game',
   backgroundColor: '#0b0d14',
   scale: { mode: Phaser.Scale.RESIZE, width: '100%', height: '100%' },
-  antialias: true,
+  render: { antialias: false, powerPreference: 'high-performance' }, // pixel art: AA only costs fill-rate
   input: { windowEvents: false, keyboard: false }, // DOM UI clicks must not reach the canvas; keys handled in game/input.ts
   scene: [BootScene, WorldScene], // only the first scene starts automatically
 });

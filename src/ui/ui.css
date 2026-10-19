@@ -28,7 +28,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #stones { display: flex; align-items: center; gap: .35em; font-weight: 700; text-shadow: 0 1px 2px #000; }
 .stone { width: 1.5em; height: 1.5em; background: var(--img-stone) center / contain no-repeat; image-rendering: pixelated; }
 #hint { position: absolute; left: 1em; bottom: .8em; font-size: .72em; line-height: 1.35; color: #fff; background: rgba(11,13,20,.7); padding: .35em .6em; border-radius: 6px; max-width: 22em; opacity: .85; }
-#quest { position: absolute; right: 1em; top: 16.2em; width: 18em; font-size: .9em; border: 14px solid transparent; border-image: var(--img-panel) 36 fill / 14px stretch; padding: .1em .4em; background-clip: padding-box; }
+#quest { position: absolute; right: 1em; top: 19.3em; width: 18em; font-size: .9em; border: 14px solid transparent; border-image: var(--img-panel) 36 fill / 14px stretch; padding: .1em .4em; background-clip: padding-box; }
 #quest h4 { margin: 0 0 .25em; font-size: 1em; color: #ffe9a8; } #quest .done { color: #8fe29a; }
 #boss { position: absolute; left: 50%; top: .8em; transform: translateX(-50%); width: min(34em, 56vw); text-align: center; }
 #boss .name { font-weight: 700; font-size: 1.15em; text-shadow: 0 1px 3px #000, 0 0 8px #000; margin-bottom: .1em; letter-spacing: .06em; }
@@ -166,3 +166,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .volrow { display: block; margin: 1em auto 0; width: 15em; text-shadow: 0 1px 3px #000; } .volrow input { width: 100%; accent-color: #c9a33a; }
 .err.warn { color: #ffd98a; margin: .3em auto 1em; }
+
+#vig { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(5,6,12,.38) 100%); }
+#minimap { pointer-events: auto; cursor: pointer; }
+#minimap { width: 15em; height: 15em; }
+#mmlabel { position: absolute; right: 1em; top: 16.2em; width: 15em; text-align: center; display: flex; flex-direction: column; gap: .1em; text-shadow: 0 1px 3px #000; }
+#mmlabel b { color: var(--gold2); font-weight: 600; } #mmlabel small { opacity: .7; font-size: .8em; }
+#mmlabel b { font-size: .85em; } #mmlabel small { display: block; }

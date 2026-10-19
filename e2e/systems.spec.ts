@@ -89,7 +89,7 @@ test.describe('combat depth (QA round 1: enemy AI)', () => {
     await newGame(page);
     await page.evaluate(() => window.__rpg!.setHp(1e5));
     const bowl = (await st(page)).props.find((q) => q.kind === 'lotusbowl')!;
-    await page.evaluate(([x, y]) => { window.__rpg!.teleport(x as number, (y as number) - 46); window.__rpg!.spawn('wolf', x as number, (y as number) + 30); }, [bowl.x, bowl.y]);
+    await page.evaluate(([x, y]) => { window.__rpg!.teleport(x as number, (y as number) - 46); window.__rpg!.spawn('wolf', x as number, (y as number) + 30); window.__rpg!.alertAll(); /* the bowl blocks line of sight, so keep it aware to test pathing */ }, [bowl.x, bowl.y]);
     await expect.poll(async () => { const e = (await st(page)).enemies[0]; const q = await me(page); return e ? Math.hypot(e.x - q.x, e.y - q.y) : 0; }, { timeout: 60_000 }).toBeLessThan(26);
   });
 

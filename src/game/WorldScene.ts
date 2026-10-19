@@ -5,6 +5,7 @@ import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo,
 import { scaledEnemy } from '../core/balance';
 import { BACKLASH, meditate, nextRealmLevel } from '../core/cultivation';
 import { getDialogue } from '../core/dialogue';
+import { canSee, FOV, SENSE_RADIUS, turnToward, TURN_RATE } from '../core/perception';
 import { newEnemyAI, updateEnemyAI, type EnemyAI } from '../core/enemyAI';
 import { gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, tryBreakthrough, turnInQuest, unequipSlot, useItemSlot, type GameState } from '../core/gameState';
 import { freePoints, scaledSkill, skillLevel, upgradeSkill, type ScaledSkill } from '../core/skills';
@@ -27,7 +28,7 @@ import { ZONES } from '../data/zones';
 import { buildPanels, closePanels, isDialogueOpen, isPanelOpen, refreshPanels, showDialogue, togglePanel } from '../ui/panels';
 import { hideScreen, showPause } from '../ui/menu';
 import { setBossBar, setObjectiveArrow, setPrompt, showDeath, showZoneBanner, toast, updateHud } from '../ui/hud';
-import { closeWorldMap, initMinimap, isWorldMapOpen, removeMinimap, toggleWorldMap, updateMinimap, updateWorldMap } from '../ui/minimap';
+import { closeWorldMap, setMinimapZone, initMinimap, isWorldMapOpen, removeMinimap, toggleWorldMap, updateMinimap, updateWorldMap } from '../ui/minimap';
 import { closeTrade, isTradeOpen, renderTrade, showTrade } from '../ui/trade';
 import { craft } from '../core/alchemy';
 import { buy, sell, sellValue } from '../core/shop';
@@ -56,6 +57,7 @@ interface Enemy {
   id: number; def: EnemyDef; c: Combatant; ai: EnemyAI; pos: Vec2; actor: Actor; kb: Vec2; stun: number;
   lockUntil: number; minion: boolean; elite: boolean; zone: ZoneId; vel: Vec2; home: Vec2; stuckT: number; stuckPos: Vec2; detour: { until: number; sign: number } | null; stuckCount: number; lastDetourEnd: number;
   burn: { t: number; dps: number; tick: number } | null; slow: number; shield: number; affix: Affix | null; label: Phaser.GameObjects.Text | null;
+  alertUntil: number; sees: boolean;
 }
 type Affix = 'swift' | 'vampiric' | 'explosive' | 'shielded';
 const AFFIX_NAME: Record<Affix, string> = { swift: 'Swift', vampiric: 'Vampiric', explosive: 'Volatile', shielded: 'Warded' };
@@ -109,6 +111,7 @@ export class WorldScene extends Phaser.Scene {
   private uiPause = false;
   private hasPointer = false;
   private facing: Vec2 = { x: 1, y: 0 };
+  private vision!: Phaser.GameObjects.Graphics;
   private aimWorld: Vec2 = { x: 0, y: 0 };
   private respawnTimer = 0;
   private autosaveTimer = 0;
@@ -139,7 +142,7 @@ export class WorldScene extends Phaser.Scene {
 
     const rendered = renderWorld(this, this.world, WORLD_SEED);
     this.herbs = rendered.herbs; this.occluders = rendered.occluders;
-    initMinimap(this.world);
+    initMinimap(this.world, () => { if (!this.uiPause) toggleWorldMap(this.world); });
     this.fx = new Fx(this);
     this.ambient = new Ambient(this, worldW, worldH);
 
@@ -187,8 +190,8 @@ export class WorldScene extends Phaser.Scene {
     cam.startFollow(this.camTarget, true, 0.12, 0.12);
     this.applyZoom();
     this.scale.on('resize', () => this.applyZoom());
-    if (!location.search.includes('novig')) { try { cam.filters.external.addVignette(0.5, 0.5, 1.0, 0.32); } catch { /* filters unavailable (Canvas fallback) */ } }
-    this.hpBars.setDepth(1e5);
+    // vignette is a CSS overlay (#vig): a full-screen WebGL filter pass cost ~2x frame time on weaker GPUs
+    this.hpBars.setDepth(1e5); this.vision = this.add.graphics().setDepth(2);
     this.events.once('shutdown', () => {
       this.kb.dispose(); closeTrade(); closeWorldMap(); showDeath(false); removeMinimap(); audio.stopMusic(); this.scale.off('resize'); closePanels(); showDialogue(null, () => undefined); setBossBar(null); setPrompt(null);
       this.anims.globalTimeScale = 1;
@@ -279,7 +282,8 @@ export class WorldScene extends Phaser.Scene {
     const prefix = elite && def.eliteSprites?.length ? def.eliteSprites[Math.floor(this.rng() * def.eliteSprites.length)]! : def.sprite;
     const actor = new Actor(this, prefix, pos.x, pos.y, def.scale * (elite ? 1.18 : 1), def.radius * 3);
     actor.setPos(pos.x, pos.y);
-    const e: Enemy = { id: this.nextId++, def, c, ai: newEnemyAI(), pos: { ...pos }, actor, kb: { x: 0, y: 0 }, stun: 0, lockUntil: 0, minion, elite, zone, vel: { x: 0, y: 0 }, home: { ...pos }, stuckT: 0, stuckPos: { ...pos }, detour: null, stuckCount: 0, lastDetourEnd: -9, burn: null, slow: 0, shield: 0, affix: null, label: null };
+    const e: Enemy = { id: this.nextId++, def, c, ai: newEnemyAI(), pos: { ...pos }, actor, kb: { x: 0, y: 0 }, stun: 0, lockUntil: 0, minion, elite, zone, vel: { x: 0, y: 0 }, home: { ...pos }, stuckT: 0, stuckPos: { ...pos }, detour: null, stuckCount: 0, lastDetourEnd: -9, burn: null, slow: 0, shield: 0, affix: null, label: null, alertUntil: 0, sees: false };
+    { const a = this.rng() * Math.PI * 2; e.ai.facing = { x: Math.cos(a), y: Math.sin(a) }; }
     if (elite) {
       const affixes: Affix[] = ['swift', 'vampiric', 'explosive', 'shielded'];
       e.affix = affixes[Math.floor(this.rng() * affixes.length)]!;
@@ -597,6 +601,7 @@ export class WorldScene extends Phaser.Scene {
     this.fx.burst(e.pos.x, e.pos.y - 10, r.crit ? COLORS.gold : this.heroColor, r.crit ? 14 : 8);
     this.fx.play('xf_ink_splash', e.pos.x, e.pos.y - 10, { scale: r.crit ? 0.11 : 0.07, tint: r.crit ? COLORS.gold : COLORS.white, alpha: 0.7 });
     if (r.crit) this.hitStop(55);
+    this.alertEnemy(e); // being struck (even from behind) makes it turn and hunt you
     const from = o.from ?? this.pos;
     if (o.kb) e.kb = impulse({ x: e.pos.x - from.x, y: e.pos.y - from.y }, o.kb * (e.def.maxHp > 100 ? 0.4 : 1));
     if (o.stun) e.stun = Math.max(e.stun, o.stun);
@@ -750,7 +755,7 @@ export class WorldScene extends Phaser.Scene {
 
     const zone = zoneAt(this.world, this.pos);
     if (zone !== this.currentZone) this.currentZone = zone;
-    if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; showZoneBanner(ZONES[zone].name, ZONES[zone].level); }
+    if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; showZoneBanner(ZONES[zone].name, ZONES[zone].level); setMinimapZone(ZONES[zone].name, ZONES[zone].level); }
     this.ambient.update(dt, zone);
     const mood: Mood = this.bosses.some((b) => b.engaged) ? 'boss' : zone === 'marsh' ? 'mist' : zone === 'ruins' || zone === 'lair' || this.enemies.some((e) => e.ai.state !== 'idle' && !e.minion) ? 'danger' : 'calm';
     audio.setMood(mood); audio.setZone(zone);
@@ -907,7 +912,12 @@ export class WorldScene extends Phaser.Scene {
     e.vel = { x: 0, y: 0 };
     const prevState = e.ai.state;
     if (e.stun <= 0) {
-      const out = updateEnemyAI(e.ai, e.def, e.pos, target, dt);
+      const range = e.ai.state === 'idle' ? e.def.aggroRange : e.def.aggroRange * 1.5;
+      e.sees = alive && (e.minion || this.now < e.alertUntil || canSee(e.pos, e.ai.facing, target, range, (x, y) => isBlockedTile(this.world, Math.floor(x / TILE_SIZE), Math.floor(y / TILE_SIZE))));
+      const wasState = e.ai.state, wasLost = e.ai.lostT;
+      const out = updateEnemyAI(e.ai, e.def, e.pos, target, dt, e.sees);
+      if (wasState === 'idle' && e.ai.state === 'chase') this.floatText(e.pos, '!', '#ff5a4a', true, 8);
+      else if (wasState === 'chase' && wasLost === 0 && e.ai.lostT > 0) this.floatText(e.pos, '?', '#ffd23f', true, 8);
       let vx = out.vel.x, vy = out.vel.y;
       attack = out.attack;
       if (e.ai.state === 'idle' && !e.minion) { // lost the target: walk home and recover, so luring enemies away cannot be exploited
@@ -971,11 +981,33 @@ export class WorldScene extends Phaser.Scene {
       if (e.ai.state === 'windup') { if (e.actor.anim !== 'attack') e.actor.play('attack', { force: true, duration: e.def.windup ?? 0.6 }); }
       else if (Math.hypot(e.vel.x, e.vel.y) > 6) e.actor.play('move'); else e.actor.play('idle');
     } else if (e.stun > 0 && this.now >= e.lockUntil && e.actor.anim !== 'hurt') e.actor.play('hurt');
-    if (alive && e.ai.state !== 'idle' && dist < e.def.aggroRange * 1.4) e.actor.face(toPlayer.x < 0 ? -1 : 1);
-    else if (Math.abs(e.vel.x) > 4) e.actor.face(e.vel.x < 0 ? -1 : 1);
+    this.turnEnemy(e, target, dt);
+    if (Math.abs(e.ai.facing.x) > 0.2) e.actor.face(e.ai.facing.x < 0 ? -1 : 1);
     e.actor.setPos(e.pos.x, e.pos.y);
     e.label?.setPosition(e.pos.x, e.pos.y - e.def.scale * 92 - 12);
     if (e.ai.state === 'windup' || e.ai.state === 'strike') e.actor.tint(0xffb066); else if (e.elite) e.actor.tint(0xffe9a8); else e.actor.untint();
+  }
+
+  /** Wakes an enemy and points it at the player (hit from behind, ally shouted, etc.). */
+  private alertEnemy(e: Enemy): void {
+    e.alertUntil = this.now + 2.5;
+    e.ai.facing = normalize({ x: this.pos.x - e.pos.x, y: this.pos.y - e.pos.y });
+    e.ai.lastSeen = { ...this.pos }; e.ai.lostT = 0;
+    if (e.ai.state === 'idle') { e.ai.state = 'chase'; this.floatText(e.pos, '!', '#ff5a4a', true, 8); }
+  }
+
+  /** Eyes follow what the enemy is doing: the target while it sees it, the last-seen spot while searching, its walking direction or a slow look-around while idle. */
+  private turnEnemy(e: Enemy, target: Vec2, dt: number): void {
+    const st = e.ai.state, rate = TURN_RATE * (e.affix === 'swift' ? 1.3 : 1);
+    if (st === 'windup' || st === 'dash') { e.ai.facing = turnToward(e.ai.facing, e.ai.dir, rate * dt); return; }
+    if (st === 'idle') {
+      const moving = Math.hypot(e.vel.x, e.vel.y) > 6;
+      const sway = (e.id * 2.3) + Math.sin(this.now * 0.55 + e.id) * 1.1;
+      e.ai.facing = turnToward(e.ai.facing, moving ? normalize(e.vel) : { x: Math.cos(sway), y: Math.sin(sway) }, (moving ? rate : 1.2) * dt);
+      return;
+    }
+    const goal = e.sees || !e.ai.lastSeen ? target : e.ai.lastSeen;
+    e.ai.facing = turnToward(e.ai.facing, { x: goal.x - e.pos.x, y: goal.y - e.pos.y }, rate * dt);
   }
 
   private updateBolts(dt: number, alive: boolean): void {
@@ -1132,7 +1164,14 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private drawOverlays(): void {
-    this.hpBars.clear();
+    this.hpBars.clear(); this.vision.clear();
+    for (const e of this.enemies) { // faint vision cone on unaware enemies near you, so stealth is readable
+      if (e.minion || e.ai.state !== 'idle' || e.c.hp <= 0) continue;
+      if (Math.hypot(e.pos.x - this.pos.x, e.pos.y - this.pos.y) > 260) continue;
+      const a = Math.atan2(e.ai.facing.y, e.ai.facing.x), r = e.def.aggroRange;
+      this.vision.fillStyle(0xffd23f, 0.09).slice(e.pos.x, e.pos.y, r, a - FOV / 2, a + FOV / 2, false).fillPath();
+      this.vision.fillStyle(0xffd23f, 0.07).fillCircle(e.pos.x, e.pos.y, SENSE_RADIUS);
+    }
     for (const e of this.enemies) {
       if (e.c.hp >= e.c.maxHp && e.ai.state === 'idle' && !e.elite) continue;
       const w = e.elite ? 26 : 22, x = e.pos.x - w / 2, y = e.pos.y - e.def.scale * 85 - 4;
@@ -1163,8 +1202,11 @@ export class WorldScene extends Phaser.Scene {
       attack: (x: number, y: number) => this.attack({ x, y }),
       dash: () => this.dash(),
       teleport: (x: number, y: number) => { this.pos = { x, y }; },
-      spawn: (type: string, x: number, y: number) => { this.spawnEnemy(type, { x, y }, false, 'bamboo', false); },
-      spawnElite: (type: string, x: number, y: number) => { this.spawnEnemy(type, { x, y }, false, 'marsh', true); },
+      spawn: (type: string, x: number, y: number) => { const en = this.spawnEnemy(type, { x, y }, false, 'bamboo', false); if (en) en.ai.facing = normalize({ x: this.pos.x - x, y: this.pos.y - y }); },
+      spawnUnaware: (type: string, x: number, y: number) => { const en = this.spawnEnemy(type, { x, y }, false, 'bamboo', false); if (en) en.ai.facing = normalize({ x: x - this.pos.x, y: y - this.pos.y }); return en?.id ?? -1; },
+      alertAll: () => { for (const en of this.enemies) en.alertUntil = this.now + 120; },
+      strikeEnemy: (id: number) => { const en = this.enemies.find((q) => q.id === id); if (en) this.hitEnemy(en, 0.01); },
+      spawnElite: (type: string, x: number, y: number) => { const en = this.spawnEnemy(type, { x, y }, false, 'marsh', true); if (en) en.ai.facing = normalize({ x: this.pos.x - x, y: this.pos.y - y }); },
       setTut: (n: number) => { this.gs.tut = n; },
       clear: () => { this.enemies.forEach((e) => e.actor.destroy()); this.enemies = []; },
       setRoll: (v: number | null) => { this.rngOverride = v; },

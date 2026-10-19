@@ -11,7 +11,7 @@ let world: WorldMap | null = null;
 let acc = 0;
 
 /** Builds the (static) terrain image once per world and mounts the minimap canvas. */
-export function initMinimap(w: WorldMap): void {
+export function initMinimap(w: WorldMap, onOpen: () => void = () => undefined): void {
   world = w;
   base = document.createElement('canvas'); base.width = w.width * PX; base.height = w.height * PX;
   const b = base.getContext('2d')!;
@@ -23,7 +23,8 @@ export function initMinimap(w: WorldMap): void {
   for (const p of w.props) if (['palace', 'pagoda7', 'pavilion', 'tower', 'goldpaifang', 'goldgate'].includes(p.kind)) { b.fillStyle = '#e9d27a'; b.fillRect((p.x / TILE_SIZE) * PX - 2, (p.y / TILE_SIZE) * PX - 2, 4, 3); }
   let c = document.getElementById('minimap') as HTMLCanvasElement | null;
   if (!c) { c = document.createElement('canvas'); c.id = 'minimap'; $('hudlayer').appendChild(c); }
-  c.width = 156; c.height = 156;
+  c.width = 156; c.height = 156; c.title = 'Click or press Tab for the world map'; c.onclick = onOpen;
+  if (!document.getElementById('mmlabel')) { const l = document.createElement('div'); l.id = 'mmlabel'; l.innerHTML = '<b id="mmzone"></b><small>Tab · world map</small>'; $('hudlayer').appendChild(l); }
   ctx = c.getContext('2d')!;
 }
 
@@ -62,7 +63,9 @@ export function updateMinimap(f: MinimapFrame, dtSec: number): void {
   void view;
 }
 
-export function removeMinimap(): void { document.getElementById('minimap')?.remove(); ctx = null; base = null; world = null; }
+export function setMinimapZone(name: string, level: string): void { const z = document.getElementById('mmzone'); if (z) z.textContent = `${name} · ${level}`; }
+
+export function removeMinimap(): void { document.getElementById('minimap')?.remove(); document.getElementById('mmlabel')?.remove(); ctx = null; base = null; world = null; }
 
 // ---- full-screen world map (Tab) ----
 const WM_PX = 6;
