@@ -59,7 +59,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ---- panels ---- */
 .panel { position: absolute; border: 22px solid transparent; border-image: var(--img-panel) 36 fill / 22px stretch; padding: .15em .45em; background-clip: padding-box; }
 #inv { right: 1em; top: 24em; width: 24em; max-height: calc(100vh - 25em); overflow: auto; }
-#chr { left: 1em; top: 13.5em; width: 23em; max-height: calc(100vh - 14.5em); overflow: auto; }
+#chr { left: 1em; top: 13.5em; width: 23em; max-height: calc(100vh - 13.5em - 6.5em); overflow: auto; }
 .panel h3 { margin: 0 0 .5em; font-size: 1.15em; letter-spacing: .05em; color: #ffe9a8; }
 .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: .3em; }
 .cell { position: relative; aspect-ratio: 1; background: linear-gradient(#1c1a28, #121019); border: 1px solid #5b4a24; border-radius: 5px; padding: 0; }
@@ -126,7 +126,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #minimap { position: absolute; right: 1em; top: .8em; width: 13em; height: 13em; border-radius: 50%; border: 3px solid var(--gold2); box-shadow: 0 0 0 2px #14111c, 0 4px 14px #000a; background: #0b0d14; image-rendering: pixelated; }
 
 /* ---- trade window ---- */
-#trade { left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(46em, 94vw); max-height: 90vh; overflow: auto; }
+#trade { left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(46em, 90vw); max-height: 84vh; overflow: auto; }
 #trade .thead { display: flex; gap: .9em; align-items: flex-start; margin-bottom: .5em; } #trade .portrait { width: 5.4em; image-rendering: pixelated; flex: none; }
 #trade .who { font-weight: 700; font-size: 1.15em; color: #ffe9a8; } #trade .txt { opacity: .9; margin: .15em 0 .3em; } #trade .purse { font-weight: 700; color: #8fd8ff; }
 #trade h4 { margin: .3em 0 .3em; color: #ffe9a8; letter-spacing: .06em; }
@@ -177,3 +177,5 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .slot.locked .nm, .slot.locked .k { visibility: hidden; } .slot .lock { z-index: 2; }
 @media (max-height: 680px) { #quest { font-size: .8em; top: 22em; max-height: 34vh; overflow: hidden; } }
 #mmlabel { line-height: 1.05; top: 15.9em; } #mmlabel b { font-size: .8em; } #mmlabel small { font-size: .7em; }
+body.bossfight #objective { display: none; }
+#wmap .hint { position: absolute; top: .8em; left: 50%; transform: translateX(-50%); bottom: auto; }

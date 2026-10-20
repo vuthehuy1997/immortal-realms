@@ -8,3 +8,8 @@
 - Balance: rusher windups longer, root tweaks (flame crit 5%, tide slow+mana, verdant 9% lifesteal), elites tougher, ruins tier 3.0.
 - UI: quest objective overrides tutorial, objective arrow avoids HUD, locked-slot labels, NPC nameplate backplates, elite labels near player only, no zone banner in boss/death.
 - QA round 3 fixes: HP regen reset on world (re)entry (R3-1), enemies struck from afar keep hunting (R3-2), 3s grace on entering the world (R3-3), death tax floor 5 (R3-4), clearer vision cone and '!' (R3-10), tighter minimap label vs quest panel (R3-6/9). Open: human playtest of ruins difficulty (R3-5), pack alerts/sneak bonus, 1024x600 panel clipping.
+
+## Round 5
+- Stealth: ambush bonus x1.5 on unaware enemies ("Ambush!"), pack alert (70-unit radius) when a packmate is struck.
+- UI at 1024x600: world map labels clamped inside the frame, map hint moved to top, character panel stops above the hotbar, trade window narrower, objective line hidden during boss fights.
+- Open: ruins/normal-mob difficulty needs a human playtest; NPC nameplates can sit behind the minimap at some resolutions.

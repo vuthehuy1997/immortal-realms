@@ -96,7 +96,11 @@ export function updateWorldMap(f: WorldMapFrame): void {
   g.drawImage(wmBase, 0, 0);
   const dot = (x: number, y: number, r: number, col: string) => { g.fillStyle = col; g.beginPath(); g.arc(x * k, y * k, r, 0, Math.PI * 2); g.fill(); g.strokeStyle = '#000'; g.lineWidth = 1; g.stroke(); };
   g.font = 'bold 13px Georgia, serif'; g.textAlign = 'center';
-  for (const z of f.zones) { g.fillStyle = 'rgba(0,0,0,.65)'; g.fillText(z.name, z.x * k + 1, z.y * k + 1); g.fillStyle = '#ffe9a8'; g.fillText(z.name, z.x * k, z.y * k); }
+  for (const z of f.zones) { // keep every label inside the frame
+    const hw = g.measureText(z.name).width / 2 + 4, lx = Math.max(hw, Math.min(c.width - hw, z.x * k)), ly = z.y * k;
+    g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(lx - hw, ly - 12, hw * 2, 17);
+    g.fillStyle = '#ffe9a8'; g.fillText(z.name, lx, ly);
+  }
   for (const h of f.herbs) dot(h.x, h.y, 2.5, '#ffe27a');
   for (const n of f.npcs) dot(n.x, n.y, 4, '#ffffff');
   for (const e of f.enemies) dot(e.x, e.y, e.elite ? 3.5 : 2.5, e.elite ? '#ffb02e' : '#ff5a4a');

@@ -101,6 +101,7 @@ function renderQuestTracker(gs: GameState): void {
 export function setBossBar(name: string | null, hp = 0, maxHp = 1): void {
   const box = $('boss');
   box.classList.toggle('hidden', name === null);
+  document.body.classList.toggle('bossfight', name !== null); // the objective line steps aside while the boss bar is up
   if (name === null) return;
   setText($('bossname'), name); setFill($('bosshp'), (100 * hp) / maxHp); setText($('bosshptxt'), `${Math.ceil(hp)} / ${maxHp}`);
 }

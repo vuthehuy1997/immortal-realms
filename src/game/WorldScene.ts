@@ -5,6 +5,8 @@ import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo,
 import { scaledEnemy } from '../core/balance';
 import { BACKLASH, meditate, nextRealmLevel } from '../core/cultivation';
 import { getDialogue } from '../core/dialogue';
+const AMBUSH_MULT = 1.5; // sneak-attack damage bonus on an unaware enemy
+const PACK_ALERT_RADIUS = 70; // hearing range for packmates when one is struck
 import { deathTax, hpRegenPerSec } from '../core/recovery';
 import { canSee, FOV, SENSE_RADIUS, turnToward, TURN_RATE } from '../core/perception';
 import { newEnemyAI, updateEnemyAI, type EnemyAI } from '../core/enemyAI';
@@ -591,7 +593,9 @@ export class WorldScene extends Phaser.Scene {
 
   private hitEnemy(e: Enemy, mult: number, o: HitOpts = {}): void {
     if (e.c.hp <= 0) return;
-    const r = computeDamage(this.pc, e.c, mult, this.rng);
+    const ambush = !o.dot && e.ai.state === 'idle' && !e.minion && this.now >= e.alertUntil; // struck while unaware
+    const r = computeDamage(this.pc, e.c, ambush ? mult * AMBUSH_MULT : mult, this.rng);
+    if (ambush) this.floatText(e.pos, 'Ambush!', '#ffd23f', false, 8);
     let amount = r.amount;
     if (e.shield > 0) { const ab = Math.min(e.shield, amount); e.shield -= ab; amount -= ab; if (e.shield <= 0) this.floatText(e.pos, 'Ward broken', '#9fd8ff', false, 8); }
     this.lastCombat = this.now;
@@ -1001,11 +1005,16 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /** Wakes an enemy and points it at the player (hit from behind, ally shouted, etc.). */
-  private alertEnemy(e: Enemy): void {
+  private alertEnemy(e: Enemy, shout = true): void {
     e.alertUntil = this.now + 2.5;
     e.ai.facing = normalize({ x: this.pos.x - e.pos.x, y: this.pos.y - e.pos.y });
     e.ai.lastSeen = { ...this.pos }; e.ai.lostT = 0; e.ai.leash = 2.6; // struck from afar: keep hunting well beyond the normal leash
     if (e.ai.state === 'idle') { e.ai.state = 'chase'; this.floatText(e.pos, '!', '#ff5a4a', true, 13); }
+    if (!shout) return;
+    for (const o of this.enemies) { // packmates within earshot join in
+      if (o === e || o.minion || o.c.hp <= 0 || o.ai.state !== 'idle' || o.zone !== e.zone) continue;
+      if (Math.hypot(o.pos.x - e.pos.x, o.pos.y - e.pos.y) <= PACK_ALERT_RADIUS) this.alertEnemy(o, false);
+    }
   }
 
   /** Eyes follow what the enemy is doing: the target while it sees it, the last-seen spot while searching, its walking direction or a slow look-around while idle. */

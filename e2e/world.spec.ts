@@ -56,7 +56,7 @@ test.describe('#3 world, #4 movement, #5 combat zone, #6 enemies, #8/#9 skills &
   test('sword combo chains three hits and the finisher hits hardest', async ({ page }) => {
     await newGame(page);
     const p = await me(page);
-    await page.evaluate(([x, y]) => window.__rpg!.spawn('golem', (x as number) + 24, y as number), [p.x, p.y]);
+    await page.evaluate(([x, y]) => { window.__rpg!.spawn('golem', (x as number) + 24, y as number); window.__rpg!.alertAll(); /* aware, so the ambush bonus can't skew the comparison */ }, [p.x, p.y]);
     const hp = async () => (await st(page)).enemies[0]!.hp;
     const hits: number[] = [];
     for (let i = 0; i < 3; i++) {
