@@ -21,12 +21,12 @@ test.describe('#7 boss', () => {
     await shot(page, 'boss-telegraph');
   });
 
-  const MOVES: [string, string][] = [['warden', 'slam'], ['warden', 'sweep'], ['warden', 'rain'], ['warden', 'teleport'], ['warden', 'summon'], ['warden', 'ring'], ['ninetail', 'sweep'], ['ninetail', 'charge'], ['ninetail', 'rain'], ['ninetail', 'teleport'], ['ninetail', 'summon'], ['ninetail', 'ring']];
+  const MOVES: [string, string][] = [['warden', 'slam'], ['warden', 'sweep'], ['warden', 'rain'], ['warden', 'teleport'], ['warden', 'summon'], ['warden', 'ring'], ['ninetail', 'sweep'], ['ninetail', 'charge'], ['ninetail', 'rain'], ['ninetail', 'teleport'], ['ninetail', 'summon'], ['ninetail', 'ring'], ['jiaolong', 'sweep'], ['jiaolong', 'charge'], ['jiaolong', 'rain'], ['jiaolong', 'summon'], ['jiaolong', 'ring']];
   for (const [id, move] of MOVES) {
     test(`${id} move "${move}": telegraphed first, then it really happens`, async ({ page }) => {
       await newGame(page);
       await page.evaluate(() => window.__rpg!.setHp(5000));
-      const s0 = await st(page); const home = id === 'warden' ? s0.lair : s0.den;
+      const s0 = await st(page); const home = id === 'warden' ? s0.lair : id === 'jiaolong' ? s0.pool : s0.den;
       await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 40, y as number), [home.x, home.y]);
       await expect.poll(async () => (await st(page)).bosses.find((b) => b.id === id)?.engaged).toBe(true);
       const boss = async () => (await st(page)).bosses.find((b) => b.id === id)!;
@@ -75,13 +75,14 @@ test.describe('#7 boss', () => {
   });
 
   test('the quest chain runs pests -> fox -> immortal; the fox boss drops its saber', async ({ page }) => {
+    test.setTimeout(180_000); // long scripted chain; slow when the shared runner is loaded
     await newGame(page, 'Fox Hunter');
     await finishPests(page);
     await expect(page.locator('#dlg')).toContainText('nine-tailed fox');
     await page.click('#dlg button[data-opt="0"]'); // accept the fox quest
     await expect(page.locator('#quest')).toContainText('The Fox of the Peach Grove');
     const s0 = await st(page);
-    expect(s0.bosses.map((b) => b.id).sort()).toEqual(['ninetail', 'warden']);
+    expect(s0.bosses.map((b) => b.id).sort()).toEqual(['jiaolong', 'ninetail', 'warden']);
     await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 110, y as number), [s0.den.x, s0.den.y]);
     await expect.poll(async () => (await st(page)).bosses.find((b) => b.id === 'ninetail')?.engaged).toBe(true);
     await expect(page.locator('#bossname')).toContainText('Nine-Tailed Fox');
@@ -123,7 +124,7 @@ test.describe('#7 boss', () => {
     await page.evaluate(([x, y]) => window.__rpg!.attack(x as number, y as number), [b.x, b.y]);
     await expect.poll(async () => (await st(page)).bossDefeated, { timeout: 90_000 }).toBe(true);
     const s = await st(page);
-    expect(s.boss).toBeNull();
+    expect(s.bosses.find((x) => x.id === 'warden')).toBeUndefined(); // slain; the untouched dragon is still waiting at its pool
     expect(s.items.join(',')).toContain('jade-sword:1');
     await expect(page.locator('#boss')).toBeHidden();
     await expect(page.locator('#quest')).toContainText('1/1');
@@ -136,7 +137,39 @@ test.describe('#7 boss', () => {
     await page.keyboard.press('Escape'); await page.click('#btn-save');
     await page.reload(); await page.click('#btn-continue'); await page.waitForFunction(() => window.__rpg);
     const after = await st(page);
-    expect(after.bosses.map((b) => b.id).sort()).toEqual(['ninetail', 'warden']); // bosses return so the fight can be repeated
-    expect(after.bossesDefeated.sort()).toEqual(['ninetail', 'warden']); // ...but the story progress persists
+    expect(after.bosses.map((b) => b.id).sort()).toEqual(['jiaolong', 'ninetail', 'warden']); // bosses return so the fight can be repeated
+    expect(after.bossesDefeated.sort()).toEqual(['ninetail', 'warden']); // (the dragon was never fought here) ...but the story progress persists
+  });
+
+  test('Jiao Dragon: waits at its pool, can be slain once for the dragon pearl, and the merchant/alchemist show their own portraits', async ({ page }) => {
+    test.setTimeout(120_000);
+    await newGame(page, 'Dragon');
+    await page.evaluate(() => { window.__rpg!.setHp(1e5); window.__rpg!.setRoll(0); window.__rpg!.setBossHpRatio(0.001, 'jiaolong'); });
+    const pool = (await st(page)).pool;
+    await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 100, y as number), [pool.x, pool.y]);
+    await expect.poll(async () => (await st(page)).bosses.find((b) => b.id === 'jiaolong')?.engaged).toBe(true);
+    await expect(page.locator('#bossname')).toContainText('Jiao Dragon');
+    await page.waitForTimeout(2500); // let the camera settle on the arena
+    await shot(page, 'boss-jiaolong');
+    await expect.poll(async () => {
+      const d = (await st(page)).bosses.find((b) => b.id === 'jiaolong');
+      if (!d) return (await st(page)).bossesDefeated;
+      await page.evaluate(([x, y]) => { window.__rpg!.teleport((x as number) - 26, y as number); window.__rpg!.attack(x as number, y as number); }, [d.x, d.y]);
+      return (await st(page)).bossesDefeated;
+    }, { timeout: 60_000 }).toContain('jiaolong');
+    expect((await st(page)).items.join(',')).toContain('dragon-pearl:1');
+  });
+
+  test('dialogue portraits differ per NPC (merchant and alchemist no longer reuse the abbot)', async ({ page }) => {
+    test.setTimeout(150_000);
+    await newGame(page);
+    await finishPests(page);
+    await page.keyboard.press('Escape');
+    await goToNpc(page, 'merchant-qiao'); await talk(page);
+    expect(await page.locator('#dlg img.portrait').getAttribute('src')).toContain('peddler');
+    await shot(page, 'dialogue-merchant');
+    await page.keyboard.press('Escape');
+    await goToNpc(page, 'alchemist-yun'); await talk(page);
+    expect(await page.locator('#dlg img.portrait').getAttribute('src')).toContain('alchemist');
   });
 });

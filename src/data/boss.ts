@@ -11,8 +11,10 @@ export interface RingDef { windup: number; cooldown: number; projectiles: number
 
 export interface BossDef {
   id: string; name: string;
-  /** world anchor: 'lair' or 'den' */
-  home: 'lair' | 'den';
+  /** world anchor of the arena */
+  home: 'lair' | 'den' | 'pool';
+  /** zone its summoned minions belong to */
+  zone: 'lair' | 'grove' | 'marsh';
   xp: number;
   stones: [number, number];
   /** sprite prefix in the manifest */
@@ -28,7 +30,7 @@ export interface BossDef {
 }
 
 export const WARDEN: BossDef = {
-  id: 'warden', name: 'Fallen Sword Immortal', home: 'lair', xp: 900, stones: [90, 140], sprite: 'boss.fallenimmortal', scale: 0.55, radius: 18,
+  id: 'warden', name: 'Fallen Sword Immortal', home: 'lair', zone: 'lair', xp: 900, stones: [90, 140], sprite: 'boss.fallenimmortal', scale: 0.55, radius: 18,
   maxHp: 6600, atk: 30, def: 9, speed: 36,
   moves: {
     slam: { radius: 56, windup: 0.9, recover: 0.5, cooldown: 4, damageMult: 1.8, triggerRange: 90 },
@@ -44,7 +46,7 @@ export const WARDEN: BossDef = {
 };
 
 export const NINETAIL: BossDef = {
-  id: 'ninetail', name: 'Nine-Tailed Fox Spirit', home: 'den', xp: 420, stones: [55, 80], sprite: 'boss.ninetail', scale: 0.42, radius: 22,
+  id: 'ninetail', name: 'Nine-Tailed Fox Spirit', home: 'den', zone: 'grove', xp: 420, stones: [55, 80], sprite: 'boss.ninetail', scale: 0.42, radius: 22,
   maxHp: 2400, atk: 22, def: 6, speed: 48,
   moves: {
     sweep: { range: 74, halfAngle: 1.25, windup: 0.6, recover: 0.4, cooldown: 2.6, damageMult: 1.3, triggerRange: 80 },
@@ -59,5 +61,22 @@ export const NINETAIL: BossDef = {
   enrage: { speedMult: 1.35, cooldownMult: 0.7 },
 };
 
-export const BOSSES: Record<string, BossDef> = { warden: WARDEN, ninetail: NINETAIL };
+/** Water dragon of Mistveil Marsh: a mid-game boss built around geysers and orb rings, with drowned-ghost adds. */
+export const JIAOLONG: BossDef = {
+  id: 'jiaolong', name: 'Jiao Dragon of the Mist Pool', home: 'pool', zone: 'marsh', xp: 1100, stones: [120, 180], sprite: 'boss.jiaolong', scale: 0.4, radius: 24,
+  maxHp: 7400, atk: 34, def: 10, speed: 42,
+  moves: {
+    slam: { radius: 50, windup: 0.85, recover: 0.5, cooldown: 4.2, damageMult: 1.6, triggerRange: 84 },
+    sweep: { range: 92, halfAngle: 1.1, windup: 0.65, recover: 0.45, cooldown: 3, damageMult: 1.4, triggerRange: 90 },
+    charge: { windup: 0.75, duration: 0.55, speed: 280, width: 24, recover: 0.7, cooldown: 5, damageMult: 1.5, minRange: 14, maxRange: 240 },
+    rain: { count: 7, radius: 28, spread: 110, windup: 0.5, delay: 0.95, recover: 0.4, cooldown: 5.5, damageMult: 1.1 },
+    summon: { windup: 0.75, cooldown: 13, count: 2, maxMinions: 4, minionType: 'waterghost' },
+    ring: { windup: 0.75, cooldown: 6.5, projectiles: 12, damageMult: 0.95 },
+  },
+  kit: [['sweep', 'rain'], ['sweep', 'charge', 'ring', 'summon'], ['rain', 'ring', 'charge', 'slam', 'sweep']],
+  phase2At: 0.66, phase3At: 0.33,
+  enrage: { speedMult: 1.3, cooldownMult: 0.7 },
+};
+
+export const BOSSES: Record<string, BossDef> = { warden: WARDEN, ninetail: NINETAIL, jiaolong: JIAOLONG };
 export const BOSS_IDS = Object.keys(BOSSES);

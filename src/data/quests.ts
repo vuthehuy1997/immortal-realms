@@ -39,6 +39,14 @@ export const QUESTS: Record<string, QuestDef> = {
     objectives: [{ type: 'kill', target: 'warden', count: 1, label: 'Defeat the Fallen Sword Immortal' }],
     reward: { xp: 200, items: [{ id: 'qi-pill', count: 2 }] },
   },
+  jiaolong: {
+    id: 'jiaolong', name: 'The Dragon of the Mist Pool', giver: 'elder-lin', requires: 'champions',
+    intro: 'One last trial, champion. Deep in Mistveil Marsh, east of the southern road, a jiao dragon has woken in its pool. Barges vanish and the mist grows thick. Slay the Jiao Dragon, and bring me its pearl.',
+    reminder: 'Follow the southern road into the marsh, then east to the still pool where the mist is thickest.',
+    completeText: 'The mist is thinning already. The pearl is yours by right; you have earned it.',
+    objectives: [{ type: 'kill', target: 'jiaolong', count: 1, label: 'Slay the Jiao Dragon' }],
+    reward: { xp: 320, stones: 120, items: [{ id: 'hp-potion', count: 3 }, { id: 'mana-potion', count: 3 }] },
+  },
   toads: {
     id: 'toads', name: 'Toads in the Ledger', giver: 'merchant-qiao', requires: 'pests',
     intro: 'Marsh toads keep swallowing my supply barges in Mistveil Marsh, south of here. Thin out six of them and I will make it worth your while.',
@@ -65,10 +73,10 @@ export const QUESTS: Record<string, QuestDef> = {
   },
 };
 
-export interface NpcDef { name: string; quests: readonly string[]; idle: string; trade?: 'shop' | 'alchemy' }
+export interface NpcDef { name: string; portrait: string; quests: readonly string[]; idle: string; trade?: 'shop' | 'alchemy' }
 export const NPCS: Record<string, NpcDef> = {
-  'elder-lin': { name: 'Elder Lin', quests: ['pests', 'fox', 'warden', 'champions'], idle: 'Peace to you, traveler. The grove is quiet now.' },
-  'merchant-qiao': { name: 'Merchant Qiao', quests: ['toads'], idle: 'Welcome, welcome! Spirit stones speak louder than words.', trade: 'shop' },
-  'alchemist-yun': { name: 'Alchemist Yun', quests: ['furnace'], idle: 'The furnace is warm. What shall we brew today?', trade: 'alchemy' },
+  'elder-lin': { name: 'Elder Lin', portrait: 'elder_neutral', quests: ['pests', 'fox', 'warden', 'champions', 'jiaolong'], idle: 'Peace to you, traveler. The grove is quiet now.' },
+  'merchant-qiao': { name: 'Merchant Qiao', portrait: 'peddler_neutral', quests: ['toads'], idle: 'Welcome, welcome! Spirit stones speak louder than words.', trade: 'shop' },
+  'alchemist-yun': { name: 'Alchemist Yun', portrait: 'alchemist_neutral', quests: ['furnace'], idle: 'The furnace is warm. What shall we brew today?', trade: 'alchemy' },
 };
 

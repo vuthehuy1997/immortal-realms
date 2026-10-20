@@ -10,7 +10,7 @@ export interface RpgState {
   bag: (string | null)[]; bolts: number; props: { kind: string; x: number; y: number }[];
   boss: { hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number } | null;
   bosses: { id: string; hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number }[];
-  bossesDefeated: string[]; den: { x: number; y: number };
+  bossesDefeated: string[]; den: { x: number; y: number }; pool: { x: number; y: number };
   palace?: { x: number; y: number };
   lair: { x: number; y: number }; spawn: { x: number; y: number }; npc: { x: number; y: number }; npcs: Record<string, { x: number; y: number }>;
   arrayPos: { x: number; y: number }; herbs: { x: number; y: number; alive: boolean }[]; anchors: Record<string, { x: number; y: number }>; items: string[];

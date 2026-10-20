@@ -264,7 +264,7 @@ export class WorldScene extends Phaser.Scene {
       const p = { x: (tx + 0.5) * TILE_SIZE, y: (ty + 0.5) * TILE_SIZE };
       if (Math.hypot(p.x - w.spawn.x, p.y - w.spawn.y) < 130) continue; // keep the village approach safe
       if (Object.values(w.npcs).some((n) => Math.hypot(p.x - n.x, p.y - n.y) < 240)) continue; // never next to a shopkeeper
-      if (Math.hypot(p.x - w.den.x, p.y - w.den.y) < 130 || Math.hypot(p.x - w.lair.x, p.y - w.lair.y) < 170) continue; // boss courts stay clear of wanderers
+      if (Math.hypot(p.x - w.den.x, p.y - w.den.y) < 130 || Math.hypot(p.x - w.pool.x, p.y - w.pool.y) < 130 || Math.hypot(p.x - w.lair.x, p.y - w.lair.y) < 170) continue; // boss courts stay clear of wanderers
       if (farFrom && Math.hypot(p.x - farFrom.x, p.y - farFrom.y) < minDist) continue;
       if (isBlockedTile(w, tx + 1, ty) || isBlockedTile(w, tx - 1, ty) || isBlockedTile(w, tx, ty + 1) || isBlockedTile(w, tx, ty - 1)) continue;
       return p;
@@ -299,7 +299,7 @@ export class WorldScene extends Phaser.Scene {
 
   private spawnBoss(def: BossDef): void {
     const c: Combatant = { hp: def.maxHp, maxHp: def.maxHp, mana: 0, maxMana: 0, atk: def.atk, def: def.def, critChance: 0, critMult: 1, manaRegen: 0 };
-    const pos = { ...(def.home === 'lair' ? this.world.lair : this.world.den) };
+    const pos = { ...(def.home === 'lair' ? this.world.lair : def.home === 'pool' ? this.world.pool : this.world.den) };
     const actor = new Actor(this, def.sprite, pos.x, pos.y, def.scale, 56);
     actor.setPos(pos.x, pos.y);
     this.bosses.push({ burn: null, slow: 0, rainTele: null, charge: null, slams: 0, def, c, ai: newBossAI(), pos, actor, engaged: false, tele: null, lockUntil: 0, kb: { x: 0, y: 0 } });
@@ -686,8 +686,8 @@ export class WorldScene extends Phaser.Scene {
     if (!killed) return;
     b.tele?.destroy();
     this.bosses = this.bosses.filter((x) => x !== b);
-    for (const m of this.enemies.filter((x) => x.minion && x.zone === (b.def.home === 'lair' ? 'lair' : 'grove'))) m.actor.destroy();
-    this.enemies = this.enemies.filter((x) => !(x.minion && x.zone === (b.def.home === 'lair' ? 'lair' : 'grove')));
+    for (const m of this.enemies.filter((x) => x.minion && x.zone === b.def.zone)) m.actor.destroy();
+    this.enemies = this.enemies.filter((x) => !(x.minion && x.zone === b.def.zone));
     setBossBar(null);
     const actor = b.actor;
     actor.play('death', { force: true });
@@ -833,7 +833,7 @@ export class WorldScene extends Phaser.Scene {
     let target: Vec2 | null = null;
     if (o.type === 'kill') {
       const zone = (Object.keys(ZONES) as ZoneId[]).find((z) => o.target in ZONES[z].spawns);
-      target = o.target === 'ninetail' ? this.world.den : o.target === 'warden' ? this.world.lair : zone ? this.world.anchors[zone] : this.world.anchors.bamboo;
+      target = o.target === 'ninetail' ? this.world.den : o.target === 'jiaolong' ? this.world.pool : o.target === 'warden' ? this.world.lair : zone ? this.world.anchors[zone] : this.world.anchors.bamboo;
     } else if (o.type === 'elite') {
       let bd = Infinity; for (const e of this.enemies) { if (!e.elite || e.minion) continue; const d = Math.hypot(e.pos.x - this.pos.x, e.pos.y - this.pos.y); if (d < bd) { bd = d; target = { ...e.pos }; } }
     } else { let bd = Infinity; for (const h of this.herbs) { if (!h.alive) continue; const d = Math.hypot(h.x - this.pos.x, h.y - this.pos.y); if (d < bd) { bd = d; target = { x: h.x, y: h.y }; } } }
@@ -1179,7 +1179,7 @@ export class WorldScene extends Phaser.Scene {
         for (let i = 0; i < ev.count; i++) {
           const a = this.rng() * Math.PI * 2;
           const p = { x: b.pos.x + Math.cos(a) * 36, y: b.pos.y + Math.sin(a) * 36 };
-          if (!isBlockedTile(this.world, Math.floor(p.x / TILE_SIZE), Math.floor(p.y / TILE_SIZE))) { this.spawnEnemy(ev.minionType, p, true, b.def.home === 'lair' ? 'lair' : 'grove'); this.fx.play('xf_soul_wisp', p.x, p.y - 10, { scale: 0.2, tint: COLORS.boss }); }
+          if (!isBlockedTile(this.world, Math.floor(p.x / TILE_SIZE), Math.floor(p.y / TILE_SIZE))) { this.spawnEnemy(ev.minionType, p, true, b.def.zone); this.fx.play('xf_soul_wisp', p.x, p.y - 10, { scale: 0.2, tint: COLORS.boss }); }
         }
         break;
       case 'ring':
@@ -1223,7 +1223,7 @@ export class WorldScene extends Phaser.Scene {
         enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
         bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams })),
         boss: this.boss ? { hp: this.boss.c.hp, maxHp: this.boss.c.maxHp, x: this.boss.pos.x, y: this.boss.pos.y, engaged: this.boss.engaged, phase: this.boss.ai.phase, state: this.boss.ai.state === 'windup' ? `${this.boss.ai.move}-windup` : this.boss.ai.state, slams: this.boss.slams } : null,
-        palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, arrayPos: this.world.arrayPos,
+        palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, pool: this.world.pool, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, arrayPos: this.world.arrayPos,
         herbs: this.herbs.map((h) => ({ x: h.x, y: h.y, alive: h.alive })), anchors: this.world.anchors,
         bag: this.gs.inventory.slots.map((sl) => sl?.id ?? null), bolts: this.bolts.filter((b) => b.kind === 'hostile').length, props: this.world.props.filter((p) => p.kind === 'lotusbowl' || p.kind === 'palace').map((p) => ({ kind: p.kind, x: p.x, y: p.y })), playerAnim: this.player.anim, items: this.gs.inventory.slots.filter((s) => s).map((s) => `${s!.id}:${s!.count}`),
       }),

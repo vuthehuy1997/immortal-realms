@@ -16,3 +16,10 @@
 
 ## Round 6
 - Side quests: "Toads in the Ledger" (Merchant Qiao), "Herbs for the Furnace" (Alchemist Yun), "Trial of Champions" (Elder Lin, elite kills). New `elite` objective type, `reward.stones`, traders offer quests alongside their shop (dialogue 'Browse wares'), generic objective/arrow for any giver/target zone. Old saves are migrated (missing quests added as inactive).
+
+## Round 7
+- Third boss: Jiao Dragon of the Mist Pool (Mistveil Marsh, new arena `world.pool` with willows/standing stones, road extended). Water kit (sweep, rain geysers, charge, orb ring, drowned-ghost summons), 7400 HP; unique drops Jiao Dragon Pearl (charm) and 60% Dragon-Scale Robe. Art reuses the existing `boss.jiaolong` sheets (same CC0 AI-generated pack, risk unchanged).
+- Quest "The Dragon of the Mist Pool" from Elder Lin, offered after Trial of Champions (capstone). `BossDef` gains `zone` (minion zone) and `home: 'pool'`.
+- Dialogue portraits are data (`NpcDef.portrait`): Merchant Qiao = peddler, Alchemist Yun = alchemist; merchant shop window uses the peddler too.
+- Tests: boss move e2e for the dragon (5), kill/drop e2e, portrait e2e, unit tests for the quest chain/portraits/world pool reachability.
+- Not verified: dragon balance by a human (stats are an estimate, ~Warden-tier), real-GPU performance.

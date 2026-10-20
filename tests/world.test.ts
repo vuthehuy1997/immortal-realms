@@ -8,7 +8,7 @@ import { ZONE_IDS, ZONES } from '../src/data/zones';
 const open = (w = 8, h = 8): WorldMap => ({
   width: w, height: h,
   ground: Array(w * h).fill('grass'), zone: Array(w * h).fill('village'), blocked: new Uint8Array(w * h), props: [],
-  spawn: { x: 40, y: 40 }, lair: { x: 100, y: 100 }, den: { x: 60, y: 60 }, anchors: {} as WorldMap['anchors'], npcs: {}, herbs: [], arrayPos: { x: 0, y: 0 },
+  spawn: { x: 40, y: 40 }, lair: { x: 100, y: 100 }, den: { x: 60, y: 60 }, pool: { x: 70, y: 70 }, anchors: {} as WorldMap['anchors'], npcs: {}, herbs: [], arrayPos: { x: 0, y: 0 },
 });
 const block = (m: WorldMap, tx: number, ty: number) => { m.blocked[ty * m.width + tx] = 1; };
 
@@ -59,6 +59,7 @@ describe('generateWorld', () => {
       for (const [name, p] of Object.entries(m.npcs)) expect(ok(p), `${seed}: npc ${name}`).toBe(true);
       expect(ok(m.arrayPos)).toBe(true);
       expect(ok(m.den), `${seed}: fox den`).toBe(true);
+      expect(ok(m.pool), `${seed}: dragon pool`).toBe(true);
       expect(ok(m.lair), `${seed}: boss court`).toBe(true);
       for (const h of m.herbs) expect(ok({ x: h.x, y: h.y - 4 }), `${seed}: herb`).toBe(true);
     }

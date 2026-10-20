@@ -5,6 +5,7 @@ import { acceptQuest, isComplete, progressOf, type QuestLog } from './quest';
 export type DialogueAction = { type: 'accept' | 'turnin'; questId: string } | { type: 'trade' } | { type: 'close' };
 export interface Dialogue {
   speaker: string;
+  portrait: string;
   text: string;
   progress?: { label: string; have: number; need: number }[];
   options: { label: string; action: DialogueAction }[];
@@ -20,12 +21,12 @@ export function getDialogue(npcId: string, log: QuestLog, inv: Inventory, bosses
     const def = QUESTS[qid]!, st = log[qid]!;
     if (st.status === 'turnedIn') continue;
     if (def.requires && log[def.requires]?.status !== 'turnedIn') continue;
-    if (st.status === 'inactive') return { speaker: npc.name, text: def.intro, quest: true, options: [{ label: 'I will do it.', action: { type: 'accept', questId: qid } }, ...wares, { label: 'Not now.', action: { type: 'close' } }] };
+    if (st.status === 'inactive') return { speaker: npc.name, portrait: npc.portrait, text: def.intro, quest: true, options: [{ label: 'I will do it.', action: { type: 'accept', questId: qid } }, ...wares, { label: 'Not now.', action: { type: 'close' } }] };
     const progress = progressOf(def, st, inv, bosses);
-    if (isComplete(def, st, inv, bosses)) return { speaker: npc.name, text: def.completeText, progress, quest: true, options: [{ label: 'Claim reward', action: { type: 'turnin', questId: qid } }, ...wares] };
-    return { speaker: npc.name, text: def.reminder, progress, quest: true, options: [...wares, { label: 'I am on it.', action: { type: 'close' } }] };
+    if (isComplete(def, st, inv, bosses)) return { speaker: npc.name, portrait: npc.portrait, text: def.completeText, progress, quest: true, options: [{ label: 'Claim reward', action: { type: 'turnin', questId: qid } }, ...wares] };
+    return { speaker: npc.name, portrait: npc.portrait, text: def.reminder, progress, quest: true, options: [...wares, { label: 'I am on it.', action: { type: 'close' } }] };
   }
-  return { speaker: npc.name, text: npc.idle, quest: false, options: [{ label: 'Farewell.', action: { type: 'close' } }] };
+  return { speaker: npc.name, portrait: npc.portrait, text: npc.idle, quest: false, options: [{ label: 'Farewell.', action: { type: 'close' } }] };
 }
 
 export { acceptQuest };

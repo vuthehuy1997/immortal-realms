@@ -32,7 +32,7 @@ export function closeTrade(): void { current = null; document.getElementById('tr
 export function renderTrade(gs: GameState): void {
   if (!current) return;
   const box = ensure(); const { kind, actions } = current;
-  const pic = portraitUrl(kind === 'shop' ? 'blacksmith_neutral' : 'alchemist_neutral');
+  const pic = portraitUrl(kind === 'shop' ? 'peddler_neutral' : 'alchemist_neutral');
   const title = kind === 'shop' ? 'Merchant Qiao' : 'Alchemist Yun';
   const blurb = kind === 'shop' ? 'Spirit stones for steel and draughts, friend.' : 'Bring me lingzhi and a few stones, and I will brew what you need.';
   let body = '';

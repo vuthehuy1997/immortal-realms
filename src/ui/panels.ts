@@ -126,7 +126,7 @@ export function showDialogue(d: Dialogue | null, onAction: (a: DialogueAction) =
   const box = $('dlg');
   if (!d) { box.classList.add('hidden'); box.innerHTML = ''; return; }
   box.classList.remove('hidden');
-  const pic = portraitUrl(d.speaker === 'Elder Lin' ? 'elder_neutral' : 'abbot_neutral');
+  const pic = portraitUrl(d.portrait);
   box.innerHTML = `<div class="dlgrow">${pic ? `<img class="portrait" src="${pic}" alt="">` : ''}<div class="dlgtext"><div class="who">${d.speaker}</div><div class="txt">${d.text}</div></div></div>`;
   if (d.progress) box.querySelector('.dlgtext')!.insertAdjacentHTML('beforeend', `<ul>${d.progress.map((p) => `<li>${p.label}: ${p.have}/${p.need}</li>`).join('')}</ul>`);
   d.options.forEach((o, i) => {

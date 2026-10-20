@@ -35,6 +35,9 @@ describe('dialogue reflects quest state', () => {
     expect(d.options[0]!.action).toEqual({ type: 'accept', questId: 'champions' }); // the late-game trial
     gs.quests.champions!.status = 'turnedIn';
     d = getDialogue('elder-lin', gs.quests, gs.inventory);
+    expect(d.options[0]!.action).toEqual({ type: 'accept', questId: 'jiaolong' }); // the capstone
+    gs.quests.jiaolong!.status = 'turnedIn';
+    d = getDialogue('elder-lin', gs.quests, gs.inventory);
     expect(d.options[0]!.action).toEqual({ type: 'close' });
     expect(d.text).toMatch(/quiet/);
   });

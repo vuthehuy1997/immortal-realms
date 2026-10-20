@@ -37,6 +37,8 @@ export const ITEMS: Record<string, ItemDef> = {
   'jade-pendant': { id: 'jade-pendant', name: 'Jade Pendant', type: 'equipment', slot: 'charm', maxStack: 1, description: '+6% critical chance.', value: 140, rarity: 'uncommon', critBonus: 0.06 },
   'spirit-ring': { id: 'spirit-ring', name: 'Spirit Ring', type: 'equipment', slot: 'charm', maxStack: 1, description: '+25 mana, +1.5 mana regeneration.', value: 150, rarity: 'uncommon', manaBonus: 25, regenBonus: 1.5 },
   'tiger-fang': { id: 'tiger-fang', name: 'Tiger-Fang Charm', type: 'equipment', slot: 'charm', maxStack: 1, description: '+5 attack, +4% critical chance.', value: 420, rarity: 'rare', atkBonus: 5, critBonus: 0.04 },
+  'dragon-pearl': { id: 'dragon-pearl', name: 'Jiao Dragon Pearl', type: 'equipment', slot: 'charm', maxStack: 1, description: '+40 mana, +2.5 mana regeneration, +6 defence.', value: 800, rarity: 'epic', manaBonus: 40, regenBonus: 2.5, defBonus: 6 },
+  'dragon-scale-robe': { id: 'dragon-scale-robe', name: 'Dragon-Scale Robe', type: 'equipment', slot: 'armor', maxStack: 1, description: '+14 defence, +70 HP.', value: 700, rarity: 'rare', defBonus: 14, hpBonus: 70 },
   'bronze-blade': { id: 'bronze-blade', slot: 'weapon', name: 'Bronze Blade', type: 'equipment', maxStack: 1, description: '+3 attack.', value: 60, rarity: 'common', weaponAtk: 3 },
   'iron-sword': { id: 'iron-sword', slot: 'weapon', name: 'Iron Sword', type: 'equipment', maxStack: 1, description: '+4 attack.', value: 80, rarity: 'common', weaponAtk: 4 },
   'steel-blade': { id: 'steel-blade', slot: 'weapon', name: 'Cold-Forged Steel Blade', type: 'equipment', maxStack: 1, description: '+7 attack.', value: 180, rarity: 'uncommon', weaponAtk: 7 },
@@ -73,5 +75,6 @@ export const DROPS: Record<string, { item: string; chance: number }[]> = {
   soldier: [{ item: 'hp-potion', chance: 0.25 }],
   golem: [{ item: 'qi-pill', chance: 0.35 }, { item: 'hp-potion', chance: 0.4 }],
   warden: [{ item: 'jade-sword', chance: 1 }, { item: 'immortal-mantle', chance: 1 }, { item: 'qi-pill', chance: 1 }],
+  jiaolong: [{ item: 'dragon-pearl', chance: 1 }, { item: 'dragon-scale-robe', chance: 0.6 }, { item: 'qi-pill', chance: 1 }],
   ninetail: [{ item: 'spirit-saber', chance: 1 }, { item: 'qi-pill', chance: 1 }, { item: 'spirit-ring', chance: 0.5 }],
 };
