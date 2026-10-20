@@ -16,11 +16,11 @@ export function acceptQuest(log: QuestLog, id: string): boolean {
   return true;
 }
 
-export function onKill(log: QuestLog, enemyType: string): void {
+export function onKill(log: QuestLog, enemyType: string, elite = false): void {
   for (const [id, st] of Object.entries(log)) {
     const def = QUESTS[id];
     if (st.status !== 'active' || !def) continue;
-    for (const o of def.objectives) if (o.type === 'kill' && o.target === enemyType) st.kills[o.target] = Math.min(o.count, (st.kills[o.target] ?? 0) + 1);
+    for (const o of def.objectives) if (o.type === 'elite') { if (elite) st.kills.elite = Math.min(o.count, (st.kills.elite ?? 0) + 1); } else if (o.type === 'kill' && o.target === enemyType) st.kills[o.target] = Math.min(o.count, (st.kills[o.target] ?? 0) + 1);
   }
 }
 
@@ -31,7 +31,8 @@ export function progressOf(def: QuestDef, st: QuestState, inv: Inventory, bosses
   return def.objectives.map((o) => ({
     label: o.label,
     need: o.count,
-    have: o.type === 'kill' ? Math.min(o.count, bosses.includes(o.target) ? o.count : st.kills[o.target] ?? 0) : Math.min(o.count, countOf(inv, o.item)),
+    have: o.type === 'kill' ? Math.min(o.count, bosses.includes(o.target) ? o.count : st.kills[o.target] ?? 0)
+      : o.type === 'elite' ? Math.min(o.count, st.kills.elite ?? 0) : Math.min(o.count, countOf(inv, o.item)),
   }));
 }
 

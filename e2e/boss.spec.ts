@@ -129,7 +129,7 @@ test.describe('#7 boss', () => {
     await expect(page.locator('#quest')).toContainText('1/1');
     await goToNpc(page); await talk(page); await page.click('#dlg button[data-opt="0"]');
     await expect.poll(async () => (await st(page)).quests.warden).toBe('turnedIn');
-    await expect(page.locator('#dlg')).toContainText('quiet');
+    await expect(page.locator('#dlg')).toContainText('elite monsters');
     // persistence: after reload + Continue both bosses stay dead
     await page.keyboard.press('Escape');
     await expect(page.locator('#dlg')).toBeHidden();

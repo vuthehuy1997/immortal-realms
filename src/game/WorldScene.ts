@@ -24,7 +24,7 @@ import { BOSSES, type BossDef } from '../data/boss';
 import { ENEMIES, type EnemyDef } from '../data/enemies';
 import { HEROES } from '../data/heroes';
 import { ITEMS } from '../data/items';
-import { QUESTS } from '../data/quests';
+import { NPCS, QUESTS } from '../data/quests';
 import { REALMS } from '../data/realms';
 import { SKILLS, type SkillDef } from '../data/skills';
 import { ZONES } from '../data/zones';
@@ -410,17 +410,21 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private openDialogue(npcId: string): void {
-    if (npcId === 'merchant-qiao' || npcId === 'alchemist-yun') { this.openTrade(npcId === 'merchant-qiao' ? 'shop' : 'alchemy'); return; }
+    const npcDef = NPCS[npcId]!;
+    const d = getDialogue(npcId, this.gs.quests, this.gs.inventory, this.gs.bosses);
+    if (npcDef.trade && !d.quest) { this.openTrade(npcDef.trade); return; } // nothing to discuss: straight to the shop
     this.uiPause = true;
-    showDialogue(getDialogue('elder-lin', this.gs.quests, this.gs.inventory, this.gs.bosses), (a) => {
+    showDialogue(d, (a) => {
       if (a.type === 'close') { showDialogue(null, () => undefined); this.uiPause = false; return; }
+      if (a.type === 'trade') { showDialogue(null, () => undefined); this.openTrade(npcDef.trade!); return; }
       if (a.type === 'accept') {
         if (acceptQuest(this.gs.quests, a.questId)) toast(`Quest accepted: ${QUESTS[a.questId]!.name}`, 2600);
         showDialogue(null, () => undefined); this.uiPause = false; return;
       }
       const r = this.mutate(() => turnInQuest(this.gs, a.questId));
       if (r.ok) {
-        toast(`Quest complete: ${QUESTS[a.questId]!.name} (+${QUESTS[a.questId]!.reward.xp} XP)`, 3200);
+        const q = QUESTS[a.questId]!;
+        toast(`Quest complete: ${q.name} (+${q.reward.xp} XP${q.reward.stones ? `, +${q.reward.stones} stones` : ''})`, 3200);
         if (r.levelsGained > 0) this.levelUpFx();
         this.save(false);
         this.openDialogue(npcId); // chain: next quest offer or farewell
@@ -781,7 +785,7 @@ export class WorldScene extends Phaser.Scene {
     setPrompt(prompt);
     for (const n of this.npcs) {
       n.actor.face(this.pos.x < n.pos.x ? -1 : 1);
-      if (n.id === 'elder-lin') { const d = getDialogue('elder-lin', this.gs.quests, this.gs.inventory, this.gs.bosses).options[0]!.action; n.mark.setVisible(d.type === 'accept' || d.type === 'turnin'); } else n.mark.setVisible(false);
+      { const d = getDialogue(n.id, this.gs.quests, this.gs.inventory, this.gs.bosses); const a = d.options[0]!.action; n.mark.setVisible(d.quest && (a.type === 'accept' || a.type === 'turnin')); }
       n.mark.y = n.pos.y - 38 + Math.sin(this.time.now / 260) * 2;
     }
 
@@ -821,14 +825,18 @@ export class WorldScene extends Phaser.Scene {
     const active = activeQ;
     if (!active) {
       const next = Object.values(QUESTS).find((q) => gs.quests[q.id]?.status === 'inactive' && (!q.requires || gs.quests[q.requires]?.status === 'turnedIn'));
-      return next ? { text: `Talk to Elder Lin: "${next.name}"${pts}`, target: elder } : { text: `Explore the realms, grow stronger, cultivate${pts}`, target: null };
+      return next ? { text: `Talk to ${NPCS[next.giver]!.name}: "${next.name}"${pts}`, target: this.world.npcs[next.giver] ?? elder } : { text: `Explore the realms, grow stronger, cultivate${pts}`, target: null };
     }
     const st = gs.quests[active.id]!;
-    if (isComplete(active, st, gs.inventory, gs.bosses)) return { text: `Return to Elder Lin to claim your reward${pts}`, target: elder };
+    if (isComplete(active, st, gs.inventory, gs.bosses)) return { text: `Return to ${NPCS[active.giver]!.name} to claim your reward${pts}`, target: this.world.npcs[active.giver] ?? elder };
     const prog = progressOf(active, st, gs.inventory, gs.bosses), i = prog.findIndex((p) => p.have < p.need), o = active.objectives[i]!, p = prog[i]!;
     let target: Vec2 | null = null;
-    if (o.type === 'kill') target = o.target === 'ninetail' ? this.world.den : o.target === 'warden' ? this.world.lair : this.world.anchors.bamboo;
-    else { let bd = Infinity; for (const h of this.herbs) { if (!h.alive) continue; const d = Math.hypot(h.x - this.pos.x, h.y - this.pos.y); if (d < bd) { bd = d; target = { x: h.x, y: h.y }; } } }
+    if (o.type === 'kill') {
+      const zone = (Object.keys(ZONES) as ZoneId[]).find((z) => o.target in ZONES[z].spawns);
+      target = o.target === 'ninetail' ? this.world.den : o.target === 'warden' ? this.world.lair : zone ? this.world.anchors[zone] : this.world.anchors.bamboo;
+    } else if (o.type === 'elite') {
+      let bd = Infinity; for (const e of this.enemies) { if (!e.elite || e.minion) continue; const d = Math.hypot(e.pos.x - this.pos.x, e.pos.y - this.pos.y); if (d < bd) { bd = d; target = { ...e.pos }; } }
+    } else { let bd = Infinity; for (const h of this.herbs) { if (!h.alive) continue; const d = Math.hypot(h.x - this.pos.x, h.y - this.pos.y); if (d < bd) { bd = d; target = { x: h.x, y: h.y }; } } }
     return { text: `${p.label} ${p.have}/${p.need}${pts}`, target };
   }
 

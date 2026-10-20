@@ -1,12 +1,13 @@
 export type Objective =
   | { type: 'kill'; target: string; count: number; label: string }
-  | { type: 'collect'; item: string; count: number; label: string };
+  | { type: 'collect'; item: string; count: number; label: string }
+  | { type: 'elite'; count: number; label: string }; // slay elite (affixed) monsters of any kind
 
 export interface QuestDef {
   id: string; name: string; giver: string;
   intro: string; reminder: string; completeText: string;
   objectives: Objective[];
-  reward: { xp: number; items: { id: string; count: number }[] };
+  reward: { xp: number; stones?: number; items: { id: string; count: number }[] };
   requires?: string; // quest that must be turned in first
 }
 
@@ -38,6 +39,36 @@ export const QUESTS: Record<string, QuestDef> = {
     objectives: [{ type: 'kill', target: 'warden', count: 1, label: 'Defeat the Fallen Sword Immortal' }],
     reward: { xp: 200, items: [{ id: 'qi-pill', count: 2 }] },
   },
+  toads: {
+    id: 'toads', name: 'Toads in the Ledger', giver: 'merchant-qiao', requires: 'pests',
+    intro: 'Marsh toads keep swallowing my supply barges in Mistveil Marsh, south of here. Thin out six of them and I will make it worth your while.',
+    reminder: 'Six marsh toads, south in Mistveil Marsh. Mind the ghosts in the mist.',
+    completeText: 'My barges float again! A fair price, as promised.',
+    objectives: [{ type: 'kill', target: 'toad', count: 6, label: 'Slay Marsh Toads' }],
+    reward: { xp: 110, stones: 60, items: [{ id: 'hp-potion', count: 2 }] },
+  },
+  furnace: {
+    id: 'furnace', name: 'Herbs for the Furnace', giver: 'alchemist-yun', requires: 'pests',
+    intro: 'My furnace is hungry and my herb baskets are empty. Bring me five Spirit Herbs (lingzhi, glowing mushrooms) and I will share what I brew.',
+    reminder: 'Five Spirit Herbs, please. Look for the glowing mushrooms in the forests.',
+    completeText: 'Splendid, fresh and potent. Take these pills with my thanks.',
+    objectives: [{ type: 'collect', item: 'spirit-herb', count: 5, label: 'Gather Spirit Herbs' }],
+    reward: { xp: 90, stones: 40, items: [{ id: 'qi-pill', count: 3 }, { id: 'hp-potion', count: 2 }] },
+  },
+  champions: {
+    id: 'champions', name: 'Trial of Champions', giver: 'elder-lin', requires: 'warden',
+    intro: 'Some beasts grow beyond their kind, wearing a golden aura and strange powers. Prove your mastery: slay two of these elite monsters.',
+    reminder: 'Two elite monsters, marked by their golden names. They appear anywhere beyond the sect.',
+    completeText: 'Your blade has earned its reputation. Wear this charm with pride.',
+    objectives: [{ type: 'elite', count: 2, label: 'Slay Elite Monsters' }],
+    reward: { xp: 240, stones: 100, items: [{ id: 'tiger-fang', count: 1 }] },
+  },
 };
 
-export const NPCS = { 'elder-lin': { name: 'Elder Lin', quests: ['pests', 'fox', 'warden'], idle: 'Peace to you, traveler. The grove is quiet now.' } } as const;
+export interface NpcDef { name: string; quests: readonly string[]; idle: string; trade?: 'shop' | 'alchemy' }
+export const NPCS: Record<string, NpcDef> = {
+  'elder-lin': { name: 'Elder Lin', quests: ['pests', 'fox', 'warden', 'champions'], idle: 'Peace to you, traveler. The grove is quiet now.' },
+  'merchant-qiao': { name: 'Merchant Qiao', quests: ['toads'], idle: 'Welcome, welcome! Spirit stones speak louder than words.', trade: 'shop' },
+  'alchemist-yun': { name: 'Alchemist Yun', quests: ['furnace'], idle: 'The furnace is warm. What shall we brew today?', trade: 'alchemy' },
+};
+

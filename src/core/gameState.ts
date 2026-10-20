@@ -77,7 +77,7 @@ export function registerKill(gs: GameState, enemyType: string, rng: () => number
   gs.stones += stones;
   gs.kills++;
   if (boss && !gs.bosses.includes(enemyType)) gs.bosses.push(enemyType);
-  onKill(gs.quests, enemyType);
+  onKill(gs.quests, enemyType, !!opts.elite);
   const drops: { id: string; count: number }[] = [];
   const overflow: string[] = [];
   for (const d of boss && !firstBossKill ? [{ item: 'qi-pill', chance: 0.5 }] : DROPS[enemyType] ?? []) {
@@ -100,6 +100,7 @@ export function turnInQuest(gs: GameState, id: string): { ok: true; levelsGained
   for (const o of def.objectives) if (o.type === 'collect') removeItem(trial, o.item, o.count);
   for (const r of def.reward.items) if (addItem(trial, r.id, r.count) > 0) return { ok: false, reason: 'inventory-full' };
   gs.inventory = trial;
+  gs.stones += def.reward.stones ?? 0;
   st.status = 'turnedIn';
   return { ok: true, levelsGained: grantXp(gs, def.reward.xp) };
 }

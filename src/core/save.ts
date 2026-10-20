@@ -76,6 +76,7 @@ export function parseSave(text: string | null): LoadResult {
   if (!isObj(env)) return { ok: false, error: 'Save has wrong shape.' };
   if (env.version !== SAVE_VERSION) return { ok: false, error: `Unsupported save version ${String(env.version)}.` };
   if (checksum(JSON.stringify(env.state)) !== env.checksum) return { ok: false, error: 'Save checksum mismatch (corrupted or edited).' };
+  if (isObj(env.state) && isObj(env.state.quests)) for (const id of Object.keys(QUESTS)) if (!(id in env.state.quests)) env.state.quests[id] = { status: 'inactive', kills: {} }; // quests added after the save was written
   const bad = validate(env.state);
   if (bad) return { ok: false, error: `Invalid save: ${bad}.` };
   const state = env.state as GameState;

@@ -32,6 +32,9 @@ describe('dialogue reflects quest state', () => {
     acceptQuest(gs.quests, 'warden'); registerKill(gs, WARDEN_ID, never);
     expect(turnInQuest(gs, 'warden').ok).toBe(true);
     d = getDialogue('elder-lin', gs.quests, gs.inventory);
+    expect(d.options[0]!.action).toEqual({ type: 'accept', questId: 'champions' }); // the late-game trial
+    gs.quests.champions!.status = 'turnedIn';
+    d = getDialogue('elder-lin', gs.quests, gs.inventory);
     expect(d.options[0]!.action).toEqual({ type: 'close' });
     expect(d.text).toMatch(/quiet/);
   });
