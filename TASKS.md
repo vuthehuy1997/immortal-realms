@@ -57,4 +57,5 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [x] R6 side quests (toads, furnace, champions), elite objective, trader dialogue
 - [x] R7 Jiao Dragon boss + capstone quest + unique drops, per-NPC portraits
 - [x] R8 design/ export gate in qc, NPC nameplates hidden behind minimap, docs refreshed from the code
-- [ ] Open: human playtest of ruins/normal-mob difficulty and dragon balance; flaky e2e under load (killOne/combo/boss); real-GPU perf (M0-4); licence scan (M0-5); UI guide + overlap check; trial deploy path; multiple save slots; trial tower; more realms; controller/touch
+- [x] R9 save slots (3), backup recovery, export/import
+- [ ] Open: human playtest of ruins/normal-mob difficulty and dragon balance; flaky e2e under load (killOne/combo/boss); real-GPU perf (M0-4); licence scan (M0-5); UI guide + overlap check; trial deploy path; trial tower; more realms; controller/touch

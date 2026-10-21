@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { acceptFirst, goToNpc, killOne, me, newGame, SAVE_KEY, st, talk } from './helpers';
+import { acceptFirst, shot, goToNpc, killOne, me, newGame, SAVE_KEY, st, talk } from './helpers';
 
 test.describe('#14 save / load', () => {
   test('Save & Quit -> Continue restores level, position, quest, inventory, realm', async ({ page }) => {
@@ -53,6 +53,7 @@ test.describe('#14 save / load', () => {
       ['edited hp', good.replace(/"hp":\d+/, '"hp":99999')],
       ['wrong version', good.replace(/"version":\d+/, '"version":99')],
     ];
+    await page.evaluate((k) => localStorage.removeItem(`${k}.bak`), SAVE_KEY); // no backup: this test is about refusing bad files
     for (const [name, bad] of cases) {
       await page.evaluate(([k, v]) => localStorage.setItem(k as string, v as string), [SAVE_KEY, bad]);
       await page.reload();
@@ -63,5 +64,38 @@ test.describe('#14 save / load', () => {
     expect(errors).toEqual([]);
     // the menu is still usable afterwards
     await page.click('#btn-new'); await expect(page.locator('#name')).toBeVisible();
+  });
+
+  test('save slots: a second journey goes to its own slot, Continue/Load pick the right one, delete and backup recovery work (round 9)', async ({ page }) => {
+    const errors: string[] = []; page.on('pageerror', (e) => errors.push(e.message));
+    await newGame(page, 'Alpha');
+    await page.keyboard.press('Escape'); await page.click('#btn-quit'); // Save & Quit
+    await page.click('#btn-new');
+    await expect(page.locator('.slotbtn.sel')).toContainText('Slot 2'); // first empty slot is the default
+    await shot(page, 'creation-slots');
+    await page.fill('#name', 'Bravo'); await page.click('#btn-start'); await page.waitForFunction(() => window.__rpg);
+    await page.keyboard.press('Escape'); await page.click('#btn-quit');
+    await page.click('#btn-continue'); await page.waitForFunction(() => window.__rpg);
+    await expect(page.locator('#hudlayer')).toContainText('Bravo'); // Continue = last used slot
+    await page.keyboard.press('Escape'); await page.click('#btn-quit');
+    await page.click('#btn-slots');
+    await expect(page.locator('.slotrow[data-slot="1"]')).toContainText('Alpha');
+    await expect(page.locator('.slotrow[data-slot="2"]')).toContainText('Bravo');
+    await expect(page.locator('.slotrow[data-slot="3"]')).toContainText('empty');
+    await shot(page, 'slots-screen');
+    await page.click('#slot-load-1'); await page.waitForFunction(() => window.__rpg);
+    await expect(page.locator('#hudlayer')).toContainText('Alpha');
+    await page.keyboard.press('Escape'); await page.click('#btn-quit');
+    // damage slot 1's main file but keep its backup: loading recovers instead of failing
+    await page.keyboard.press('Escape').catch(() => undefined);
+    await page.evaluate((k) => { const good = localStorage.getItem(k)!; localStorage.setItem(`${k}.bak`, good); localStorage.setItem(k, 'garbage'); }, SAVE_KEY);
+    await page.click('#btn-slots');
+    await expect(page.locator('.slotrow[data-slot="1"]')).toContainText('restored from backup');
+    await page.click('#slot-load-1'); await page.waitForFunction(() => window.__rpg);
+    await page.keyboard.press('Escape'); await page.click('#btn-quit');
+    await page.click('#btn-slots');
+    await page.click('#slot-del-2'); await page.click('#slot-del-2'); // arm, then confirm
+    await expect(page.locator('.slotrow[data-slot="2"]')).toContainText('empty');
+    expect(errors).toEqual([]);
   });
 });

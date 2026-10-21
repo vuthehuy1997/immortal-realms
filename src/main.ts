@@ -4,9 +4,10 @@ import { newGameState, type GameState } from './core/gameState';
 import { generateWorld } from './core/world';
 import { BootScene } from './game/BootScene';
 import { WorldScene, type GameHost } from './game/WorldScene';
-import { hasSaveData, loadGame, saveGame } from './game/storage';
+import { hasSaveData, loadGame, loadSlotGame, saveNewGame, storage } from './game/storage';
+import { allSlots, deleteSlot, exportSlot, firstEmptySlot, activeSlot, importToSlot } from './core/slots';
 import { buildHud, showHud } from './ui/hud';
-import { hideScreen, showCreation, showLoading, showMainMenu } from './ui/menu';
+import { hideScreen, showCreation, showSlots, showLoading, showMainMenu } from './ui/menu';
 import { installSkin } from './ui/skin';
 import { audio } from './game/audio';
 
@@ -36,13 +37,29 @@ function mainMenu(error?: string): void {
     hasSave: hasSaveData(),
     error,
     onNew: () => showCreation({
-      onBack: () => mainMenu(), replacesSave: hasSaveData(),
-      onStart: (name, root, hero) => { const gs = newGameState(name, root, hero, generateWorld(WORLD_SEED).spawn); saveGame(gs); begin(gs); },
+      onBack: () => mainMenu(), slots: allSlots(storage), defaultSlot: firstEmptySlot(storage) ?? activeSlot(storage),
+      onStart: (name, root, hero, slot) => { const gs = newGameState(name, root, hero, generateWorld(WORLD_SEED).spawn); saveNewGame(gs, slot); begin(gs); },
     }),
     onContinue: () => {
       const r = loadGame();
       if (r.ok) begin(r.state); else mainMenu(`Could not load save: ${r.error}`);
     },
+    onSlots: () => slotsMenu(),
+  });
+}
+
+function slotsMenu(message?: string): void {
+  showSlots({
+    slots: allSlots(storage), message,
+    onBack: () => mainMenu(),
+    onLoad: (slot) => { const r = loadSlotGame(slot); if (r.ok) begin(r.state); else slotsMenu(`Could not load slot ${slot}: ${r.error}`); },
+    onDelete: (slot) => { deleteSlot(storage, slot); slotsMenu(`Slot ${slot} deleted.`); },
+    onExport: (slot) => {
+      const text = exportSlot(storage, slot); if (!text) return;
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' })); a.download = `immortal-realms-slot${slot}.json`; a.click(); URL.revokeObjectURL(a.href);
+      slotsMenu(`Slot ${slot} exported.`);
+    },
+    onImport: (slot, text) => { const r = importToSlot(storage, slot, text); slotsMenu(r.ok ? `Imported into slot ${slot}.` : `Import refused: ${r.error}`); },
   });
 }
 

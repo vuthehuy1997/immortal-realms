@@ -235,6 +235,8 @@ test.describe('onboarding & navigation (QA round 1)', () => {
     expect(await page.evaluate(() => localStorage.getItem('ir-vol'))).toBe('0.35');
     await page.click('#btn-quit');
     await page.click('#btn-new');
+    await expect(page.locator('#save-warning')).toHaveCount(0); // slot 2 is empty, so nothing is replaced by default
+    await page.click('.slotbtn[data-slot="1"]');
     await expect(page.locator('#save-warning')).toContainText('replace it');
     expect(await page.evaluate((k) => localStorage.getItem(k) !== null, SAVE_KEY)).toBe(true);
   });

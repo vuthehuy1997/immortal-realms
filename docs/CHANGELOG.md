@@ -28,3 +28,10 @@
 - Fix: NPC nameplates and quest marks are hidden when they would sit behind the minimap (DOM widget over canvas); e2e `round8.spec.ts`.
 - `npm run qc` now runs `design:check` (regenerates `design/`, fails on orphan/unobtainable/iconless content).
 - Docs refreshed from the code: GDD, COMBAT_DESIGN, NPC_AI_DESIGN, CULTIVATION_SYSTEM, WORLD_DESIGN, TASKS (stale since the vertical slice).
+
+## Round 9
+- Save slots: 3 slots (slot 1 keeps the old key, so existing saves load), slot manager screen (Load / Export / Import / Delete with confirm), slot picker on character creation (default = first empty slot, warning when replacing). Pure logic in `src/core/slots.ts` (injectable storage, 8 unit tests); `src/game/storage.ts` is the thin localStorage wrapper.
+- Automatic backup: each save keeps the previous valid save as `<slot>.bak`; a corrupted main file is restored from it ("restored from backup"); a corrupt file is never copied over a good backup.
+- Export downloads the save JSON; import validates (version, checksum, schema) before writing and never touches the slot on refusal.
+- Tests: updated corruption and "starting over" e2e (no backup / pick slot 1), new e2e for the full slot flow.
+- Not verified: export/import through a real browser file dialog (e2e covers the logic; the download/upload buttons themselves were not driven), behaviour with localStorage blocked beyond the guarded fallbacks.

@@ -5,6 +5,8 @@ import { ROOTS } from '../data/roots';
 import { $, el } from './dom';
 import { propUrl, spriteAnimHtml } from './skin';
 import { audio } from '../game/audio';
+import type { SlotInfo } from '../core/slots';
+import { REALMS } from '../data/realms';
 
 /** Misty sect backdrop built from the pale far-layer props. */
 function backdrop(): string {
@@ -40,12 +42,13 @@ export function showLoading(): { set(p: number): void } {
   return { set: (p) => { const f = document.getElementById('loadfill'), t = document.getElementById('loadtxt'); if (f) f.style.width = `${Math.round(p * 100)}%`; if (t) t.textContent = `${Math.round(p * 100)}%`; } };
 }
 
-export function showMainMenu(opts: { hasSave: boolean; saveInfo?: string; error?: string; onNew(): void; onContinue(): void }): void {
+export function showMainMenu(opts: { hasSave: boolean; saveInfo?: string; error?: string; onNew(): void; onContinue(): void; onSlots(): void }): void {
   const s = screen();
   const fg = el('div', 'menu-fg'); fg.innerHTML = title('A cultivation adventure');
   const nb = el('button', 'menu-btn', 'New Game'); nb.id = 'btn-new'; nb.onclick = opts.onNew;
   const cb = el('button', 'menu-btn', 'Continue'); cb.id = 'btn-continue'; cb.disabled = !opts.hasSave; cb.onclick = opts.onContinue;
-  fg.append(nb, cb);
+  const sb = el('button', 'menu-btn', 'Save Slots'); sb.id = 'btn-slots'; sb.onclick = opts.onSlots;
+  fg.append(nb, cb, sb);
   if (opts.saveInfo) fg.appendChild(el('div', 'sub', opts.saveInfo));
   if (opts.error) { const e = el('div', 'err', opts.error); e.id = 'menu-error'; fg.appendChild(e); }
   s.appendChild(fg);
@@ -53,14 +56,15 @@ export function showMainMenu(opts: { hasSave: boolean; saveInfo?: string; error?
   (opts.hasSave ? cb : nb).focus();
 }
 
-export function showCreation(opts: { onStart(name: string, root: RootId, hero: HeroId): void; onBack(): void; replacesSave?: boolean }): void {
+export function showCreation(opts: { onStart(name: string, root: RootId, hero: HeroId, slot: number): void; onBack(): void; slots: SlotInfo[]; defaultSlot: number }): void {
   const s = screen();
-  let root: RootId = 'flame', hero: HeroId = 'swordsman';
+  let root: RootId = 'flame', hero: HeroId = 'swordsman', slot = opts.defaultSlot;
   const fg = el('div', 'menu-fg wide');
   fg.innerHTML = `<h2>Create Your Cultivator</h2>
     <div class="field"><label for="name">Name (1–${NAME_MAX} characters)</label><input id="name" type="text" maxlength="40" autocomplete="off" /><div class="err" id="name-err"></div></div>
     <div class="sub">Appearance</div><div class="heroes" id="heroes"></div>
-    <div class="sub">Spirit Root (press 1–3)</div><div class="roots" id="roots"></div>`;
+    <div class="sub">Spirit Root (press 1–3)</div><div class="roots" id="roots"></div>
+    <div class="sub">Save slot</div><div class="slotpick" id="slotpick"></div><div id="slotwarn"></div>`;
   s.appendChild(fg);
   const heroesEl = $('heroes'), rootsEl = $('roots');
   const render = () => {
@@ -81,15 +85,24 @@ export function showCreation(opts: { onStart(name: string, root: RootId, hero: H
       rootsEl.appendChild(c);
     });
   };
-  render();
-  if (opts.replacesSave) { const w = el('div', 'err warn', 'You already have a saved journey. Beginning a new one will replace it.'); w.id = 'save-warning'; fg.appendChild(w); }
+  const renderSlots = () => {
+    const pick = $('slotpick'); pick.innerHTML = '';
+    for (const si of opts.slots) {
+      const b = el('button', `slotbtn${si.slot === slot ? ' sel' : ''}`, `Slot ${si.slot}${si.status === 'ok' ? ` · ${si.name} Lv ${si.level}` : si.status === 'corrupt' ? ' · damaged' : ' · empty'}`); b.dataset.slot = String(si.slot);
+      b.onclick = () => { slot = si.slot; renderSlots(); };
+      pick.appendChild(b);
+    }
+    const warn = $('slotwarn'); warn.innerHTML = '';
+    if (opts.slots.find((x) => x.slot === slot)?.status !== 'empty') { const w = el('div', 'err warn', `Slot ${slot} already holds a journey. Beginning a new one will replace it.`); w.id = 'save-warning'; warn.appendChild(w); }
+  };
+  render(); renderSlots();
   const row = el('div', 'btnrow');
   const start = el('button', 'menu-btn', 'Begin Journey'); start.id = 'btn-start';
   const back = el('button', 'menu-btn', 'Back'); back.id = 'btn-back'; back.onclick = opts.onBack;
   const submit = () => {
     const r = validateName(($('name') as HTMLInputElement).value);
     if (!r.ok) { $('name-err').textContent = r.error; return; }
-    opts.onStart(r.name, root, hero);
+    opts.onStart(r.name, root, hero, slot);
   };
   start.onclick = submit;
   row.append(start, back); fg.appendChild(row);
@@ -114,4 +127,33 @@ export function showPause(opts: { onResume(): void; onSave(): void; onQuit(): vo
   s.appendChild(fg);
   wireArrowNav(s);
   r.focus();
+}
+
+const when = (t: number): string => (t ? new Date(t).toLocaleString() : '');
+
+/** The slot manager: load, delete, export and import saves. */
+export function showSlots(opts: { slots: SlotInfo[]; message?: string; onLoad(slot: number): void; onDelete(slot: number): void; onExport(slot: number): void; onImport(slot: number, text: string): void; onBack(): void }): void {
+  const s = screen();
+  const fg = el('div', 'menu-fg wide'); fg.innerHTML = '<h2>Save Slots</h2>';
+  for (const si of opts.slots) {
+    const row = el('div', 'slotrow'); row.dataset.slot = String(si.slot);
+    const info = el('div', 'slotinfo');
+    if (si.status === 'ok') info.innerHTML = `<b>Slot ${si.slot} · ${si.name}</b><small>Lv ${si.level} · ${REALMS[si.realm]?.name ?? ''} · ${si.kills} kills · ${si.bosses} bosses · ${when(si.savedAt)}${si.recovered ? ' · <span class="warn">restored from backup</span>' : ''}</small>`;
+    else if (si.status === 'corrupt') info.innerHTML = `<b>Slot ${si.slot} · damaged</b><small>${si.error}${si.hasBackup ? ' (backup also unusable)' : ''}</small>`;
+    else info.innerHTML = `<b>Slot ${si.slot} · empty</b><small>Start a new game to use it, or import a save file.</small>`;
+    const btns = el('div', 'slotbtns');
+    if (si.status === 'ok') { const l = el('button', 'btn', 'Load'); l.id = `slot-load-${si.slot}`; l.onclick = () => opts.onLoad(si.slot); btns.appendChild(l); const x = el('button', 'btn', 'Export'); x.id = `slot-export-${si.slot}`; x.onclick = () => opts.onExport(si.slot); btns.appendChild(x); }
+    if (si.status !== 'empty') {
+      const d = el('button', 'btn', 'Delete'); d.id = `slot-del-${si.slot}`;
+      d.onclick = () => { if (d.dataset.arm === '1') opts.onDelete(si.slot); else { d.dataset.arm = '1'; d.textContent = 'Really delete?'; } };
+      btns.appendChild(d);
+    }
+    const imp = el('label', 'btn filebtn', 'Import…'); const f = el('input'); f.type = 'file'; f.accept = '.json,application/json,text/plain'; f.id = `slot-import-${si.slot}`; f.hidden = true;
+    f.onchange = () => { const file = f.files?.[0]; if (file) void file.text().then((t) => opts.onImport(si.slot, t)); };
+    imp.appendChild(f); btns.appendChild(imp);
+    row.append(info, btns); fg.appendChild(row);
+  }
+  if (opts.message) { const m = el('div', 'sub', opts.message); m.id = 'slots-msg'; fg.appendChild(m); }
+  const back = el('button', 'menu-btn', 'Back'); back.id = 'btn-slots-back'; back.onclick = opts.onBack; fg.appendChild(back);
+  s.appendChild(fg); wireArrowNav(s); back.focus();
 }
