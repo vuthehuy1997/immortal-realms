@@ -1,0 +1,60 @@
+[
+  {
+    "id": "flying-sword",
+    "name": "Flying Sword Art",
+    "alt": "Ngự Kiếm Thuật",
+    "shape": "projectile",
+    "manaCost": 8,
+    "cooldown": 1.4,
+    "damageMult": 2.4,
+    "range": 190,
+    "speed": 320,
+    "pierce": 2,
+    "unlockLevel": 1,
+    "fx": "xf_flying_sword",
+    "image": "skills/flying-sword.png"
+  },
+  {
+    "id": "moon-arc",
+    "name": "Crescent Moon Slash",
+    "alt": "Nguyệt Nha Trảm",
+    "shape": "wave",
+    "manaCost": 14,
+    "cooldown": 3.5,
+    "damageMult": 3,
+    "range": 130,
+    "speed": 230,
+    "pierce": 99,
+    "unlockLevel": 2,
+    "fx": "xf_moon_arc",
+    "image": "skills/moon-arc.png"
+  },
+  {
+    "id": "lotus-burst",
+    "name": "Lotus Burst",
+    "alt": "Liên Hoa Chấn",
+    "shape": "burst",
+    "manaCost": 22,
+    "cooldown": 7,
+    "damageMult": 4,
+    "range": 60,
+    "stun": 1,
+    "unlockLevel": 4,
+    "fx": "xf_lotus",
+    "image": "skills/lotus-burst.png"
+  },
+  {
+    "id": "sword-rain",
+    "name": "Ten Thousand Swords",
+    "alt": "Vạn Kiếm Quy Tông",
+    "shape": "rain",
+    "manaCost": 40,
+    "cooldown": 16,
+    "damageMult": 2.2,
+    "range": 76,
+    "ticks": 4,
+    "unlockLevel": 7,
+    "fx": "xf_sword_rain",
+    "image": "skills/sword-rain.png"
+  }
+]

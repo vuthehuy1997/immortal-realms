@@ -1,0 +1,394 @@
+[
+  {
+    "kind": "pavilion",
+    "scale": 0.3,
+    "blocks": [
+      {
+        "dx": -3,
+        "dy": -1.6,
+        "w": 6,
+        "h": 1.6
+      }
+    ],
+    "placedInWorld": 1,
+    "image": "props/pavilion.png"
+  },
+  {
+    "kind": "stonebridge",
+    "scale": 0.25,
+    "blocks": [],
+    "flat": false,
+    "placedInWorld": 0,
+    "image": "props/stonebridge.png"
+  },
+  {
+    "kind": "bamboo",
+    "scale": 0.21,
+    "blocks": [
+      {
+        "dx": -0.5,
+        "dy": -1,
+        "w": 1,
+        "h": 1
+      }
+    ],
+    "placedInWorld": 113,
+    "image": "props/bamboo.png"
+  },
+  {
+    "kind": "pine",
+    "scale": 0.26,
+    "blocks": [
+      {
+        "dx": -0.5,
+        "dy": -1,
+        "w": 1,
+        "h": 1
+      }
+    ],
+    "placedInWorld": 68,
+    "image": "props/pine.png"
+  },
+  {
+    "kind": "stairs",
+    "scale": 0.22,
+    "blocks": [],
+    "placedInWorld": 0,
+    "image": "props/stairs.png"
+  },
+  {
+    "kind": "paifang",
+    "scale": 0.28,
+    "blocks": [
+      {
+        "dx": -3,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      },
+      {
+        "dx": 2,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 0,
+    "image": "props/paifang.png"
+  },
+  {
+    "kind": "tower",
+    "scale": 0.26,
+    "blocks": [
+      {
+        "dx": -1.8,
+        "dy": -1.6,
+        "w": 3.6,
+        "h": 1.6
+      }
+    ],
+    "placedInWorld": 1,
+    "image": "props/tower.png"
+  },
+  {
+    "kind": "moonwall",
+    "scale": 0.26,
+    "blocks": [
+      {
+        "dx": -3,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      },
+      {
+        "dx": 2,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 1,
+    "image": "props/moonwall.png"
+  },
+  {
+    "kind": "corridor",
+    "scale": 0.28,
+    "blocks": [
+      {
+        "dx": -3.4,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      },
+      {
+        "dx": 2.4,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 0,
+    "image": "props/corridor.png"
+  },
+  {
+    "kind": "taihurocks",
+    "scale": 0.24,
+    "blocks": [
+      {
+        "dx": -2,
+        "dy": -1.2,
+        "w": 4,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 0,
+    "image": "props/taihurocks.png"
+  },
+  {
+    "kind": "willow",
+    "scale": 0.26,
+    "blocks": [
+      {
+        "dx": -0.5,
+        "dy": -1,
+        "w": 1,
+        "h": 1
+      }
+    ],
+    "placedInWorld": 43,
+    "image": "props/willow.png"
+  },
+  {
+    "kind": "lingzhi",
+    "scale": 0.13,
+    "blocks": [],
+    "placedInWorld": 20,
+    "image": "props/lingzhi.png"
+  },
+  {
+    "kind": "orchid",
+    "scale": 0.13,
+    "blocks": [],
+    "placedInWorld": 54,
+    "image": "props/orchid.png"
+  },
+  {
+    "kind": "rock",
+    "scale": 0.18,
+    "blocks": [
+      {
+        "dx": -0.5,
+        "dy": -1,
+        "w": 1,
+        "h": 1
+      }
+    ],
+    "placedInWorld": 19,
+    "image": "props/rock.png"
+  },
+  {
+    "kind": "bambooshoot",
+    "scale": 0.13,
+    "blocks": [],
+    "placedInWorld": 15,
+    "image": "props/bambooshoot.png"
+  },
+  {
+    "kind": "lotuspond",
+    "scale": 0.26,
+    "blocks": [],
+    "flat": true,
+    "placedInWorld": 1,
+    "image": "props/lotuspond.png"
+  },
+  {
+    "kind": "petals",
+    "scale": 0.22,
+    "blocks": [],
+    "flat": true,
+    "placedInWorld": 0,
+    "image": "props/petals.png"
+  },
+  {
+    "kind": "goldpaifang",
+    "scale": 0.3,
+    "blocks": [
+      {
+        "dx": -3.4,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      },
+      {
+        "dx": 2.4,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 1,
+    "image": "props/goldpaifang.png"
+  },
+  {
+    "kind": "palace",
+    "scale": 0.34,
+    "blocks": [
+      {
+        "dx": -4.2,
+        "dy": -1.8,
+        "w": 8.4,
+        "h": 1.8
+      }
+    ],
+    "placedInWorld": 1,
+    "image": "props/palace.png"
+  },
+  {
+    "kind": "jadebridge",
+    "scale": 0.22,
+    "blocks": [],
+    "placedInWorld": 0,
+    "image": "props/jadebridge.png"
+  },
+  {
+    "kind": "dragonpillar",
+    "scale": 0.22,
+    "blocks": [
+      {
+        "dx": -0.5,
+        "dy": -1,
+        "w": 1,
+        "h": 1
+      }
+    ],
+    "placedInWorld": 2,
+    "image": "props/dragonpillar.png"
+  },
+  {
+    "kind": "lotusthrone",
+    "scale": 0.26,
+    "blocks": [
+      {
+        "dx": -2,
+        "dy": -1.2,
+        "w": 4,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 1,
+    "image": "props/lotusthrone.png"
+  },
+  {
+    "kind": "goldgate",
+    "scale": 0.3,
+    "blocks": [
+      {
+        "dx": -3.6,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      },
+      {
+        "dx": 2.6,
+        "dy": -1.2,
+        "w": 1,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 1,
+    "image": "props/goldgate.png"
+  },
+  {
+    "kind": "floatisle",
+    "scale": 0.2,
+    "blocks": [
+      {
+        "dx": -2,
+        "dy": -1.5,
+        "w": 4,
+        "h": 1.5
+      }
+    ],
+    "float": true,
+    "placedInWorld": 0,
+    "image": "props/floatisle.png"
+  },
+  {
+    "kind": "lotusbowl",
+    "scale": 0.18,
+    "blocks": [
+      {
+        "dx": -1.8,
+        "dy": -1.2,
+        "w": 3.6,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 2,
+    "image": "props/lotusbowl.png"
+  },
+  {
+    "kind": "array",
+    "scale": 0.3,
+    "blocks": [],
+    "flat": true,
+    "placedInWorld": 4,
+    "image": "props/array.png"
+  },
+  {
+    "kind": "standstone",
+    "scale": 0.26,
+    "blocks": [
+      {
+        "dx": -0.5,
+        "dy": -1,
+        "w": 1,
+        "h": 1
+      }
+    ],
+    "placedInWorld": 21,
+    "image": "props/standstone.png"
+  },
+  {
+    "kind": "stonecircle",
+    "scale": 0.24,
+    "blocks": [
+      {
+        "dx": -1.2,
+        "dy": -1.2,
+        "w": 2.4,
+        "h": 1.2
+      }
+    ],
+    "placedInWorld": 0,
+    "image": "props/stonecircle.png"
+  },
+  {
+    "kind": "peachtree",
+    "scale": 0.24,
+    "blocks": [
+      {
+        "dx": -0.5,
+        "dy": -1,
+        "w": 1,
+        "h": 1
+      }
+    ],
+    "placedInWorld": 64,
+    "image": "props/peachtree.png"
+  },
+  {
+    "kind": "pagoda7",
+    "scale": 0.3,
+    "blocks": [
+      {
+        "dx": -2,
+        "dy": -1.5,
+        "w": 4,
+        "h": 1.5
+      }
+    ],
+    "placedInWorld": 1,
+    "image": "props/pagoda7.png"
+  }
+]

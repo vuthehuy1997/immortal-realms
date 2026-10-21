@@ -1,0 +1,178 @@
+{
+  "DROPS": {
+    "wolf": [
+      {
+        "item": "hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "snake": [
+      {
+        "item": "hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "foxfire": [
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "treant": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.4
+      }
+    ],
+    "toad": [
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "waterghost": [
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "ghost": [
+      {
+        "item": "mana-potion",
+        "chance": 0.3
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.1
+      }
+    ],
+    "peachspirit": [
+      {
+        "item": "mana-potion",
+        "chance": 0.3
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.12
+      }
+    ],
+    "bat": [],
+    "paperdoll": [
+      {
+        "item": "hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "swordspirit": [
+      {
+        "item": "qi-pill",
+        "chance": 0.2
+      }
+    ],
+    "thunderbird": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "mana-potion",
+        "chance": 0.3
+      }
+    ],
+    "skeleton": [
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "jiangshi": [
+      {
+        "item": "qi-pill",
+        "chance": 0.25
+      }
+    ],
+    "soldier": [
+      {
+        "item": "hp-potion",
+        "chance": 0.25
+      }
+    ],
+    "golem": [
+      {
+        "item": "qi-pill",
+        "chance": 0.35
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.4
+      }
+    ],
+    "warden": [
+      {
+        "item": "jade-sword",
+        "chance": 1
+      },
+      {
+        "item": "immortal-mantle",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "jiaolong": [
+      {
+        "item": "dragon-pearl",
+        "chance": 1
+      },
+      {
+        "item": "dragon-scale-robe",
+        "chance": 0.6
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "ninetail": [
+      {
+        "item": "spirit-saber",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      },
+      {
+        "item": "spirit-ring",
+        "chance": 0.5
+      }
+    ]
+  },
+  "ELITE_LOOT": {
+    "bamboo": [
+      "bronze-blade",
+      "cloth-robe"
+    ],
+    "marsh": [
+      "steel-blade",
+      "sect-robe",
+      "jade-pendant"
+    ],
+    "grove": [
+      "sect-robe",
+      "spirit-ring",
+      "jade-pendant"
+    ],
+    "ruins": [
+      "spirit-silk",
+      "tiger-fang",
+      "steel-blade"
+    ]
+  }
+}

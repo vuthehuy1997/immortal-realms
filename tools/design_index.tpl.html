@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Immortal Realms design</title>
+<style>:root{--bg:#14121c;--fg:#e8e4f0;--mut:#9a94b0;--card:#1f1b2c;--acc:#e8c066}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,sans-serif}
+header{position:sticky;top:0;background:#0e0c14;padding:10px 16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;border-bottom:1px solid #332d48;z-index:2}
+header b{color:var(--acc)}nav button,input{background:var(--card);color:var(--fg);border:1px solid #3a3358;border-radius:6px;padding:5px 10px;font:inherit}nav button.on{background:var(--acc);color:#000}
+main{padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}.c{background:var(--card);border-radius:10px;padding:10px;border:1px solid #2e2842}
+.c img{image-rendering:pixelated;display:block;margin:0 auto 8px;max-height:150px;max-width:100%}.c h3{margin:.2em 0;font-size:15px}.c small{color:var(--mut)}.c dl{display:grid;grid-template-columns:auto 1fr;gap:1px 8px;margin:6px 0 0;font-size:12px}.c dt{color:var(--mut)}.c dd{margin:0}
+.tag{display:inline-block;background:#2e2842;border-radius:4px;padding:0 6px;font-size:11px;margin-right:3px}</style></head><body>
+<header><b>Immortal Realms · design</b><nav id="nav"></nav><input id="q" placeholder="filter…"><span id="n" style="color:var(--mut)"></span></header><main id="m"></main>
+<script>const D=/*DATA*/;
+const S={enemies:['images/enemies/','id'],bosses:['images/bosses/','id'],heroes:['images/heroes/','id'],items:['images/items/','id'],skills:['images/skills/','id'],npcs:['images/npcs/','id'],props:['images/props/','kind']};
+const fields={enemies:e=>({behaviour:e.behavior,zones:e.zones.join(', '),'HP/ATK/DEF':`${e.maxHp}/${e.atk}/${e.def}`,speed:e.speed,xp:e.xp,stones:e.stones.join('–'),drops:e.drops.map(d=>d.item).join(', ')}),
+bosses:e=>({HP:e.maxHp,'ATK/DEF':`${e.atk}/${e.def}`,home:e.home,quest:e.questId,kit:e.kit.map(k=>k.join('/')).join(' | '),drops:e.drops.map(d=>d.item).join(', ')}),
+heroes:e=>({title:e.title,desc:e.description}),items:e=>({type:e.slot||e.type,rarity:e.rarity,effect:e.description,value:e.value,shop:e.shopPrice,sources:e.sources.join(', ')}),
+skills:e=>({shape:e.shape,mana:e.manaCost,cooldown:e.cooldown,'dmg×':e.damageMult,unlock:e.unlockLevel}),npcs:e=>({trade:e.trade,quests:e.quests.join(' → ')}),props:e=>({scale:e.scale,placed:e.placedInWorld,flat:e.flat?'yes':''}),
+quests:e=>({giver:e.giver,requires:e.requires,objectives:e.objectives.map(o=>o.label).join('; '),reward:`${e.reward.xp||0} xp ${e.reward.stones||0} stones`}),zones:e=>({level:e.level,mood:e.mood,spawns:Object.entries(e.spawns).map(([k,v])=>k+'×'+v).join(', '),bosses:e.bosses.join(', ')})};
+let cur='enemies';const nav=document.getElementById('nav'),m=document.getElementById('m'),q=document.getElementById('q'),n=document.getElementById('n');
+const tabs=[...Object.keys(S),'quests','zones'];tabs.forEach(t=>{const b=document.createElement('button');b.textContent=t+' '+D[t].length;b.onclick=()=>{cur=t;draw()};b.dataset.t=t;nav.appendChild(b)});
+function esc(s){return String(s??'–').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[c])}
+function draw(){[...nav.children].forEach(b=>b.classList.toggle('on',b.dataset.t===cur));const f=q.value.toLowerCase();let c=0;m.innerHTML=D[cur].filter(e=>!f||JSON.stringify(e).toLowerCase().includes(f)).map(e=>{c++;const id=e.id??e.kind,i=S[cur]?e.image||'':'';return `<div class="c">${i?`<img src="images/${i}" loading="lazy" alt="">`:''}<h3>${esc(e.name??id)}</h3><small>${esc(id)}</small><dl>${Object.entries(fields[cur](e)).map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('')}</dl></div>`}).join('');n.textContent=c+' shown · problems: '+D.summary.problems.length}
+q.oninput=draw;draw();</script></body></html>

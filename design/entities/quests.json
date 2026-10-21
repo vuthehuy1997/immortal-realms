@@ -1,0 +1,212 @@
+[
+  {
+    "id": "pests",
+    "name": "Wolves of the Bamboo",
+    "giver": "elder-lin",
+    "intro": "Spirit wolves prowl the Whispering Bamboo Forest to the west and trample the herb beds. Slay four of them and gather two Spirit Herbs (lingzhi, press E beside the glowing mushrooms). The sect will reward you.",
+    "reminder": "The forest is still overrun. Four wolves, two Spirit Herbs.",
+    "completeText": "You have done well. Take this — and my thanks.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "wolf",
+        "count": 4,
+        "label": "Slay Spirit Wolves"
+      },
+      {
+        "type": "collect",
+        "item": "spirit-herb",
+        "count": 2,
+        "label": "Gather Spirit Herbs"
+      }
+    ],
+    "reward": {
+      "xp": 80,
+      "items": [
+        {
+          "id": "iron-sword",
+          "count": 1
+        },
+        {
+          "id": "hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "fox",
+    "name": "The Fox of the Peach Grove",
+    "giver": "elder-lin",
+    "requires": "pests",
+    "intro": "Well done. Now a greater trouble: a nine-tailed fox spirit has made its den in the Peach Grove, north-west of here, and bewitches travellers. Slay it.",
+    "reminder": "The fox spirit still haunts the grove. Follow the north road, then west into the peach trees.",
+    "completeText": "The grove breathes again. This blade came from my own youth. Take it.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "ninetail",
+        "count": 1,
+        "label": "Slay the Nine-Tailed Fox Spirit"
+      }
+    ],
+    "reward": {
+      "xp": 150,
+      "items": [
+        {
+          "id": "steel-blade",
+          "count": 1
+        },
+        {
+          "id": "qi-pill",
+          "count": 2
+        },
+        {
+          "id": "hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "warden",
+    "name": "The Fallen Sword Immortal",
+    "giver": "elder-lin",
+    "requires": "fox",
+    "intro": "Beyond the Peach Grove, in the north-east court, a sword immortal who fell from grace stirs once more. Defeat the Fallen Sword Immortal and the sect may finally rest.",
+    "reminder": "The Fallen Immortal still lives. Follow the north-east road to his court.",
+    "completeText": "The Fallen Immortal is no more. You have the makings of a true cultivator.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "warden",
+        "count": 1,
+        "label": "Defeat the Fallen Sword Immortal"
+      }
+    ],
+    "reward": {
+      "xp": 200,
+      "items": [
+        {
+          "id": "qi-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "jiaolong",
+    "name": "The Dragon of the Mist Pool",
+    "giver": "elder-lin",
+    "requires": "champions",
+    "intro": "One last trial, champion. Deep in Mistveil Marsh, east of the southern road, a jiao dragon has woken in its pool. Barges vanish and the mist grows thick. Slay the Jiao Dragon, and bring me its pearl.",
+    "reminder": "Follow the southern road into the marsh, then east to the still pool where the mist is thickest.",
+    "completeText": "The mist is thinning already. The pearl is yours by right; you have earned it.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "jiaolong",
+        "count": 1,
+        "label": "Slay the Jiao Dragon"
+      }
+    ],
+    "reward": {
+      "xp": 320,
+      "stones": 120,
+      "items": [
+        {
+          "id": "hp-potion",
+          "count": 3
+        },
+        {
+          "id": "mana-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "toads",
+    "name": "Toads in the Ledger",
+    "giver": "merchant-qiao",
+    "requires": "pests",
+    "intro": "Marsh toads keep swallowing my supply barges in Mistveil Marsh, south of here. Thin out six of them and I will make it worth your while.",
+    "reminder": "Six marsh toads, south in Mistveil Marsh. Mind the ghosts in the mist.",
+    "completeText": "My barges float again! A fair price, as promised.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "toad",
+        "count": 6,
+        "label": "Slay Marsh Toads"
+      }
+    ],
+    "reward": {
+      "xp": 110,
+      "stones": 60,
+      "items": [
+        {
+          "id": "hp-potion",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "furnace",
+    "name": "Herbs for the Furnace",
+    "giver": "alchemist-yun",
+    "requires": "pests",
+    "intro": "My furnace is hungry and my herb baskets are empty. Bring me five Spirit Herbs (lingzhi, glowing mushrooms) and I will share what I brew.",
+    "reminder": "Five Spirit Herbs, please. Look for the glowing mushrooms in the forests.",
+    "completeText": "Splendid, fresh and potent. Take these pills with my thanks.",
+    "objectives": [
+      {
+        "type": "collect",
+        "item": "spirit-herb",
+        "count": 5,
+        "label": "Gather Spirit Herbs"
+      }
+    ],
+    "reward": {
+      "xp": 90,
+      "stones": 40,
+      "items": [
+        {
+          "id": "qi-pill",
+          "count": 3
+        },
+        {
+          "id": "hp-potion",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "champions",
+    "name": "Trial of Champions",
+    "giver": "elder-lin",
+    "requires": "warden",
+    "intro": "Some beasts grow beyond their kind, wearing a golden aura and strange powers. Prove your mastery: slay two of these elite monsters.",
+    "reminder": "Two elite monsters, marked by their golden names. They appear anywhere beyond the sect.",
+    "completeText": "Your blade has earned its reputation. Wear this charm with pride.",
+    "objectives": [
+      {
+        "type": "elite",
+        "count": 2,
+        "label": "Slay Elite Monsters"
+      }
+    ],
+    "reward": {
+      "xp": 240,
+      "stones": 100,
+      "items": [
+        {
+          "id": "tiger-fang",
+          "count": 1
+        }
+      ]
+    }
+  }
+]

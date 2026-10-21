@@ -1,0 +1,947 @@
+[
+  {
+    "id": "wolf",
+    "name": "Spirit Wolf",
+    "behavior": "rusher",
+    "maxHp": 40,
+    "atk": 8,
+    "def": 1,
+    "speed": 58,
+    "aggroRange": 110,
+    "attackRange": 18,
+    "attackCooldown": 1,
+    "strikeWindup": 0.3,
+    "xp": 12,
+    "sprite": "mob.wolf",
+    "scale": 0.36,
+    "radius": 8,
+    "stones": [
+      1,
+      3
+    ],
+    "zones": [
+      "bamboo"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "bamboo": {
+        "normal": {
+          "maxHp": 160,
+          "atk": 10,
+          "def": 1,
+          "xp": 12,
+          "stones": [
+            1,
+            3
+          ]
+        },
+        "elite": {
+          "maxHp": 448,
+          "atk": 13,
+          "def": 1,
+          "xp": 36,
+          "stones": [
+            3,
+            9
+          ]
+        }
+      }
+    },
+    "image": "enemies/wolf.png"
+  },
+  {
+    "id": "snake",
+    "name": "Jade Serpent",
+    "behavior": "rusher",
+    "maxHp": 28,
+    "atk": 7,
+    "def": 0,
+    "speed": 44,
+    "aggroRange": 90,
+    "attackRange": 16,
+    "attackCooldown": 0.9,
+    "strikeWindup": 0.28,
+    "xp": 9,
+    "sprite": "mob.snake",
+    "scale": 0.34,
+    "radius": 7,
+    "stones": [
+      1,
+      2
+    ],
+    "zones": [
+      "bamboo",
+      "marsh"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "bamboo": {
+        "normal": {
+          "maxHp": 112,
+          "atk": 8,
+          "def": 0,
+          "xp": 9,
+          "stones": [
+            1,
+            2
+          ]
+        },
+        "elite": {
+          "maxHp": 314,
+          "atk": 12,
+          "def": 0,
+          "xp": 27,
+          "stones": [
+            3,
+            6
+          ]
+        }
+      },
+      "marsh": {
+        "normal": {
+          "maxHp": 168,
+          "atk": 11,
+          "def": 0,
+          "xp": 16,
+          "stones": [
+            2,
+            4
+          ]
+        },
+        "elite": {
+          "maxHp": 470,
+          "atk": 15,
+          "def": 0,
+          "xp": 49,
+          "stones": [
+            5,
+            11
+          ]
+        }
+      }
+    },
+    "image": "enemies/snake.png"
+  },
+  {
+    "id": "foxfire",
+    "name": "Foxfire Wisp",
+    "behavior": "caster",
+    "maxHp": 22,
+    "atk": 10,
+    "def": 0,
+    "speed": 40,
+    "aggroRange": 130,
+    "attackRange": 110,
+    "attackCooldown": 1.7,
+    "preferredRange": 80,
+    "xp": 16,
+    "sprite": "mob.foxfire",
+    "scale": 0.36,
+    "radius": 7,
+    "stones": [
+      2,
+      4
+    ],
+    "eliteSprites": [
+      "mob.foxfire_v_red",
+      "mob.foxfire_v_green"
+    ],
+    "zones": [
+      "bamboo"
+    ],
+    "drops": [
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "bamboo": {
+        "normal": {
+          "maxHp": 88,
+          "atk": 12,
+          "def": 0,
+          "xp": 16,
+          "stones": [
+            2,
+            4
+          ]
+        },
+        "elite": {
+          "maxHp": 246,
+          "atk": 17,
+          "def": 0,
+          "xp": 48,
+          "stones": [
+            6,
+            12
+          ]
+        }
+      }
+    },
+    "image": "enemies/foxfire.png"
+  },
+  {
+    "id": "treant",
+    "name": "Elder Treant",
+    "behavior": "charger",
+    "maxHp": 110,
+    "atk": 13,
+    "def": 5,
+    "speed": 26,
+    "aggroRange": 100,
+    "attackRange": 70,
+    "attackCooldown": 3,
+    "windup": 0.7,
+    "dashTime": 0.45,
+    "dashSpeedMult": 4,
+    "xp": 35,
+    "sprite": "mob.treant",
+    "scale": 0.42,
+    "radius": 10,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "bamboo"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.4
+      }
+    ],
+    "scaled": {
+      "bamboo": {
+        "normal": {
+          "maxHp": 440,
+          "atk": 16,
+          "def": 5,
+          "xp": 35,
+          "stones": [
+            4,
+            8
+          ]
+        },
+        "elite": {
+          "maxHp": 1232,
+          "atk": 22,
+          "def": 5,
+          "xp": 105,
+          "stones": [
+            12,
+            24
+          ]
+        }
+      }
+    },
+    "image": "enemies/treant.png"
+  },
+  {
+    "id": "toad",
+    "name": "Marsh Toad",
+    "behavior": "rusher",
+    "maxHp": 64,
+    "atk": 9,
+    "def": 3,
+    "speed": 30,
+    "aggroRange": 90,
+    "attackRange": 18,
+    "attackCooldown": 1.4,
+    "strikeWindup": 0.42,
+    "xp": 18,
+    "sprite": "mob.toad",
+    "scale": 0.36,
+    "radius": 9,
+    "stones": [
+      2,
+      4
+    ],
+    "zones": [
+      "marsh"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "marsh": {
+        "normal": {
+          "maxHp": 384,
+          "atk": 14,
+          "def": 4,
+          "xp": 32,
+          "stones": [
+            4,
+            7
+          ]
+        },
+        "elite": {
+          "maxHp": 1075,
+          "atk": 19,
+          "def": 4,
+          "xp": 97,
+          "stones": [
+            11,
+            22
+          ]
+        }
+      }
+    },
+    "image": "enemies/toad.png"
+  },
+  {
+    "id": "waterghost",
+    "name": "Drowned Ghost",
+    "behavior": "rusher",
+    "maxHp": 34,
+    "atk": 9,
+    "def": 0,
+    "speed": 36,
+    "aggroRange": 120,
+    "attackRange": 16,
+    "attackCooldown": 1.2,
+    "strikeWindup": 0.3,
+    "xp": 17,
+    "sprite": "mob.waterghost",
+    "scale": 0.36,
+    "radius": 7,
+    "stones": [
+      2,
+      4
+    ],
+    "zones": [
+      "marsh"
+    ],
+    "drops": [
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "marsh": {
+        "normal": {
+          "maxHp": 204,
+          "atk": 14,
+          "def": 0,
+          "xp": 31,
+          "stones": [
+            4,
+            7
+          ]
+        },
+        "elite": {
+          "maxHp": 571,
+          "atk": 19,
+          "def": 0,
+          "xp": 92,
+          "stones": [
+            11,
+            22
+          ]
+        }
+      }
+    },
+    "image": "enemies/waterghost.png"
+  },
+  {
+    "id": "ghost",
+    "name": "Lantern Ghost",
+    "behavior": "caster",
+    "maxHp": 26,
+    "atk": 11,
+    "def": 0,
+    "speed": 38,
+    "aggroRange": 130,
+    "attackRange": 110,
+    "attackCooldown": 1.8,
+    "preferredRange": 85,
+    "xp": 20,
+    "sprite": "mob.ghost",
+    "scale": 0.36,
+    "radius": 7,
+    "stones": [
+      2,
+      5
+    ],
+    "eliteSprites": [
+      "mob.ghost_v_violet",
+      "mob.ghost_v_gold",
+      "mob.ghost_v_crimson"
+    ],
+    "zones": [
+      "marsh"
+    ],
+    "drops": [
+      {
+        "item": "mana-potion",
+        "chance": 0.3
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "marsh": {
+        "normal": {
+          "maxHp": 156,
+          "atk": 17,
+          "def": 0,
+          "xp": 36,
+          "stones": [
+            4,
+            9
+          ]
+        },
+        "elite": {
+          "maxHp": 437,
+          "atk": 23,
+          "def": 0,
+          "xp": 108,
+          "stones": [
+            11,
+            27
+          ]
+        }
+      }
+    },
+    "image": "enemies/ghost.png"
+  },
+  {
+    "id": "peachspirit",
+    "name": "Peach Spirit",
+    "behavior": "caster",
+    "maxHp": 30,
+    "atk": 10,
+    "def": 0,
+    "speed": 36,
+    "aggroRange": 130,
+    "attackRange": 100,
+    "attackCooldown": 1.6,
+    "volley": 2,
+    "preferredRange": 70,
+    "xp": 20,
+    "sprite": "mob.peachspirit",
+    "scale": 0.34,
+    "radius": 7,
+    "stones": [
+      2,
+      5
+    ],
+    "zones": [
+      "grove"
+    ],
+    "drops": [
+      {
+        "item": "mana-potion",
+        "chance": 0.3
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "grove": {
+        "normal": {
+          "maxHp": 276,
+          "atk": 19,
+          "def": 0,
+          "xp": 56,
+          "stones": [
+            6,
+            14
+          ]
+        },
+        "elite": {
+          "maxHp": 773,
+          "atk": 27,
+          "def": 0,
+          "xp": 168,
+          "stones": [
+            17,
+            42
+          ]
+        }
+      }
+    },
+    "image": "enemies/peachspirit.png"
+  },
+  {
+    "id": "bat",
+    "name": "Cave Bat",
+    "behavior": "rusher",
+    "maxHp": 26,
+    "atk": 6,
+    "def": 0,
+    "speed": 78,
+    "aggroRange": 130,
+    "attackRange": 14,
+    "attackCooldown": 0.7,
+    "strikeWindup": 0.24,
+    "xp": 8,
+    "sprite": "mob.bat",
+    "scale": 0.3,
+    "radius": 6,
+    "stones": [
+      1,
+      2
+    ],
+    "zones": [
+      "grove"
+    ],
+    "drops": [],
+    "scaled": {
+      "grove": {
+        "normal": {
+          "maxHp": 239,
+          "atk": 11,
+          "def": 0,
+          "xp": 22,
+          "stones": [
+            3,
+            6
+          ]
+        },
+        "elite": {
+          "maxHp": 670,
+          "atk": 16,
+          "def": 0,
+          "xp": 67,
+          "stones": [
+            8,
+            17
+          ]
+        }
+      }
+    },
+    "image": "enemies/bat.png"
+  },
+  {
+    "id": "paperdoll",
+    "name": "Paper Doll",
+    "behavior": "rusher",
+    "maxHp": 26,
+    "atk": 8,
+    "def": 0,
+    "speed": 52,
+    "aggroRange": 100,
+    "attackRange": 16,
+    "attackCooldown": 1,
+    "strikeWindup": 0.3,
+    "xp": 11,
+    "sprite": "mob.paperdoll",
+    "scale": 0.34,
+    "radius": 7,
+    "stones": [
+      1,
+      2
+    ],
+    "zones": [
+      "grove"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "grove": {
+        "normal": {
+          "maxHp": 239,
+          "atk": 15,
+          "def": 0,
+          "xp": 31,
+          "stones": [
+            3,
+            6
+          ]
+        },
+        "elite": {
+          "maxHp": 670,
+          "atk": 21,
+          "def": 0,
+          "xp": 92,
+          "stones": [
+            8,
+            17
+          ]
+        }
+      }
+    },
+    "image": "enemies/paperdoll.png"
+  },
+  {
+    "id": "swordspirit",
+    "name": "Sword Spirit",
+    "behavior": "charger",
+    "maxHp": 34,
+    "atk": 12,
+    "def": 1,
+    "speed": 40,
+    "aggroRange": 130,
+    "attackRange": 90,
+    "attackCooldown": 2,
+    "windup": 0.45,
+    "dashTime": 0.35,
+    "dashSpeedMult": 6,
+    "xp": 24,
+    "sprite": "mob.swordspirit",
+    "scale": 0.38,
+    "radius": 8,
+    "stones": [
+      3,
+      6
+    ],
+    "eliteSprites": [
+      "mob.swordspirit_v_gold",
+      "mob.swordspirit_v_blood"
+    ],
+    "zones": [
+      "grove"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "grove": {
+        "normal": {
+          "maxHp": 313,
+          "atk": 23,
+          "def": 2,
+          "xp": 67,
+          "stones": [
+            8,
+            17
+          ]
+        },
+        "elite": {
+          "maxHp": 876,
+          "atk": 32,
+          "def": 2,
+          "xp": 202,
+          "stones": [
+            25,
+            50
+          ]
+        }
+      }
+    },
+    "image": "enemies/swordspirit.png"
+  },
+  {
+    "id": "thunderbird",
+    "name": "Thunder Bird",
+    "behavior": "caster",
+    "maxHp": 40,
+    "atk": 13,
+    "def": 1,
+    "speed": 44,
+    "aggroRange": 150,
+    "attackRange": 130,
+    "attackCooldown": 1.5,
+    "volley": 3,
+    "preferredRange": 95,
+    "xp": 34,
+    "sprite": "mob.thunderbird",
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "grove"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "mana-potion",
+        "chance": 0.3
+      }
+    ],
+    "scaled": {
+      "grove": {
+        "normal": {
+          "maxHp": 368,
+          "atk": 25,
+          "def": 2,
+          "xp": 95,
+          "stones": [
+            11,
+            22
+          ]
+        },
+        "elite": {
+          "maxHp": 1030,
+          "atk": 35,
+          "def": 2,
+          "xp": 286,
+          "stones": [
+            34,
+            67
+          ]
+        }
+      }
+    },
+    "image": "enemies/thunderbird.png"
+  },
+  {
+    "id": "skeleton",
+    "name": "Bone Soldier",
+    "behavior": "rusher",
+    "maxHp": 46,
+    "atk": 10,
+    "def": 2,
+    "speed": 42,
+    "aggroRange": 110,
+    "attackRange": 20,
+    "attackCooldown": 1.1,
+    "strikeWindup": 0.3,
+    "xp": 20,
+    "sprite": "mob.skeleton",
+    "scale": 0.36,
+    "radius": 8,
+    "stones": [
+      2,
+      5
+    ],
+    "zones": [
+      "ruins"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "ruins": {
+        "normal": {
+          "maxHp": 552,
+          "atk": 24,
+          "def": 4,
+          "xp": 80,
+          "stones": [
+            8,
+            20
+          ]
+        },
+        "elite": {
+          "maxHp": 1546,
+          "atk": 34,
+          "def": 4,
+          "xp": 240,
+          "stones": [
+            24,
+            60
+          ]
+        }
+      }
+    },
+    "image": "enemies/skeleton.png"
+  },
+  {
+    "id": "jiangshi",
+    "name": "Jiangshi",
+    "behavior": "charger",
+    "maxHp": 62,
+    "atk": 13,
+    "def": 3,
+    "speed": 34,
+    "aggroRange": 110,
+    "attackRange": 80,
+    "attackCooldown": 2.6,
+    "windup": 0.6,
+    "dashTime": 0.4,
+    "dashSpeedMult": 4.5,
+    "xp": 30,
+    "sprite": "mob.jiangshi",
+    "scale": 0.38,
+    "radius": 8,
+    "stones": [
+      3,
+      7
+    ],
+    "eliteSprites": [
+      "mob.jiangshi_v_red",
+      "mob.jiangshi_v_purple"
+    ],
+    "zones": [
+      "ruins"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "ruins": {
+        "normal": {
+          "maxHp": 744,
+          "atk": 31,
+          "def": 6,
+          "xp": 120,
+          "stones": [
+            12,
+            28
+          ]
+        },
+        "elite": {
+          "maxHp": 2083,
+          "atk": 44,
+          "def": 6,
+          "xp": 360,
+          "stones": [
+            36,
+            84
+          ]
+        }
+      }
+    },
+    "image": "enemies/jiangshi.png"
+  },
+  {
+    "id": "soldier",
+    "name": "Fallen Guard",
+    "behavior": "rusher",
+    "maxHp": 56,
+    "atk": 11,
+    "def": 4,
+    "speed": 40,
+    "aggroRange": 110,
+    "attackRange": 22,
+    "attackCooldown": 1.2,
+    "strikeWindup": 0.36,
+    "xp": 24,
+    "sprite": "mob.soldier",
+    "scale": 0.36,
+    "radius": 8,
+    "stones": [
+      3,
+      6
+    ],
+    "zones": [
+      "ruins"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "ruins": {
+        "normal": {
+          "maxHp": 672,
+          "atk": 26,
+          "def": 8,
+          "xp": 96,
+          "stones": [
+            12,
+            24
+          ]
+        },
+        "elite": {
+          "maxHp": 1882,
+          "atk": 37,
+          "def": 8,
+          "xp": 288,
+          "stones": [
+            36,
+            72
+          ]
+        }
+      }
+    },
+    "image": "enemies/soldier.png"
+  },
+  {
+    "id": "golem",
+    "name": "Stone Golem",
+    "behavior": "charger",
+    "maxHp": 110,
+    "atk": 16,
+    "def": 8,
+    "speed": 24,
+    "aggroRange": 100,
+    "attackRange": 70,
+    "attackCooldown": 3,
+    "windup": 0.8,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 48,
+    "sprite": "mob.golem",
+    "scale": 0.42,
+    "radius": 11,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "ruins"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.35
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.4
+      }
+    ],
+    "scaled": {
+      "ruins": {
+        "normal": {
+          "maxHp": 1320,
+          "atk": 38,
+          "def": 16,
+          "xp": 192,
+          "stones": [
+            24,
+            48
+          ]
+        },
+        "elite": {
+          "maxHp": 3696,
+          "atk": 54,
+          "def": 16,
+          "xp": 576,
+          "stones": [
+            72,
+            144
+          ]
+        }
+      }
+    },
+    "image": "enemies/golem.png"
+  }
+]

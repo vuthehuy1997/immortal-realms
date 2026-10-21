@@ -1,0 +1,38 @@
+[
+  {
+    "id": "elder-lin",
+    "name": "Elder Lin",
+    "portrait": "elder_neutral",
+    "quests": [
+      "pests",
+      "fox",
+      "warden",
+      "champions",
+      "jiaolong"
+    ],
+    "idle": "Peace to you, traveler. The grove is quiet now.",
+    "image": "npcs/elder-lin.png"
+  },
+  {
+    "id": "merchant-qiao",
+    "name": "Merchant Qiao",
+    "portrait": "peddler_neutral",
+    "quests": [
+      "toads"
+    ],
+    "idle": "Welcome, welcome! Spirit stones speak louder than words.",
+    "trade": "shop",
+    "image": "npcs/merchant-qiao.png"
+  },
+  {
+    "id": "alchemist-yun",
+    "name": "Alchemist Yun",
+    "portrait": "alchemist_neutral",
+    "quests": [
+      "furnace"
+    ],
+    "idle": "The furnace is warm. What shall we brew today?",
+    "trade": "alchemy",
+    "image": "npcs/alchemist-yun.png"
+  }
+]

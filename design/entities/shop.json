@@ -1,0 +1,79 @@
+{
+  "SHOP_STOCK": [
+    {
+      "id": "hp-potion",
+      "price": 12
+    },
+    {
+      "id": "mana-potion",
+      "price": 12
+    },
+    {
+      "id": "qi-pill",
+      "price": 30
+    },
+    {
+      "id": "foundation-pill",
+      "price": 150
+    },
+    {
+      "id": "bronze-blade",
+      "price": 60
+    },
+    {
+      "id": "steel-blade",
+      "price": 180
+    },
+    {
+      "id": "cloth-robe",
+      "price": 50
+    },
+    {
+      "id": "sect-robe",
+      "price": 170
+    },
+    {
+      "id": "jade-pendant",
+      "price": 140
+    },
+    {
+      "id": "spirit-ring",
+      "price": 150
+    }
+  ],
+  "SELL_RATE": 0.4,
+  "RECIPES": [
+    {
+      "id": "brew-hp",
+      "name": "Vitality Draught",
+      "output": "hp-potion",
+      "herbs": 1,
+      "stones": 3,
+      "note": "Restores 40 HP"
+    },
+    {
+      "id": "brew-mana",
+      "name": "Clarity Draught",
+      "output": "mana-potion",
+      "herbs": 1,
+      "stones": 3,
+      "note": "Restores 30 mana"
+    },
+    {
+      "id": "brew-foundation",
+      "name": "Foundation Pill",
+      "output": "foundation-pill",
+      "herbs": 3,
+      "stones": 25,
+      "note": "Needed for every breakthrough"
+    },
+    {
+      "id": "brew-qi",
+      "name": "Qi Gathering Pill",
+      "output": "qi-pill",
+      "herbs": 2,
+      "stones": 8,
+      "note": "Adds 60 qi"
+    }
+  ]
+}

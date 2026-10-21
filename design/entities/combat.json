@@ -1,0 +1,57 @@
+{
+  "combo": [
+    {
+      "mult": 0.75,
+      "range": 38,
+      "windup": 0.14,
+      "recover": 0.3,
+      "lunge": 8,
+      "knockback": 50,
+      "anim": "combo1"
+    },
+    {
+      "mult": 0.85,
+      "range": 40,
+      "windup": 0.14,
+      "recover": 0.3,
+      "lunge": 8,
+      "knockback": 60,
+      "anim": "combo2"
+    },
+    {
+      "mult": 1.4,
+      "range": 46,
+      "windup": 0.2,
+      "recover": 0.5,
+      "lunge": 14,
+      "knockback": 150,
+      "anim": "combo3"
+    }
+  ],
+  "comboWindow": 0.9,
+  "dash": {
+    "distance": 62,
+    "duration": 0.18,
+    "invuln": 0.3,
+    "cooldown": 1.1
+  },
+  "recovery": {
+    "REGEN_DELAY": 6,
+    "REGEN_RATE": 0.012,
+    "ARRAY_REGEN_RATE": 0.05,
+    "DEATH_TAX_MIN": 5,
+    "DEATH_TAX_FRACTION": 0.1
+  },
+  "perception": {
+    "FOV_deg": 130,
+    "SENSE_RADIUS": 26,
+    "TURN_RATE": 4.5,
+    "MEMORY_SECONDS": 3
+  },
+  "elite": {
+    "hp": 2.8,
+    "atk": 1.4,
+    "xp": 3
+  },
+  "hpBase": 4
+}

@@ -17,4 +17,6 @@ export const ITEM_ICON: Record<string, { kind: 'ui' | 'icon'; key: string }> = {
   'steel-blade': { kind: 'icon', key: 'blade_01_03' },
   'spirit-saber': { kind: 'icon', key: 'heavy_01_03' },
   'jade-sword': { kind: 'icon', key: 'blade_01_05' },
+  'dragon-pearl': { kind: 'icon', key: 'relic_02_05' },
+  'dragon-scale-robe': { kind: 'icon', key: 'relic_01_02' },
 };

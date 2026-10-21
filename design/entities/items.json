@@ -1,0 +1,375 @@
+[
+  {
+    "id": "hp-potion",
+    "name": "Vitality Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 40 HP.",
+    "value": 12,
+    "rarity": "common",
+    "heal": 40,
+    "image": "items/hp-potion.png",
+    "shopPrice": 12,
+    "sellValue": 4,
+    "sources": [
+      "wolf",
+      "snake",
+      "treant",
+      "toad",
+      "paperdoll",
+      "skeleton",
+      "soldier",
+      "golem",
+      "quest:pests",
+      "quest:fox",
+      "quest:jiaolong",
+      "quest:toads",
+      "quest:furnace",
+      "brew:brew-hp",
+      "shop"
+    ]
+  },
+  {
+    "id": "mana-potion",
+    "name": "Clarity Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 30 mana.",
+    "value": 12,
+    "rarity": "common",
+    "mana": 30,
+    "image": "items/mana-potion.png",
+    "shopPrice": 12,
+    "sellValue": 4,
+    "sources": [
+      "foxfire",
+      "waterghost",
+      "ghost",
+      "peachspirit",
+      "thunderbird",
+      "quest:jiaolong",
+      "brew:brew-mana",
+      "shop"
+    ]
+  },
+  {
+    "id": "qi-pill",
+    "name": "Qi Gathering Pill",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Adds 60 qi.",
+    "value": 30,
+    "rarity": "uncommon",
+    "qi": 60,
+    "image": "items/qi-pill.png",
+    "shopPrice": 30,
+    "sellValue": 12,
+    "sources": [
+      "treant",
+      "ghost",
+      "peachspirit",
+      "swordspirit",
+      "thunderbird",
+      "jiangshi",
+      "golem",
+      "warden",
+      "jiaolong",
+      "ninetail",
+      "quest:fox",
+      "quest:warden",
+      "quest:furnace",
+      "brew:brew-qi",
+      "shop"
+    ]
+  },
+  {
+    "id": "spirit-herb",
+    "name": "Spirit Herb",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "A faintly glowing lingzhi. Used in alchemy and by the elder.",
+    "value": 15,
+    "rarity": "common",
+    "image": "items/spirit-herb.png",
+    "shopPrice": null,
+    "sellValue": 6,
+    "sources": [
+      "gather@herb nodes"
+    ]
+  },
+  {
+    "id": "foundation-pill",
+    "name": "Foundation Pill",
+    "type": "material",
+    "maxStack": 5,
+    "description": "Required to attempt a breakthrough (B). Brew it with Alchemist Yun.",
+    "value": 150,
+    "rarity": "rare",
+    "image": "items/foundation-pill.png",
+    "shopPrice": 150,
+    "sellValue": 60,
+    "sources": [
+      "brew:brew-foundation",
+      "shop"
+    ]
+  },
+  {
+    "id": "cloth-robe",
+    "name": "Disciple Cloth Robe",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+3 defence, +12 HP.",
+    "value": 50,
+    "rarity": "common",
+    "defBonus": 3,
+    "hpBonus": 12,
+    "image": "items/cloth-robe.png",
+    "shopPrice": 50,
+    "sellValue": 20,
+    "sources": [
+      "elite@bamboo",
+      "shop"
+    ]
+  },
+  {
+    "id": "sect-robe",
+    "name": "Azure Cloud Sect Robe",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+7 defence, +30 HP.",
+    "value": 170,
+    "rarity": "uncommon",
+    "defBonus": 7,
+    "hpBonus": 30,
+    "image": "items/sect-robe.png",
+    "shopPrice": 170,
+    "sellValue": 68,
+    "sources": [
+      "elite@marsh",
+      "elite@grove",
+      "shop"
+    ]
+  },
+  {
+    "id": "spirit-silk",
+    "name": "Spirit-Silk Vestments",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+12 defence, +55 HP.",
+    "value": 520,
+    "rarity": "rare",
+    "defBonus": 12,
+    "hpBonus": 55,
+    "image": "items/spirit-silk.png",
+    "shopPrice": null,
+    "sellValue": 208,
+    "sources": [
+      "elite@ruins"
+    ]
+  },
+  {
+    "id": "immortal-mantle",
+    "name": "Immortal's Mantle",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+18 defence, +95 HP.",
+    "value": 1100,
+    "rarity": "epic",
+    "defBonus": 18,
+    "hpBonus": 95,
+    "image": "items/immortal-mantle.png",
+    "shopPrice": null,
+    "sellValue": 440,
+    "sources": [
+      "warden"
+    ]
+  },
+  {
+    "id": "jade-pendant",
+    "name": "Jade Pendant",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+6% critical chance.",
+    "value": 140,
+    "rarity": "uncommon",
+    "critBonus": 0.06,
+    "image": "items/jade-pendant.png",
+    "shopPrice": 140,
+    "sellValue": 56,
+    "sources": [
+      "elite@marsh",
+      "elite@grove",
+      "shop"
+    ]
+  },
+  {
+    "id": "spirit-ring",
+    "name": "Spirit Ring",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+25 mana, +1.5 mana regeneration.",
+    "value": 150,
+    "rarity": "uncommon",
+    "manaBonus": 25,
+    "regenBonus": 1.5,
+    "image": "items/spirit-ring.png",
+    "shopPrice": 150,
+    "sellValue": 60,
+    "sources": [
+      "ninetail",
+      "elite@grove",
+      "shop"
+    ]
+  },
+  {
+    "id": "tiger-fang",
+    "name": "Tiger-Fang Charm",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+5 attack, +4% critical chance.",
+    "value": 420,
+    "rarity": "rare",
+    "atkBonus": 5,
+    "critBonus": 0.04,
+    "image": "items/tiger-fang.png",
+    "shopPrice": null,
+    "sellValue": 168,
+    "sources": [
+      "elite@ruins",
+      "quest:champions"
+    ]
+  },
+  {
+    "id": "dragon-pearl",
+    "name": "Jiao Dragon Pearl",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+40 mana, +2.5 mana regeneration, +6 defence.",
+    "value": 800,
+    "rarity": "epic",
+    "manaBonus": 40,
+    "regenBonus": 2.5,
+    "defBonus": 6,
+    "image": "items/dragon-pearl.png",
+    "shopPrice": null,
+    "sellValue": 320,
+    "sources": [
+      "jiaolong"
+    ]
+  },
+  {
+    "id": "dragon-scale-robe",
+    "name": "Dragon-Scale Robe",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+14 defence, +70 HP.",
+    "value": 700,
+    "rarity": "rare",
+    "defBonus": 14,
+    "hpBonus": 70,
+    "image": "items/dragon-scale-robe.png",
+    "shopPrice": null,
+    "sellValue": 280,
+    "sources": [
+      "jiaolong"
+    ]
+  },
+  {
+    "id": "bronze-blade",
+    "slot": "weapon",
+    "name": "Bronze Blade",
+    "type": "equipment",
+    "maxStack": 1,
+    "description": "+3 attack.",
+    "value": 60,
+    "rarity": "common",
+    "weaponAtk": 3,
+    "image": "items/bronze-blade.png",
+    "shopPrice": 60,
+    "sellValue": 24,
+    "sources": [
+      "elite@bamboo",
+      "shop"
+    ]
+  },
+  {
+    "id": "iron-sword",
+    "slot": "weapon",
+    "name": "Iron Sword",
+    "type": "equipment",
+    "maxStack": 1,
+    "description": "+4 attack.",
+    "value": 80,
+    "rarity": "common",
+    "weaponAtk": 4,
+    "image": "items/iron-sword.png",
+    "shopPrice": null,
+    "sellValue": 32,
+    "sources": [
+      "quest:pests"
+    ]
+  },
+  {
+    "id": "steel-blade",
+    "slot": "weapon",
+    "name": "Cold-Forged Steel Blade",
+    "type": "equipment",
+    "maxStack": 1,
+    "description": "+7 attack.",
+    "value": 180,
+    "rarity": "uncommon",
+    "weaponAtk": 7,
+    "image": "items/steel-blade.png",
+    "shopPrice": 180,
+    "sellValue": 72,
+    "sources": [
+      "elite@marsh",
+      "elite@ruins",
+      "quest:fox",
+      "shop"
+    ]
+  },
+  {
+    "id": "spirit-saber",
+    "slot": "weapon",
+    "name": "Foxfire Spirit Saber",
+    "type": "equipment",
+    "maxStack": 1,
+    "description": "+11 attack. Warm to the touch.",
+    "value": 600,
+    "rarity": "rare",
+    "weaponAtk": 11,
+    "image": "items/spirit-saber.png",
+    "shopPrice": null,
+    "sellValue": 240,
+    "sources": [
+      "ninetail"
+    ]
+  },
+  {
+    "id": "jade-sword",
+    "slot": "weapon",
+    "name": "Fallen Immortal's Jade Blade",
+    "type": "equipment",
+    "maxStack": 1,
+    "description": "+15 attack.",
+    "value": 1200,
+    "rarity": "epic",
+    "weaponAtk": 15,
+    "image": "items/jade-sword.png",
+    "shopPrice": null,
+    "sellValue": 480,
+    "sources": [
+      "warden"
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "generatedFrom": "src/data + src/core",
+  "counts": {
+    "enemies": 16,
+    "bosses": 3,
+    "heroes": 6,
+    "skills": 4,
+    "items": 19,
+    "quests": 7,
+    "npcs": 3,
+    "zones": 6,
+    "props": 30,
+    "sheets": 217
+  },
+  "problems": []
+}

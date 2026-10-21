@@ -11,7 +11,9 @@
     "test:e2e": "playwright test",
     "preview": "vite preview",
     "lint": "eslint .",
-    "qc": "npm run lint && npm run typecheck && npm run build && npm test && npm run test:e2e"
+    "qc": "npm run lint && npm run typecheck && npm run build && npm test && npm run test:e2e",
+    "design": "node tools/export_design.mjs",
+    "design:check": "node tools/export_design.mjs --strict"
   },
   "dependencies": {
     "phaser": "4.2.1"

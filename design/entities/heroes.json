@@ -1,0 +1,56 @@
+[
+  {
+    "id": "swordsman",
+    "name": "Azure Swordsman",
+    "title": "Kiếm Tu",
+    "description": "A wandering sword cultivator in sect blues.",
+    "sprite": "hero.swordsman",
+    "scale": 0.34,
+    "image": "heroes/swordsman.png"
+  },
+  {
+    "id": "heroine",
+    "name": "Crimson Swordswoman",
+    "title": "Nữ Kiếm Tiên",
+    "description": "Quick and fierce, a flame in red silk.",
+    "sprite": "hero.heroine",
+    "scale": 0.34,
+    "image": "heroes/heroine.png"
+  },
+  {
+    "id": "fanscholar",
+    "name": "Fan Scholar",
+    "title": "Phiến Nho",
+    "description": "A scholar-cultivator who fights with a folding fan.",
+    "sprite": "hero.fanscholar",
+    "scale": 0.34,
+    "image": "heroes/fanscholar.png"
+  },
+  {
+    "id": "monk",
+    "name": "Staff Monk",
+    "title": "Võ Tăng",
+    "description": "A warrior monk with iron discipline.",
+    "sprite": "hero.monk",
+    "scale": 0.32,
+    "image": "heroes/monk.png"
+  },
+  {
+    "id": "saber",
+    "name": "Saber Wanderer",
+    "title": "Đao Khách",
+    "description": "A road-worn saber fighter.",
+    "sprite": "hero.saber",
+    "scale": 0.34,
+    "image": "heroes/saber.png"
+  },
+  {
+    "id": "twinblade",
+    "name": "Twin-Blade Adept",
+    "title": "Song Đao",
+    "description": "Moves like a storm with a blade in each hand.",
+    "sprite": "hero.twinblade",
+    "scale": 0.34,
+    "image": "heroes/twinblade.png"
+  }
+]

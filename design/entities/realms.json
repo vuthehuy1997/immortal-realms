@@ -1,0 +1,23 @@
+[
+  {
+    "id": "qc1",
+    "name": "Qi Condensation I",
+    "qiMax": 120,
+    "statMult": 1,
+    "reqLevel": 1
+  },
+  {
+    "id": "qc2",
+    "name": "Qi Condensation II",
+    "qiMax": 400,
+    "statMult": 1.15,
+    "reqLevel": 5
+  },
+  {
+    "id": "qc3",
+    "name": "Qi Condensation III",
+    "qiMax": 1000,
+    "statMult": 1.35,
+    "reqLevel": 10
+  }
+]
