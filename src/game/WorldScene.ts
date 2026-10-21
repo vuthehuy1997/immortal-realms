@@ -74,7 +74,7 @@ interface Bolt {
   radius: number; sprite: Phaser.GameObjects.Image | Phaser.GameObjects.Sprite; trail: number; color: number;
 }
 interface RainZone { pos: Vec2; left: number; every: number; timer: number; mult: number; radius: number; tele: Phaser.GameObjects.Image }
-interface Npc { id: string; pos: Vec2; actor: Actor; mark: Phaser.GameObjects.Text }
+interface Npc { id: string; pos: Vec2; actor: Actor; mark: Phaser.GameObjects.Text; plate: Phaser.GameObjects.Text }
 interface Target { pos: Vec2; radius: number; key: unknown; hit(mult: number, o?: HitOpts): void }
 interface HitOpts { kb?: number; stun?: number; from?: Vec2; crit?: boolean; dot?: boolean }
 
@@ -162,9 +162,9 @@ export class WorldScene extends Phaser.Scene {
       const actor = new Actor(this, npcSprite[id] ?? 'hero.staffbeggar', p.x, p.y, 0.34, 22);
       actor.setPos(p.x, p.y);
       const roles: Record<string, string> = { 'elder-lin': 'Elder Lin · Quests', 'merchant-qiao': 'Merchant Qiao · Shop', 'alchemist-yun': 'Alchemist Yun · Alchemy' };
-      this.add.text(p.x, p.y + 7, roles[id] ?? id, { color: '#f1e3b0', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#0b0d14', strokeThickness: 2, backgroundColor: 'rgba(11,13,20,0.72)', padding: { x: 3, y: 1 } }).setOrigin(0.5, 0).setDepth(9e4);
+      const plate = this.add.text(p.x, p.y + 7, roles[id] ?? id, { color: '#f1e3b0', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#0b0d14', strokeThickness: 2, backgroundColor: 'rgba(11,13,20,0.72)', padding: { x: 3, y: 1 } }).setOrigin(0.5, 0).setDepth(9e4);
       const mark = this.add.text(p.x, p.y - 38, '!', { color: '#ffd23f', fontSize: '14px', fontStyle: 'bold', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5).setDepth(1e5);
-      this.npcs.push({ id, pos: p, actor, mark });
+      this.npcs.push({ id, pos: p, actor, mark, plate });
     }
 
     for (const z of Object.values(ZONES)) for (const [type, n] of Object.entries(z.spawns)) for (let i = 0; i < n; i++) this.spawnInZone(z.id, type);
@@ -787,6 +787,9 @@ export class WorldScene extends Phaser.Scene {
       n.actor.face(this.pos.x < n.pos.x ? -1 : 1);
       { const d = getDialogue(n.id, this.gs.quests, this.gs.inventory, this.gs.bosses); const a = d.options[0]!.action; n.mark.setVisible(d.quest && (a.type === 'accept' || a.type === 'turnin')); }
       n.mark.y = n.pos.y - 38 + Math.sin(this.time.now / 260) * 2;
+      const hidden = this.underMinimap(n.pos.x, n.pos.y + 7) || this.underMinimap(n.pos.x, n.pos.y - 38); // DOM widgets draw over the canvas, so hide what would sit behind them
+      n.plate.setVisible(!this.underMinimap(n.pos.x, n.pos.y + 7));
+      if (hidden) n.mark.setVisible(false);
     }
 
     if (!(this.gs.tut & 1) && Math.hypot(this.pos.x - this.world.spawn.x, this.pos.y - this.world.spawn.y) > 36) this.gs.tut |= 1;
@@ -838,6 +841,15 @@ export class WorldScene extends Phaser.Scene {
       let bd = Infinity; for (const e of this.enemies) { if (!e.elite || e.minion) continue; const d = Math.hypot(e.pos.x - this.pos.x, e.pos.y - this.pos.y); if (d < bd) { bd = d; target = { ...e.pos }; } }
     } else { let bd = Infinity; for (const h of this.herbs) { if (!h.alive) continue; const d = Math.hypot(h.x - this.pos.x, h.y - this.pos.y); if (d < bd) { bd = d; target = { x: h.x, y: h.y }; } } }
     return { text: `${p.label} ${p.have}/${p.need}${pts}`, target };
+  }
+
+  /** True when a world point lands behind the minimap widget (a DOM element drawn above the canvas). */
+  private underMinimap(wx: number, wy: number): boolean {
+    const mm = document.getElementById('minimap')?.getBoundingClientRect(), cv = this.game.canvas.getBoundingClientRect(), cam = this.cameras.main;
+    if (!mm || !cv.width) return false;
+    const k = cv.width / this.scale.width;
+    const sx = cv.left + (wx - cam.worldView.x) * cam.zoom * k, sy = cv.top + (wy - cam.worldView.y) * cam.zoom * k;
+    return sx > mm.left - 40 && sx < mm.right + 40 && sy > mm.top - 12 && sy < mm.bottom + 12;
   }
 
   private simulate(dt: number): void {
@@ -1223,7 +1235,7 @@ export class WorldScene extends Phaser.Scene {
         enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
         bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams })),
         boss: this.boss ? { hp: this.boss.c.hp, maxHp: this.boss.c.maxHp, x: this.boss.pos.x, y: this.boss.pos.y, engaged: this.boss.engaged, phase: this.boss.ai.phase, state: this.boss.ai.state === 'windup' ? `${this.boss.ai.move}-windup` : this.boss.ai.state, slams: this.boss.slams } : null,
-        palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, pool: this.world.pool, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, arrayPos: this.world.arrayPos,
+        palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, pool: this.world.pool, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, npcPlates: Object.fromEntries(this.npcs.map((n) => [n.id, n.plate.visible])), arrayPos: this.world.arrayPos,
         herbs: this.herbs.map((h) => ({ x: h.x, y: h.y, alive: h.alive })), anchors: this.world.anchors,
         bag: this.gs.inventory.slots.map((sl) => sl?.id ?? null), bolts: this.bolts.filter((b) => b.kind === 'hostile').length, props: this.world.props.filter((p) => p.kind === 'lotusbowl' || p.kind === 'palace').map((p) => ({ kind: p.kind, x: p.x, y: p.y })), playerAnim: this.player.anim, items: this.gs.inventory.slots.filter((s) => s).map((s) => `${s!.id}:${s!.count}`),
       }),

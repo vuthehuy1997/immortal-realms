@@ -23,3 +23,8 @@
 - Dialogue portraits are data (`NpcDef.portrait`): Merchant Qiao = peddler, Alchemist Yun = alchemist; merchant shop window uses the peddler too.
 - Tests: boss move e2e for the dragon (5), kill/drop e2e, portrait e2e, unit tests for the quest chain/portraits/world pool reachability.
 - Not verified: dragon balance by a human (stats are an estimate, ~Warden-tier), real-GPU performance.
+
+## Round 8
+- Fix: NPC nameplates and quest marks are hidden when they would sit behind the minimap (DOM widget over canvas); e2e `round8.spec.ts`.
+- `npm run qc` now runs `design:check` (regenerates `design/`, fails on orphan/unobtainable/iconless content).
+- Docs refreshed from the code: GDD, COMBAT_DESIGN, NPC_AI_DESIGN, CULTIVATION_SYSTEM, WORLD_DESIGN, TASKS (stale since the vertical slice).

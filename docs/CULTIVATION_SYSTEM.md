@@ -1,2 +1,2 @@
-# Cultivation System
-Slice: Qi Condensation tiers 1–3 + breakthrough. Meditation converts time into Qi progress; breakthrough succeeds by chance modified by stats/pills, failure has a cost. Realm table is data (`src/data/realms`). Full roadmap: Foundation, Core Formation, etc. (original names to be finalised). Techniques (công pháp) modify stats/skills.
+# Cultivation — current build
+Level (XP curve `20·L^1.5`, cap 20) is separate from realm. Qi comes from meditation (3/s, ×2.5 on a spirit array), kills and Qi Gathering Pills. Realms: Qi Condensation I → II (level 5) → III (level 10), each raising the stat multiplier (1.0 / 1.15 / 1.35). Breakthrough (B) needs full qi, level and a Foundation Pill (brewed by the alchemist or bought); 60% base success, failure loses half the qi and 25% HP. Technique points are spent in the character panel. Later realms, sects and alchemy depth are future content. Tables: `design/catalog/heroes-roots-realms.md`.

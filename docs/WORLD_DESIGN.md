@@ -1,2 +1,3 @@
-# World Design
-Original setting (working title "Immortal Realms"): a fractured continent of floating-mountain sects. Slice map: starter village, spirit-forest combat zone, boss lair. Names/lore are original; to be fleshed out with owner input.
+# World — current build
+Seeded 80×80-tile map (seed 20261016, 16 units per tile), generated in `src/core/world.ts`; picture: `design/images/world/map.png`.
+Zones: Azure Cloud Sect (safe hub, elder / merchant / alchemist), Whispering Bamboo Forest (Lv 1-4, W), Mistveil Marsh (Lv 3-7, S; Jiao Dragon pool to the east), Peach Spirit Grove (Lv 5-9, NW; Nine-Tailed den), Broken Sword Ruins (Lv 7-12, E), Fallen Immortal's Court (boss, NE). Roads join the hub to each anchor; props carry collision rectangles (`src/data/props.ts`); herbs are gathering nodes. All names original. Open: authored landmarks, dungeons, day/night.

@@ -39,7 +39,7 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [x] MAP-1 minimap (world map overlay still TODO)
 - [x] ECON-1 merchant, ALCH-1 alchemy, LOOT-1 weapon tiers + rarity (more of the pack's 60 weapons can be added)
 - [x] BOSS-2 Nine-Tailed Fox boss (den in the Peach Grove)
-- [ ] BOSS-3 Jiao Dragon (sprites bundled)
+- [x] BOSS-3 Jiao Dragon (round 7)
 - [ ] ART-3 replace/commission identity art before commercial release (AI provenance risk, see audit)
 - [ ] M0-4 real-GPU perf measurement
 
@@ -50,3 +50,11 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [ ] S3-4 sharper ground texture at 1080p
 - [ ] More content: 3rd boss (Jiao Dragon), side quests, dungeon/trial tower, more realms
 - [ ] Controller / touch support
+
+## Rounds 3-8 (see docs/CHANGELOG.md; design snapshot in design/)
+- [x] R3 vision AI, regen, death tax, boss tempo, balance, objective arrow
+- [x] R4-5 QA fixes, ambush, pack alerts, 1024x600 UI
+- [x] R6 side quests (toads, furnace, champions), elite objective, trader dialogue
+- [x] R7 Jiao Dragon boss + capstone quest + unique drops, per-NPC portraits
+- [x] R8 design/ export gate in qc, NPC nameplates hidden behind minimap, docs refreshed from the code
+- [ ] Open: human playtest of ruins/normal-mob difficulty and dragon balance; flaky e2e under load (killOne/combo/boss); real-GPU perf (M0-4); licence scan (M0-5); UI guide + overlap check; trial deploy path; multiple save slots; trial tower; more realms; controller/touch

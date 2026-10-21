@@ -1,2 +1,3 @@
-# NPC AI Design
-Slice: one quest NPC with dialogue tree and quest state. Long-term: goal-driven NPCs (utility AI) with needs, schedules, relationships/faction opinion, memory, simulated off-screen. Enemy AI via finite state machines (idle/chase/attack/retreat) in core, tested deterministically.
+# Enemy / NPC AI — current build
+**Enemies** (`src/core/enemyAI.ts`, `perception.ts`): finite-state machine idle → chase → windup/attack → recover, with leash and walk-home. Perception: 130° cone, aggro range per type, 26-unit close sense, line-of-sight ray-march against blocked tiles, turn rate 4.5 rad/s, 3s memory of the last seen position. No sight, no attack; being struck makes the attacker known (and alerts packmates within 70 units, "!" / "?" cues). Enemies struck from beyond their leash get a longer one. Pathing detours around scenery when stuck.
+**NPCs** are static quest/trade givers today (`getDialogue` is a pure function of quest state; portraits from `NPCS`). Schedules, goals, relationships and reactive dialogue are the stated pillar but **not built**.
