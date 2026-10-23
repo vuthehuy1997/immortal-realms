@@ -1,3 +1,4 @@
+import { BOONS } from '../data/boons';
 import { statsOf, type GameState } from '../core/gameState';
 import { BASE_BREAKTHROUGH_CHANCE, canBreakthrough, hasNextRealm, nextRealmLevel } from '../core/cultivation';
 import type { Dialogue, DialogueAction } from '../core/dialogue';
@@ -107,6 +108,7 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
     row('HP', `${Math.ceil(gs.hp)} / ${st.maxHp}`), row('Mana', `${Math.floor(gs.mana)} / ${st.maxMana}`),
     row('Attack', st.atk), row('Defence', st.def), row('Crit', `${Math.round(st.critChance * 100)}%`), row('Mana regen', `${st.manaRegen}/s`),
     row('Kills', gs.kills), row('Foundation Pills', countOf(gs.inventory, 'foundation-pill')),
+    ...(gs.boons.length ? ['<hr>', ...gs.boons.map((id) => `<div class="row" title="${BOONS[id]!.desc}"><span>${BOONS[id]!.name}</span><span>${BOONS[id]!.desc}</span></div>`)] : []),
   ].join('');
   const med = el('button', 'btn', meditating ? 'Stop meditating (M)' : 'Meditate (M)'); med.id = 'btn-meditate'; med.onclick = () => actions.toggleMeditate();
   const bt = el('button', 'btn', 'Breakthrough (B)'); bt.id = 'btn-breakthrough'; bt.disabled = !canBreakthrough(gs.cultivation, gs.progress.level) || countOf(gs.inventory, 'foundation-pill') < 1; bt.onclick = () => actions.breakthrough();

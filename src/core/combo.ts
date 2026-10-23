@@ -37,9 +37,9 @@ export interface DashState { readyAt: number; until: number; invulnUntil: number
 export const DASH = { distance: 62, duration: 0.18, invuln: 0.3, cooldown: 1.1 } as const;
 export const newDash = (): DashState => ({ readyAt: 0, until: 0, invulnUntil: 0 });
 
-export function tryDash(d: DashState, now: number): boolean {
+export function tryDash(d: DashState, now: number, cdMult = 1): boolean {
   if (now < d.readyAt) return false;
-  d.readyAt = now + DASH.cooldown; d.until = now + DASH.duration; d.invulnUntil = now + DASH.invuln;
+  d.readyAt = now + DASH.cooldown * cdMult; d.until = now + DASH.duration; d.invulnUntil = now + DASH.invuln;
   return true;
 }
 export const isDashing = (d: DashState, now: number): boolean => now < d.until;

@@ -22,10 +22,10 @@ export function flaskOnKill(f: Flask): boolean {
 }
 
 /** Spends a charge and returns the hit points restored, or null if empty or already at full health. */
-export function useFlask(f: Flask, hp: number, maxHp: number): number | null {
+export function useFlask(f: Flask, hp: number, maxHp: number, bonus = 0): number | null {
   if (f.charges <= 0 || hp >= maxHp) return null;
   f.charges--;
-  return Math.min(maxHp - hp, Math.round(maxHp * FLASK_HEAL_PCT));
+  return Math.min(maxHp - hp, Math.round(maxHp * (FLASK_HEAL_PCT + bonus)));
 }
 
 /** Mana restored by a sword swing that connected. */

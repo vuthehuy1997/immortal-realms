@@ -53,6 +53,13 @@
 - Tests: tests/chapters.test.ts (24), e2e/chapters.spec.ts (6): gate refusal/open, ch2 content, persistence + return gate, NPC shop, Corpse King kill, story pages.
 - Honest limits: ch2 art is reused/recoloured (PLACEHOLDER), balance untuned, no new playable heroes (the pack's other hero sprites lack combat animations), no companions yet.
 
+## Round 13 (QA report 3 round B: depth)
+- Boons (`src/data/boons.ts`, `src/core/boons.ts`): 15 permanent build choices (stat mods, mana on hit, lifesteal, dash cooldown, flask heal, poise, perfect-dodge rewards). One pick of three at every 5th level and on each boss's first defeat; picks bank until spent. `GameState.boons/boonPicks` (additive save migration: older heroes are credited with the picks they already earned). Chooser overlay `src/ui/boons.ts` (keys 1-3 or click); it opens after a fight, never mid-combat. Automated browsers skip the auto popup unless `?boons=1`.
+- Boss poise: `BossDef.poise` (fraction of max HP, default 12%). Enough damage staggers a boss out of a wind-up for 2.2 s with x1.5 damage taken; 11 s of immunity afterwards, charges cannot be interrupted, poise drains when you stop attacking.
+- Perfect dodge: being hit while dash-invulnerable (once per 1.2 s) gives +8 mana, a 3 s x1.25 damage buff and a brief slow-motion.
+- Level cap 20 -> 30; new realm Foundation Establishment (breakthrough at level 20, stat x1.65).
+- Tests: tests/boons.test.ts, tests/poise.test.ts, e2e/boons.spec.ts (6, including a real dash through a boss slam).
+
 ## Round 12 (independent QA report 3 -> "balance and feel")
 Source: docs/QA_REPORT_3.md (subagent play-test + benchmark against other games; one boss fight and a handful of mob fights measured, so numbers are a band, not a fact).
 - **Spirit flask** (`src/core/sustain.ts`): 3 charges healing 35% max HP (scales with level, unlike the flat 40 HP draught), refilled by 5 kills each, fully at the hub, on respawn and on breakthrough. F drinks the flask first, then bag potions. HUD shows `charges+potions`. Saved (`GameState.flask`, migrated).

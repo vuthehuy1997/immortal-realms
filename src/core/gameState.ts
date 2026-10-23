@@ -12,6 +12,8 @@ import { addItem, countOf, newInventory, removeItem, unequip, useConsumable, typ
 import { addXp, type Progress } from './progression';
 import { attemptBreakthrough, canBreakthrough, nextRealmLevel, type BreakthroughResult } from './cultivation';
 import { flaskOnKill, newFlask, type Flask } from './sustain';
+import { aggregate, applyBoons, picksForLevels, rollChoices } from './boons';
+import { BOONS, type BoonMods } from '../data/boons';
 import { isComplete, newQuestLog, onKill, type QuestLog } from './quest';
 
 export interface GameState {
@@ -37,6 +39,9 @@ export interface GameState {
   story: number[];
   /** spirit flask: refilling healing charges */
   flask: Flask;
+  /** permanent boons chosen so far, and picks still waiting to be spent */
+  boons: string[];
+  boonPicks: number;
 }
 
 export const WARDEN_ID = 'warden';
@@ -45,7 +50,7 @@ export const isBossDefeated = (gs: GameState, id: string): boolean => gs.bosses.
 export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
     character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(),
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(), boons: [], boonPicks: 0,
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);
@@ -54,7 +59,19 @@ export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { 
 }
 
 export const statsOf = (gs: GameState): DerivedStats =>
-  deriveStats(gs.character.root, gs.progress.level, gs.cultivation.realm, gs.inventory);
+  applyBoons(deriveStats(gs.character.root, gs.progress.level, gs.cultivation.realm, gs.inventory), aggregate(gs.boons));
+
+export const boonMods = (gs: GameState): BoonMods => aggregate(gs.boons);
+
+/** Spends one pending pick on `id` if it is one of the offered choices. */
+export function takeBoon(gs: GameState, id: string, offered: readonly string[]): boolean {
+  if (gs.boonPicks < 1 || !offered.includes(id) || gs.boons.includes(id) || !(id in BOONS)) return false;
+  gs.boons.push(id); gs.boonPicks--;
+  return true;
+}
+
+/** The three boons on offer right now (stable until one is taken). */
+export const boonChoices = (gs: GameState): string[] => rollChoices(gs.kills * 31 + gs.progress.level * 977 + gs.boons.length * 7919 + gs.bosses.length * 104729, gs.boons);
 
 /** Re-clamps current hp/mana after max stats change (gear/realm/level). */
 export function clampVitals(gs: GameState): void {
@@ -65,7 +82,9 @@ export function clampVitals(gs: GameState): void {
 
 /** Grants XP; a level-up fully restores hp and mana. Returns levels gained. */
 export function grantXp(gs: GameState, amount: number): number {
+  const before = gs.progress.level;
   const gained = addXp(gs.progress, amount);
+  gs.boonPicks += picksForLevels(before, gs.progress.level);
   if (gained > 0) { const s = statsOf(gs); gs.hp = s.maxHp; gs.mana = s.maxMana; }
   return gained;
 }
@@ -84,7 +103,7 @@ export function registerKill(gs: GameState, enemyType: string, rng: () => number
   gs.stones += stones;
   gs.kills++;
   flaskOnKill(gs.flask);
-  if (boss && !gs.bosses.includes(enemyType)) gs.bosses.push(enemyType);
+  if (boss && !gs.bosses.includes(enemyType)) { gs.bosses.push(enemyType); gs.boonPicks++; }
   onKill(gs.quests, enemyType, !!opts.elite);
   const drops: { id: string; count: number }[] = [];
   const overflow: string[] = [];

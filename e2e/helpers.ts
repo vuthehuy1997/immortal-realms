@@ -4,12 +4,13 @@ export interface EnemyState { id: number; type: string; hp: number; x: number; y
 export interface RpgState {
   now: number; hp: number; mana: number; maxHp: number; kills: number; xp: number; level: number; realm: number; qi: number;
   weapon: string | null; meditating: boolean; bossDefeated: boolean; quests: Record<string, string>; hero: string; stones: number; zone: string;
+  boons: string[]; boonPicks: number; perfectBuff: boolean;
   dead: boolean; comboStep: number; dashing: boolean; invulnerable: boolean; playerAnim: string;
   enemies: EnemyState[];
   tut: number; objective: string; skills: Record<string, number>; freePoints: number; inventoryGear: { weapon: string | null; armor: string | null; charm: string | null };
   bag: (string | null)[]; bolts: number; props: { kind: string; x: number; y: number }[];
-  boss: { hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number } | null;
-  bosses: { id: string; hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number }[];
+  boss: { hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number; poise: number } | null;
+  bosses: { id: string; hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number; poise: number }[];
   bossesDefeated: string[]; chapter: number; story: number[]; portal: { x: number; y: number }; bossHomes: Record<string, { x: number; y: number }>; den: { x: number; y: number }; pool: { x: number; y: number };
   palace?: { x: number; y: number };
   lair: { x: number; y: number }; spawn: { x: number; y: number }; npc: { x: number; y: number }; npcs: Record<string, { x: number; y: number }>; npcPlates: Record<string, boolean>;
@@ -19,7 +20,7 @@ interface Rpg {
   state(): RpgState; cast(i: number, x: number, y: number): void; attack(x: number, y: number): void; dash(): void; teleport(x: number, y: number): void;
   spawn(type: string, x: number, y: number): void; clear(): void; setRoll(v: number | null): void; setQi(v: number): void;
   setBossHpRatio(r: number, id?: string): void; giveXp(n: number): void; give(id: string, n: number): void; setHp(n: number): void;
-  killPlayer(): void; useGate(): void; setFlask(n: number): void; defeatBoss(id: string): void; respawnNow(): void; useSlot(i: number): void; gather(): void; bossForce(id: string, move: string): void; setStones(n: number): void; spawnElite(type: string, x: number, y: number): void; spawnUnaware(type: string, x: number, y: number): number; strikeEnemy(id: number): void; alertAll(): void; setTut(n: number): void;
+  killPlayer(): void; useGate(): void; setFlask(n: number): void; defeatBoss(id: string): void; respawnNow(): void; useSlot(i: number): void; gather(): void; bossForce(id: string, move: string): void; setStones(n: number): void; spawnElite(type: string, x: number, y: number): void; spawnUnaware(type: string, x: number, y: number): number; strikeEnemy(id: number): void; offerBoon(): void; addBoonPicks(n: number): void; perfectDodge(): void; poiseBoss(id: string, dmg: number): void; alertAll(): void; setTut(n: number): void;
 }
 declare global { interface Window { __rpg?: Rpg; __world?: () => { x: number; y: number } } }
 

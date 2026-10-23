@@ -1,6 +1,6 @@
 export interface Progress { level: number; xp: number }
 
-export const MAX_LEVEL = 20;
+export const MAX_LEVEL = 30;
 
 /** XP needed to go from `level` to level+1. */
 export const xpToNext = (level: number): number => Math.round(20 * Math.pow(level, 1.5));

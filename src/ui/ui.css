@@ -220,3 +220,18 @@ body.touch #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width
   body.touch .tc-btns { bottom: 20vmin; }
   body.touch #quest { display: none; }
 }
+
+/* boon picker */
+.boonpick { position: absolute; inset: 0; z-index: 21; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, rgba(14,18,34,.82), rgba(4,5,10,.94)); pointer-events: auto; }
+.boonbox { width: min(46em, 94vw); text-align: center; padding: 1.6em 1.6em 1.2em; border: 1px solid #6b5a2e; border-radius: 10px; background: rgba(10,10,18,.75); box-shadow: 0 0 40px rgba(0,0,0,.6); }
+.boonbox .chap { color: var(--gold2); letter-spacing: .25em; text-transform: uppercase; font-size: .8em; }
+.boonbox h2 { margin: .2em 0 .9em; font-size: 1.6em; color: #fff3cf; }
+.boonrow { display: flex; gap: .8em; justify-content: center; flex-wrap: wrap; }
+.boon { flex: 1 1 11em; max-width: 14em; display: flex; flex-direction: column; gap: .4em; text-align: left; padding: .9em 1em; border: 1px solid #5a4d2a; border-radius: 8px; background: rgba(24,22,32,.9); color: #e9e2cf; cursor: pointer; font: inherit; }
+.boon:hover, .boon:focus { border-color: var(--gold2); outline: none; background: rgba(40,34,44,.95); }
+.boon small { text-transform: uppercase; letter-spacing: .12em; opacity: .75; font-size: .7em; }
+.boon b { font-size: 1.05em; color: #fff3cf; }
+.boon span { font-size: .9em; line-height: 1.4; opacity: .92; }
+.boon.rare { border-color: #4d7fb3; } .boon.rare b { color: #a9d4ff; }
+.boon.epic { border-color: #9a5bd0; } .boon.epic b { color: #e1b8ff; }
+.boonleft { margin-top: 1em; font-size: .85em; opacity: .7; }

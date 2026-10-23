@@ -19,5 +19,12 @@
     "qiMax": 1000,
     "statMult": 1.35,
     "reqLevel": 10
+  },
+  {
+    "id": "fe1",
+    "name": "Foundation Establishment",
+    "qiMax": 2400,
+    "statMult": 1.65,
+    "reqLevel": 20
   }
 ]

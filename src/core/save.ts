@@ -5,6 +5,7 @@ import { BOSS_IDS } from '../data/boss';
 import { HEROES } from '../data/heroes';
 import { ROOTS } from '../data/roots';
 import { MAX_LEVEL } from './progression';
+import { picksForLevels, validBoons } from './boons';
 import { SKILLS } from '../data/skills';
 import { SKILL_MAX, spentPoints, totalPoints } from './skills';
 import { NAME_MAX } from './character';
@@ -70,6 +71,8 @@ function validate(s: unknown): string | null {
   if (!isObj(pos) || !num(pos.x, 0, 1e5) || !num(pos.y, 0, 1e5)) return 'bad position';
   if (typeof s.chapter !== 'number' || !Number.isInteger(s.chapter) || !(s.chapter in CHAPTERS)) return 'bad chapter';
   if (!validFlask(s.flask)) return 'bad flask';
+  if (!validBoons(s.boons)) return 'bad boons';
+  if (typeof s.boonPicks !== 'number' || !Number.isInteger(s.boonPicks) || s.boonPicks < 0 || s.boonPicks > 99) return 'bad boon picks';
   if (!Array.isArray(s.story) || s.story.some((c) => typeof c !== 'number' || !(c in CHAPTERS))) return 'bad story flags';
   return null;
 }
@@ -86,6 +89,11 @@ export function parseSave(text: string | null): LoadResult {
     if (env.state.chapter === undefined) env.state.chapter = 1;
     if (env.state.story === undefined) env.state.story = [1];
     if (env.state.flask === undefined) env.state.flask = newFlask();
+    if (env.state.boons === undefined) env.state.boons = [];
+    if (env.state.boonPicks === undefined) { // older heroes are owed the picks they already earned
+      const lv = isObj(env.state.progress) ? Number(env.state.progress.level) || 1 : 1;
+      env.state.boonPicks = picksForLevels(0, lv) + (Array.isArray(env.state.bosses) ? env.state.bosses.length : 0);
+    }
   }
   const bad = validate(env.state);
   if (bad) return { ok: false, error: `Invalid save: ${bad}.` };

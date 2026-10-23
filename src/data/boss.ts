@@ -32,6 +32,8 @@ export interface BossDef {
   /** moves available in phase 1, 2, 3 */
   kit: [MoveId[], MoveId[], MoveId[]];
   phase2At: number; phase3At: number; // hp ratio thresholds
+  /** poise: fraction of max HP in damage that staggers the boss (default 0.12) */
+  poise?: number;
   enrage: { speedMult: number; cooldownMult: number };
 }
 

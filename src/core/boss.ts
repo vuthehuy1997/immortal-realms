@@ -1,7 +1,7 @@
 import type { BossDef, MoveId } from '../data/boss';
 import type { Vec2 } from './movement';
 
-export type BossState = 'chase' | 'windup' | 'charging' | 'recover';
+export type BossState = 'chase' | 'windup' | 'charging' | 'recover' | 'stagger';
 
 export interface BossAI {
   phase: 1 | 2 | 3;
@@ -19,6 +19,8 @@ export interface BossAI {
   zones: Vec2[];
   /** test/debug hook: start this move next, ignoring cooldowns and range */
   force: MoveId | null;
+  /** accumulated poise damage, seconds since the last poise hit, and stagger immunity left */
+  poise: number; poiseIdle: number; poiseImmune: number;
 }
 
 export type BossEvent =
@@ -34,10 +36,28 @@ export type BossEvent =
 
 export interface BossOutput { vel: Vec2; events: BossEvent[] }
 
-export const newBossAI = (): BossAI => ({ phase: 1, state: 'chase', move: null, timer: 0, gap: 1.6, cd: {}, last: null, lockAt: { x: 0, y: 0 }, lockDir: { x: 1, y: 0 }, zones: [], force: null });
+export const newBossAI = (): BossAI => ({ phase: 1, state: 'chase', move: null, timer: 0, gap: 1.6, cd: {}, last: null, lockAt: { x: 0, y: 0 }, lockDir: { x: 1, y: 0 }, zones: [], force: null, poise: 0, poiseIdle: 0, poiseImmune: 0 });
 
 const ZERO: Vec2 = { x: 0, y: 0 };
 const norm = (v: Vec2): Vec2 => { const l = Math.hypot(v.x, v.y) || 1; return { x: v.x / l, y: v.y / l }; };
+
+export const STAGGER_TIME = 2.2;
+export const STAGGER_DAMAGE = 1.5;
+/** Seconds after a stagger during which the boss cannot be staggered again (no stun-lock). */
+export const STAGGER_IMMUNE = 9;
+export const POISE_DEFAULT = 0.12;
+export const poiseMax = (def: BossDef): number => def.maxHp * (def.poise ?? POISE_DEFAULT);
+
+/** Adds poise damage. A boss in a wind-up or recover staggers when the bar fills; charges and an active stagger are not interruptible. Returns true if it staggered now. */
+export function addPoise(ai: BossAI, def: BossDef, dmg: number, mult = 1): boolean {
+  if (ai.poiseImmune > 0 || ai.state === 'stagger' || ai.state === 'charging') return false;
+  ai.poiseIdle = 0;
+  ai.poise += dmg * mult;
+  if (ai.poise < poiseMax(def)) return false;
+  ai.poise = 0; ai.poiseImmune = STAGGER_IMMUNE + STAGGER_TIME;
+  ai.state = 'stagger'; ai.timer = STAGGER_TIME; ai.move = null;
+  return true;
+}
 
 /** A telegraph never gets shorter than this fraction of its nominal windup (fairness floor). */
 export const WINDUP_MIN_FACTOR = 0.85;
@@ -81,6 +101,9 @@ export function updateBoss(ai: BossAI, def: BossDef, hpRatio: number, self: Vec2
   const speed = def.speed * (ai.phase === 3 ? def.enrage.speedMult : 1);
   for (const k of Object.keys(ai.cd) as MoveId[]) ai.cd[k] = Math.max(0, (ai.cd[k] ?? 0) - dt);
   ai.gap = Math.max(0, ai.gap - dt);
+  ai.poiseImmune = Math.max(0, ai.poiseImmune - dt);
+  ai.poiseIdle += dt;
+  if (ai.poiseIdle > 3) ai.poise = Math.max(0, ai.poise - poiseMax(def) * 0.25 * dt); // poise recovers when you stop pressing
   const dx = target.x - self.x, dy = target.y - self.y, dist = Math.hypot(dx, dy);
 
   if (ai.state === 'windup' && ai.move) {
@@ -105,6 +128,11 @@ export function updateBoss(ai: BossAI, def: BossDef, hpRatio: number, self: Vec2
     const vel = { x: ai.lockDir.x * def.moves.charge!.speed, y: ai.lockDir.y * def.moves.charge!.speed };
     if (ai.timer <= 0) { ai.state = 'recover'; ai.timer = recoverOf(def, 'charge'); }
     return { vel, events };
+  }
+  if (ai.state === 'stagger') {
+    ai.timer -= dt;
+    if (ai.timer <= 0) { ai.state = 'recover'; ai.timer = 0.3; ai.gap = 0.8; }
+    return { vel: ZERO, events };
   }
   if (ai.state === 'recover') {
     ai.timer -= dt;

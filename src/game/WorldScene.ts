@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
-import { newBossAI, updateBoss, type BossAI, type BossEvent } from '../core/boss';
+import { addPoise, newBossAI, STAGGER_DAMAGE, updateBoss, type BossAI, type BossEvent } from '../core/boss';
+import { PERFECT_BUFF_TIME, PERFECT_DAMAGE, PERFECT_MANA, PERFECT_SLOWMO, perfectReady } from '../core/dodge';
+import { showBoonPicker, isBoonPickerOpen } from '../ui/boons';
+import { BOONS } from '../data/boons';
 import { applyDamage, computeDamage, Cooldowns, regenMana, tryCast, type Combatant } from '../core/combat';
 import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo, newDash, nextStep, tryDash, type ComboState, type DashState } from '../core/combo';
 import { scaledEnemy } from '../core/balance';
@@ -10,7 +13,7 @@ const PACK_ALERT_RADIUS = 70; // hearing range for packmates when one is struck
 import { deathTax, hpRegenPerSec } from '../core/recovery';
 import { canSee, FOV, SENSE_RADIUS, turnToward, TURN_RATE } from '../core/perception';
 import { newEnemyAI, updateEnemyAI, type EnemyAI } from '../core/enemyAI';
-import { gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, tryBreakthrough, turnInQuest, unequipSlot, useItemSlot, type GameState } from '../core/gameState';
+import { boonChoices, boonMods, gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, takeBoon, tryBreakthrough, turnInQuest, unequipSlot, useItemSlot, type GameState } from '../core/gameState';
 import { freePoints, scaledSkill, skillLevel, upgradeSkill, type ScaledSkill } from '../core/skills';
 import { progressOf, isComplete } from '../core/quest';
 import { inArc, inCircle, normalize } from '../core/hit';
@@ -326,6 +329,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private escape(): void {
+    if (isBoonPickerOpen()) return;
     if (isWorldMapOpen()) { closeWorldMap(); return; }
     if (isTradeOpen()) { closeTrade(); this.uiPause = false; return; }
     if (isDialogueOpen()) { showDialogue(null, () => undefined); this.uiPause = false; return; }
@@ -375,7 +379,7 @@ export class WorldScene extends Phaser.Scene {
   private useFlaskOrPotion(): void {
     if (this.uiPause || this.dead) return;
     if (this.now < this.potionReadyAt) { toast('Draughts are still settling…', 1000); return; }
-    const heal = this.mutate(() => useFlask(this.gs.flask, this.pc.hp, this.pc.maxHp));
+    const heal = this.mutate(() => useFlask(this.gs.flask, this.pc.hp, this.pc.maxHp, boonMods(this.gs).flaskHeal));
     if (heal === null) { this.quickUse('hp-potion'); return; }
     this.mutate(() => { this.gs.hp = Math.min(this.pc.maxHp, this.pc.hp + heal); });
     this.potionReadyAt = this.now + POTION_COOLDOWN;
@@ -564,14 +568,14 @@ export class WorldScene extends Phaser.Scene {
         if (inArc(this.pos, dmgDir, hit.range, (finisher ? 80 : 65) * Math.PI / 180, t.pos, t.radius)) { t.hit(hit.mult, { kb: hit.knockback, from: this.pos }); any = true; }
       }
       if (finisher) { this.fx.shake(110, 0.0035); if (any) this.hitStop(70); }
-      if (any) this.pc.mana = Math.min(this.pc.maxMana, this.pc.mana + manaOnSwing(finisher)); // landing blows feeds the techniques
+      if (any) this.pc.mana = Math.min(this.pc.maxMana, this.pc.mana + manaOnSwing(finisher) + boonMods(this.gs).manaOnHit); // landing blows feeds the techniques
     });
   }
 
   /** Khinh cong: a quick dodge with brief invulnerability. */
   private dash(): void {
     if (this.uiPause || this.dead) return;
-    if (!tryDash(this.dashState, this.now)) return;
+    if (!tryDash(this.dashState, this.now, boonMods(this.gs).dashCdMult)) return;
     this.gs.tut |= 4;
     this.meditating = false;
     const k = this.kb;
@@ -659,12 +663,13 @@ export class WorldScene extends Phaser.Scene {
   private hitEnemy(e: Enemy, mult: number, o: HitOpts = {}): void {
     if (e.c.hp <= 0) return;
     const ambush = !o.dot && e.ai.state === 'idle' && !e.minion && this.now >= e.alertUntil; // struck while unaware
-    const r = computeDamage(this.pc, e.c, ambush ? mult * AMBUSH_MULT : mult, this.rng);
+    const r = computeDamage(this.pc, e.c, (ambush ? mult * AMBUSH_MULT : mult) * this.dodgeBuff(), this.rng);
     if (ambush) this.floatText(e.pos, 'Ambush!', '#ffd23f', false, 8);
     let amount = r.amount;
     if (e.shield > 0) { const ab = Math.min(e.shield, amount); e.shield -= ab; amount -= ab; if (e.shield <= 0) this.floatText(e.pos, 'Ward broken', '#9fd8ff', false, 8); }
     this.lastCombat = this.now;
     const killed = amount > 0 ? applyDamage(e.c, amount) : false;
+    if (!o.dot) this.leech(r.amount);
     this.floatText(e.pos, String(r.amount), e.shield > 0 ? '#9fd8ff' : r.crit ? '#ffd23f' : '#ffffff', r.crit);
     audio.sfx(r.crit ? 'crit' : 'hit');
     if (!o.dot && !killed) this.rootEffect(e, null, r.amount);
@@ -679,6 +684,39 @@ export class WorldScene extends Phaser.Scene {
     else if (!killed) { e.stun = Math.max(e.stun, e.def.maxHp > 100 ? 0.08 : 0.2); }
     if (!killed) { e.actor.play('hurt', { force: true }); e.lockUntil = this.now + 0.22; return; }
     this.killEnemy(e);
+  }
+
+  private autoBoonOff(): boolean {
+    try { if (new URLSearchParams(location.search).get('boons') === '1') return false; return navigator.webdriver === true; } catch { return false; }
+  }
+  private dodgeBuff(): number { return this.now < this.perfectUntil ? PERFECT_DAMAGE : 1; }
+  private leech(dealt: number): void {
+    const ls = boonMods(this.gs).lifesteal;
+    if (ls > 0 && this.pc.hp > 0) this.pc.hp = Math.min(this.pc.maxHp, this.pc.hp + dealt * ls);
+  }
+  /** Poise: enough punishment in a short time staggers a boss out of its move and exposes it to extra damage. */
+  private poiseHit(b: BossEnt, dealt: number): void {
+    if (!addPoise(b.ai, b.def, dealt, 1 + boonMods(this.gs).poiseMult)) return;
+    b.tele?.destroy(); b.tele = null; b.rainTele?.destroy(); b.rainTele = null;
+    b.actor.play('hurt', { force: true, duration: 0.5 }); b.lockUntil = this.now + 0.5;
+    this.floatText({ x: b.pos.x, y: b.pos.y - 40 }, 'Staggered!', '#9fe8ff', true, 12);
+    this.fx.ring(b.pos.x, b.pos.y, 70, 0x9fe8ff, 500); this.fx.shake(160, 0.004); this.hitStop(90); audio.sfx('crit');
+  }
+
+  /** Offers the next banked boon pick (not mid-fight; automation skips it unless `force`). */
+  private offerBoon(force = false): void {
+    if (this.uiPause || this.dead || isBoonPickerOpen() || this.gs.boonPicks < 1) return;
+    this.uiPause = true;
+    const choices = boonChoices(this.gs);
+    if (!choices.length) { this.gs.boonPicks = 0; this.uiPause = false; return; }
+    showBoonPicker(choices, this.gs.boonPicks, (id) => {
+      this.mutate(() => takeBoon(this.gs, id, choices));
+      this.uiPause = false;
+      toast(`Boon gained: ${BOONS[id]!.name}`, 2600); audio.sfx('levelup');
+      this.fx.play('xf_ascend', this.pos.x, this.pos.y, { scale: 0.35, tint: COLORS.gold });
+      this.save(false); refreshPanels(this.gs, this.meditating);
+      this.boonCheckAt = this.now + (force ? 9e9 : 1);
+    });
   }
 
   /** Spirit-root passives: Flame burns, Tide slows, Verdant drains life. */
@@ -736,8 +774,10 @@ export class WorldScene extends Phaser.Scene {
   private hitBoss(b: BossEnt, mult: number, o: HitOpts = {}): void {
     if (!b.engaged) b.engaged = true;
     this.lastCombat = this.now;
-    const r = computeDamage(this.pc, b.c, mult, this.rng);
+    const r = computeDamage(this.pc, b.c, mult * this.dodgeBuff() * (b.ai.state === 'stagger' ? STAGGER_DAMAGE : 1), this.rng);
     const killed = applyDamage(b.c, r.amount);
+    if (!o.dot) this.leech(r.amount);
+    if (!o.dot && !killed) this.poiseHit(b, r.amount);
     this.floatText(b.pos, String(r.amount), r.crit ? '#ffd23f' : '#ffffff', r.crit);
     if (!o.dot && !killed) this.rootEffect(null, b, r.amount);
     audio.sfx(r.crit ? 'crit' : 'hit');
@@ -776,7 +816,8 @@ export class WorldScene extends Phaser.Scene {
     if (this.dead) return;
     this.lastCombat = this.now;
     if (isInvulnerable(this.dashState, this.now) || this.now < this.hurtInvulnUntil) {
-      if (isInvulnerable(this.dashState, this.now) && this.now - this.lastDodgeText > 0.4) { this.lastDodgeText = this.now; this.floatText(this.pos, 'Dodge', '#bfe9ff', false, 9); }
+      if (isInvulnerable(this.dashState, this.now) && perfectReady(this.lastPerfect, this.now)) this.perfectDodge();
+      else if (isInvulnerable(this.dashState, this.now) && this.now - this.lastDodgeText > 0.4) { this.lastDodgeText = this.now; this.floatText(this.pos, 'Dodge', '#bfe9ff', false, 9); }
       return;
     }
     const r = computeDamage({ atk: attackValue, critChance: 0, critMult: 1 }, this.pc, 1, this.rng);
@@ -793,7 +834,20 @@ export class WorldScene extends Phaser.Scene {
     this.player.play('hurt', { force: true });
     this.playerLockUntil = Math.max(this.playerLockUntil, this.now + 0.22); this.playerLockAnim = 'hurt';
   }
+  private perfectDodge(): void {
+    const m = boonMods(this.gs);
+    this.lastPerfect = this.now; this.lastDodgeText = this.now;
+    this.pc.mana = Math.min(this.pc.maxMana, this.pc.mana + PERFECT_MANA + m.perfectMana);
+    this.perfectUntil = this.now + PERFECT_BUFF_TIME + m.perfectTime;
+    this.slowUntil = this.time.now + PERFECT_SLOWMO * 1000;
+    this.floatText({ x: this.pos.x, y: this.pos.y - 14 }, 'Perfect!', '#ffe27a', true, 11);
+    this.fx.ring(this.pos.x, this.pos.y, 44, 0xffe27a, 380); audio.sfx('crit');
+  }
   private lastDodgeText = -9;
+  private lastPerfect = -9;
+  private perfectUntil = 0;
+  private slowUntil = 0;
+  private boonCheckAt = 0;
   private lastCombat = -99;
 
   private die(): void {
@@ -821,7 +875,7 @@ export class WorldScene extends Phaser.Scene {
     this.kb.pollGamepads();
     if (this.hitStopUntil > 0 && this.time.now >= this.hitStopUntil) { this.hitStopUntil = 0; this.anims.globalTimeScale = 1; }
     const stopped = this.hitStopUntil > 0;
-    const dt = Math.min(deltaMs, 50) / 1000;
+    const dt = Math.min(deltaMs, 50) / 1000 * (this.time.now < this.slowUntil ? 0.4 : 1);
     if (this.hasPointer) { const p = this.input.activePointer; this.aimWorld = { x: p.worldX, y: p.worldY }; }
 
     if (!this.uiPause && !stopped) this.simulate(dt);
@@ -936,6 +990,7 @@ export class WorldScene extends Phaser.Scene {
     this.updateRains(dt);
 
     for (const h of this.herbs) if (!h.alive && this.now >= h.respawnAt) { h.alive = true; h.img.setVisible(true); h.glow.setVisible(true); }
+    if (this.gs.boonPicks > 0 && alive && this.now >= this.boonCheckAt && this.now - this.lastCombat > 2.5 && !this.autoBoonOff()) this.offerBoon();
     this.respawnTimer += dt;
     if (this.respawnTimer >= RESPAWN_CHECK_SECONDS) { this.respawnTimer = 0; this.topUpEnemies(); }
   }
@@ -1180,7 +1235,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.now >= b.lockUntil) b.actor.play(Math.hypot(vel.x, vel.y) > 4 ? 'move' : 'idle');
     b.actor.face(target.x < b.pos.x ? -1 : 1);
     b.actor.setPos(b.pos.x, b.pos.y);
-    if (b.ai.phase === 3) b.actor.tint(0xff9a9a); else b.actor.untint();
+    if (b.ai.state === 'stagger') b.actor.tint(0x9fd8ff); else if (b.ai.phase === 3) b.actor.tint(0xff9a9a); else b.actor.untint();
   }
 
   /** Visual + damage resolution for every boss move event (the core only decides WHEN and WHERE). */
@@ -1297,10 +1352,10 @@ export class WorldScene extends Phaser.Scene {
       state: () => ({
         now: this.now, hp: this.pc.hp, mana: this.pc.mana, maxHp: this.pc.maxHp, kills: this.gs.kills, xp: this.gs.progress.xp, level: this.gs.progress.level,
         realm: this.gs.cultivation.realm, qi: this.gs.cultivation.qi, weapon: this.gs.inventory.weapon, meditating: this.meditating, bossDefeated: isBossDefeated(this.gs, 'warden'), bossesDefeated: [...this.gs.bosses],
-        hero: this.gs.character.hero, stones: this.gs.stones, tut: this.gs.tut, objective: this.objective().text, skills: { ...this.gs.skills }, freePoints: freePoints(this.gs), inventoryGear: { weapon: this.gs.inventory.weapon, armor: this.gs.inventory.armor, charm: this.gs.inventory.charm }, zone: this.currentZone, dead: this.dead, comboStep: this.combo.step, dashing: isDashing(this.dashState, this.now), invulnerable: isInvulnerable(this.dashState, this.now),
+        hero: this.gs.character.hero, stones: this.gs.stones, tut: this.gs.tut, objective: this.objective().text, skills: { ...this.gs.skills }, freePoints: freePoints(this.gs), inventoryGear: { weapon: this.gs.inventory.weapon, armor: this.gs.inventory.armor, charm: this.gs.inventory.charm }, zone: this.currentZone, boons: [...this.gs.boons], boonPicks: this.gs.boonPicks, perfectBuff: this.now < this.perfectUntil, dead: this.dead, comboStep: this.combo.step, dashing: isDashing(this.dashState, this.now), invulnerable: isInvulnerable(this.dashState, this.now),
         quests: Object.fromEntries(Object.entries(this.gs.quests).map(([k, v]) => [k, v.status])),
         enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
-        bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams })),
+        bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams, poise: Math.round(b.ai.poise) })),
         boss: this.boss ? { hp: this.boss.c.hp, maxHp: this.boss.c.maxHp, x: this.boss.pos.x, y: this.boss.pos.y, engaged: this.boss.engaged, phase: this.boss.ai.phase, state: this.boss.ai.state === 'windup' ? `${this.boss.ai.move}-windup` : this.boss.ai.state, slams: this.boss.slams } : null,
         chapter: this.chapter, portal: this.world.portal, bossHomes: this.world.bossHomes, story: [...this.gs.story],
         palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, pool: this.world.pool, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, npcPlates: Object.fromEntries(this.npcs.map((n) => [n.id, n.plate.visible])), arrayPos: this.world.arrayPos,
@@ -1332,6 +1387,10 @@ export class WorldScene extends Phaser.Scene {
       setStones: (n: number) => { this.gs.stones = n; },
       useGate: () => this.useGate(),
       setFlask: (n: number) => { this.gs.flask.charges = n; this.gs.flask.kills = 0; },
+      poiseBoss: (id: string, dmg: number) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; this.poiseHit(b, dmg); } },
+      offerBoon: () => this.offerBoon(true),
+      addBoonPicks: (n: number) => { this.gs.boonPicks += n; },
+      perfectDodge: () => this.perfectDodge(),
       defeatBoss: (id: string) => { if (!this.gs.bosses.includes(id)) this.gs.bosses.push(id); },
     };
   }
