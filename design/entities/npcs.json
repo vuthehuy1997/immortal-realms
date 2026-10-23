@@ -88,6 +88,29 @@
     "image": "npcs/herbalist-mo.png"
   },
   {
+    "id": "keeper-ming",
+    "sprite": "hero.saber",
+    "role": "Keeper Ming · Trial Rift",
+    "name": "Keeper Ming",
+    "portrait": "constable_neutral",
+    "quests": [],
+    "idle": "The Rift opens a new floor for every one you clear. How deep can you go?",
+    "trade": "tower",
+    "image": "npcs/keeper-ming.png"
+  },
+  {
+    "id": "keeper-ren",
+    "chapter": 2,
+    "sprite": "hero.twinblade",
+    "role": "Keeper Ren · Trial Rift",
+    "name": "Keeper Ren",
+    "portrait": "hermit_neutral",
+    "quests": [],
+    "idle": "Cold stone, endless floors. Your best depth is carved in the wall.",
+    "trade": "tower",
+    "image": "npcs/keeper-ren.png"
+  },
+  {
     "id": "hermit-wen",
     "chapter": 2,
     "sprite": "hero.monk",

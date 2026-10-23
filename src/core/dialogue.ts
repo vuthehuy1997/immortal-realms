@@ -2,7 +2,7 @@ import { NPCS, QUESTS } from '../data/quests';
 import type { Inventory } from './inventory';
 import { acceptQuest, isComplete, progressOf, type QuestLog } from './quest';
 
-export type DialogueAction = { type: 'accept' | 'turnin'; questId: string } | { type: 'trade' } | { type: 'close' };
+export type DialogueAction = { type: 'accept' | 'turnin'; questId: string } | { type: 'trade' } | { type: 'tower'; start: boolean } | { type: 'close' };
 export interface Dialogue {
   speaker: string;
   portrait: string;
@@ -14,8 +14,12 @@ export interface Dialogue {
 }
 
 /** Dialogue is a pure function of quest state, so it always reflects the current game state. */
-export function getDialogue(npcId: string, log: QuestLog, inv: Inventory, bosses: readonly string[] = []): Dialogue {
+export function getDialogue(npcId: string, log: QuestLog, inv: Inventory, bosses: readonly string[] = [], tower?: { best: number; active: boolean }): Dialogue {
   const npc = NPCS[npcId]!;
+  if (npc.trade === 'tower') {
+    const t = tower ?? { best: 0, active: false };
+    return { speaker: npc.name, portrait: npc.portrait, quest: false, text: `${npc.idle} ${t.best > 0 ? `Your deepest floor: ${t.best}.` : 'You have not entered yet.'}`, options: [t.active ? { label: 'Leave the Rift.', action: { type: 'tower', start: false } } : { label: 'Enter the Trial Rift.', action: { type: 'tower', start: true } }, { label: 'Farewell.', action: { type: 'close' } }] };
+  }
   const wares = npc.trade ? [{ label: 'Browse wares', action: { type: 'trade' } as DialogueAction }] : [];
   for (const qid of npc.quests) {
     const def = QUESTS[qid]!, st = log[qid]!;

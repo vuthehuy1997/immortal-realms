@@ -53,6 +53,12 @@
 - Tests: tests/chapters.test.ts (24), e2e/chapters.spec.ts (6): gate refusal/open, ch2 content, persistence + return gate, NPC shop, Corpse King kill, story pages.
 - Honest limits: ch2 art is reused/recoloured (PLACEHOLDER), balance untuned, no new playable heroes (the pack's other hero sprites lack combat animations), no companions yet.
 
+## Round 14 (QA report 3 round C, part: replay and identity)
+- Trial Rift (`src/core/tower.ts`, glue in WorldScene): talk to Keeper Ming (Azure Cloud Sect) or Keeper Ren (Skyfall Outpost) to start. Endless floors drawn from eight difficulty bands (zone rosters and tiers), a guardian every 5th floor, stats climbing +6% HP / +4% attack per floor. Rewards pay only for floors beyond your record (stones, Qi pills every 5th, a Foundation Pill and a boon pick every 10th) so low floors cannot be farmed for them; a cleared floor heals 20% and refills mana. Falling, leaving, or straying 420 px away ends the run. `GameState.towerBest` (additive save migration).
+- Hero signature passives (`HeroDef.trait`): Sword Heart Focus (crit, mana on hit), Crimson Gale (dash, attack), Scholar Reserve (mana), Iron Discipline (HP, defence, poise), Road-Worn Edge (attack, lifesteal), Storm Steps (mana on hit, perfect-dodge time). Shown on the creation screen and the character panel; they flow through the same mods as boons.
+- Not done from round C: loot affixes (needs per-item instances in the save), distinct technique kits, WorldScene extraction.
+- Tests: tests/tower.test.ts (11), e2e/tower.spec.ts (4).
+
 ## Round 13 (QA report 3 round B: depth)
 - Boons (`src/data/boons.ts`, `src/core/boons.ts`): 15 permanent build choices (stat mods, mana on hit, lifesteal, dash cooldown, flask heal, poise, perfect-dodge rewards). One pick of three at every 5th level and on each boss's first defeat; picks bank until spent. `GameState.boons/boonPicks` (additive save migration: older heroes are credited with the picks they already earned). Chooser overlay `src/ui/boons.ts` (keys 1-3 or click); it opens after a fight, never mid-combat. Automated browsers skip the auto popup unless `?boons=1`.
 - Boss poise: `BossDef.poise` (fraction of max HP, default 12%). Enough damage staggers a boss out of a wind-up for 2.2 s with x1.5 damage taken; 11 s of immunity afterwards, charges cannot be interrupted, poise drains when you stop attacking.

@@ -11,10 +11,10 @@ export const NO_MODS: BoonMods = {
 };
 
 /** Sums the mods of every owned boon (the dash multiplier multiplies). */
-export function aggregate(owned: readonly string[]): BoonMods {
+export function aggregate(owned: readonly string[], extra: Partial<BoonMods>[] = []): BoonMods {
   const m: BoonMods = { ...NO_MODS };
-  for (const id of owned) {
-    const mods = BOONS[id]?.mods;
+  const all = [...extra, ...owned.map((id) => BOONS[id]?.mods)];
+  for (const mods of all) {
     if (!mods) continue;
     for (const k of Object.keys(mods) as (keyof BoonMods)[]) {
       if (k === 'dashCdMult') m.dashCdMult *= mods[k] ?? 1;

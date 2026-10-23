@@ -71,7 +71,7 @@ export function showCreation(opts: { onStart(name: string, root: RootId, hero: H
     heroesEl.innerHTML = '';
     for (const id of HERO_IDS) {
       const h = HEROES[id]; const b = el('button', `hero${id === hero ? ' sel' : ''}`); b.dataset.hero = id;
-      b.innerHTML = `<div class="pv">${spriteAnimHtml(`${h.sprite}.idle`, 96)}</div><b>${h.name}</b><small>${h.title}</small>`;
+      b.innerHTML = `<div class="pv">${spriteAnimHtml(`${h.sprite}.idle`, 96)}</div><b>${h.name}</b><small>${h.title}</small><small class="trait" title="${h.trait.desc}">${h.trait.name}: ${h.trait.desc}</small>`;
       b.onclick = () => { hero = id; render(); };
       heroesEl.appendChild(b);
     }

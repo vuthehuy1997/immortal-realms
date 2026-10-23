@@ -4,7 +4,7 @@ import type { ZoneId } from '../data/zones';
 import { DROPS, ELITE_LOOT } from '../data/items';
 import { ENEMIES } from '../data/enemies';
 import { QUESTS } from '../data/quests';
-import type { HeroId } from '../data/heroes';
+import { HEROES, type HeroId } from '../data/heroes';
 import type { RootId } from '../data/roots';
 import { deriveStats, type CharacterInfo, type DerivedStats } from './character';
 import { addQi, type Cultivation } from './cultivation';
@@ -42,6 +42,8 @@ export interface GameState {
   /** permanent boons chosen so far, and picks still waiting to be spent */
   boons: string[];
   boonPicks: number;
+  /** deepest Trial Rift floor cleared */
+  towerBest: number;
 }
 
 export const WARDEN_ID = 'warden';
@@ -50,7 +52,7 @@ export const isBossDefeated = (gs: GameState, id: string): boolean => gs.bosses.
 export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
     character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(), boons: [], boonPicks: 0,
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(), boons: [], boonPicks: 0, towerBest: 0,
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);
@@ -59,9 +61,10 @@ export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { 
 }
 
 export const statsOf = (gs: GameState): DerivedStats =>
-  applyBoons(deriveStats(gs.character.root, gs.progress.level, gs.cultivation.realm, gs.inventory), aggregate(gs.boons));
+  applyBoons(deriveStats(gs.character.root, gs.progress.level, gs.cultivation.realm, gs.inventory), heroAggregate(gs));
 
-export const boonMods = (gs: GameState): BoonMods => aggregate(gs.boons);
+const heroAggregate = (gs: GameState): BoonMods => aggregate(gs.boons, [HEROES[gs.character.hero].trait.mods]);
+export const boonMods = (gs: GameState): BoonMods => heroAggregate(gs);
 
 /** Spends one pending pick on `id` if it is one of the offered choices. */
 export function takeBoon(gs: GameState, id: string, offered: readonly string[]): boolean {

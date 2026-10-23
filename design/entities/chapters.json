@@ -26,7 +26,8 @@
     "npcs": [
       "elder-lin",
       "merchant-qiao",
-      "alchemist-yun"
+      "alchemist-yun",
+      "keeper-ming"
     ],
     "quests": [
       "pests",
@@ -74,6 +75,7 @@
       "commander-shen",
       "quartermaster-gu",
       "herbalist-mo",
+      "keeper-ren",
       "hermit-wen"
     ],
     "quests": [

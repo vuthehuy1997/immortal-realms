@@ -14,6 +14,8 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 | <img src="../images/npcs/commander-shen.png" height="72"> | commander-shen | Commander Shen | – | rift-scouts → frost-elites → barrow-rites → sundered-sovereign |
 | <img src="../images/npcs/quartermaster-gu.png" height="72"> | quartermaster-gu | Quartermaster Gu | outpost | – |
 | <img src="../images/npcs/herbalist-mo.png" height="72"> | herbalist-mo | Herbalist Mo | alchemy | shard-harvest |
+| <img src="../images/npcs/keeper-ming.png" height="72"> | keeper-ming | Keeper Ming | tower | – |
+| <img src="../images/npcs/keeper-ren.png" height="72"> | keeper-ren | Keeper Ren | tower | – |
 | <img src="../images/npcs/hermit-wen.png" height="72"> | hermit-wen | Hermit Wen | – | hollow-heart |
 
 ## Quests

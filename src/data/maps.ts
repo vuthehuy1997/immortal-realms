@@ -77,7 +77,7 @@ export const CHAPTER2_MAP: MapDef = {
     { kind: 'pagoda7', dx: 0, dy: -10 }, { kind: 'stonecircle', dx: 12, dy: 5 }, { kind: 'lotusbowl', dx: -5, dy: 3 }, { kind: 'lotusbowl', dx: 5, dy: 3 },
     { kind: 'pine', dx: -12, dy: 2 }, { kind: 'pine', dx: 12, dy: -2 },
   ],
-  npcs: { 'commander-shen': { x: 20, y: 75 }, 'quartermaster-gu': { x: 25, y: 81 }, 'herbalist-mo': { x: 11, y: 81 }, 'hermit-wen': { x: 31, y: 69 } },
+  npcs: { 'commander-shen': { x: 20, y: 75 }, 'quartermaster-gu': { x: 25, y: 81 }, 'herbalist-mo': { x: 11, y: 81 }, 'hermit-wen': { x: 31, y: 69 }, 'keeper-ren': { x: 17, y: 78 } },
   herbs: [['frostpass', 6], ['crystal', 5], ['barrow', 5]],
   portal: { dx: 0, dy: 11 },
   borderProp: { outpost: 'pine', frostpass: 'pine', crystal: 'taihurocks', barrow: 'standstone', summit: 'standstone' },

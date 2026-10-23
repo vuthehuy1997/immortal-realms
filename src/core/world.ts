@@ -278,6 +278,7 @@ export function generateWorld(seed: number, width = 80, height = 80): WorldMap {
     'elder-lin': tileToWorld({ x: vx + 2, y: vy - 5 }),
     'merchant-qiao': tileToWorld({ x: vx + 7, y: vy + 1 }),
     'alchemist-yun': tileToWorld({ x: vx - 7, y: vy + 1 }),
+    'keeper-ming': tileToWorld({ x: vx + 4, y: vy + 5 }),
   };
 
   return { chapter: 1, width, height, ground, zone, blocked, props, spawn: tileToWorld({ x: vx, y: vy + 7 }), lair: lw, den: dw, pool: pw, bossHomes: { warden: lw, ninetail: dw, jiaolong: pw }, portal, anchors, npcs, herbs, arrayPos };

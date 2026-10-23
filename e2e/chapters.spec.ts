@@ -31,7 +31,7 @@ test.describe('chapters: multi-map progression and story', () => {
     const s = await st(page);
     expect(s.chapter).toBe(2);
     expect(s.zone).toBe('outpost');
-    expect(Object.keys(s.npcs).sort()).toEqual(['commander-shen', 'herbalist-mo', 'hermit-wen', 'quartermaster-gu']);
+    expect(Object.keys(s.npcs).sort()).toEqual(['commander-shen', 'herbalist-mo', 'hermit-wen', 'keeper-ren', 'quartermaster-gu']);
     expect(s.bosses.map((b) => b.id).sort()).toEqual([...CH2_BOSSES].sort());
     expect(Object.keys(s.bossHomes).sort()).toEqual([...CH2_BOSSES].sort());
     expect(s.bossesDefeated).toEqual(expect.arrayContaining(['warden', 'ninetail', 'jiaolong'])); // progress carries over

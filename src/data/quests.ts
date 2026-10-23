@@ -129,7 +129,7 @@ export const QUESTS: Record<string, QuestDef> = {
 
 export interface NpcDef {
   name: string; portrait: string; quests: readonly string[]; idle: string;
-  trade?: 'shop' | 'outpost' | 'alchemy';
+  trade?: 'shop' | 'outpost' | 'alchemy' | 'tower';
   /** chapter whose hub they live in (default 1) */
   chapter?: number;
   /** actor sprite prefix and nameplate text */
@@ -144,6 +144,8 @@ export const NPCS: Record<string, NpcDef> = {
   'commander-shen': { chapter: 2, sprite: 'hero.saber', role: 'Commander Shen · Quests', name: 'Commander Shen', portrait: 'constable_neutral', quests: ['rift-scouts', 'frost-elites', 'barrow-rites', 'sundered-sovereign'], idle: 'Hold the line, disciple. The Fissure does not rest.' },
   'quartermaster-gu': { chapter: 2, sprite: 'hero.twinblade', role: 'Quartermaster Gu · Shop', blurb: 'Outpost prices, frontier steel. Everything is heavier up here.', name: 'Quartermaster Gu', portrait: 'blacksmith_neutral', quests: [], idle: 'Frost mail, draughts, honest weight. What do you need?', trade: 'outpost' },
   'herbalist-mo': { chapter: 2, sprite: 'hero.fanscholar', role: 'Herbalist Mo · Alchemy', blurb: 'The furnace keeps the whole outpost alive. Bring herbs.', name: 'Herbalist Mo', portrait: 'herbalist_neutral', quests: ['shard-harvest'], idle: 'Warm hands, warm heart. The furnace is lit.', trade: 'alchemy' },
+  'keeper-ming': { sprite: 'hero.saber', role: 'Keeper Ming · Trial Rift', name: 'Keeper Ming', portrait: 'constable_neutral', quests: [], idle: 'The Rift opens a new floor for every one you clear. How deep can you go?', trade: 'tower' },
+  'keeper-ren': { chapter: 2, sprite: 'hero.twinblade', role: 'Keeper Ren · Trial Rift', name: 'Keeper Ren', portrait: 'hermit_neutral', quests: [], idle: 'Cold stone, endless floors. Your best depth is carved in the wall.', trade: 'tower' },
   'hermit-wen': { chapter: 2, sprite: 'hero.monk', role: 'Hermit Wen · Lore', name: 'Hermit Wen', portrait: 'hermit_neutral', quests: ['hollow-heart'], idle: 'The founder left a ledger of seals. Three guardians were never enough, you know.' },
 };
 

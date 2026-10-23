@@ -6,6 +6,14 @@
     "description": "A wandering sword cultivator in sect blues.",
     "sprite": "hero.swordsman",
     "scale": 0.34,
+    "trait": {
+      "name": "Sword Heart Focus",
+      "desc": "+8% critical chance, +1 mana per sword hit.",
+      "mods": {
+        "critChance": 0.08,
+        "manaOnHit": 1
+      }
+    },
     "image": "heroes/swordsman.png"
   },
   {
@@ -15,6 +23,14 @@
     "description": "Quick and fierce, a flame in red silk.",
     "sprite": "hero.heroine",
     "scale": 0.34,
+    "trait": {
+      "name": "Crimson Gale",
+      "desc": "Dash cooldown -15%, +6% attack.",
+      "mods": {
+        "dashCdMult": 0.85,
+        "atkPct": 0.06
+      }
+    },
     "image": "heroes/heroine.png"
   },
   {
@@ -24,6 +40,14 @@
     "description": "A scholar-cultivator who fights with a folding fan.",
     "sprite": "hero.fanscholar",
     "scale": 0.34,
+    "trait": {
+      "name": "Scholar Reserve",
+      "desc": "+25% max mana, +1.5 mana regeneration.",
+      "mods": {
+        "maxManaPct": 0.25,
+        "manaRegen": 1.5
+      }
+    },
     "image": "heroes/fanscholar.png"
   },
   {
@@ -33,6 +57,15 @@
     "description": "A warrior monk with iron discipline.",
     "sprite": "hero.monk",
     "scale": 0.32,
+    "trait": {
+      "name": "Iron Discipline",
+      "desc": "+15% max HP, +12% defence, +25% poise damage.",
+      "mods": {
+        "maxHpPct": 0.15,
+        "defPct": 0.12,
+        "poiseMult": 0.25
+      }
+    },
     "image": "heroes/monk.png"
   },
   {
@@ -42,6 +75,14 @@
     "description": "A road-worn saber fighter.",
     "sprite": "hero.saber",
     "scale": 0.34,
+    "trait": {
+      "name": "Road-Worn Edge",
+      "desc": "+10% attack, heal 2% of damage dealt.",
+      "mods": {
+        "atkPct": 0.1,
+        "lifesteal": 0.02
+      }
+    },
     "image": "heroes/saber.png"
   },
   {
@@ -51,6 +92,14 @@
     "description": "Moves like a storm with a blade in each hand.",
     "sprite": "hero.twinblade",
     "scale": 0.34,
+    "trait": {
+      "name": "Storm Steps",
+      "desc": "+2 mana per sword hit, perfect dodges last 1.5 s longer.",
+      "mods": {
+        "manaOnHit": 2,
+        "perfectTime": 1.5
+      }
+    },
     "image": "heroes/twinblade.png"
   }
 ]

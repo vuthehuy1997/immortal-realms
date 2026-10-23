@@ -16,7 +16,7 @@ Each chapter is its own map with a hub, zones, bosses, NPCs and quest chain; the
 
 - hub: village; zones: village, bamboo, marsh, grove, ruins, lair
 - bosses: Fallen Sword Immortal → Nine-Tailed Fox Spirit → Jiao Dragon of the Mist Pool
-- NPCs: elder-lin, merchant-qiao, alchemist-yun
+- NPCs: elder-lin, merchant-qiao, alchemist-yun, keeper-ming
 - quests: pests → fox → warden → jiaolong → toads → furnace → champions
 - gate: always open
 
@@ -32,6 +32,6 @@ Each chapter is its own map with a hub, zones, bosses, NPCs and quest chain; the
 
 - hub: outpost; zones: outpost, frostpass, crystal, barrow, summit
 - bosses: Corpse King of the Ashen Barrow → Crystal Colossus → Sundered Sovereign
-- NPCs: commander-shen, quartermaster-gu, herbalist-mo, hermit-wen
+- NPCs: commander-shen, quartermaster-gu, herbalist-mo, keeper-ren, hermit-wen
 - quests: rift-scouts → shard-harvest → frost-elites → barrow-rites → hollow-heart → sundered-sovereign
 - gate: level 10 and Fallen Sword Immortal, Nine-Tailed Fox Spirit, Jiao Dragon of the Mist Pool
