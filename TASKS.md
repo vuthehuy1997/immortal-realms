@@ -59,4 +59,7 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [x] R8 design/ export gate in qc, NPC nameplates hidden behind minimap, docs refreshed from the code
 - [x] R9 save slots (3), backup recovery, export/import
 - [x] R10 transitive licence scan (`npm run license:check`, docs/LICENSE_SCAN.md); gamepad support (standard mapping -> virtual keys)
+- [x] R11 touch controls (joystick + buttons); chapters framework + Chapter 2 "The Sundered Sky" (112x96 map, 5 zones, 4 NPCs, 6 quests, 3 bosses, 11 enemies, 9 items, outpost shop), Sky Gate between chapters, prologue + chapter intro story pages, save field `chapter`
+- [ ] Depth roadmap (docs/CHAPTERS_DESIGN.md): Phase 2 chapter 3+, more realms, trial tower, reputation; Phase 3 per-hero martial arts, companions, sect/crafting
+- [ ] PLACEHOLDER (R11): chapter 2 art is recoloured reuse of pack sprites (frost/crystal/ash mobs, Corpse King, Crystal Colossus, Sundered Sovereign); replace before release. Chapter 2 balance is untuned (no human playtest). Touch layout: Quest button overlaps the sound button.
 - [ ] Open: human playtest of ruins/normal-mob difficulty and dragon balance; flaky e2e under load (killOne/combo/boss); real-GPU perf (M0-4); licence scan (M0-5); UI guide + overlap check; trial deploy path; trial tower; more realms; touch controls; controller menu navigation and right-stick aim; tested only with a faked pad, not a physical one

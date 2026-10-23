@@ -1,4 +1,5 @@
 {
+  "chapter": 1,
   "seed": 20261016,
   "width": 80,
   "height": 80,
@@ -7,17 +8,23 @@
     "x": 648,
     "y": 792
   },
-  "lair": {
-    "x": 1064,
-    "y": 216
+  "portal": {
+    "x": 856,
+    "y": 808
   },
-  "den": {
-    "x": 344,
-    "y": 248
-  },
-  "pool": {
-    "x": 872,
-    "y": 1096
+  "bossHomes": {
+    "warden": {
+      "x": 1064,
+      "y": 216
+    },
+    "ninetail": {
+      "x": 344,
+      "y": 248
+    },
+    "jiaolong": {
+      "x": 872,
+      "y": 1096
+    }
   },
   "anchors": {
     "village": {
@@ -60,5 +67,5 @@
     }
   },
   "herbs": 20,
-  "propCount": 434
+  "propCount": 436
 }

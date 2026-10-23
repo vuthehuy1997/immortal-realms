@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { ZoneId } from '../core/world';
 import { ZONES } from '../data/zones';
 
-const MOOD_TINT: Record<string, number> = { day: 0xffffff, mist: 0xcfe3ee, dusk: 0xffd9b8, night: 0x9fb2dc };
+const MOOD_TINT: Record<string, number> = { day: 0xffffff, mist: 0xcfe3ee, dusk: 0xffd9b8, night: 0x9fb2dc, frost: 0xd6ecff };
 
 /** Drifting petals, fireflies, mist banks and a mood colour overlay that follows the zone the player is in. */
 export class Ambient {

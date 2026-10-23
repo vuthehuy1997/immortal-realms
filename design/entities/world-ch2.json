@@ -1,0 +1,71 @@
+{
+  "chapter": 2,
+  "seed": 20261016,
+  "width": 112,
+  "height": 96,
+  "tileSize": 16,
+  "spawn": {
+    "x": 296,
+    "y": 1400
+  },
+  "portal": {
+    "x": 296,
+    "y": 1480
+  },
+  "bossHomes": {
+    "corpseking": {
+      "x": 424,
+      "y": 584
+    },
+    "crystalcolossus": {
+      "x": 1448,
+      "y": 1000
+    },
+    "sovereign": {
+      "x": 1352,
+      "y": 264
+    }
+  },
+  "anchors": {
+    "outpost": {
+      "x": 296,
+      "y": 1288
+    },
+    "frostpass": {
+      "x": 840,
+      "y": 1096
+    },
+    "crystal": {
+      "x": 1448,
+      "y": 1000
+    },
+    "barrow": {
+      "x": 424,
+      "y": 584
+    },
+    "summit": {
+      "x": 1352,
+      "y": 264
+    }
+  },
+  "npcs": {
+    "commander-shen": {
+      "x": 328,
+      "y": 1208
+    },
+    "quartermaster-gu": {
+      "x": 408,
+      "y": 1304
+    },
+    "herbalist-mo": {
+      "x": 184,
+      "y": 1304
+    },
+    "hermit-wen": {
+      "x": 504,
+      "y": 1112
+    }
+  },
+  "herbs": 16,
+  "propCount": 492
+}

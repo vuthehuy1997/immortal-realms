@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { TILE_SIZE, type WorldMap } from '../core/world';
 import { createRng } from '../core/rng';
 import { PROPS } from '../data/props';
+import { ZONES } from '../data/zones';
 import { MANIFEST } from './assets';
 import { bakeGround, GROUND_PX } from './ground';
 
@@ -26,6 +27,8 @@ export function renderWorld(scene: Phaser.Scene, world: WorldMap, seed: number):
       const v = 0.9 + rng() * 0.1; const c = (x: number) => Math.round(Math.min(255, Math.max(0, 255 * x)));
       img.setTint(Phaser.Display.Color.GetColor(c(v + 0.05), c(v + 0.05), c(v)));
     }
+    const zt = ZONES[world.zone[Math.min(world.height - 1, Math.floor((p.y - 1) / TILE_SIZE)) * world.width + Math.min(world.width - 1, Math.floor(p.x / TILE_SIZE))]!]?.propTint;
+    if (zt !== undefined && !def.flat) img.setTint(zt);
     const src = MANIFEST.props[p.kind]!;
     if (tall && src.h * def.scale > 40) occluders.push({ img, x: p.x, y: p.y, halfW: (src.w * def.scale) / 2 * 0.8, h: src.h * def.scale });
     if (def.float) {

@@ -9,6 +9,7 @@ import { SKILLS } from '../data/skills';
 import { SKILL_MAX, spentPoints, totalPoints } from './skills';
 import { NAME_MAX } from './character';
 import { SLOT_COUNT } from './inventory';
+import { CHAPTERS } from '../data/chapters';
 import type { GameState } from './gameState';
 
 export const SAVE_VERSION = 4;
@@ -66,6 +67,8 @@ function validate(s: unknown): string | null {
   if (!Array.isArray(s.bosses) || s.bosses.some((b) => typeof b !== 'string' || !BOSS_IDS.includes(b)) || new Set(s.bosses).size !== s.bosses.length) return 'bad bosses';
   if (!num(s.hp, 0, 1e5) || !num(s.mana, 0, 1e5)) return 'bad vitals';
   if (!isObj(pos) || !num(pos.x, 0, 1e5) || !num(pos.y, 0, 1e5)) return 'bad position';
+  if (typeof s.chapter !== 'number' || !Number.isInteger(s.chapter) || !(s.chapter in CHAPTERS)) return 'bad chapter';
+  if (!Array.isArray(s.story) || s.story.some((c) => typeof c !== 'number' || !(c in CHAPTERS))) return 'bad story flags';
   return null;
 }
 
@@ -77,6 +80,10 @@ export function parseSave(text: string | null): LoadResult {
   if (env.version !== SAVE_VERSION) return { ok: false, error: `Unsupported save version ${String(env.version)}.` };
   if (checksum(JSON.stringify(env.state)) !== env.checksum) return { ok: false, error: 'Save checksum mismatch (corrupted or edited).' };
   if (isObj(env.state) && isObj(env.state.quests)) for (const id of Object.keys(QUESTS)) if (!(id in env.state.quests)) env.state.quests[id] = { status: 'inactive', kills: {} }; // quests added after the save was written
+  if (isObj(env.state)) { // fields added after v4 shipped: older saves are on chapter 1 and have seen its prologue
+    if (env.state.chapter === undefined) env.state.chapter = 1;
+    if (env.state.story === undefined) env.state.story = [1];
+  }
   const bad = validate(env.state);
   if (bad) return { ok: false, error: `Invalid save: ${bad}.` };
   const state = env.state as GameState;

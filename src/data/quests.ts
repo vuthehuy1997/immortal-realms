@@ -9,6 +9,8 @@ export interface QuestDef {
   objectives: Objective[];
   reward: { xp: number; stones?: number; items: { id: string; count: number }[] };
   requires?: string; // quest that must be turned in first
+  /** chapter the quest belongs to (default 1) */
+  chapter?: number;
 }
 
 export const QUESTS: Record<string, QuestDef> = {
@@ -71,12 +73,79 @@ export const QUESTS: Record<string, QuestDef> = {
     objectives: [{ type: 'elite', count: 2, label: 'Slay Elite Monsters' }],
     reward: { xp: 240, stones: 100, items: [{ id: 'tiger-fang', count: 1 }] },
   },
+  // ---- Chapter 2: The Sundered Sky ----
+  'rift-scouts': {
+    id: 'rift-scouts', chapter: 2, name: 'Scouts of the Rift', giver: 'commander-shen',
+    intro: 'You came through the gate? Then you are the disciple who put down the three guardians. Good. The Fissure widened when they fell, and frost beasts pour down the Whitefrost Pass. Cull eight Frost Wolves and four Frost Wisps so my scouts can reach the Barrow.',
+    reminder: 'Eight Frost Wolves and four Frost Wisps in Whitefrost Pass, north-east of the outpost.',
+    completeText: 'The scouts are through. Take this blade; it was forged for this cold.',
+    objectives: [
+      { type: 'kill', target: 'frostwolf', count: 8, label: 'Cull Frost Wolves' },
+      { type: 'kill', target: 'frostwisp', count: 4, label: 'Douse Frost Wisps' },
+    ],
+    reward: { xp: 700, stones: 150, items: [{ id: 'froststeel-blade', count: 1 }, { id: 'greater-hp-potion', count: 3 }] },
+  },
+  'shard-harvest': {
+    id: 'shard-harvest', chapter: 2, name: 'Warmth for the Wounded', giver: 'herbalist-mo', requires: 'rift-scouts',
+    intro: 'Our wounded are freezing, and my stores of lingzhi are gone. Bring me six Spirit Herbs; they cling on near the crystal veins and the graves, where the cold is thinnest.',
+    reminder: 'Six Spirit Herbs: look for glowing mushrooms in the Hollow, the Pass and the Barrow.',
+    completeText: 'Warm broth tonight, thanks to you. Take these, brewed fresh.',
+    objectives: [{ type: 'collect', item: 'spirit-herb', count: 6, label: 'Gather Spirit Herbs' }],
+    reward: { xp: 520, stones: 120, items: [{ id: 'greater-mana-potion', count: 3 }, { id: 'qi-pill', count: 3 }] },
+  },
+  'frost-elites': {
+    id: 'frost-elites', chapter: 2, name: 'Frostbound Champions', giver: 'commander-shen', requires: 'rift-scouts',
+    intro: 'The Rift twists the strongest beasts, gold-marked and cruel. Slay three of these elites and my soldiers will know the road is safe.',
+    reminder: 'Three elite monsters (golden names) anywhere beyond the outpost.',
+    completeText: 'Three less to fear. The quartermaster owes you a favour; here is mine.',
+    objectives: [{ type: 'elite', count: 3, label: 'Slay Elite Monsters' }],
+    reward: { xp: 900, stones: 220, items: [{ id: 'frost-mail', count: 1 }] },
+  },
+  'barrow-rites': {
+    id: 'barrow-rites', chapter: 2, name: 'The Barrow Rites', giver: 'commander-shen', requires: 'rift-scouts',
+    intro: 'West of here the Ashen Barrow stirs: the old Corpse King walks again, raising soldiers from the ash. Break the rites. Slay the Corpse King of the Ashen Barrow.',
+    reminder: 'The Corpse King sits at the heart of the Ashen Barrow, north-west of the outpost.',
+    completeText: 'The graves are quiet. This ward was his; the dead owe you nothing now.',
+    objectives: [{ type: 'kill', target: 'corpseking', count: 1, label: 'Slay the Corpse King' }],
+    reward: { xp: 1400, stones: 250, items: [{ id: 'greater-hp-potion', count: 3 }, { id: 'qi-pill', count: 2 }] },
+  },
+  'hollow-heart': {
+    id: 'hollow-heart', chapter: 2, name: 'The Heart of the Hollow', giver: 'hermit-wen', requires: 'barrow-rites',
+    intro: 'Youngster. The Hollow sings because a heart of crystal beats under it: a colossus woven from the Fissure itself. While it lives, the way to the summit stays barred. Shatter the Crystal Colossus.',
+    reminder: 'The Crystal Colossus stands in the Crystal Hollow, east of Whitefrost Pass.',
+    completeText: 'Hear that? Silence. The path to the summit is open, and I have not been so afraid in forty years.',
+    objectives: [{ type: 'kill', target: 'crystalcolossus', count: 1, label: 'Shatter the Crystal Colossus' }],
+    reward: { xp: 1800, stones: 320, items: [{ id: 'greater-mana-potion', count: 3 }, { id: 'greater-hp-potion', count: 3 }] },
+  },
+  'sundered-sovereign': {
+    id: 'sundered-sovereign', chapter: 2, name: 'The Sundered Sovereign', giver: 'commander-shen', requires: 'hollow-heart',
+    intro: 'This is what the guardians were bred to hold back: the Sundered Sovereign, waiting at the summit. We cannot seal it again; we can only end it. Climb the north-east path and do what the founder could not.',
+    reminder: 'Follow the north-east road to the Sundered Sky Summit.',
+    completeText: 'The sky is whole. Chapter closed, disciple. Whatever lies beyond the Fissure, you have earned the right to look.',
+    objectives: [{ type: 'kill', target: 'sovereign', count: 1, label: 'Slay the Sundered Sovereign' }],
+    reward: { xp: 3000, stones: 600, items: [{ id: 'greater-hp-potion', count: 5 }, { id: 'greater-mana-potion', count: 5 }] },
+  },
 };
 
-export interface NpcDef { name: string; portrait: string; quests: readonly string[]; idle: string; trade?: 'shop' | 'alchemy' }
+export interface NpcDef {
+  name: string; portrait: string; quests: readonly string[]; idle: string;
+  trade?: 'shop' | 'outpost' | 'alchemy';
+  /** chapter whose hub they live in (default 1) */
+  chapter?: number;
+  /** actor sprite prefix and nameplate text */
+  sprite: string; role: string;
+  /** trade window blurb */
+  blurb?: string;
+}
 export const NPCS: Record<string, NpcDef> = {
-  'elder-lin': { name: 'Elder Lin', portrait: 'elder_neutral', quests: ['pests', 'fox', 'warden', 'champions', 'jiaolong'], idle: 'Peace to you, traveler. The grove is quiet now.' },
-  'merchant-qiao': { name: 'Merchant Qiao', portrait: 'peddler_neutral', quests: ['toads'], idle: 'Welcome, welcome! Spirit stones speak louder than words.', trade: 'shop' },
-  'alchemist-yun': { name: 'Alchemist Yun', portrait: 'alchemist_neutral', quests: ['furnace'], idle: 'The furnace is warm. What shall we brew today?', trade: 'alchemy' },
+  'elder-lin': { sprite: 'hero.staffbeggar', role: 'Elder Lin · Quests', name: 'Elder Lin', portrait: 'elder_neutral', quests: ['pests', 'fox', 'warden', 'champions', 'jiaolong'], idle: 'Peace to you, traveler. The grove is quiet now.' },
+  'merchant-qiao': { sprite: 'hero.spearman', role: 'Merchant Qiao · Shop', blurb: 'Spirit stones for steel and draughts, friend.', name: 'Merchant Qiao', portrait: 'peddler_neutral', quests: ['toads'], idle: 'Welcome, welcome! Spirit stones speak louder than words.', trade: 'shop' },
+  'alchemist-yun': { sprite: 'hero.archer', role: 'Alchemist Yun · Alchemy', blurb: 'Bring me lingzhi and a few stones, and I will brew what you need.', name: 'Alchemist Yun', portrait: 'alchemist_neutral', quests: ['furnace'], idle: 'The furnace is warm. What shall we brew today?', trade: 'alchemy' },
+  'commander-shen': { chapter: 2, sprite: 'hero.saber', role: 'Commander Shen · Quests', name: 'Commander Shen', portrait: 'constable_neutral', quests: ['rift-scouts', 'frost-elites', 'barrow-rites', 'sundered-sovereign'], idle: 'Hold the line, disciple. The Fissure does not rest.' },
+  'quartermaster-gu': { chapter: 2, sprite: 'hero.twinblade', role: 'Quartermaster Gu · Shop', blurb: 'Outpost prices, frontier steel. Everything is heavier up here.', name: 'Quartermaster Gu', portrait: 'blacksmith_neutral', quests: [], idle: 'Frost mail, draughts, honest weight. What do you need?', trade: 'outpost' },
+  'herbalist-mo': { chapter: 2, sprite: 'hero.fanscholar', role: 'Herbalist Mo · Alchemy', blurb: 'The furnace keeps the whole outpost alive. Bring herbs.', name: 'Herbalist Mo', portrait: 'herbalist_neutral', quests: ['shard-harvest'], idle: 'Warm hands, warm heart. The furnace is lit.', trade: 'alchemy' },
+  'hermit-wen': { chapter: 2, sprite: 'hero.monk', role: 'Hermit Wen · Lore', name: 'Hermit Wen', portrait: 'hermit_neutral', quests: ['hollow-heart'], idle: 'The founder left a ledger of seals. Three guardians were never enough, you know.' },
 };
 
+export const questsOfChapter = (n: number): QuestDef[] => Object.values(QUESTS).filter((q) => (q.chapter ?? 1) === n);
+export const npcsOfChapter = (n: number): string[] => Object.keys(NPCS).filter((id) => (NPCS[id]!.chapter ?? 1) === n);

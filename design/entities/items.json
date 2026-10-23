@@ -20,6 +20,10 @@
       "skeleton",
       "soldier",
       "golem",
+      "frostwolf",
+      "icesnake",
+      "ashskeleton",
+      "ashguard",
       "quest:pests",
       "quest:fox",
       "quest:jiaolong",
@@ -47,6 +51,7 @@
       "ghost",
       "peachspirit",
       "thunderbird",
+      "frostwisp",
       "quest:jiaolong",
       "brew:brew-mana",
       "shop"
@@ -72,12 +77,21 @@
       "thunderbird",
       "jiangshi",
       "golem",
+      "snowtreant",
+      "crystalgolem",
+      "prismghost",
+      "shardbird",
+      "bloodjiangshi",
       "warden",
       "jiaolong",
+      "corpseking",
+      "sovereign",
       "ninetail",
       "quest:fox",
       "quest:warden",
       "quest:furnace",
+      "quest:shard-harvest",
+      "quest:barrow-rites",
       "brew:brew-qi",
       "shop"
     ]
@@ -370,6 +384,187 @@
     "sellValue": 480,
     "sources": [
       "warden"
+    ]
+  },
+  {
+    "id": "greater-hp-potion",
+    "name": "Greater Vitality Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 120 HP.",
+    "value": 40,
+    "rarity": "uncommon",
+    "heal": 120,
+    "image": "items/greater-hp-potion.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "frostwolf",
+      "snowtreant",
+      "ashskeleton",
+      "bloodjiangshi",
+      "ashguard",
+      "corpseking",
+      "elite@frostpass",
+      "quest:rift-scouts",
+      "quest:barrow-rites",
+      "quest:hollow-heart",
+      "quest:sundered-sovereign"
+    ]
+  },
+  {
+    "id": "greater-mana-potion",
+    "name": "Greater Clarity Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 80 mana.",
+    "value": 40,
+    "rarity": "uncommon",
+    "mana": 80,
+    "image": "items/greater-mana-potion.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "frostwisp",
+      "crystalgolem",
+      "prismghost",
+      "shardbird",
+      "crystalcolossus",
+      "quest:shard-harvest",
+      "quest:hollow-heart",
+      "quest:sundered-sovereign"
+    ]
+  },
+  {
+    "id": "froststeel-blade",
+    "slot": "weapon",
+    "name": "Froststeel Blade",
+    "type": "equipment",
+    "maxStack": 1,
+    "description": "+19 attack. Cold enough to numb the hand.",
+    "value": 1500,
+    "rarity": "rare",
+    "weaponAtk": 19,
+    "image": "items/froststeel-blade.png",
+    "shopPrice": null,
+    "sellValue": 600,
+    "sources": [
+      "elite@frostpass",
+      "elite@crystal",
+      "elite@barrow",
+      "quest:rift-scouts"
+    ]
+  },
+  {
+    "id": "crystal-saber",
+    "slot": "weapon",
+    "name": "Heart-of-the-Hollow Saber",
+    "type": "equipment",
+    "maxStack": 1,
+    "description": "+24 attack.",
+    "value": 2400,
+    "rarity": "epic",
+    "weaponAtk": 24,
+    "image": "items/crystal-saber.png",
+    "shopPrice": null,
+    "sellValue": 960,
+    "sources": [
+      "crystalcolossus"
+    ]
+  },
+  {
+    "id": "sovereign-blade",
+    "slot": "weapon",
+    "name": "Blade of the Sundered Sky",
+    "type": "equipment",
+    "maxStack": 1,
+    "description": "+30 attack.",
+    "value": 4000,
+    "rarity": "epic",
+    "weaponAtk": 30,
+    "image": "items/sovereign-blade.png",
+    "shopPrice": null,
+    "sellValue": 1600,
+    "sources": [
+      "sovereign"
+    ]
+  },
+  {
+    "id": "frost-mail",
+    "name": "Outpost Frost Mail",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+22 defence, +120 HP.",
+    "value": 1400,
+    "rarity": "rare",
+    "defBonus": 22,
+    "hpBonus": 120,
+    "image": "items/frost-mail.png",
+    "shopPrice": null,
+    "sellValue": 560,
+    "sources": [
+      "elite@frostpass",
+      "elite@crystal",
+      "elite@barrow",
+      "quest:frost-elites"
+    ]
+  },
+  {
+    "id": "crystal-robe",
+    "name": "Crystalweave Robe",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+28 defence, +165 HP.",
+    "value": 2600,
+    "rarity": "epic",
+    "defBonus": 28,
+    "hpBonus": 165,
+    "image": "items/crystal-robe.png",
+    "shopPrice": null,
+    "sellValue": 1040,
+    "sources": [
+      "crystalcolossus"
+    ]
+  },
+  {
+    "id": "barrow-ward",
+    "name": "Barrow-King Ward",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+8 attack, +6% critical chance.",
+    "value": 1800,
+    "rarity": "rare",
+    "atkBonus": 8,
+    "critBonus": 0.06,
+    "image": "items/barrow-ward.png",
+    "shopPrice": null,
+    "sellValue": 720,
+    "sources": [
+      "corpseking",
+      "elite@crystal",
+      "elite@barrow"
+    ]
+  },
+  {
+    "id": "sky-seal",
+    "name": "Seal of the Sundered Sky",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+60 mana, +4 mana regeneration, +10 defence.",
+    "value": 3600,
+    "rarity": "epic",
+    "manaBonus": 60,
+    "regenBonus": 4,
+    "defBonus": 10,
+    "image": "items/sky-seal.png",
+    "shopPrice": null,
+    "sellValue": 1440,
+    "sources": [
+      "sovereign"
     ]
   }
 ]

@@ -2,7 +2,7 @@ import type { WorldMap, GroundKind } from '../core/world';
 import { TILE_SIZE } from '../core/world';
 import { $ } from './dom';
 
-const COLOR: Record<GroundKind, string> = { grass: '#6a9a4a', grassDark: '#427440', moss: '#4e7c54', path: '#b69262', stone: '#989aa2', water: '#326898', sand: '#d0bc86' };
+const COLOR: Record<GroundKind, string> = { grass: '#6a9a4a', grassDark: '#427440', moss: '#4e7c54', path: '#b69262', stone: '#989aa2', water: '#326898', sand: '#d0bc86', snow: '#e6eef6', ice: '#96c8e2', ash: '#605c62' };
 const PX = 2; // minimap pixels per tile
 
 let base: HTMLCanvasElement | null = null;

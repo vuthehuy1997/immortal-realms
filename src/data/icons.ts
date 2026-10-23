@@ -19,4 +19,13 @@ export const ITEM_ICON: Record<string, { kind: 'ui' | 'icon'; key: string }> = {
   'jade-sword': { kind: 'icon', key: 'blade_01_05' },
   'dragon-pearl': { kind: 'icon', key: 'relic_02_05' },
   'dragon-scale-robe': { kind: 'icon', key: 'relic_01_02' },
+  'greater-hp-potion': { kind: 'ui', key: 'item_peach' },
+  'greater-mana-potion': { kind: 'ui', key: 'item_lantern' },
+  'froststeel-blade': { kind: 'icon', key: 'blade_01_04' },
+  'crystal-saber': { kind: 'icon', key: 'dark_01_03' },
+  'sovereign-blade': { kind: 'icon', key: 'dark_01_05' },
+  'frost-mail': { kind: 'icon', key: 'relic_01_04' },
+  'crystal-robe': { kind: 'icon', key: 'relic_02_02' },
+  'barrow-ward': { kind: 'icon', key: 'relic_01_05' },
+  'sky-seal': { kind: 'icon', key: 'relic_02_03' },
 };

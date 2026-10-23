@@ -11,6 +11,10 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 | <img src="../images/npcs/elder-lin.png" height="72"> | elder-lin | Elder Lin | – | pests → fox → warden → champions → jiaolong |
 | <img src="../images/npcs/merchant-qiao.png" height="72"> | merchant-qiao | Merchant Qiao | shop | toads |
 | <img src="../images/npcs/alchemist-yun.png" height="72"> | alchemist-yun | Alchemist Yun | alchemy | furnace |
+| <img src="../images/npcs/commander-shen.png" height="72"> | commander-shen | Commander Shen | – | rift-scouts → frost-elites → barrow-rites → sundered-sovereign |
+| <img src="../images/npcs/quartermaster-gu.png" height="72"> | quartermaster-gu | Quartermaster Gu | outpost | – |
+| <img src="../images/npcs/herbalist-mo.png" height="72"> | herbalist-mo | Herbalist Mo | alchemy | shard-harvest |
+| <img src="../images/npcs/hermit-wen.png" height="72"> | hermit-wen | Hermit Wen | – | hollow-heart |
 
 ## Quests
 
@@ -23,6 +27,12 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 | toads | Toads in the Ledger | merchant-qiao | pests | kill toad ×6 | 110 xp, 60 stones, hp-potion ×2 |
 | furnace | Herbs for the Furnace | alchemist-yun | pests | collect spirit-herb ×5 | 90 xp, 40 stones, qi-pill ×3, hp-potion ×2 |
 | champions | Trial of Champions | elder-lin | warden | elite  ×2 | 240 xp, 100 stones, tiger-fang ×1 |
+| rift-scouts | Scouts of the Rift | commander-shen | – | kill frostwolf ×8; kill frostwisp ×4 | 700 xp, 150 stones, froststeel-blade ×1, greater-hp-potion ×3 |
+| shard-harvest | Warmth for the Wounded | herbalist-mo | rift-scouts | collect spirit-herb ×6 | 520 xp, 120 stones, greater-mana-potion ×3, qi-pill ×3 |
+| frost-elites | Frostbound Champions | commander-shen | rift-scouts | elite  ×3 | 900 xp, 220 stones, frost-mail ×1 |
+| barrow-rites | The Barrow Rites | commander-shen | rift-scouts | kill corpseking ×1 | 1400 xp, 250 stones, greater-hp-potion ×3, qi-pill ×2 |
+| hollow-heart | The Heart of the Hollow | hermit-wen | barrow-rites | kill crystalcolossus ×1 | 1800 xp, 320 stones, greater-mana-potion ×3, greater-hp-potion ×3 |
+| sundered-sovereign | The Sundered Sovereign | commander-shen | hollow-heart | kill sovereign ×1 | 3000 xp, 600 stones, greater-hp-potion ×5, greater-mana-potion ×5 |
 
 **Wolves of the Bamboo** — Spirit wolves prowl the Whispering Bamboo Forest to the west and trample the herb beds. Slay four of them and gather two Spirit Herbs (lingzhi, press E beside the glowing mushrooms). The sect will reward you.
 
@@ -37,3 +47,15 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 **Herbs for the Furnace** — My furnace is hungry and my herb baskets are empty. Bring me five Spirit Herbs (lingzhi, glowing mushrooms) and I will share what I brew.
 
 **Trial of Champions** — Some beasts grow beyond their kind, wearing a golden aura and strange powers. Prove your mastery: slay two of these elite monsters.
+
+**Scouts of the Rift** — You came through the gate? Then you are the disciple who put down the three guardians. Good. The Fissure widened when they fell, and frost beasts pour down the Whitefrost Pass. Cull eight Frost Wolves and four Frost Wisps so my scouts can reach the Barrow.
+
+**Warmth for the Wounded** — Our wounded are freezing, and my stores of lingzhi are gone. Bring me six Spirit Herbs; they cling on near the crystal veins and the graves, where the cold is thinnest.
+
+**Frostbound Champions** — The Rift twists the strongest beasts, gold-marked and cruel. Slay three of these elites and my soldiers will know the road is safe.
+
+**The Barrow Rites** — West of here the Ashen Barrow stirs: the old Corpse King walks again, raising soldiers from the ash. Break the rites. Slay the Corpse King of the Ashen Barrow.
+
+**The Heart of the Hollow** — Youngster. The Hollow sings because a heart of crystal beats under it: a colossus woven from the Fissure itself. While it lives, the way to the summit stays barred. Shatter the Crystal Colossus.
+
+**The Sundered Sovereign** — This is what the guardians were bred to hold back: the Sundered Sovereign, waiting at the summit. We cannot seal it again; we can only end it. Climb the north-east path and do what the founder could not.

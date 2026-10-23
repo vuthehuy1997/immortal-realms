@@ -1,15 +1,16 @@
 import { canCraft, RECIPES } from '../core/alchemy';
 import { countOf } from '../core/inventory';
 import type { GameState } from '../core/gameState';
-import { SHOP_STOCK, sellValue } from '../core/shop';
+import { STOCKS, sellValue } from '../core/shop';
 import { ITEMS, RARITY_COLOR } from '../data/items';
 import { $, el } from './dom';
 import { itemIconHtml, portraitUrl } from './skin';
 
-export type TradeKind = 'shop' | 'alchemy';
+export type TradeKind = 'shop' | 'outpost' | 'alchemy';
+export interface TradeWho { name: string; portrait: string; blurb: string }
 export interface TradeActions { buy(id: string): void; sell(slot: number): void; craft(id: string): void; close(): void }
 
-let current: { kind: TradeKind; actions: TradeActions } | null = null;
+let current: { kind: TradeKind; who: TradeWho; actions: TradeActions } | null = null;
 export const isTradeOpen = (): boolean => current !== null;
 
 function ensure(): HTMLElement {
@@ -20,8 +21,8 @@ function ensure(): HTMLElement {
 
 const iconBox = (id: string): string => `<div class="tico" style="border-color:${RARITY_COLOR[ITEMS[id]!.rarity]}">${itemIconHtml(id, 36)}</div>`;
 
-export function showTrade(kind: TradeKind, gs: GameState, actions: TradeActions): void {
-  current = { kind, actions };
+export function showTrade(kind: TradeKind, gs: GameState, who: TradeWho, actions: TradeActions): void {
+  current = { kind, who, actions };
   ensure().classList.remove('hidden');
   renderTrade(gs);
 }
@@ -31,13 +32,13 @@ export function closeTrade(): void { current = null; document.getElementById('tr
 /** Re-renders the open trade window (call after every purchase/sale/craft). */
 export function renderTrade(gs: GameState): void {
   if (!current) return;
-  const box = ensure(); const { kind, actions } = current;
-  const pic = portraitUrl(kind === 'shop' ? 'peddler_neutral' : 'alchemist_neutral');
-  const title = kind === 'shop' ? 'Merchant Qiao' : 'Alchemist Yun';
-  const blurb = kind === 'shop' ? 'Spirit stones for steel and draughts, friend.' : 'Bring me lingzhi and a few stones, and I will brew what you need.';
+  const box = ensure(); const { kind, who, actions } = current;
+  const pic = portraitUrl(who.portrait);
+  const title = who.name;
+  const blurb = who.blurb;
   let body = '';
-  if (kind === 'shop') {
-    body += '<div class="tcols"><div><h4>Buy</h4>' + SHOP_STOCK.map((e) => {
+  if (kind !== 'alchemy') {
+    body += '<div class="tcols"><div><h4>Buy</h4>' + STOCKS[kind === 'outpost' ? 'outpost' : 'sect'].map((e) => {
       const d = ITEMS[e.id]!, can = gs.stones >= e.price;
       return `<div class="trow">${iconBox(e.id)}<div class="tx"><b style="color:${RARITY_COLOR[d.rarity]}">${d.name}</b><small>${d.description}</small></div><button class="btn" data-buy="${e.id}" ${can ? '' : 'disabled'}>${e.price} ◆</button></div>`;
     }).join('') + '</div><div><h4>Sell</h4>';

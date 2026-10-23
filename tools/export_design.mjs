@@ -6,8 +6,8 @@ import { spawnSync } from 'node:child_process';
 
 const root = new URL('../', import.meta.url).pathname;
 const src = (p) => import(new URL(`../src/${p}.ts`, import.meta.url).href);
-const [{ ENEMIES }, { BOSSES }, { HEROES }, { ROOTS }, { REALMS }, { SKILLS }, { ITEMS, DROPS, ELITE_LOOT }, { QUESTS, NPCS }, { ZONES }, { PROPS }, { ITEM_ICON }, balance, combo, shop, alchemy, recovery, perception, progression, worldMod] = await Promise.all([
-  src('data/enemies'), src('data/boss'), src('data/heroes'), src('data/roots'), src('data/realms'), src('data/skills'), src('data/items'), src('data/quests'), src('data/zones'), src('data/props'), src('data/icons'),
+const [{ ENEMIES }, { BOSSES }, { HEROES }, { ROOTS }, { REALMS }, { SKILLS }, { ITEMS, DROPS, ELITE_LOOT }, { QUESTS, NPCS }, { ZONES }, { PROPS }, { ITEM_ICON }, { CHAPTERS, CHAPTER_IDS }, balance, combo, shop, alchemy, recovery, perception, progression, worldMod] = await Promise.all([
+  src('data/enemies'), src('data/boss'), src('data/heroes'), src('data/roots'), src('data/realms'), src('data/skills'), src('data/items'), src('data/quests'), src('data/zones'), src('data/props'), src('data/icons'), src('data/chapters'),
   src('core/balance'), src('core/combo'), src('core/shop'), src('core/alchemy'), src('core/recovery'), src('core/perception'), src('core/progression'), src('core/world'),
 ]);
 const manifest = JSON.parse(readFileSync(`${root}src/data/manifest.generated.json`, 'utf8'));
@@ -86,16 +86,28 @@ md('quests-npcs', 'Quests and NPCs', 'Chain: pests → fox → warden → champi
 
 // ---------- zones, props, world map
 const zones = Object.values(ZONES).map((z) => ({ ...z, enemyTypes: Object.keys(z.spawns), bosses: Object.values(BOSSES).filter((b) => b.zone === z.id).map((b) => b.id) }));
-const world = worldMod.generateWorld(WORLD_SEED);
-const counts = {}; for (const p of world.props) counts[p.kind] = (counts[p.kind] ?? 0) + 1;
+const bossName = (id) => BOSSES[id]?.name ?? id;
+const worlds = CHAPTER_IDS.map((n) => ({ n, w: worldMod.generateChapter(n, WORLD_SEED) }));
+const counts = {}; for (const { w } of worlds) for (const p of w.props) counts[p.kind] = (counts[p.kind] ?? 0) + 1;
 const props = Object.entries(PROPS).map(([kind, p]) => ({ kind, ...p, placedInWorld: counts[kind] ?? 0, image: manifest.props[kind] ? job({ kind: 'prop', key: kind, out: `props/${kind}.png` }) : null }));
 for (const p of props) if (!p.image) problems.push(`prop ${p.kind}: no art`);
 json('zones', zones); json('props', props);
-json('world', { seed: WORLD_SEED, width: world.width, height: world.height, tileSize: 16, spawn: world.spawn, lair: world.lair, den: world.den, pool: world.pool, anchors: world.anchors, npcs: world.npcs, herbs: world.herbs.length, propCount: world.props.length });
-job({ kind: 'worldmap', out: 'world/map.png', ground: world.ground, blocked: Array.from(world.blocked), zone: world.zone, width: world.width, height: world.height,
-  marks: [...Object.entries(world.anchors).map(([k, v]) => ({ label: ZONES[k].name, ...v, c: 'z' })), { label: 'Fox den', ...world.den, c: 'b' }, { label: 'Jiao pool', ...world.pool, c: 'b' }, { label: 'Warden court', ...world.lair, c: 'b' }, ...Object.entries(world.npcs).map(([k, v]) => ({ label: k, ...v, c: 'n' }))] });
-md('world', 'Zones, props and world', `World seed ${WORLD_SEED}, ${world.width}×${world.height} tiles (16 units per tile).\n\n![world map](../images/world/map.png)`,
-  `## Zones\n\n${table(['id', 'name', 'level', 'mood', 'tier hp/atk/xp', 'spawns', 'bosses'], zones.map((z) => [z.id, z.name, z.level, z.mood, `${z.tier.hp}/${z.tier.atk}/${z.tier.xp}`, Object.entries(z.spawns).map(([k, v]) => `${k}×${v}`).join(', '), z.bosses.join(', ')]))}\n## Props\n\n${table(['', 'kind', 'scale', 'collision rects', 'flat', 'placed'], props.map((p) => [p.image ? `<img src="${img(p.image)}" height="64">` : '', p.kind, p.scale, p.blocks.length, p.flat ? 'yes' : '', p.placedInWorld]))}`);
+for (const { n, w } of worlds) {
+  json(n === 1 ? 'world' : `world-ch${n}`, { chapter: n, seed: WORLD_SEED, width: w.width, height: w.height, tileSize: 16, spawn: w.spawn, portal: w.portal, bossHomes: w.bossHomes, anchors: w.anchors, npcs: w.npcs, herbs: w.herbs.length, propCount: w.props.length });
+  job({ kind: 'worldmap', out: n === 1 ? 'world/map.png' : `world/map-ch${n}.png`, ground: w.ground, blocked: Array.from(w.blocked), zone: w.zone, width: w.width, height: w.height,
+    marks: [...Object.entries(w.anchors).map(([k, v]) => ({ label: ZONES[k].name, ...v, c: 'z' })), ...Object.entries(w.bossHomes).map(([k, v]) => ({ label: bossName(k), ...v, c: 'b' })), { label: 'Gate', ...w.portal, c: 'z' }, ...Object.entries(w.npcs).map(([k, v]) => ({ label: k, ...v, c: 'n' }))] });
+}
+md('world', 'Zones, props and world', `World seed ${WORLD_SEED}. ${worlds.map(({ n, w }) => `Chapter ${n}: ${w.width}×${w.height} tiles`).join('; ')} (16 units per tile).\n\n${worlds.map(({ n }) => `### Chapter ${n}: ${CHAPTERS[n].name}\n\n![chapter ${n} map](../images/world/${n === 1 ? 'map' : `map-ch${n}`}.png)\n`).join('\n')}`,
+  `## Zones\n\n${table(['id', 'chapter', 'name', 'level', 'mood', 'tier hp/atk/xp', 'spawns', 'bosses'], zones.map((z) => [z.id, z.chapter, z.name, z.level, z.mood, `${z.tier.hp}/${z.tier.atk}/${z.tier.xp}`, Object.entries(z.spawns).map(([k, v]) => `${k}×${v}`).join(', '), z.bosses.join(', ')]))}\n## Props\n\n${table(['', 'kind', 'scale', 'collision rects', 'flat', 'placed'], props.map((p) => [p.image ? `<img src="${img(p.image)}" height="64">` : '', p.kind, p.scale, p.blocks.length, p.flat ? 'yes' : '', p.placedInWorld]))}`);
+
+// ---------- chapters (story + progression)
+const chapters = CHAPTER_IDS.map((n) => {
+  const c = CHAPTERS[n];
+  return { ...c, zones: Object.values(ZONES).filter((z) => z.chapter === n).map((z) => z.id), bosses: Object.values(BOSSES).filter((b) => b.chapter === n).map((b) => b.id), npcs: Object.keys(NPCS).filter((id) => (NPCS[id].chapter ?? 1) === n), quests: Object.values(QUESTS).filter((q) => (q.chapter ?? 1) === n).map((q) => q.id) };
+});
+json('chapters', chapters);
+md('chapters', 'Chapters', 'Each chapter is its own map with a hub, zones, bosses, NPCs and quest chain; the gate to the next chapter opens when `gate` is met.',
+  chapters.map((c) => `## ${c.subtitle}: ${c.name}\n\n${c.story.map((p) => `> ${p}`).join('\n>\n')}\n\n- hub: ${c.hub}; zones: ${c.zones.join(', ')}\n- bosses: ${c.bosses.map(bossName).join(' → ')}\n- NPCs: ${c.npcs.join(', ')}\n- quests: ${c.quests.join(' → ')}\n- gate: ${c.gate ? `level ${c.gate.level} and ${c.gate.bosses.map(bossName).join(', ')}` : 'always open'}\n`).join('\n'));
 
 // ---------- art library (contact sheets from the manifest)
 for (const [group, keys] of [['portraits', Object.keys(manifest.portraits)], ['fx', Object.keys(manifest.fx)], ['ui', Object.keys(manifest.ui)], ['icons', Object.keys(manifest.icons)]]) job({ kind: 'contact', group, keys, out: `library/${group}.png` });

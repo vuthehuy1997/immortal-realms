@@ -7,14 +7,19 @@ export interface ShopEntry { id: string; price: number }
 /** Merchant Qiao's stock (spirit stones). Prices come from item values so the economy stays consistent. */
 export const SHOP_STOCK: readonly ShopEntry[] = ['hp-potion', 'mana-potion', 'qi-pill', 'foundation-pill', 'bronze-blade', 'steel-blade', 'cloth-robe', 'sect-robe', 'jade-pendant', 'spirit-ring'].map((id) => ({ id, price: ITEMS[id]!.value }));
 
+/** Quartermaster Gu's stock at the Skyfall Outpost (chapter 2 gear; stronger and pricier). */
+export const OUTPOST_STOCK: readonly ShopEntry[] = ['greater-hp-potion', 'greater-mana-potion', 'qi-pill', 'foundation-pill', 'froststeel-blade', 'frost-mail'].map((id) => ({ id, price: ITEMS[id]!.value }));
+export type StockId = 'sect' | 'outpost';
+export const STOCKS: Record<StockId, readonly ShopEntry[]> = { sect: SHOP_STOCK, outpost: OUTPOST_STOCK };
+
 export const SELL_RATE = 0.4;
 export const sellValue = (id: string): number => Math.max(1, Math.floor((ITEMS[id]?.value ?? 0) * SELL_RATE));
 
 export type TradeResult = { ok: true } | { ok: false; reason: 'unknown' | 'stones' | 'full' | 'empty' | 'count' };
 
 /** Atomic purchase: nothing changes unless the player can pay and the goods fit in the bag. */
-export function buy(gs: GameState, id: string, count = 1): TradeResult {
-  const entry = SHOP_STOCK.find((e) => e.id === id);
+export function buy(gs: GameState, id: string, count = 1, stock: StockId = 'sect'): TradeResult {
+  const entry = STOCKS[stock].find((e) => e.id === id);
   if (!entry || count < 1) return { ok: false, reason: 'unknown' };
   const cost = entry.price * count;
   if (gs.stones < cost) return { ok: false, reason: 'stones' };

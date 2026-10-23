@@ -10,16 +10,19 @@ type RGB = [number, number, number];
 const BASE: Record<GroundKind, RGB> = {
   grass: [104, 156, 74], grassDark: [66, 116, 62], moss: [78, 124, 84], path: [182, 146, 102],
   stone: [152, 154, 162], water: [50, 104, 152], sand: [208, 188, 134],
+  snow: [226, 234, 244], ice: [150, 200, 226], ash: [96, 92, 98],
 };
 const LIGHT: Record<GroundKind, RGB> = {
   grass: [138, 190, 92], grassDark: [92, 146, 76], moss: [102, 150, 100], path: [208, 174, 128],
   stone: [182, 184, 192], water: [96, 160, 196], sand: [230, 212, 160],
+  snow: [248, 252, 255], ice: [196, 234, 250], ash: [126, 122, 128],
 };
 const DARK: Record<GroundKind, RGB> = {
   grass: [72, 120, 56], grassDark: [44, 86, 48], moss: [56, 98, 70], path: [150, 116, 80],
   stone: [118, 120, 130], water: [34, 76, 124], sand: [180, 160, 108],
+  snow: [190, 206, 226], ice: [108, 162, 204], ash: [68, 64, 72],
 };
-const KINDS: GroundKind[] = ['grass', 'grassDark', 'moss', 'path', 'stone', 'water', 'sand'];
+const KINDS: GroundKind[] = ['grass', 'grassDark', 'moss', 'path', 'stone', 'water', 'sand', 'snow', 'ice', 'ash'];
 const KIND_ID = Object.fromEntries(KINDS.map((k, i) => [k, i])) as Record<GroundKind, number>;
 
 const smooth = (a: number, b: number, x: number) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };

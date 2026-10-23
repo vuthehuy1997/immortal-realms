@@ -145,9 +145,9 @@ class AudioEngine {
   setZone(z: string): void {
     if (z === this.zone) return;
     this.zone = z;
-    const tonic: Record<string, number> = { village: 62, bamboo: 64, marsh: 58, grove: 67, ruins: 57, lair: 55 };
+    const tonic: Record<string, number> = { village: 62, bamboo: 64, marsh: 58, grove: 67, ruins: 57, lair: 55, outpost: 60, frostpass: 55, crystal: 66, barrow: 52, summit: 54 };
     this.tonic = tonic[z] ?? 62;
-    this.scale = z === 'marsh' || z === 'ruins' || z === 'lair' ? MIST_SCALE : PENTA;
+    this.scale = z === 'marsh' || z === 'ruins' || z === 'lair' || z === 'barrow' || z === 'summit' || z === 'crystal' ? MIST_SCALE : PENTA;
     let h = 7; for (const ch of z) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
     this.motif = Array.from({ length: 4 }, () => { h = (h * 1103515245 + 12345) >>> 0; return (h >>> 8) % (this.scale.length * 2); });
   }

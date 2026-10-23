@@ -943,5 +943,728 @@
       }
     },
     "image": "enemies/golem.png"
+  },
+  {
+    "id": "frostwolf",
+    "name": "Frost Wolf",
+    "behavior": "rusher",
+    "maxHp": 52,
+    "atk": 11,
+    "def": 2,
+    "speed": 66,
+    "aggroRange": 120,
+    "attackRange": 18,
+    "attackCooldown": 0.9,
+    "strikeWindup": 0.28,
+    "xp": 20,
+    "sprite": "mob.wolf",
+    "tint": 11064575,
+    "scale": 0.38,
+    "radius": 8,
+    "stones": [
+      3,
+      6
+    ],
+    "zones": [
+      "frostpass"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.08
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "frostpass": {
+        "normal": {
+          "maxHp": 707,
+          "atk": 30,
+          "def": 4,
+          "xp": 92,
+          "stones": [
+            14,
+            28
+          ]
+        },
+        "elite": {
+          "maxHp": 1980,
+          "atk": 42,
+          "def": 4,
+          "xp": 276,
+          "stones": [
+            41,
+            83
+          ]
+        }
+      }
+    },
+    "image": "enemies/frostwolf.png"
+  },
+  {
+    "id": "icesnake",
+    "name": "Rime Serpent",
+    "behavior": "rusher",
+    "maxHp": 38,
+    "atk": 11,
+    "def": 1,
+    "speed": 50,
+    "aggroRange": 100,
+    "attackRange": 16,
+    "attackCooldown": 0.8,
+    "strikeWindup": 0.26,
+    "xp": 16,
+    "sprite": "mob.snake",
+    "tint": 12120319,
+    "scale": 0.36,
+    "radius": 7,
+    "stones": [
+      2,
+      5
+    ],
+    "zones": [
+      "frostpass"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "frostpass": {
+        "normal": {
+          "maxHp": 517,
+          "atk": 30,
+          "def": 2,
+          "xp": 74,
+          "stones": [
+            9,
+            23
+          ]
+        },
+        "elite": {
+          "maxHp": 1447,
+          "atk": 42,
+          "def": 2,
+          "xp": 221,
+          "stones": [
+            28,
+            69
+          ]
+        }
+      }
+    },
+    "image": "enemies/icesnake.png"
+  },
+  {
+    "id": "frostwisp",
+    "name": "Frost Wisp",
+    "behavior": "caster",
+    "maxHp": 30,
+    "atk": 14,
+    "def": 0,
+    "speed": 42,
+    "aggroRange": 140,
+    "attackRange": 120,
+    "attackCooldown": 1.5,
+    "preferredRange": 90,
+    "volley": 2,
+    "xp": 24,
+    "sprite": "mob.foxfire",
+    "tint": 9427199,
+    "scale": 0.38,
+    "radius": 7,
+    "stones": [
+      3,
+      6
+    ],
+    "zones": [
+      "frostpass",
+      "crystal"
+    ],
+    "drops": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "frostpass": {
+        "normal": {
+          "maxHp": 408,
+          "atk": 38,
+          "def": 0,
+          "xp": 110,
+          "stones": [
+            14,
+            28
+          ]
+        },
+        "elite": {
+          "maxHp": 1142,
+          "atk": 53,
+          "def": 0,
+          "xp": 331,
+          "stones": [
+            41,
+            83
+          ]
+        }
+      },
+      "crystal": {
+        "normal": {
+          "maxHp": 468,
+          "atk": 42,
+          "def": 0,
+          "xp": 134,
+          "stones": [
+            17,
+            34
+          ]
+        },
+        "elite": {
+          "maxHp": 1310,
+          "atk": 59,
+          "def": 0,
+          "xp": 403,
+          "stones": [
+            50,
+            101
+          ]
+        }
+      }
+    },
+    "image": "enemies/frostwisp.png"
+  },
+  {
+    "id": "rimebat",
+    "name": "Rime Bat",
+    "behavior": "rusher",
+    "maxHp": 34,
+    "atk": 9,
+    "def": 0,
+    "speed": 86,
+    "aggroRange": 140,
+    "attackRange": 14,
+    "attackCooldown": 0.65,
+    "strikeWindup": 0.22,
+    "xp": 14,
+    "sprite": "mob.bat",
+    "tint": 13165823,
+    "scale": 0.32,
+    "radius": 6,
+    "stones": [
+      2,
+      4
+    ],
+    "zones": [
+      "frostpass",
+      "crystal"
+    ],
+    "drops": [],
+    "scaled": {
+      "frostpass": {
+        "normal": {
+          "maxHp": 462,
+          "atk": 24,
+          "def": 0,
+          "xp": 64,
+          "stones": [
+            9,
+            18
+          ]
+        },
+        "elite": {
+          "maxHp": 1295,
+          "atk": 34,
+          "def": 0,
+          "xp": 193,
+          "stones": [
+            28,
+            55
+          ]
+        }
+      },
+      "crystal": {
+        "normal": {
+          "maxHp": 530,
+          "atk": 27,
+          "def": 0,
+          "xp": 78,
+          "stones": [
+            11,
+            22
+          ]
+        },
+        "elite": {
+          "maxHp": 1485,
+          "atk": 38,
+          "def": 0,
+          "xp": 235,
+          "stones": [
+            34,
+            67
+          ]
+        }
+      }
+    },
+    "image": "enemies/rimebat.png"
+  },
+  {
+    "id": "snowtreant",
+    "name": "Hoarfrost Treant",
+    "behavior": "charger",
+    "maxHp": 150,
+    "atk": 18,
+    "def": 7,
+    "speed": 28,
+    "aggroRange": 110,
+    "attackRange": 76,
+    "attackCooldown": 2.8,
+    "windup": 0.7,
+    "dashTime": 0.45,
+    "dashSpeedMult": 4,
+    "xp": 55,
+    "sprite": "mob.treant",
+    "tint": 14479359,
+    "scale": 0.46,
+    "radius": 10,
+    "stones": [
+      8,
+      14
+    ],
+    "zones": [
+      "frostpass"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.35
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "frostpass": {
+        "normal": {
+          "maxHp": 2040,
+          "atk": 49,
+          "def": 15,
+          "xp": 253,
+          "stones": [
+            37,
+            64
+          ]
+        },
+        "elite": {
+          "maxHp": 5712,
+          "atk": 68,
+          "def": 15,
+          "xp": 759,
+          "stones": [
+            110,
+            193
+          ]
+        }
+      }
+    },
+    "image": "enemies/snowtreant.png"
+  },
+  {
+    "id": "crystalgolem",
+    "name": "Crystal Golem",
+    "behavior": "charger",
+    "maxHp": 170,
+    "atk": 22,
+    "def": 11,
+    "speed": 26,
+    "aggroRange": 110,
+    "attackRange": 76,
+    "attackCooldown": 2.8,
+    "windup": 0.8,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 70,
+    "sprite": "mob.golem",
+    "tint": 8382207,
+    "scale": 0.46,
+    "radius": 11,
+    "stones": [
+      10,
+      18
+    ],
+    "zones": [
+      "crystal"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.4
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "crystal": {
+        "normal": {
+          "maxHp": 2652,
+          "atk": 66,
+          "def": 27,
+          "xp": 392,
+          "stones": [
+            56,
+            101
+          ]
+        },
+        "elite": {
+          "maxHp": 7426,
+          "atk": 92,
+          "def": 27,
+          "xp": 1176,
+          "stones": [
+            168,
+            302
+          ]
+        }
+      }
+    },
+    "image": "enemies/crystalgolem.png"
+  },
+  {
+    "id": "prismghost",
+    "name": "Prism Ghost",
+    "behavior": "caster",
+    "maxHp": 42,
+    "atk": 16,
+    "def": 0,
+    "speed": 40,
+    "aggroRange": 140,
+    "attackRange": 120,
+    "attackCooldown": 1.6,
+    "preferredRange": 90,
+    "volley": 2,
+    "xp": 30,
+    "sprite": "mob.ghost_v_violet",
+    "scale": 0.38,
+    "radius": 7,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "crystal",
+      "barrow"
+    ],
+    "drops": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "crystal": {
+        "normal": {
+          "maxHp": 655,
+          "atk": 48,
+          "def": 0,
+          "xp": 168,
+          "stones": [
+            22,
+            45
+          ]
+        },
+        "elite": {
+          "maxHp": 1835,
+          "atk": 67,
+          "def": 0,
+          "xp": 504,
+          "stones": [
+            67,
+            134
+          ]
+        }
+      },
+      "barrow": {
+        "normal": {
+          "maxHp": 722,
+          "atk": 53,
+          "def": 0,
+          "xp": 192,
+          "stones": [
+            26,
+            51
+          ]
+        },
+        "elite": {
+          "maxHp": 2023,
+          "atk": 74,
+          "def": 0,
+          "xp": 576,
+          "stones": [
+            77,
+            154
+          ]
+        }
+      }
+    },
+    "image": "enemies/prismghost.png"
+  },
+  {
+    "id": "shardbird",
+    "name": "Shard Bird",
+    "behavior": "caster",
+    "maxHp": 54,
+    "atk": 17,
+    "def": 1,
+    "speed": 48,
+    "aggroRange": 160,
+    "attackRange": 140,
+    "attackCooldown": 1.4,
+    "volley": 3,
+    "preferredRange": 100,
+    "xp": 40,
+    "sprite": "mob.thunderbird",
+    "tint": 10482943,
+    "scale": 0.42,
+    "radius": 8,
+    "stones": [
+      6,
+      11
+    ],
+    "zones": [
+      "crystal"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "crystal": {
+        "normal": {
+          "maxHp": 842,
+          "atk": 51,
+          "def": 2,
+          "xp": 224,
+          "stones": [
+            34,
+            62
+          ]
+        },
+        "elite": {
+          "maxHp": 2359,
+          "atk": 71,
+          "def": 2,
+          "xp": 672,
+          "stones": [
+            101,
+            185
+          ]
+        }
+      }
+    },
+    "image": "enemies/shardbird.png"
+  },
+  {
+    "id": "ashskeleton",
+    "name": "Ash Soldier",
+    "behavior": "rusher",
+    "maxHp": 66,
+    "atk": 15,
+    "def": 4,
+    "speed": 46,
+    "aggroRange": 120,
+    "attackRange": 20,
+    "attackCooldown": 1,
+    "strikeWindup": 0.3,
+    "xp": 30,
+    "sprite": "mob.skeleton",
+    "tint": 10132134,
+    "scale": 0.38,
+    "radius": 8,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "barrow"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "barrow": {
+        "normal": {
+          "maxHp": 1135,
+          "atk": 50,
+          "def": 11,
+          "xp": 192,
+          "stones": [
+            26,
+            51
+          ]
+        },
+        "elite": {
+          "maxHp": 3179,
+          "atk": 69,
+          "def": 11,
+          "xp": 576,
+          "stones": [
+            77,
+            154
+          ]
+        }
+      }
+    },
+    "image": "enemies/ashskeleton.png"
+  },
+  {
+    "id": "bloodjiangshi",
+    "name": "Blood Jiangshi",
+    "behavior": "charger",
+    "maxHp": 96,
+    "atk": 20,
+    "def": 5,
+    "speed": 38,
+    "aggroRange": 120,
+    "attackRange": 84,
+    "attackCooldown": 2.4,
+    "windup": 0.55,
+    "dashTime": 0.4,
+    "dashSpeedMult": 5,
+    "xp": 46,
+    "sprite": "mob.jiangshi_v_red",
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "barrow"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "barrow": {
+        "normal": {
+          "maxHp": 1651,
+          "atk": 66,
+          "def": 13,
+          "xp": 294,
+          "stones": [
+            38,
+            77
+          ]
+        },
+        "elite": {
+          "maxHp": 4623,
+          "atk": 92,
+          "def": 13,
+          "xp": 883,
+          "stones": [
+            115,
+            230
+          ]
+        }
+      }
+    },
+    "image": "enemies/bloodjiangshi.png"
+  },
+  {
+    "id": "ashguard",
+    "name": "Barrow Guard",
+    "behavior": "rusher",
+    "maxHp": 84,
+    "atk": 17,
+    "def": 6,
+    "speed": 42,
+    "aggroRange": 120,
+    "attackRange": 22,
+    "attackCooldown": 1.1,
+    "strikeWindup": 0.34,
+    "xp": 36,
+    "sprite": "mob.soldier",
+    "tint": 11575456,
+    "scale": 0.38,
+    "radius": 8,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "barrow"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "barrow": {
+        "normal": {
+          "maxHp": 1445,
+          "atk": 56,
+          "def": 16,
+          "xp": 230,
+          "stones": [
+            32,
+            64
+          ]
+        },
+        "elite": {
+          "maxHp": 4045,
+          "atk": 79,
+          "def": 16,
+          "xp": 691,
+          "stones": [
+            96,
+            192
+          ]
+        }
+      }
+    },
+    "image": "enemies/ashguard.png"
   }
 ]

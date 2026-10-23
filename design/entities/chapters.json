@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1,
+    "name": "The Broken Seals",
+    "subtitle": "Chapter 1",
+    "hub": "village",
+    "story": [
+      "Long ago the founder of the Azure Cloud Sect sealed the Heavenly Fissure, a wound in the sky that leaks ruin into the world.",
+      "He bound three guardians to hold the seals: a sword immortal, a nine-tailed fox, a dragon of the mist pool.",
+      "Centuries passed. The seals rotted. The guardians went feral, and the sect has called for every disciple who can hold a blade.",
+      "You are the newest of them. Walk the realms, grow in the Way, and put the guardians to rest."
+    ],
+    "zones": [
+      "village",
+      "bamboo",
+      "marsh",
+      "grove",
+      "ruins",
+      "lair"
+    ],
+    "bosses": [
+      "warden",
+      "ninetail",
+      "jiaolong"
+    ],
+    "npcs": [
+      "elder-lin",
+      "merchant-qiao",
+      "alchemist-yun"
+    ],
+    "quests": [
+      "pests",
+      "fox",
+      "warden",
+      "jiaolong",
+      "toads",
+      "furnace",
+      "champions"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "The Sundered Sky",
+    "subtitle": "Chapter 2",
+    "hub": "outpost",
+    "story": [
+      "With the three guardians gone, the Heavenly Fissure tore open, and the cold of another world poured through.",
+      "The Skyfall Outpost, last fort on the Fissure's rim, answers to Commander Shen. Beyond it lie the Whitefrost Pass, the Crystal Hollow and the Ashen Barrow.",
+      "At the summit waits the Sundered Sovereign, the thing the guardians were bred to hold back.",
+      "The seals can no longer be mended. They can only be ended."
+    ],
+    "gate": {
+      "level": 10,
+      "bosses": [
+        "warden",
+        "ninetail",
+        "jiaolong"
+      ],
+      "hint": "Defeat the three guardians (Fallen Sword Immortal, Nine-Tailed Fox, Jiao Dragon) and reach level 10."
+    },
+    "zones": [
+      "outpost",
+      "frostpass",
+      "crystal",
+      "barrow",
+      "summit"
+    ],
+    "bosses": [
+      "corpseking",
+      "crystalcolossus",
+      "sovereign"
+    ],
+    "npcs": [
+      "commander-shen",
+      "quartermaster-gu",
+      "herbalist-mo",
+      "hermit-wen"
+    ],
+    "quests": [
+      "rift-scouts",
+      "shard-harvest",
+      "frost-elites",
+      "barrow-rites",
+      "hollow-heart",
+      "sundered-sovereign"
+    ]
+  }
+]

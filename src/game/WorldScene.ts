@@ -19,15 +19,17 @@ import { impulse, stepKnockback } from '../core/knockback';
 import { step, type Vec2 } from '../core/movement';
 import { acceptQuest } from '../core/quest';
 import { createRng } from '../core/rng';
-import { generateWorld, isBlockedTile, moveWithCollision, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
-import { BOSSES, type BossDef } from '../data/boss';
+import { generateChapter, isBlockedTile, moveWithCollision, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
+import { bossesOfChapter, type BossDef } from '../data/boss';
 import { ENEMIES, type EnemyDef } from '../data/enemies';
 import { HEROES } from '../data/heroes';
 import { ITEMS } from '../data/items';
-import { NPCS, QUESTS } from '../data/quests';
+import { NPCS, QUESTS, questsOfChapter } from '../data/quests';
 import { REALMS } from '../data/realms';
 import { SKILLS, type SkillDef } from '../data/skills';
-import { ZONES } from '../data/zones';
+import { ZONES, zonesOfChapter } from '../data/zones';
+import { CHAPTERS, LAST_CHAPTER, canEnterChapter } from '../data/chapters';
+import { showStory } from '../ui/story';
 import { buildPanels, closePanels, isDialogueOpen, isPanelOpen, refreshPanels, showDialogue, togglePanel } from '../ui/panels';
 import { hideScreen, showPause } from '../ui/menu';
 import { setBossBar, setObjectiveArrow, setPrompt, showDeath, showZoneBanner, toast, updateHud } from '../ui/hud';
@@ -47,6 +49,7 @@ import { renderWorld, updateOccluders, type HerbNode, type Occluder } from './wo
 const PLAYER_SPEED = 78;
 const PLAYER_RADIUS = 5;
 const TALK_RANGE = 36;
+const PORTAL_RANGE = 44;
 const GATHER_RANGE = 26;
 const WORLD_SEED = 20261016;
 const AUTOSAVE_SECONDS = 30;
@@ -107,6 +110,8 @@ export class WorldScene extends Phaser.Scene {
   private herbs: HerbNode[] = [];
   private occluders: Occluder[] = [];
   private npcs: Npc[] = [];
+  private chapter = 1;
+  private traveling = false;
   private nextId = 1;
   private hpBars!: Phaser.GameObjects.Graphics;
   private kb!: KeyInput;
@@ -137,15 +142,17 @@ export class WorldScene extends Phaser.Scene {
 
   create(): void {
     this.enemies = []; this.bolts = []; this.rains = []; this.bosses = []; this.npcs = []; this.timers = [];
+    this.traveling = false;
     this.now = 0; this.cds = new Cooldowns(); this.combo = newCombo(); this.dashState = newDash();
     this.meditating = false; this.uiPause = false; this.respawnTimer = 0; this.autosaveTimer = 0; this.dead = false;
     this.potionReadyAt = 0; this.playerLockUntil = 0; this.hurtInvulnUntil = 3; this.lastCombat = -99; this.playerKb = { x: 0, y: 0 }; this.hitStopUntil = 0; this.lastZoneBanner = null;
     this.anims.globalTimeScale = 1;
     this.rng = createRng(WORLD_SEED + 1);
-    this.world = generateWorld(WORLD_SEED);
+    this.chapter = this.gs.chapter;
+    this.world = generateChapter(this.chapter, WORLD_SEED);
     const worldW = this.world.width * TILE_SIZE, worldH = this.world.height * TILE_SIZE;
 
-    const rendered = renderWorld(this, this.world, WORLD_SEED);
+    const rendered = renderWorld(this, this.world, WORLD_SEED + this.chapter - 1);
     this.herbs = rendered.herbs; this.occluders = rendered.occluders;
     initMinimap(this.world, () => { if (!this.uiPause) toggleWorldMap(this.world); });
     this.fx = new Fx(this);
@@ -159,18 +166,17 @@ export class WorldScene extends Phaser.Scene {
     this.player = new Actor(this, hero.sprite, this.pos.x, this.pos.y, hero.scale, 22);
     this.camTarget = this.add.zone(this.pos.x, this.pos.y - 10, 1, 1);
 
-    const npcSprite: Record<string, string> = { 'elder-lin': 'hero.staffbeggar', 'merchant-qiao': 'hero.spearman', 'alchemist-yun': 'hero.archer' };
     for (const [id, p] of Object.entries(this.world.npcs)) {
-      const actor = new Actor(this, npcSprite[id] ?? 'hero.staffbeggar', p.x, p.y, 0.34, 22);
+      const ndef = NPCS[id]!;
+      const actor = new Actor(this, ndef.sprite, p.x, p.y, 0.34, 22);
       actor.setPos(p.x, p.y);
-      const roles: Record<string, string> = { 'elder-lin': 'Elder Lin · Quests', 'merchant-qiao': 'Merchant Qiao · Shop', 'alchemist-yun': 'Alchemist Yun · Alchemy' };
-      const plate = this.add.text(p.x, p.y + 7, roles[id] ?? id, { color: '#f1e3b0', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#0b0d14', strokeThickness: 2, backgroundColor: 'rgba(11,13,20,0.72)', padding: { x: 3, y: 1 } }).setOrigin(0.5, 0).setDepth(9e4);
+      const plate = this.add.text(p.x, p.y + 7, ndef.role, { color: '#f1e3b0', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#0b0d14', strokeThickness: 2, backgroundColor: 'rgba(11,13,20,0.72)', padding: { x: 3, y: 1 } }).setOrigin(0.5, 0).setDepth(9e4);
       const mark = this.add.text(p.x, p.y - 38, '!', { color: '#ffd23f', fontSize: '14px', fontStyle: 'bold', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5).setDepth(1e5);
       this.npcs.push({ id, pos: p, actor, mark, plate });
     }
 
-    for (const z of Object.values(ZONES)) for (const [type, n] of Object.entries(z.spawns)) for (let i = 0; i < n; i++) this.spawnInZone(z.id, type);
-    for (const def of Object.values(BOSSES)) this.spawnBoss(def); // bosses always return: repeat kills pay less and drop no unique items
+    for (const zid of zonesOfChapter(this.chapter)) for (const [type, n] of Object.entries(ZONES[zid].spawns)) for (let i = 0; i < n; i++) this.spawnInZone(zid, type);
+    for (const def of bossesOfChapter(this.chapter)) this.spawnBoss(def); // bosses always return: repeat kills pay less and drop no unique items
     this.hpBars = this.add.graphics().setDepth(1e5);
 
     const kb = this.kb = new KeyInput();
@@ -216,6 +222,7 @@ export class WorldScene extends Phaser.Scene {
     this.installTestHooks();
     this.warmUp();
     audio.startMusic();
+    this.maybeShowStory();
   }
 
   /** Draws every effect type once, invisibly, so shaders compile now instead of during the first fight (avoids a hitch). */
@@ -267,7 +274,8 @@ export class WorldScene extends Phaser.Scene {
       const p = { x: (tx + 0.5) * TILE_SIZE, y: (ty + 0.5) * TILE_SIZE };
       if (Math.hypot(p.x - w.spawn.x, p.y - w.spawn.y) < 130) continue; // keep the village approach safe
       if (Object.values(w.npcs).some((n) => Math.hypot(p.x - n.x, p.y - n.y) < 240)) continue; // never next to a shopkeeper
-      if (Math.hypot(p.x - w.den.x, p.y - w.den.y) < 130 || Math.hypot(p.x - w.pool.x, p.y - w.pool.y) < 130 || Math.hypot(p.x - w.lair.x, p.y - w.lair.y) < 170) continue; // boss courts stay clear of wanderers
+      if (Object.values(w.bossHomes).some((h) => Math.hypot(p.x - h.x, p.y - h.y) < 170)) continue; // boss courts stay clear of wanderers
+      if (Math.hypot(p.x - w.portal.x, p.y - w.portal.y) < 90) continue;
       if (farFrom && Math.hypot(p.x - farFrom.x, p.y - farFrom.y) < minDist) continue;
       if (isBlockedTile(w, tx + 1, ty) || isBlockedTile(w, tx - 1, ty) || isBlockedTile(w, tx, ty + 1) || isBlockedTile(w, tx, ty - 1)) continue;
       return p;
@@ -288,6 +296,7 @@ export class WorldScene extends Phaser.Scene {
     const prefix = elite && def.eliteSprites?.length ? def.eliteSprites[Math.floor(this.rng() * def.eliteSprites.length)]! : def.sprite;
     const actor = new Actor(this, prefix, pos.x, pos.y, def.scale * (elite ? 1.18 : 1), def.radius * 3);
     actor.setPos(pos.x, pos.y);
+    if (def.tint !== undefined && prefix === def.sprite) actor.setBaseTint(def.tint);
     const e: Enemy = { id: this.nextId++, def, c, ai: newEnemyAI(), pos: { ...pos }, actor, kb: { x: 0, y: 0 }, stun: 0, lockUntil: 0, minion, elite, zone, vel: { x: 0, y: 0 }, home: { ...pos }, stuckT: 0, stuckPos: { ...pos }, detour: null, stuckCount: 0, lastDetourEnd: -9, burn: null, slow: 0, shield: 0, affix: null, label: null, alertUntil: 0, sees: false };
     { const a = this.rng() * Math.PI * 2; e.ai.facing = { x: Math.cos(a), y: Math.sin(a) }; }
     if (elite) {
@@ -302,8 +311,9 @@ export class WorldScene extends Phaser.Scene {
 
   private spawnBoss(def: BossDef): void {
     const c: Combatant = { hp: def.maxHp, maxHp: def.maxHp, mana: 0, maxMana: 0, atk: def.atk, def: def.def, critChance: 0, critMult: 1, manaRegen: 0 };
-    const pos = { ...(def.home === 'lair' ? this.world.lair : def.home === 'pool' ? this.world.pool : this.world.den) };
+    const pos = { ...this.world.bossHomes[def.id]! };
     const actor = new Actor(this, def.sprite, pos.x, pos.y, def.scale, 56);
+    if (def.tint !== undefined) actor.setBaseTint(def.tint);
     actor.setPos(pos.x, pos.y);
     this.bosses.push({ burn: null, slow: 0, rainTele: null, charge: null, slams: 0, def, c, ai: newBossAI(), pos, actor, engaged: false, tele: null, lockUntil: 0, kb: { x: 0, y: 0 } });
   }
@@ -400,7 +410,39 @@ export class WorldScene extends Phaser.Scene {
     const npc = this.nearestNpc();
     if (npc) { this.meditating = false; this.gs.tut |= 8; this.openDialogue(npc.id); return; }
     const herb = this.nearestHerb();
-    if (herb) this.gather(herb);
+    if (herb) { this.gather(herb); return; }
+    if (Math.hypot(this.pos.x - this.world.portal.x, this.pos.y - this.world.portal.y) < PORTAL_RANGE) this.useGate();
+  }
+
+  /** Chapter gate: forward to the next chapter (needs its gate conditions) or back to the previous one. */
+  private useGate(): void {
+    const target = this.chapter === 1 ? 2 : this.chapter - 1;
+    if (!CHAPTERS[target]) { toast('The gate is sealed. More of the story is yet to be written.', 3000); return; }
+    if (target > this.chapter) {
+      const gate = canEnterChapter(target, this.gs.progress.level, this.gs.bosses);
+      if (!gate.ok) { toast(gate.reason, 4200); audio.sfx('fail'); return; }
+    }
+    this.travelTo(target);
+  }
+
+  private travelTo(n: number): void {
+    if (this.traveling || !CHAPTERS[n]) return;
+    this.traveling = true;
+    this.pushToState();
+    this.gs.chapter = n;
+    this.gs.pos = { ...generateChapter(n, WORLD_SEED).spawn };
+    this.gs.hp = Math.max(1, this.pc.hp);
+    saveGame(this.gs);
+    toast(`${CHAPTERS[n]!.subtitle}: ${CHAPTERS[n]!.name}`, 2600);
+    this.scene.restart({ state: this.gs, host: this.host });
+  }
+
+  /** First arrival in a chapter: story pages, once. */
+  private maybeShowStory(): void {
+    if (this.gs.story.includes(this.chapter)) return;
+    const c = CHAPTERS[this.chapter]!;
+    this.uiPause = true;
+    showStory({ subtitle: c.subtitle, title: c.name, pages: c.story, onDone: () => { this.uiPause = false; this.gs.story.push(this.chapter); this.save(false); } });
   }
 
   private gather(h: HerbNode): void {
@@ -415,11 +457,11 @@ export class WorldScene extends Phaser.Scene {
   private openDialogue(npcId: string): void {
     const npcDef = NPCS[npcId]!;
     const d = getDialogue(npcId, this.gs.quests, this.gs.inventory, this.gs.bosses);
-    if (npcDef.trade && !d.quest) { this.openTrade(npcDef.trade); return; } // nothing to discuss: straight to the shop
+    if (npcDef.trade && !d.quest) { this.openTrade(npcDef.trade, npcId); return; } // nothing to discuss: straight to the shop
     this.uiPause = true;
     showDialogue(d, (a) => {
       if (a.type === 'close') { showDialogue(null, () => undefined); this.uiPause = false; return; }
-      if (a.type === 'trade') { showDialogue(null, () => undefined); this.openTrade(npcDef.trade!); return; }
+      if (a.type === 'trade') { showDialogue(null, () => undefined); this.openTrade(npcDef.trade!, npcId); return; }
       if (a.type === 'accept') {
         if (acceptQuest(this.gs.quests, a.questId)) toast(`Quest accepted: ${QUESTS[a.questId]!.name}`, 2600);
         showDialogue(null, () => undefined); this.uiPause = false; return;
@@ -437,14 +479,15 @@ export class WorldScene extends Phaser.Scene {
     });
   }
 
-  private openTrade(kind: 'shop' | 'alchemy'): void {
+  private openTrade(kind: 'shop' | 'outpost' | 'alchemy', npcId: string): void {
     this.uiPause = true;
     const refresh = () => renderTrade(this.gs);
     const close = () => { closeTrade(); this.uiPause = false; };
-    showTrade(kind, this.gs, {
+    const who = NPCS[npcId]!;
+    showTrade(kind, this.gs, { name: who.name, portrait: who.portrait, blurb: who.blurb ?? '' }, {
       close,
       buy: (id) => {
-        const r = this.mutate(() => buy(this.gs, id));
+        const r = this.mutate(() => buy(this.gs, id, 1, kind === 'outpost' ? 'outpost' : 'sect'));
         if (r.ok) { toast(`Bought ${ITEMS[id]!.name}.`, 1400); audio.sfx('pickup'); } else toast(r.reason === 'stones' ? 'Not enough spirit stones.' : r.reason === 'full' ? 'Your bag is full.' : 'Not available.', 1800);
         refresh();
       },
@@ -775,15 +818,17 @@ export class WorldScene extends Phaser.Scene {
     if (zone !== this.currentZone) this.currentZone = zone;
     if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; if (!this.dead && !this.bosses.some((b) => b.engaged)) showZoneBanner(ZONES[zone].name, ZONES[zone].level); setMinimapZone(ZONES[zone].name, ZONES[zone].level); }
     this.ambient.update(dt, zone);
-    const mood: Mood = this.bosses.some((b) => b.engaged) ? 'boss' : zone === 'marsh' ? 'mist' : zone === 'ruins' || zone === 'lair' || this.enemies.some((e) => e.ai.state !== 'idle' && !e.minion) ? 'danger' : 'calm';
+    const mood: Mood = this.bosses.some((b) => b.engaged) ? 'boss' : zone === 'marsh' ? 'mist' : zone === 'ruins' || zone === 'lair' || zone === 'barrow' || zone === 'summit' || this.enemies.some((e) => e.ai.state !== 'idle' && !e.minion) ? 'danger' : 'calm';
     audio.setMood(mood); audio.setZone(zone);
     updateOccluders(this.occluders, [{ x: this.pos.x, y: this.pos.y }, ...this.enemies.map((e) => e.pos), ...this.bosses.flatMap((b) => [b.pos, { x: b.pos.x, y: b.pos.y - 26 }, { x: b.pos.x - 26, y: b.pos.y - 10 }, { x: b.pos.x + 26, y: b.pos.y - 10 }])], dt);
 
     const npc = this.nearestNpc(), herb = this.nearestHerb();
+    const nearPortal = !npc && Math.hypot(this.pos.x - this.world.portal.x, this.pos.y - this.world.portal.y) < PORTAL_RANGE;
     const nearArray = Math.hypot(this.pos.x - this.world.arrayPos.x, this.pos.y - this.world.arrayPos.y) < ARRAY_RADIUS;
     const prompt = this.dead ? null // the death screen already offers respawn
       : this.uiPause ? null
-      : npc ? `Press E to talk to ${npc.id === 'elder-lin' ? 'Elder Lin' : npc.id === 'merchant-qiao' ? 'Merchant Qiao' : 'Alchemist Yun'}`
+      : npc ? `Press E to talk to ${NPCS[npc.id]!.name}`
+      : nearPortal ? (this.chapter === 1 ? 'Press E: step through the Sky Gate to Chapter 2' : 'Press E: return through the gate to Chapter 1')
       : herb ? 'Press E to gather the Spirit Herb'
       : nearArray && !this.meditating ? 'Spirit array: press M to meditate (qi gathers faster here)' : null;
     setPrompt(prompt);
@@ -803,7 +848,7 @@ export class WorldScene extends Phaser.Scene {
       bosses: this.bosses.map((b) => b.pos), npcs: this.npcs.map((n) => n.pos), herbs: this.herbs.filter((h) => h.alive), objective: obj.target,
     };
     updateMinimap(mm, dt);
-    if (isWorldMapOpen()) updateWorldMap({ ...mm, zones: Object.values(ZONES).map((z) => ({ name: z.name, x: this.world.anchors[z.id].x, y: this.world.anchors[z.id].y })) });
+    if (isWorldMapOpen()) updateWorldMap({ ...mm, zones: zonesOfChapter(this.chapter).map((zid) => ({ name: ZONES[zid].name, x: this.world.anchors[zid]!.x, y: this.world.anchors[zid]!.y })) });
     const cam = this.cameras.main;
     setObjectiveArrow(obj.target && !this.uiPause ? { sx: (obj.target.x - cam.worldView.x) * cam.zoom, sy: (obj.target.y - cam.worldView.y) * cam.zoom, dist: Math.hypot(obj.target.x - this.pos.x, obj.target.y - this.pos.y) } : null, this.scale.width, this.scale.height);
     this.pushToState();
@@ -820,8 +865,9 @@ export class WorldScene extends Phaser.Scene {
 
   /** What the player should do next, and where it is (drives the objective line, the edge arrow and the minimap ring). */
   private objective(): { text: string; target: Vec2 | null } {
-    const gs = this.gs, elder = this.world.npcs['elder-lin']!;
-    const activeQ = Object.values(QUESTS).find((q) => gs.quests[q.id]?.status === 'active');
+    const gs = this.gs, elder = this.world.npcs['elder-lin'] ?? this.world.spawn;
+    const chapterQuests = questsOfChapter(this.chapter);
+    const activeQ = chapterQuests.find((q) => gs.quests[q.id]?.status === 'active');
     if (gs.tut < 15 && !activeQ) { // the tutorial yields as soon as there is a real quest to follow
       if (!(gs.tut & 1)) return { text: 'Walk around with WASD', target: null };
       if (!(gs.tut & 2)) return { text: 'Attack: click or press Space (chain three hits)', target: null };
@@ -831,16 +877,18 @@ export class WorldScene extends Phaser.Scene {
     const pts = freePoints(gs) > 0 ? `  ·  ${freePoints(gs)} skill point${freePoints(gs) > 1 ? 's' : ''} to spend (C)` : '';
     const active = activeQ;
     if (!active) {
-      const next = Object.values(QUESTS).find((q) => gs.quests[q.id]?.status === 'inactive' && (!q.requires || gs.quests[q.requires]?.status === 'turnedIn'));
-      return next ? { text: `Talk to ${NPCS[next.giver]!.name}: "${next.name}"${pts}`, target: this.world.npcs[next.giver] ?? elder } : { text: `Explore the realms, grow stronger, cultivate${pts}`, target: null };
+      const next = chapterQuests.find((q) => gs.quests[q.id]?.status === 'inactive' && (!q.requires || gs.quests[q.requires]?.status === 'turnedIn'));
+      if (next) return { text: `Talk to ${NPCS[next.giver]!.name}: "${next.name}"${pts}`, target: this.world.npcs[next.giver] ?? elder };
+      if (this.chapter < LAST_CHAPTER && canEnterChapter(this.chapter + 1, gs.progress.level, gs.bosses).ok) return { text: `The way onward is open: step through the Sky Gate${pts}`, target: this.world.portal };
+      return { text: `Explore the realms, grow stronger, cultivate${pts}`, target: null };
     }
     const st = gs.quests[active.id]!;
     if (isComplete(active, st, gs.inventory, gs.bosses)) return { text: `Return to ${NPCS[active.giver]!.name} to claim your reward${pts}`, target: this.world.npcs[active.giver] ?? elder };
     const prog = progressOf(active, st, gs.inventory, gs.bosses), i = prog.findIndex((p) => p.have < p.need), o = active.objectives[i]!, p = prog[i]!;
     let target: Vec2 | null = null;
     if (o.type === 'kill') {
-      const zone = (Object.keys(ZONES) as ZoneId[]).find((z) => o.target in ZONES[z].spawns);
-      target = o.target === 'ninetail' ? this.world.den : o.target === 'jiaolong' ? this.world.pool : o.target === 'warden' ? this.world.lair : zone ? this.world.anchors[zone] : this.world.anchors.bamboo;
+      const zone = zonesOfChapter(this.chapter).find((z) => o.target in ZONES[z].spawns);
+      target = this.world.bossHomes[o.target] ?? (zone ? this.world.anchors[zone] : undefined) ?? this.world.spawn;
     } else if (o.type === 'elite') {
       let bd = Infinity; for (const e of this.enemies) { if (!e.elite || e.minion) continue; const d = Math.hypot(e.pos.x - this.pos.x, e.pos.y - this.pos.y); if (d < bd) { bd = d; target = { ...e.pos }; } }
     } else { let bd = Infinity; for (const h of this.herbs) { if (!h.alive) continue; const d = Math.hypot(h.x - this.pos.x, h.y - this.pos.y); if (d < bd) { bd = d; target = { x: h.x, y: h.y }; } } }
@@ -878,7 +926,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private topUpEnemies(): void {
-    for (const z of Object.values(ZONES)) {
+    for (const z of zonesOfChapter(this.chapter).map((zid) => ZONES[zid])) {
       for (const [type, n] of Object.entries(z.spawns)) {
         const alive = this.enemies.filter((e) => !e.minion && e.def.id === type && e.zone === z.id).length;
         if (alive < n) { this.spawnInZone(z.id, type, this.pos); return; } // one per check
@@ -1239,6 +1287,7 @@ export class WorldScene extends Phaser.Scene {
         enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
         bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams })),
         boss: this.boss ? { hp: this.boss.c.hp, maxHp: this.boss.c.maxHp, x: this.boss.pos.x, y: this.boss.pos.y, engaged: this.boss.engaged, phase: this.boss.ai.phase, state: this.boss.ai.state === 'windup' ? `${this.boss.ai.move}-windup` : this.boss.ai.state, slams: this.boss.slams } : null,
+        chapter: this.chapter, portal: this.world.portal, bossHomes: this.world.bossHomes, story: [...this.gs.story],
         palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, pool: this.world.pool, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, npcPlates: Object.fromEntries(this.npcs.map((n) => [n.id, n.plate.visible])), arrayPos: this.world.arrayPos,
         herbs: this.herbs.map((h) => ({ x: h.x, y: h.y, alive: h.alive })), anchors: this.world.anchors,
         bag: this.gs.inventory.slots.map((sl) => sl?.id ?? null), bolts: this.bolts.filter((b) => b.kind === 'hostile').length, props: this.world.props.filter((p) => p.kind === 'lotusbowl' || p.kind === 'palace').map((p) => ({ kind: p.kind, x: p.x, y: p.y })), playerAnim: this.player.anim, items: this.gs.inventory.slots.filter((s) => s).map((s) => `${s!.id}:${s!.count}`),
@@ -1266,6 +1315,8 @@ export class WorldScene extends Phaser.Scene {
       gather: () => this.interact(),
       bossForce: (id: string, move: string) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; b.ai.force = move as never; b.ai.gap = 0; } },
       setStones: (n: number) => { this.gs.stones = n; },
+      useGate: () => this.useGate(),
+      defeatBoss: (id: string) => { if (!this.gs.bosses.includes(id)) this.gs.bosses.push(id); },
     };
   }
 }

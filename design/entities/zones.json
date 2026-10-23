@@ -1,6 +1,7 @@
 [
   {
     "id": "village",
+    "chapter": 1,
     "name": "Azure Cloud Sect",
     "anchor": {
       "x": 40,
@@ -19,6 +20,7 @@
   },
   {
     "id": "bamboo",
+    "chapter": 1,
     "name": "Whispering Bamboo Forest",
     "anchor": {
       "x": 13,
@@ -47,6 +49,7 @@
   },
   {
     "id": "marsh",
+    "chapter": 1,
     "name": "Mistveil Marsh",
     "anchor": {
       "x": 40,
@@ -77,6 +80,7 @@
   },
   {
     "id": "grove",
+    "chapter": 1,
     "name": "Peach Spirit Grove",
     "anchor": {
       "x": 30,
@@ -109,6 +113,7 @@
   },
   {
     "id": "ruins",
+    "chapter": 1,
     "name": "Broken Sword Ruins",
     "anchor": {
       "x": 68,
@@ -137,6 +142,7 @@
   },
   {
     "id": "lair",
+    "chapter": 1,
     "name": "Fallen Immortal's Court",
     "anchor": {
       "x": 66,
@@ -153,6 +159,146 @@
     "enemyTypes": [],
     "bosses": [
       "warden"
+    ]
+  },
+  {
+    "propTint": 14477560,
+    "id": "outpost",
+    "chapter": 2,
+    "name": "Skyfall Outpost",
+    "anchor": {
+      "x": 18,
+      "y": 80
+    },
+    "level": "Safe",
+    "spawns": {},
+    "mood": "frost",
+    "tier": {
+      "hp": 1,
+      "atk": 1,
+      "xp": 1
+    },
+    "enemyTypes": [],
+    "bosses": []
+  },
+  {
+    "propTint": 11849966,
+    "id": "frostpass",
+    "chapter": 2,
+    "name": "Whitefrost Pass",
+    "anchor": {
+      "x": 52,
+      "y": 68
+    },
+    "level": "Lv 10-14",
+    "spawns": {
+      "frostwolf": 6,
+      "icesnake": 3,
+      "frostwisp": 3,
+      "rimebat": 4,
+      "snowtreant": 1
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 3.4,
+      "atk": 2.7,
+      "xp": 4.6
+    },
+    "enemyTypes": [
+      "frostwolf",
+      "icesnake",
+      "frostwisp",
+      "rimebat",
+      "snowtreant"
+    ],
+    "bosses": []
+  },
+  {
+    "propTint": 10412287,
+    "id": "crystal",
+    "chapter": 2,
+    "name": "Crystal Hollow",
+    "anchor": {
+      "x": 90,
+      "y": 62
+    },
+    "level": "Lv 12-16",
+    "spawns": {
+      "crystalgolem": 3,
+      "prismghost": 3,
+      "shardbird": 2,
+      "frostwisp": 2,
+      "rimebat": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 3.9,
+      "atk": 3,
+      "xp": 5.6
+    },
+    "enemyTypes": [
+      "crystalgolem",
+      "prismghost",
+      "shardbird",
+      "frostwisp",
+      "rimebat"
+    ],
+    "bosses": [
+      "crystalcolossus"
+    ]
+  },
+  {
+    "propTint": 9210018,
+    "id": "barrow",
+    "chapter": 2,
+    "name": "Ashen Barrow",
+    "anchor": {
+      "x": 26,
+      "y": 36
+    },
+    "level": "Lv 13-18",
+    "spawns": {
+      "ashskeleton": 5,
+      "bloodjiangshi": 3,
+      "ashguard": 4,
+      "prismghost": 2
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 4.3,
+      "atk": 3.3,
+      "xp": 6.4
+    },
+    "enemyTypes": [
+      "ashskeleton",
+      "bloodjiangshi",
+      "ashguard",
+      "prismghost"
+    ],
+    "bosses": [
+      "corpseking"
+    ]
+  },
+  {
+    "propTint": 11188448,
+    "id": "summit",
+    "chapter": 2,
+    "name": "Sundered Sky Summit",
+    "anchor": {
+      "x": 84,
+      "y": 16
+    },
+    "level": "Boss",
+    "spawns": {},
+    "mood": "night",
+    "tier": {
+      "hp": 4.6,
+      "atk": 3.5,
+      "xp": 7
+    },
+    "enemyTypes": [],
+    "bosses": [
+      "sovereign"
     ]
   }
 ]

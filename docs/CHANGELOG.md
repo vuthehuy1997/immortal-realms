@@ -40,3 +40,15 @@
 - `tools/license_scan.mjs` / `npm run license:check` (part of qc): offline scan of package-lock + installed package.json. 2 shipped packages (all MIT); 157 dev-only, 12 MPL-2.0 (lightningcss, build tool, not distributed). Report: docs/LICENSE_SCAN.md. Reads declared licences only, not LICENSE text.
 - Gamepad support: `src/core/gamepad.ts` (pure mapping, 6 unit tests) feeds `KeyInput.pollGamepads()` so pads reuse the keyboard handlers. Left stick/d-pad move, A attack, B dash, X interact, Y meditate, LB/RB/LT/RT techniques 1-4, Back map, Start pause, stick clicks inventory/character. Potion hotkeys (F/G) have no pad button yet.
 - e2e/gamepad.spec.ts drives a faked `navigator.getGamepads`; no physical controller was tried.
+
+### Round 11 (owner: "too basic, small map, split into maps/stages, story, more characters, more depth")
+- Touch controls: on-screen joystick + buttons when the primary pointer is coarse (or `?touch=1`); skill slots tappable. e2e/touch.spec.ts.
+- **Chapters**: `src/data/chapters.ts` (story pages, gate), `src/data/maps.ts` (declarative map defs), `src/core/mapgen.ts`, `generateChapter(n)`. `WorldMap` gained `chapter`, `bossHomes`, `portal`; chapter 1 keeps its generator and gains a Sky Gate.
+- **Chapter 2 "The Sundered Sky"**: 112x96 map (1.4x chapter 1), zones Skyfall Outpost / Whitefrost Pass / Crystal Hollow / Ashen Barrow / Sundered Sky Summit; 4 NPCs (Commander Shen, Quartermaster Gu with his own shop, Herbalist Mo, Hermit Wen); 6 quests; bosses Corpse King, Crystal Colossus, Sundered Sovereign; 11 enemies; 9 items (Lv10+ gear and greater draughts); procedural snow/ice/ash ground, frost-tinted scenery, tinted reused sprites (`EnemyDef.tint`, `BossDef.tint`, `Actor.setBaseTint`, mob->boss animation fallback).
+- Gate: level 10 and all three chapter 1 guardians; a return gate leads home. Travel saves and restarts the scene.
+- Story: prologue and chapter intro pages (`src/ui/story.ts`), shown once (`GameState.story`). Automation (navigator.webdriver) skips them unless `?story=1`.
+- Save: `chapter` and `story` fields, additive migration (older saves = chapter 1, prologue seen). SAVE_VERSION unchanged.
+- Quest log grouped by chapter; objectives/NPC marks respect the current chapter; trade window takes name/portrait/stock from the NPC.
+- Design export: chapters catalog + per-chapter world maps; `design:check` still green. License scan unchanged.
+- Tests: tests/chapters.test.ts (24), e2e/chapters.spec.ts (6): gate refusal/open, ch2 content, persistence + return gate, NPC shop, Corpse King kill, story pages.
+- Honest limits: ch2 art is reused/recoloured (PLACEHOLDER), balance untuned, no new playable heroes (the pack's other hero sprites lack combat animations), no companions yet.

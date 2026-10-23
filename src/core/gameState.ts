@@ -30,6 +30,10 @@ export interface GameState {
   hp: number;
   mana: number;
   pos: { x: number; y: number };
+  /** current chapter (map); `pos` is a position on that map */
+  chapter: number;
+  /** chapters whose story pages have been shown */
+  story: number[];
 }
 
 export const WARDEN_ID = 'warden';
@@ -38,7 +42,7 @@ export const isBossDefeated = (gs: GameState, id: string): boolean => gs.bosses.
 export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
     character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn },
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [],
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);

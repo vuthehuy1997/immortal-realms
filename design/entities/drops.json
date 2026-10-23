@@ -111,6 +111,103 @@
         "chance": 0.4
       }
     ],
+    "frostwolf": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.08
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "icesnake": [
+      {
+        "item": "hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "frostwisp": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "rimebat": [],
+    "snowtreant": [
+      {
+        "item": "qi-pill",
+        "chance": 0.35
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "crystalgolem": [
+      {
+        "item": "qi-pill",
+        "chance": 0.4
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.2
+      }
+    ],
+    "prismghost": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.15
+      }
+    ],
+    "shardbird": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.15
+      }
+    ],
+    "ashskeleton": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "bloodjiangshi": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "ashguard": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.25
+      }
+    ],
     "warden": [
       {
         "item": "jade-sword",
@@ -133,6 +230,48 @@
       {
         "item": "dragon-scale-robe",
         "chance": 0.6
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "corpseking": [
+      {
+        "item": "barrow-ward",
+        "chance": 1
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "crystalcolossus": [
+      {
+        "item": "crystal-saber",
+        "chance": 1
+      },
+      {
+        "item": "crystal-robe",
+        "chance": 0.7
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 1
+      }
+    ],
+    "sovereign": [
+      {
+        "item": "sovereign-blade",
+        "chance": 1
+      },
+      {
+        "item": "sky-seal",
+        "chance": 1
       },
       {
         "item": "qi-pill",
@@ -173,6 +312,21 @@
       "spirit-silk",
       "tiger-fang",
       "steel-blade"
+    ],
+    "frostpass": [
+      "froststeel-blade",
+      "frost-mail",
+      "greater-hp-potion"
+    ],
+    "crystal": [
+      "froststeel-blade",
+      "frost-mail",
+      "barrow-ward"
+    ],
+    "barrow": [
+      "frost-mail",
+      "barrow-ward",
+      "froststeel-blade"
     ]
   }
 }

@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import { sheetOf } from './assets';
 
+const ANIM_FALLBACK: Record<string, string> = { attack_a: 'attack', attack_b: 'attack', special: 'attack' };
+
 /** An animated character (hero / mob / boss) with a ground shadow. Facing is done with a negative X scale so the origin stays put. */
 export class Actor {
   readonly sprite: Phaser.GameObjects.Sprite;
@@ -8,6 +10,7 @@ export class Actor {
   private current = '';
   private dir: 1 | -1 = 1;
   private flashTimer?: Phaser.Time.TimerEvent;
+  private baseTint: number | null = null;
 
   constructor(private scene: Phaser.Scene, readonly prefix: string, x: number, y: number, readonly scale: number, shadowWidth = 22) {
     const first = sheetOf(`${prefix}.idle`);
@@ -26,7 +29,8 @@ export class Actor {
    * Plays `anim`. A running animation is not restarted unless `force`. `duration` stretches the animation to fit that many seconds.
    */
   play(anim: string, opts: { force?: boolean; duration?: number } = {}): boolean {
-    const key = `${this.prefix}.${anim}`;
+    let key = `${this.prefix}.${anim}`;
+    if (!this.scene.anims.exists(key) && ANIM_FALLBACK[anim]) { key = `${this.prefix}.${ANIM_FALLBACK[anim]}`; anim = ANIM_FALLBACK[anim]!; } // mob sprites reused as bosses only have attack/move
     if (!this.scene.anims.exists(key)) return false;
     if (this.current === anim && !opts.force && this.sprite.anims.isPlaying) return true;
     const def = sheetOf(key);
@@ -52,16 +56,20 @@ export class Actor {
     this.shadow.setPosition(x, y - 1);
   }
 
+  /** Permanent multiply tint (recoloured art); flashes restore it. */
+  setBaseTint(color: number | null): void { this.baseTint = color; this.restoreTint(); }
+  private restoreTint(): void { this.sprite.clearTint().setTintMode(Phaser.TintModes.MULTIPLY); if (this.baseTint !== null) this.sprite.setTint(this.baseTint); }
+
   /** Brief white flash (v4 tint FILL mode). */
   flash(ms = 90, color = 0xffffff): void {
     this.sprite.setTint(color).setTintMode(Phaser.TintModes.FILL);
     this.flashTimer?.remove(false);
-    this.flashTimer = this.scene.time.delayedCall(ms, () => { if (this.sprite.active) this.sprite.clearTint().setTintMode(Phaser.TintModes.MULTIPLY); });
+    this.flashTimer = this.scene.time.delayedCall(ms, () => { if (this.sprite.active) this.restoreTint(); });
   }
 
   /** Sustained colour (e.g. telegraph); cleared with `untint`. */
   tint(color: number): void { this.sprite.setTint(color).setTintMode(Phaser.TintModes.MULTIPLY); }
-  untint(): void { this.sprite.clearTint(); }
+  untint(): void { this.restoreTint(); }
 
   setAlpha(a: number): void { this.sprite.setAlpha(a); this.shadow.setAlpha(a * 0.9); }
   setVisible(v: boolean): void { this.sprite.setVisible(v); this.shadow.setVisible(v); }

@@ -1,17 +1,21 @@
 import { PROPS, type PropKind } from '../data/props';
-import { ZONES, ZONE_IDS, type ZoneId } from '../data/zones';
+import { ZONES, zonesOfChapter, type ZoneId } from '../data/zones';
 import { createNoise, fbm } from './noise';
 import type { Vec2 } from './movement';
 import { createRng } from './rng';
+import { MAP_DEFS } from '../data/maps';
+import { generateFromDef } from './mapgen';
 
 export const TILE_SIZE = 16;
 export type { ZoneId };
 
-export type GroundKind = 'grass' | 'grassDark' | 'moss' | 'path' | 'stone' | 'water' | 'sand';
+export type GroundKind = 'grass' | 'grassDark' | 'moss' | 'path' | 'stone' | 'water' | 'sand' | 'snow' | 'ice' | 'ash';
 
 export interface PropInst { kind: PropKind; x: number; y: number }
 
 export interface WorldMap {
+  /** chapter this map belongs to */
+  chapter: number;
   width: number;
   height: number;
   ground: GroundKind[];
@@ -21,11 +25,16 @@ export interface WorldMap {
   props: PropInst[];
   spawn: Vec2; // world units
   lair: Vec2;
+  /** Landmarks of chapter 1 (in other chapters: the first three boss arenas in id order). */
   /** Nine-Tailed Fox den (in the peach grove) */
   den: Vec2;
   /** Jiao Dragon pool (in Mistveil Marsh) */
   pool: Vec2;
-  anchors: Record<ZoneId, Vec2>;
+  /** boss id -> arena centre (world units) */
+  bossHomes: Record<string, Vec2>;
+  /** gate to the neighbouring chapter (chapter 1: Sky Gate to chapter 2, later chapters: return gate) */
+  portal: Vec2;
+  anchors: Partial<Record<ZoneId, Vec2>>;
   npcs: Record<string, Vec2>;
   herbs: Vec2[];
   arrayPos: Vec2;
@@ -48,7 +57,7 @@ const POOL_TILE = { x: 54, y: 68 };
 const POOL_RADIUS = 7;
 
 /** Polyline of tile waypoints joining the village to a zone anchor (shape chosen so roads avoid the sect hall and gates). */
-const ROADS: Record<Exclude<ZoneId, 'village'>, [number, number][]> = {
+const ROADS: Partial<Record<ZoneId, [number, number][]>> = {
   bamboo: [[40, 42], [27, 42], [13, 42]],
   marsh: [[40, 42], [40, 56], [40, 68], [54, 68]],
   ruins: [[40, 42], [54, 45], [68, 48]],
@@ -71,7 +80,8 @@ export function generateWorld(seed: number, width = 80, height = 80): WorldMap {
   const at = (tx: number, ty: number) => ty * width + tx;
   const inMap = (tx: number, ty: number) => tx >= 0 && ty >= 0 && tx < width && ty < height;
 
-  const anchors = Object.fromEntries(ZONE_IDS.map((z) => [z, tileToWorld(ZONES[z].anchor)])) as Record<ZoneId, Vec2>;
+  const CH1 = zonesOfChapter(1);
+  const anchors = Object.fromEntries(CH1.map((z) => [z, tileToWorld(ZONES[z].anchor)])) as Partial<Record<ZoneId, Vec2>>;
   const village = ZONES.village.anchor;
 
   // --- zones: village disc, otherwise nearest anchor with noisy borders
@@ -80,7 +90,7 @@ export function generateWorld(seed: number, width = 80, height = 80): WorldMap {
       const jitter = (n(tx + 50, ty + 50, 0.09) - 0.5) * 9;
       if (Math.hypot(tx - village.x, ty - village.y) < 13 + jitter * 0.3) { zone[at(tx, ty)] = 'village'; continue; }
       let best: ZoneId = 'bamboo', bd = Infinity;
-      for (const z of ZONE_IDS) {
+      for (const z of CH1) {
         if (z === 'village') continue;
         const a = ZONES[z].anchor;
         const d = Math.hypot(tx - a.x, ty - a.y) * (z === 'lair' ? 1.15 : 1) + jitter;
@@ -190,6 +200,10 @@ export function generateWorld(seed: number, width = 80, height = 80): WorldMap {
   place('peachtree', vx - 12, vy + 3, { force: true });
   place('peachtree', vx + 12, vy + 2, { force: true });
   place('stonecircle', vx + 13, vy + 12, { force: true });
+  // Sky Gate to chapter 2: first free spot on the south-east / south-west edge of the sect
+  const gateAt = [[13, 7], [15, 9], [13, 11], [-14, 8], [-15, 11], [16, 12]].find(([dx, dy]) => place('moonwall', vx + dx!, vy + dy!, { force: true, margin: 0 })) ?? [13, 7];
+  const portal = tileToWorld({ x: vx + gateAt[0]!, y: vy + gateAt[1]! + 1 });
+  props.push({ kind: 'array', x: portal.x, y: portal.y + 2 });
   const arrayPos = { x: (vx + 0.5) * TILE_SIZE, y: (vy + 1.5) * TILE_SIZE };
   props.push({ kind: 'array', x: arrayPos.x, y: arrayPos.y });
 
@@ -266,7 +280,7 @@ export function generateWorld(seed: number, width = 80, height = 80): WorldMap {
     'alchemist-yun': tileToWorld({ x: vx - 7, y: vy + 1 }),
   };
 
-  return { width, height, ground, zone, blocked, props, spawn: tileToWorld({ x: vx, y: vy + 7 }), lair: lw, den: dw, pool: pw, anchors, npcs, herbs, arrayPos };
+  return { chapter: 1, width, height, ground, zone, blocked, props, spawn: tileToWorld({ x: vx, y: vy + 7 }), lair: lw, den: dw, pool: pw, bossHomes: { warden: lw, ninetail: dw, jiaolong: pw }, portal, anchors, npcs, herbs, arrayPos };
 }
 
 function boxBlocked(m: WorldMap, x: number, y: number, r: number): boolean {
@@ -288,3 +302,11 @@ export const zoneAt = (m: WorldMap, p: Vec2): ZoneId => {
   const tx = Math.min(m.width - 1, Math.max(0, Math.floor(p.x / TILE_SIZE))), ty = Math.min(m.height - 1, Math.max(0, Math.floor(p.y / TILE_SIZE)));
   return m.zone[idx(m, tx, ty)]!;
 };
+
+/** Builds the map of chapter `n`: chapter 1 is the hand-tuned generator, later chapters come from declarative map defs. */
+export function generateChapter(n: number, seed: number): WorldMap {
+  if (n === 1) return generateWorld(seed);
+  const def = MAP_DEFS[n];
+  if (!def) throw new Error(`no map for chapter ${n}`);
+  return generateFromDef(def);
+}

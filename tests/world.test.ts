@@ -3,10 +3,12 @@ import { generateWorld, isBlockedTile, moveWithCollision, TILE_SIZE, tileToWorld
 import { step } from '../src/core/movement';
 import { createRng } from '../src/core/rng';
 import { createNoise, fbm } from '../src/core/noise';
-import { ZONE_IDS, ZONES } from '../src/data/zones';
+import { ZONES, zonesOfChapter } from '../src/data/zones';
+
+const ZONE_IDS = zonesOfChapter(1);
 
 const open = (w = 8, h = 8): WorldMap => ({
-  width: w, height: h,
+  chapter: 1, bossHomes: {}, portal: { x: 0, y: 0 }, width: w, height: h,
   ground: Array(w * h).fill('grass'), zone: Array(w * h).fill('village'), blocked: new Uint8Array(w * h), props: [],
   spawn: { x: 40, y: 40 }, lair: { x: 100, y: 100 }, den: { x: 60, y: 60 }, pool: { x: 70, y: 70 }, anchors: {} as WorldMap['anchors'], npcs: {}, herbs: [], arrayPos: { x: 0, y: 0 },
 });
@@ -55,7 +57,7 @@ describe('generateWorld', () => {
   it('everything the player needs is reachable from the spawn (several seeds)', () => {
     for (const seed of SEEDS) {
       const m = generateWorld(seed); const ok = reachable(m, m.spawn);
-      for (const z of ZONE_IDS) expect(ok(m.anchors[z]), `${seed}: ${z}`).toBe(true);
+      for (const z of ZONE_IDS) expect(ok(m.anchors[z]!), `${seed}: ${z}`).toBe(true);
       for (const [name, p] of Object.entries(m.npcs)) expect(ok(p), `${seed}: npc ${name}`).toBe(true);
       expect(ok(m.arrayPos)).toBe(true);
       expect(ok(m.den), `${seed}: fox den`).toBe(true);

@@ -66,3 +66,65 @@ Drops: dragon-pearl (100%), dragon-scale-robe (60%), qi-pill (100%)
 | rain | count 7, radius 28, spread 110, windup 0.5, delay 0.95, recover 0.4, cooldown 5.5, damageMult 1.1 |
 | summon | windup 0.75, cooldown 13, count 2, maxMinions 4, minionType waterghost |
 | ring | windup 0.75, cooldown 6.5, projectiles 12, damageMult 0.95 |
+
+## Corpse King of the Ashen Barrow (`corpseking`)
+
+<img src="../images/bosses/corpseking.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 9000 | 44 | 12 | 44 | 1500 | 160–230 | barrow | barrow | barrow-rites | 0.66 / 0.33 |
+
+Kit: **P1** slam, charge · **P2** charge, sweep, summon, slam · **P3** charge, ring, summon, slam, sweep
+
+Drops: barrow-ward (100%), greater-hp-potion (100%), qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 58, windup 0.85, recover 0.5, cooldown 4, damageMult 1.7, triggerRange 90 |
+| sweep | range 90, halfAngle 1, windup 0.7, recover 0.45, cooldown 3, damageMult 1.4, triggerRange 88 |
+| charge | windup 0.7, duration 0.55, speed 300, width 26, recover 0.7, cooldown 4.6, damageMult 1.6, minRange 14, maxRange 250 |
+| summon | windup 0.75, cooldown 12, count 3, maxMinions 5, minionType bloodjiangshi |
+| ring | windup 0.75, cooldown 6.5, projectiles 12, damageMult 0.95 |
+
+## Crystal Colossus (`crystalcolossus`)
+
+<img src="../images/bosses/crystalcolossus.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 11500 | 50 | 18 | 32 | 1900 | 200–280 | hollow | crystal | hollow-heart | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** slam, rain, summon, sweep · **P3** rain, ring, slam, sweep, summon
+
+Drops: crystal-saber (100%), crystal-robe (70%), greater-mana-potion (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 66, windup 1, recover 0.6, cooldown 4.2, damageMult 1.9, triggerRange 100 |
+| sweep | range 100, halfAngle 1.1, windup 0.8, recover 0.5, cooldown 3.4, damageMult 1.5, triggerRange 96 |
+| rain | count 8, radius 30, spread 130, windup 0.5, delay 1, recover 0.4, cooldown 5.5, damageMult 1.2 |
+| summon | windup 0.8, cooldown 14, count 2, maxMinions 3, minionType prismghost |
+| ring | windup 0.8, cooldown 6, projectiles 14, damageMult 1 |
+
+## Sundered Sovereign (`sovereign`)
+
+<img src="../images/bosses/sovereign.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 16500 | 58 | 20 | 42 | 3200 | 300–420 | summit | summit | sundered-sovereign | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep, charge · **P2** slam, rain, summon, teleport, sweep · **P3** rain, teleport, ring, charge, slam, sweep
+
+Drops: sovereign-blade (100%), sky-seal (100%), qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 62, windup 0.85, recover 0.45, cooldown 3.8, damageMult 1.8, triggerRange 96 |
+| sweep | range 96, halfAngle 1, windup 0.7, recover 0.45, cooldown 3, damageMult 1.5, triggerRange 92 |
+| charge | windup 0.7, duration 0.5, speed 320, width 24, recover 0.6, cooldown 5, damageMult 1.6, minRange 14, maxRange 260 |
+| rain | count 8, radius 30, spread 130, windup 0.5, delay 0.95, recover 0.4, cooldown 5.5, damageMult 1.2 |
+| teleport | windup 0.75, recover 0.45, cooldown 8, behind 46, radius 52, damageMult 1.7 |
+| summon | windup 0.8, cooldown 13, count 3, maxMinions 5, minionType prismghost |
+| ring | windup 0.75, cooldown 6, projectiles 14, damageMult 1 |

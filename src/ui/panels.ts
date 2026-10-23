@@ -8,7 +8,8 @@ import { countOf, SLOT_COUNT, type EquipKey } from '../core/inventory';
 import { SKILLS } from '../data/skills';
 import { freePoints, SKILL_MAX, scaledSkill, skillLevel } from '../core/skills';
 import { progressOf } from '../core/quest';
-import { QUESTS } from '../data/quests';
+import { QUESTS, questsOfChapter } from '../data/quests';
+import { CHAPTERS, CHAPTER_IDS } from '../data/chapters';
 import { $, el } from './dom';
 import { itemIconHtml, portraitUrl } from './skin';
 
@@ -50,10 +51,10 @@ export function refreshPanels(gs: GameState, meditating: boolean): void {
 
 const QSTATUS: Record<string, string> = { inactive: 'Not started', active: 'In progress', turnedIn: 'Completed' };
 function renderQuestLog(gs: GameState): void {
-  const key = JSON.stringify([gs.quests, gs.bosses, gs.inventory.slots]);
+  const key = JSON.stringify([gs.quests, gs.bosses, gs.inventory.slots, gs.chapter]);
   const body = $('qlogbody');
   if (body.dataset.key === key) return; body.dataset.key = key;
-  body.innerHTML = Object.values(QUESTS).map((q) => {
+  const entry = (q: (typeof QUESTS)[string]): string => {
     const st = gs.quests[q.id]!;
     const locked = st.status === 'inactive' && q.requires && gs.quests[q.requires]?.status !== 'turnedIn';
     const prog = st.status === 'active' ? progressOf(q, st, gs.inventory, gs.bosses) : [];
@@ -62,7 +63,10 @@ function renderQuestLog(gs: GameState): void {
       + (st.status === 'turnedIn' || locked ? '' : `<div class="qd">${q.intro}</div>`)
       + prog.map((p) => `<div class="qo ${p.have >= p.need ? 'done' : ''}">${p.have >= p.need ? '✔' : '•'} ${p.label} ${p.have}/${p.need}</div>`).join('')
       + `<div class="qr">Reward: ${rewards}</div></div>`;
-  }).join('');
+  };
+  // newest chapter first; later chapters stay hidden until reached
+  body.innerHTML = [...CHAPTER_IDS].reverse().filter((n) => n <= gs.chapter || questsOfChapter(n).some((q) => gs.quests[q.id]?.status !== 'inactive'))
+    .map((n) => `<h4 class="qchap">${CHAPTERS[n]!.subtitle} · ${CHAPTERS[n]!.name}</h4>` + questsOfChapter(n).map(entry).join('')).join('');
 }
 
 function renderInventory(gs: GameState): void {

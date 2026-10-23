@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { newEnemyAI, updateEnemyAI } from '../src/core/enemyAI';
 import { ENEMIES, type EnemyDef } from '../src/data/enemies';
+import MANIFEST from '../src/data/manifest.generated.json';
 
 const P = (x: number, y = 0) => ({ x, y });
 const run = (def: EnemyDef, selfX: number, targetX: number, secs: number, dt = 0.05) => {
@@ -103,7 +104,8 @@ describe('enemy roster data', () => {
     expect(all.length).toBeGreaterThanOrEqual(15);
     for (const e of all) {
       expect(e.id in ENEMIES).toBe(true);
-      expect(e.sprite).toBe(`mob.${e.id}`);
+      if (e.tint === undefined && !e.sprite.includes('_v_')) expect(e.sprite).toBe(`mob.${e.id}`); // recoloured reuse (tint / variant sprite) keeps another mob's art
+      expect((MANIFEST.sheets as Record<string, unknown>)[`${e.sprite}.idle`], `${e.id}: sprite ${e.sprite} is in the manifest`).toBeDefined();
       expect(e.maxHp).toBeGreaterThan(0); expect(e.speed).toBeGreaterThan(0); expect(e.radius).toBeGreaterThan(0);
       expect(e.stones[1]).toBeGreaterThanOrEqual(e.stones[0]);
       if (e.behavior === 'caster') expect(e.preferredRange).toBeGreaterThan(0);

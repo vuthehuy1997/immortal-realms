@@ -41,7 +41,7 @@ def contact(keys, group, cell=96, cols=12):
         d.text((x + 2, y + cell - 2), k.replace('xf_', '').replace('ui_xianxia_', '')[:cell // 6], fill=(200, 200, 215, 255), font=FONT)
     return sheet
 
-COL = {'grass': (92, 140, 70), 'grassDark': (64, 108, 62), 'moss': (88, 128, 90), 'path': (170, 140, 96), 'stone': (150, 152, 160), 'water': (60, 110, 190), 'sand': (214, 196, 140)}
+COL = {'grass': (92, 140, 70), 'grassDark': (64, 108, 62), 'moss': (88, 128, 90), 'path': (170, 140, 96), 'stone': (150, 152, 160), 'water': (60, 110, 190), 'sand': (214, 196, 140), 'snow': (226, 234, 244), 'ice': (150, 200, 226), 'ash': (96, 92, 98)}
 ZCOL = [(255, 255, 255)]
 def worldmap(j):
     w, h, S = j['width'], j['height'], 10

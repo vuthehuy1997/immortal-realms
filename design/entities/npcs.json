@@ -1,6 +1,8 @@
 [
   {
     "id": "elder-lin",
+    "sprite": "hero.staffbeggar",
+    "role": "Elder Lin · Quests",
     "name": "Elder Lin",
     "portrait": "elder_neutral",
     "quests": [
@@ -15,6 +17,9 @@
   },
   {
     "id": "merchant-qiao",
+    "sprite": "hero.spearman",
+    "role": "Merchant Qiao · Shop",
+    "blurb": "Spirit stones for steel and draughts, friend.",
     "name": "Merchant Qiao",
     "portrait": "peddler_neutral",
     "quests": [
@@ -26,6 +31,9 @@
   },
   {
     "id": "alchemist-yun",
+    "sprite": "hero.archer",
+    "role": "Alchemist Yun · Alchemy",
+    "blurb": "Bring me lingzhi and a few stones, and I will brew what you need.",
     "name": "Alchemist Yun",
     "portrait": "alchemist_neutral",
     "quests": [
@@ -34,5 +42,62 @@
     "idle": "The furnace is warm. What shall we brew today?",
     "trade": "alchemy",
     "image": "npcs/alchemist-yun.png"
+  },
+  {
+    "id": "commander-shen",
+    "chapter": 2,
+    "sprite": "hero.saber",
+    "role": "Commander Shen · Quests",
+    "name": "Commander Shen",
+    "portrait": "constable_neutral",
+    "quests": [
+      "rift-scouts",
+      "frost-elites",
+      "barrow-rites",
+      "sundered-sovereign"
+    ],
+    "idle": "Hold the line, disciple. The Fissure does not rest.",
+    "image": "npcs/commander-shen.png"
+  },
+  {
+    "id": "quartermaster-gu",
+    "chapter": 2,
+    "sprite": "hero.twinblade",
+    "role": "Quartermaster Gu · Shop",
+    "blurb": "Outpost prices, frontier steel. Everything is heavier up here.",
+    "name": "Quartermaster Gu",
+    "portrait": "blacksmith_neutral",
+    "quests": [],
+    "idle": "Frost mail, draughts, honest weight. What do you need?",
+    "trade": "outpost",
+    "image": "npcs/quartermaster-gu.png"
+  },
+  {
+    "id": "herbalist-mo",
+    "chapter": 2,
+    "sprite": "hero.fanscholar",
+    "role": "Herbalist Mo · Alchemy",
+    "blurb": "The furnace keeps the whole outpost alive. Bring herbs.",
+    "name": "Herbalist Mo",
+    "portrait": "herbalist_neutral",
+    "quests": [
+      "shard-harvest"
+    ],
+    "idle": "Warm hands, warm heart. The furnace is lit.",
+    "trade": "alchemy",
+    "image": "npcs/herbalist-mo.png"
+  },
+  {
+    "id": "hermit-wen",
+    "chapter": 2,
+    "sprite": "hero.monk",
+    "role": "Hermit Wen · Lore",
+    "name": "Hermit Wen",
+    "portrait": "hermit_neutral",
+    "quests": [
+      "hollow-heart"
+    ],
+    "idle": "The founder left a ledger of seals. Three guardians were never enough, you know.",
+    "image": "npcs/hermit-wen.png"
   }
 ]
