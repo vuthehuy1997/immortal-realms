@@ -90,7 +90,9 @@
       "quest:fox",
       "quest:warden",
       "quest:furnace",
+      "quest:rift-scouts",
       "quest:shard-harvest",
+      "quest:frost-elites",
       "quest:barrow-rites",
       "brew:brew-qi",
       "shop"
@@ -431,6 +433,7 @@
       "shardbird",
       "crystalcolossus",
       "quest:shard-harvest",
+      "quest:frost-elites",
       "quest:hollow-heart",
       "quest:sundered-sovereign"
     ]
@@ -451,8 +454,7 @@
     "sources": [
       "elite@frostpass",
       "elite@crystal",
-      "elite@barrow",
-      "quest:rift-scouts"
+      "elite@barrow"
     ]
   },
   {
@@ -506,8 +508,7 @@
     "sources": [
       "elite@frostpass",
       "elite@crystal",
-      "elite@barrow",
-      "quest:frost-elites"
+      "elite@barrow"
     ]
   },
   {

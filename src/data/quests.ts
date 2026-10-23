@@ -78,12 +78,12 @@ export const QUESTS: Record<string, QuestDef> = {
     id: 'rift-scouts', chapter: 2, name: 'Scouts of the Rift', giver: 'commander-shen',
     intro: 'You came through the gate? Then you are the disciple who put down the three guardians. Good. The Fissure widened when they fell, and frost beasts pour down the Whitefrost Pass. Cull eight Frost Wolves and four Frost Wisps so my scouts can reach the Barrow.',
     reminder: 'Eight Frost Wolves and four Frost Wisps in Whitefrost Pass, north-east of the outpost.',
-    completeText: 'The scouts are through. Take this blade; it was forged for this cold.',
+    completeText: 'The scouts are through. The quartermaster stocks blades forged for this cold; spend this well.',
     objectives: [
       { type: 'kill', target: 'frostwolf', count: 8, label: 'Cull Frost Wolves' },
       { type: 'kill', target: 'frostwisp', count: 4, label: 'Douse Frost Wisps' },
     ],
-    reward: { xp: 700, stones: 150, items: [{ id: 'froststeel-blade', count: 1 }, { id: 'greater-hp-potion', count: 3 }] },
+    reward: { xp: 420, stones: 300, items: [{ id: 'greater-hp-potion', count: 4 }, { id: 'qi-pill', count: 2 }] },
   },
   'shard-harvest': {
     id: 'shard-harvest', chapter: 2, name: 'Warmth for the Wounded', giver: 'herbalist-mo', requires: 'rift-scouts',
@@ -91,15 +91,15 @@ export const QUESTS: Record<string, QuestDef> = {
     reminder: 'Six Spirit Herbs: look for glowing mushrooms in the Hollow, the Pass and the Barrow.',
     completeText: 'Warm broth tonight, thanks to you. Take these, brewed fresh.',
     objectives: [{ type: 'collect', item: 'spirit-herb', count: 6, label: 'Gather Spirit Herbs' }],
-    reward: { xp: 520, stones: 120, items: [{ id: 'greater-mana-potion', count: 3 }, { id: 'qi-pill', count: 3 }] },
+    reward: { xp: 330, stones: 160, items: [{ id: 'greater-mana-potion', count: 3 }, { id: 'qi-pill', count: 3 }] },
   },
   'frost-elites': {
     id: 'frost-elites', chapter: 2, name: 'Frostbound Champions', giver: 'commander-shen', requires: 'rift-scouts',
     intro: 'The Rift twists the strongest beasts, gold-marked and cruel. Slay three of these elites and my soldiers will know the road is safe.',
     reminder: 'Three elite monsters (golden names) anywhere beyond the outpost.',
-    completeText: 'Three less to fear. The quartermaster owes you a favour; here is mine.',
+    completeText: 'Three less to fear. Take this purse; frontier steel is not cheap.',
     objectives: [{ type: 'elite', count: 3, label: 'Slay Elite Monsters' }],
-    reward: { xp: 900, stones: 220, items: [{ id: 'frost-mail', count: 1 }] },
+    reward: { xp: 540, stones: 450, items: [{ id: 'greater-mana-potion', count: 4 }, { id: 'qi-pill', count: 2 }] },
   },
   'barrow-rites': {
     id: 'barrow-rites', chapter: 2, name: 'The Barrow Rites', giver: 'commander-shen', requires: 'rift-scouts',
@@ -107,7 +107,7 @@ export const QUESTS: Record<string, QuestDef> = {
     reminder: 'The Corpse King sits at the heart of the Ashen Barrow, north-west of the outpost.',
     completeText: 'The graves are quiet. This ward was his; the dead owe you nothing now.',
     objectives: [{ type: 'kill', target: 'corpseking', count: 1, label: 'Slay the Corpse King' }],
-    reward: { xp: 1400, stones: 250, items: [{ id: 'greater-hp-potion', count: 3 }, { id: 'qi-pill', count: 2 }] },
+    reward: { xp: 900, stones: 400, items: [{ id: 'greater-hp-potion', count: 3 }, { id: 'qi-pill', count: 2 }] },
   },
   'hollow-heart': {
     id: 'hollow-heart', chapter: 2, name: 'The Heart of the Hollow', giver: 'hermit-wen', requires: 'barrow-rites',
@@ -115,7 +115,7 @@ export const QUESTS: Record<string, QuestDef> = {
     reminder: 'The Crystal Colossus stands in the Crystal Hollow, east of Whitefrost Pass.',
     completeText: 'Hear that? Silence. The path to the summit is open, and I have not been so afraid in forty years.',
     objectives: [{ type: 'kill', target: 'crystalcolossus', count: 1, label: 'Shatter the Crystal Colossus' }],
-    reward: { xp: 1800, stones: 320, items: [{ id: 'greater-mana-potion', count: 3 }, { id: 'greater-hp-potion', count: 3 }] },
+    reward: { xp: 1100, stones: 520, items: [{ id: 'greater-mana-potion', count: 3 }, { id: 'greater-hp-potion', count: 3 }] },
   },
   'sundered-sovereign': {
     id: 'sundered-sovereign', chapter: 2, name: 'The Sundered Sovereign', giver: 'commander-shen', requires: 'hollow-heart',
@@ -123,7 +123,7 @@ export const QUESTS: Record<string, QuestDef> = {
     reminder: 'Follow the north-east road to the Sundered Sky Summit.',
     completeText: 'The sky is whole. Chapter closed, disciple. Whatever lies beyond the Fissure, you have earned the right to look.',
     objectives: [{ type: 'kill', target: 'sovereign', count: 1, label: 'Slay the Sundered Sovereign' }],
-    reward: { xp: 3000, stones: 600, items: [{ id: 'greater-hp-potion', count: 5 }, { id: 'greater-mana-potion', count: 5 }] },
+    reward: { xp: 1800, stones: 900, items: [{ id: 'greater-hp-potion', count: 5 }, { id: 'greater-mana-potion', count: 5 }] },
   },
 };
 

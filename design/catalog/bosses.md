@@ -10,7 +10,7 @@ Each boss draws moves from a per-phase pool; every damaging move is telegraphed 
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 6600 | 30 | 9 | 36 | 900 | 90–140 | lair | lair | warden | 0.66 / 0.33 |
+| 6600 | 30 | 9 | 36 | 600 | 90–140 | lair | lair | warden | 0.66 / 0.33 |
 
 Kit: **P1** slam, sweep · **P2** slam, sweep, rain, summon · **P3** rain, teleport, ring, sweep, slam
 
@@ -31,7 +31,7 @@ Drops: jade-sword (100%), immortal-mantle (100%), qi-pill (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 2400 | 22 | 6 | 48 | 420 | 55–80 | den | grove | fox | 0.66 / 0.33 |
+| 3200 | 22 | 6 | 48 | 300 | 55–80 | den | grove | fox | 0.66 / 0.33 |
 
 Kit: **P1** sweep, charge · **P2** charge, rain, summon, sweep · **P3** teleport, charge, ring, rain, sweep
 
@@ -52,7 +52,7 @@ Drops: spirit-saber (100%), qi-pill (100%), spirit-ring (50%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 7400 | 34 | 10 | 42 | 1100 | 120–180 | pool | marsh | jiaolong | 0.66 / 0.33 |
+| 7400 | 34 | 10 | 42 | 700 | 120–180 | pool | marsh | jiaolong | 0.66 / 0.33 |
 
 Kit: **P1** sweep, rain · **P2** sweep, charge, ring, summon · **P3** rain, ring, charge, slam, sweep
 
@@ -73,7 +73,7 @@ Drops: dragon-pearl (100%), dragon-scale-robe (60%), qi-pill (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 9000 | 44 | 12 | 44 | 1500 | 160–230 | barrow | barrow | barrow-rites | 0.66 / 0.33 |
+| 11000 | 44 | 12 | 44 | 800 | 160–230 | barrow | barrow | barrow-rites | 0.66 / 0.33 |
 
 Kit: **P1** slam, charge · **P2** charge, sweep, summon, slam · **P3** charge, ring, summon, slam, sweep
 
@@ -93,7 +93,7 @@ Drops: barrow-ward (100%), greater-hp-potion (100%), qi-pill (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 11500 | 50 | 18 | 32 | 1900 | 200–280 | hollow | crystal | hollow-heart | 0.66 / 0.33 |
+| 11500 | 50 | 18 | 32 | 1000 | 200–280 | hollow | crystal | hollow-heart | 0.66 / 0.33 |
 
 Kit: **P1** slam, sweep · **P2** slam, rain, summon, sweep · **P3** rain, ring, slam, sweep, summon
 
@@ -113,7 +113,7 @@ Drops: crystal-saber (100%), crystal-robe (70%), greater-mana-potion (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 16500 | 58 | 20 | 42 | 3200 | 300–420 | summit | summit | sundered-sovereign | 0.66 / 0.33 |
+| 16500 | 58 | 20 | 42 | 1700 | 300–420 | summit | summit | sundered-sovereign | 0.66 / 0.33 |
 
 Kit: **P1** slam, sweep, charge · **P2** slam, rain, summon, teleport, sweep · **P3** rain, teleport, ring, charge, slam, sweep
 

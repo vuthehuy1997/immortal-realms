@@ -34,7 +34,7 @@ export function buildHud(): void {
     <div id="toasts"></div>
     <div id="prompt" class="hidden"></div>
     <div id="death" class="hidden"><div class="dbox"><h2>Defeated</h2><p id="deathtxt"></p><div class="btnrow"><button class="menu-btn" id="btn-respawn">Respawn (R)</button><button class="menu-btn" id="btn-death-menu">Main menu</button></div></div></div>
-    <div id="hint">WASD move · mouse aim · click/Space sword combo · 1-4 techniques · Shift dash · F/G potions · E interact · M meditate · B breakthrough · I bag · C character · Esc menu</div>
+    <div id="hint">WASD move · mouse aim · click/Space sword combo · 1-4 techniques · Shift dash · F flask/potion · G mana potion · E interact · M meditate · B breakthrough · I bag · C character · Esc menu</div>
   </div>`);
   const slots: string[] = [];
   slots.push(`<div class="slot wide" id="slot-combo"><div class="ic combo"></div><span class="k">LMB</span><span class="nm">Sword Combo</span><div class="pips"><i></i><i></i><i></i></div></div>`);
@@ -83,8 +83,8 @@ export function updateHud(f: HudFrame): void {
   $('cd-dash').style.height = `${Math.min(100, (100 * f.dashCd) / f.dashMax)}%`;
   const pips = $('slot-combo').querySelectorAll('.pips i');
   pips.forEach((p, i) => p.classList.toggle('on', i < f.comboStep));
-  setText($('cnt-hp'), String(countOf(gs.inventory, 'hp-potion'))); setText($('cnt-mp'), String(countOf(gs.inventory, 'mana-potion')));
-  $('pot-hp').classList.toggle('empty', countOf(gs.inventory, 'hp-potion') === 0); $('pot-mp').classList.toggle('empty', countOf(gs.inventory, 'mana-potion') === 0);
+  setText($('cnt-hp'), `${gs.flask.charges}+${countOf(gs.inventory, 'hp-potion')}`); setText($('cnt-mp'), String(countOf(gs.inventory, 'mana-potion')));
+  $('pot-hp').classList.toggle('empty', countOf(gs.inventory, 'hp-potion') === 0 && gs.flask.charges === 0); $('pot-mp').classList.toggle('empty', countOf(gs.inventory, 'mana-potion') === 0);
   renderQuestTracker(gs);
 }
 

@@ -129,7 +129,7 @@ describe('kills, drops and level-up', () => {
   });
   it('the fox boss drops its saber; elite kills in a zone can drop that zone\'s weapon', () => {
     const gs = mk(); const r = registerKill(gs, 'ninetail', never);
-    expect(countOf(gs.inventory, 'spirit-saber')).toBe(1); expect(r.xp).toBe(420);
+    expect(countOf(gs.inventory, 'spirit-saber')).toBe(1); expect(r.xp).toBe(300);
     const g2 = mk(); registerKill(g2, 'wolf', () => 0, { elite: true, zone: 'marsh' });
     expect(countOf(g2.inventory, 'steel-blade')).toBe(1);
     const g3 = mk(); registerKill(g3, 'wolf', () => 0.99, { elite: true, zone: 'marsh' });

@@ -10,6 +10,7 @@ import { SKILL_MAX, spentPoints, totalPoints } from './skills';
 import { NAME_MAX } from './character';
 import { SLOT_COUNT } from './inventory';
 import { CHAPTERS } from '../data/chapters';
+import { newFlask, validFlask } from './sustain';
 import type { GameState } from './gameState';
 
 export const SAVE_VERSION = 4;
@@ -68,6 +69,7 @@ function validate(s: unknown): string | null {
   if (!num(s.hp, 0, 1e5) || !num(s.mana, 0, 1e5)) return 'bad vitals';
   if (!isObj(pos) || !num(pos.x, 0, 1e5) || !num(pos.y, 0, 1e5)) return 'bad position';
   if (typeof s.chapter !== 'number' || !Number.isInteger(s.chapter) || !(s.chapter in CHAPTERS)) return 'bad chapter';
+  if (!validFlask(s.flask)) return 'bad flask';
   if (!Array.isArray(s.story) || s.story.some((c) => typeof c !== 'number' || !(c in CHAPTERS))) return 'bad story flags';
   return null;
 }
@@ -83,6 +85,7 @@ export function parseSave(text: string | null): LoadResult {
   if (isObj(env.state)) { // fields added after v4 shipped: older saves are on chapter 1 and have seen its prologue
     if (env.state.chapter === undefined) env.state.chapter = 1;
     if (env.state.story === undefined) env.state.story = [1];
+    if (env.state.flask === undefined) env.state.flask = newFlask();
   }
   const bad = validate(env.state);
   if (bad) return { ok: false, error: `Invalid save: ${bad}.` };

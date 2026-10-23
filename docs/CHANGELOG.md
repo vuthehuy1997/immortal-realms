@@ -52,3 +52,13 @@
 - Design export: chapters catalog + per-chapter world maps; `design:check` still green. License scan unchanged.
 - Tests: tests/chapters.test.ts (24), e2e/chapters.spec.ts (6): gate refusal/open, ch2 content, persistence + return gate, NPC shop, Corpse King kill, story pages.
 - Honest limits: ch2 art is reused/recoloured (PLACEHOLDER), balance untuned, no new playable heroes (the pack's other hero sprites lack combat animations), no companions yet.
+
+## Round 12 (independent QA report 3 -> "balance and feel")
+Source: docs/QA_REPORT_3.md (subagent play-test + benchmark against other games; one boss fight and a handful of mob fights measured, so numbers are a band, not a fact).
+- **Spirit flask** (`src/core/sustain.ts`): 3 charges healing 35% max HP (scales with level, unlike the flat 40 HP draught), refilled by 5 kills each, fully at the hub, on respawn and on breakthrough. F drinks the flask first, then bag potions. HUD shows `charges+potions`. Saved (`GameState.flask`, migrated).
+- **Mana from hits**: a sword swing that connects returns 3 mana (6 on the finisher), so techniques stay usable in long fights.
+- **Chapter 2 economy**: Froststeel Blade and Frost Mail are no longer free quest rewards (quests now pay stones and draughts; the outpost shop sells the gear at 1400-1500). Quest/boss XP trimmed so chapter 1 no longer auto-levels to the gate and chapter 2 does not exceed the cap.
+- **Balance**: chapter 2 zone tiers raised; Frost Wisp/Crystal Golem/Barrow Guard/Corpse King retuned; Nine-Tail Fox 2400 -> 3200 HP; chapter 1 boss XP lowered. `tests/balance2.test.ts` encodes the targets (TTK, damage taken, boss length) as regression tests.
+- **Touch layout**: sound button moved on touch, portrait layout (390x844) fixed; e2e overlap test for portrait (the old overlap check missed elements outside `#hudlayer`).
+- Tests: tests/sustain.test.ts, tests/balance2.test.ts, e2e/sustain.spec.ts, portrait test in e2e/touch.spec.ts.
+- Not done (report proposals for later rounds): boons, boss poise, trial tower, per-hero kits, loot affixes, WorldScene refactor, chapter 2 art, level cap > 20.

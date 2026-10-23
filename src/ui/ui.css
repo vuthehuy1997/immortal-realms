@@ -209,3 +209,14 @@ body.touch #skills .slot { pointer-events: auto; touch-action: none; }
 .storybtns { display: flex; gap: .8em; justify-content: center; } .menu-btn.quiet { opacity: .7; }
 .storybox .dots { margin-top: 1em; display: flex; gap: .4em; justify-content: center; } .storybox .dots i { width: .5em; height: .5em; border-radius: 50%; background: #5b4a24; } .storybox .dots i.on { background: var(--gold2); }
 .qchap { margin: .8em 0 .2em; color: var(--gold2); letter-spacing: .08em; font-size: .9em; }
+
+/* touch layout fixes (round 12, QA report 3) */
+body.touch #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width: 2.2em; height: 2.2em; font-size: 1em; }
+@media (max-aspect-ratio: 1/1) {
+  body.touch #minimap { width: 8.5em; height: 8.5em; } body.touch #mmlabel { display: none; }
+  body.touch #objective { top: 9.2em; max-width: 92vw; }
+  body.touch #skills { bottom: 1vmin; transform: translateX(-50%) scale(.72); transform-origin: bottom center; }
+  body.touch .tc-stick { bottom: 20vmin; width: 30vmin; height: 30vmin; }
+  body.touch .tc-btns { bottom: 20vmin; }
+  body.touch #quest { display: none; }
+}

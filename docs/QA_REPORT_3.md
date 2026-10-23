@@ -1,125 +1,165 @@
-# QA Report 3 - independent test of round 3 (commit b1fe6a9)
+# QA Report 3 - independent QA/design review of commit c2e62aa (rounds 1-11)
 
-Build: `npm run build`, `vite preview` on 127.0.0.1:4190. Chromium + SwiftShader (the box was loaded, load average 20-30, so frame times are noisy; every duration below is GAME time from `__rpg.state().now`). Nothing under src/, tests/, e2e/ or public/ was modified. Scripts and screenshots live in `/tmp/claude-464201200/-data-yuu-ai-data-yuu-self-immortal-realms/fb77f4ce-5dc1-4887-ba8e-13a6200c5f82/scratchpad/qa4/` (called `qa4/` below).
+Note: this file replaces an older "QA Report 3" that covered commit b1fe6a9; the old text is in git history (`git log -- docs/QA_REPORT_3.md`).
 
-Caveats: the fight bots use hook input (`__rpg.attack/cast/dash`, real WASD keyboard for movement) with perfect aim and a cast attempt every ~90 ms wall time, so they are stronger than a human and the balance numbers are lower bounds on difficulty. One QA-only runtime edit was made in the page (a 3x9 tile wall injected into `world.blocked`) to test line of sight, because the generated map has no thick walls. Anything not reproduced is marked UNVERIFIED.
+Reviewer: independent QA lead / game designer (did not write the game). No source, test or asset file was modified. Scratch scripts and screenshots: `/tmp/claude-464201200/-data-yuu-ai-data-yuu-self-immortal-realms/fb77f4ce-5dc1-4887-ba8e-13a6200c5f82/scratchpad/qa/` (called `qa/` below).
 
-## 1. Summary
+## 0. Method and honesty limits
 
-| Severity | Count | IDs |
+- VERIFIED = I ran it (Playwright, Chromium + SwiftShader, `vite preview` on :4199, build of c2e62aa; `npm test` = 21 files / 272 tests pass).
+- INFERRED = read from `src/data/*` / `src/core/*` and computed by script (`qa/calc.cjs`, `qa/calc2.cjs`), not observed in play.
+- The machine ran at load average 20-45, so the game simulated only 0.6-0.9 game-seconds per wall second. All durations below are GAME seconds (`__rpg.state().now`). fps is not reported (meaningless under this load).
+- My "player" is a bot: real WASD keys for movement, hook calls (`__rpg.attack/cast`) with perfect aim, dash on boss windup (max 1/s), potion at <45% HP. It spams all 4 techniques. Better aim than a human but no kiting/positioning intelligence, so treat numbers as a rough band.
+- I did NOT fight Nine-Tail Fox, Jiao Dragon or the three Ch2 bosses (time/CPU), nor read the story pages (auto-skipped under automation), nor hear audio (headless). Those parts are INFERRED or marked UNVERIFIED.
+- Zero page errors and zero console errors/warnings across every session I ran (VERIFIED, `errs` empty in all logs).
+
+## 1. Executive summary
+
+Top 5 problems
+1. **Chapter 2 is mechanically trivial and the economy is hollow once you have the free quest gear.** Quests hand out the Froststeel Blade and Frost Mail, and the Outpost shop sells the very same two items for 1500/1400 stones, so the shop is redundant. At L12 with that kit, Whitefrost/Crystal mobs died in 0.5-4.8 s and cost 0-24 HP of 352. Stones arrive at 20-45 per kill while a Greater Vitality Draught costs 40. (kills VERIFIED; stone rates INFERRED)
+2. **Difficulty is a cliff at the first boss and flat afterwards.** Fallen Sword Immortal (6600 HP) vs L9 with full Chapter 1 shop gear (226 HP) and 10 potions: bot died at 58 s with the boss at 6% HP, 601 damage taken, all 10 potions used (VERIFIED, one run). Yet Nine-Tail Fox is only 2400 HP and Ch2 mobs fall over. Potions heal a flat 40 HP (18% of 226 HP, ~11% at L12) on a 2.5 s cooldown; they cannot scale.
+3. **Mana is a dead system in sustained fights.** The bot held 6-15 of 82 mana for the whole boss fight; techniques 2-4 (the martial arts the owner wants) are unavailable after the opening burst, so the fight collapses to the 3-hit combo. (VERIFIED in log; a human would ration, but income is only 3/s regen.)
+4. **Visual repetition between chapters.** The Ch2 hub is the Ch1 hub (same lotus bowls, pavilions, NPC layout) with a frost tint; the final boss "Sundered Sovereign" is the Warden sprite tinted blue at 2.5x HP; Ch2 mobs are tinted Ch1 mobs (frost wolves read near-black navy, not frosty); Whitefrost ground has tan "mud" blotches under the snow. Declared PLACEHOLDER in the repo, but the owner explicitly rejected "technically passing but plain".
+5. **Touch/mobile layout is not shippable:** sound button overlaps the Quest button at 844x390; portrait (390x844) is broken (minimap covers the objective, buttons cover the skill bar). The e2e overlap check missed it because the sound button is outside `#hudlayer`. (VERIFIED, screenshots)
+
+Top 5 opportunities
+1. Percentage/charge healing flask plus mana refund on hit (S, fixes problems 2 and 3 together).
+2. A build-choice layer (boon/insight picks at level-up and boss kills, Hades-style) so levels 10-20 are not just +HP/+ATK (M).
+3. Boss poise/stagger plus a perfect-dodge reward: telegraphs already exist and read well; give skilled play a payoff (M).
+4. A stone sink and replay loop: sect upgrade shop, trial tower / endless rift reusing existing enemies (S-M each).
+5. Rebalance the level curve: bosses+quests alone reach ~L10 in Ch1 and the L20 cap in Ch2, so normal-mob grinding is pointless late (S, data only).
+
+## 2. Scorecard (1-10)
+
+| Area | Score | Justification |
 |---|---|---|
-| S1 | 0 | |
-| S2 | 1 | R3-1 |
-| S3 | 4 | R3-2, R3-3, R3-4, R3-5 |
-| S4 | 7 | R3-6 .. R3-12 |
+| Combat | 6 | Readable telegraphs (red arcs, windup states), 3-hit combo + dash + 4 techniques, good hit feedback; but mana starvation, no poise or dodge reward, trash mobs trivial. Only 1 boss fight actually run. |
+| Progression / economy | 4 | XP curve quick; quest/boss XP alone hits the gate level (Ch1) and the cap (Ch2); stones have no sink after ~L10; potions do not scale; free quest gear nullifies the Ch2 shop. |
+| Content depth | 6 | 6 hero looks (cosmetic only), 3 roots, 4 techniques, ~28 mobs, 6 bosses, 13 quests, 2 maps. Wide but shallow: no build choices, no loot affixes, one shared kit. |
+| Visuals | 7 | Ch1 is genuinely rich (a1_spawn.png, boss_warden_0.png). Ch2 drops to recolours, ground blotches and a cloned hub. |
+| UI / UX | 6 | Clear HUD, objective bar, boss bar, banners; but mobile layout bugs, nameplate clipped by the minimap, dense help text. |
+| Story | 5 | Prologue and chapter pages and NPC dialogue exist; premise generic; UNVERIFIED in play (pages skipped by automation). |
+| Performance | n/a | Cannot judge (SwiftShader at load 20-45). No console errors; maps load in seconds. |
+| Stability | 8 | No page errors in ~12 sessions incl. chapter travel, rapid gate use, resize, touch toggle. |
 
-Top finding: **R3-1, the round-3 out-of-combat regen (including the 5%/s array) stops working after any death/respawn, Save&Quit -> Continue or New Game in the same page session**, because `lastCombat` is never reset while `now` restarts at 0. The headline recovery feature of the round is dead exactly when the player needs it.
+## 3. Numbers I measured or computed
 
-## 2. Scorecard
+### 3.1 Level curve (INFERRED, `qa/calc.cjs`)
+XP to next = 20 * L^1.5. Cumulative XP to reach level: L2 20, L3 77, L4 181, L5 341, L6 565, L7 859, L8 1229, L9 1682, L10 2222, L12 3584, L15 6400, L20 13427.
 
-| Area | /10 | Note |
+| Zone | avg XP/kill | kills for one level at zone's mid level |
 |---|---|---|
-| Visuals | 8 | Art, telegraphs, boss, minimap all strong. Vision cone overlay is too faint to read, the `!` cue is small. |
-| Combat feel | 7 | Boss telegraphs readable; elites now meaningful; bamboo/grove/ruins trivially easy for a skill-spam bot. |
-| AI | 7 | Vision works as designed (cone, LOS, memory, wake on hit, no flicker). Exploits: long-range sniping, no pack alert, no sneak reward. |
-| Progression / balance | 6 | L1->5 in 2.6-2.9 min with <=134 damage and 0 deaths for all roots; roots close; ruins very soft for the bot; regen bug breaks recovery. |
-| UI / UX | 7 | Minimap, objective override, locked labels, banner suppression all verified; overlaps and 1024x600 clipping remain. |
-| Stability | 9 | 0 console errors/warnings, 0 page errors in about 25 min of cumulative automated play, heap flat at 45 MB over 12 spawn/kill cycles. |
+| Bamboo (L1-4) | 14 | L1->2: 2; L3->4: 7 |
+| Marsh (L3-7) | 30 | L5->6: 7 |
+| Grove (L5-9) | 45 | L8->9: 10 |
+| Ruins (L7-12) | 113 | L9->10: 5 |
+| Frostpass (L10-14) | 95 | L11->12: 8 |
+| Crystal (L12-16) | 203 | L13->14: 5 |
+| Barrow (L13-18) | 225 | L15->16: 5 |
 
-## 3. Findings
+Quest/boss XP: Ch1 bosses 900+420+1100 = 2420 XP (more than the whole L10 requirement of 2222); Ch2 quests 8320 + bosses 6600 = 14920 XP, which alone exceeds the L10->L20 need (11205). So the L10 gate is automatic once the three guardians are dead, and the cap is reached through Ch2 story content with no grinding; XP then stops accumulating (`addXp` zeroes it at max level).
 
-### S2
+### 3.2 Combat (VERIFIED, bot, game seconds)
+| Situation | Result |
+|---|---|
+| L1, no gear, Spirit Wolf / Jade Serpent / Foxfire Wisp | TTK 3.2 s / 1.1 s / 2.6 s; 0 damage taken |
+| L2 Elder Treant | TTK 28.6 s, 0 damage |
+| L12 Ch2 kit (352 HP): Frost Wisp / Rime Serpent / Frost Wolf | 0.5 s / 3.2 s / 2.7 s; HP lost 0 / 13 / 0 |
+| same, Crystal: Rime Bat / Shard Bird / Prism Ghost | 2.6 s / 4.8 s / 3.9 s; HP lost 10 / 24 / 0 |
+| same, Barrow: Barrow Guard, Barrow Guard, Ash Soldier | 10.9 s / 25.7 s / 1.3 s; HP lost 0 / 183 (52%) / 0 |
+| Fallen Sword Immortal, L9, steel blade + sect robe + jade pendant (226 HP), 10 Vitality Draughts | **Died at 58 s**, boss left 426/6600; phases at 0 / 18 / 39 s; 601 HP lost; 10 potions used; min HP 25; mana 6-15 of 82 all fight; bot DPS ~115 |
 
-**R3-1. HP regen (normal and array) is dead after respawn / Continue / New Game until the old session time has elapsed.**
-Cause (code): `WorldScene.lastCombat` is a class field initialised once; `create()` resets `this.now = 0` but not `lastCombat` (WorldScene.ts:136 vs :728). `hpRegenPerSec` gets `quiet = now - lastCombat`, which is negative after a restart, so it returns 0 until `now` catches up. `main.ts begin()` reuses the same Scene object, so every re-entry has this.
-Repro: play 20-90 s, get into a fight (or die), die, press Respawn, `setHp(50)`, stand still 20 s.
-Observed: fresh session 50 -> 67 HP in 20 s (1.2%/s as designed, starts after about 6-7.6 s). After death: `now`=1.03, `lastCombat`=92.7, HP stayed exactly 50.0 for 20 s. Standing ON the array after respawn: 30.0 for 12 s (expected +5/s after 2 s). After Save&Quit -> Continue (`now`=0.74, `lastCombat`=16.2): 30.0 for 15 s. The suppression lasts as long as the previous session had run (a 10-minute session means 10 minutes without regen).
-Expected: regen resumes 6 s (array 2 s) after the last damage.
-Fix: set `this.lastCombat = -99` in `create()`.
-Evidence: `qa4/t5.mjs` and `qa4/regen2.mjs` outputs (numbers above).
+Takeaways: (a) Ch2 normal mobs are fodder except the Barrow Guard (~1444 HP, def 6); TTK spread 1.3 s to 26 s inside one zone is inconsistent; (b) the Warden is a real wall for a shop-geared L9 and the objective text does not warn; (c) one run, so a band, not a fact.
 
-### S3
+### 3.3 Economy (INFERRED from data; prices read from code)
+- Vitality Draught 40 HP, 12 stones, stack 10, cooldown 2.5 s. Greater: 120 HP, 40 stones.
+- Stones per kill (avg): Bamboo 2.4, Marsh 5.2, Grove 7.8, Ruins 20, Frostpass 20, Crystal 41, Barrow 45. Boss drops 55-420.
+- Ch1 full kit (steel blade 180 + sect robe 170 + jade pendant 140) = 490 stones = ~25 Ruins kills.
+- Ch2: Froststeel Blade (value 1500) and Frost Mail (1400) are quest rewards and also Outpost stock. Remaining sinks: Crystal Saber 2400 and Sovereign Blade 4000 (neither in shop stock; drops). At ~41 stones/kill the only sink is potions, which are rarely needed (3.2).
+- Death costs a small stone tax and full-HP respawn; with regen and the array, grinding is nearly risk-free.
 
-**R3-2. Enemies hit from beyond 1.5x aggro range never chase: free ranged kills.**
-Repro: spawn a wolf 172 px away facing away, cast Flying Sword (range 190) six times.
-Observed: the wolf stayed `idle` at 178-182 px for all six hits and lost 160 -> 44 HP. A `!` shows on each hit, then the chase state drops straight back to idle because `updateEnemyAI` leaves chase when `dist > aggroRange*1.5` (165 for a wolf). The same wolf at 150 px chases normally (144 -> 77 -> 30 px). Rushers have aggro 90-110, so the flying sword (190) outranges them (snake/toad leash 135, treant 150).
-Expected: a struck enemy (alertUntil) hunts at least to the attacker's last position.
-Fix: skip the leash-drop while `now < alertUntil`, or use `max(aggro*1.5, 200)` when alerted.
-Evidence: `qa4/snipe.log`.
+## 4. Play-test notes
 
-**R3-3. Save & Quit / Continue next to an engaged boss at low HP.**
-Repro: engage the Fox, `setHp(12)`, Esc -> Save & Quit to Menu -> Continue.
-Observed: the hero returns 60 px from the Fox at 13 HP, boss already `engaged:true` at full 2400 HP. There is no grace period; the likely outcome is death plus the death tax (not run to completion: UNVERIFIED that it kills). Not a soft-lock (death respawns at the village) and not an exploit (the boss heals on reload).
-Fix: on load, if a boss is within engage range, place the hero at the village or give a 3-5 s grace period.
-Evidence: `qa4/save1.log`.
+VERIFIED
+- Menu -> creation (6 looks, 3 roots, 3 save slots) is clear and attractive (qa/a1_create2.png). Hero choice is cosmetic: all heroes share techniques (`src/data/heroes.ts`). A missed hook: players expect the Monk and Twin-Blade to play differently.
+- Spawn in the sect hub: strong first impression (a1_spawn.png). Locked techniques are shown with unlock levels (good teaser).
+- Nameplate "Merchant Qiao - Shop" is partly under the minimap at 1280x720 and 844x390 despite the round 8 fix.
+- Gate with unmet requirements: toast states exactly what is needed (c1_gate_refused.png). With requirements met, travel to Ch2 worked (HP preserved). Three rapid `useGate()` calls produced one clean trip (`traveling` guard).
+- Ch2 arrival (c1_ch2_arrival.png): frost-tinted copy of the Ch1 hub. Objective bar still showed the attack tutorial text; my run skipped tutorial flags via hook, so a real player likely will not see it (UNVERIFIED).
+- Whitefrost Pass (c1_ch2_frostpass.png): enemy vision cones are large yellow fans, informative but noisy with 5+ mobs; tan blotches in the snow; frost wolves near-black.
+- Crystal Hollow (c1_ch2_crystal.png): the Colossus (teal golem) reads well, sweep arc clear, boss bar fine. The zone anchor sits inside the boss arena.
+- Dialogue with two wolves adjacent: world pauses (hp 100 -> 100 over 6 s). No free hits, but also an exploit-free escape from any fight via shop/dialogue.
+- Quest accept with a full 20/20 bag works; reward path shows an "inventory too full" toast per code (turn-in with full bag not driven: UNVERIFIED).
+- Resize 844x390 -> 390x844 -> 1280x720 mid-game: no crash, simulation continued (qa/resize_back.png).
 
-**R3-4. Death tax floor is 50% at the start of the game.**
-`max(15, 10%)` on the starting 30 stones took 15 (`qa4/death.png`: "You lose 15 spirit stones"). The first death costs half of the player's wealth (more than a potion). Consider a floor of 5-8 below level 5, or min(15, 25% of stones).
+INFERRED
+- Audio is fully procedural WebAudio (SFX + ambient music); not heard. No per-zone or boss track variety found in `audio.ts`.
+- Story pages never exercised (skipped when `navigator.webdriver`).
 
-**R3-5. Early and mid zones are very easy for a competent bot; ruins are far softer than in round 2.**
-Numbers (bot, no gear unless noted, game time):
-- L1 -> L5 in bamboo, natural spawns: Flame 158 s / 29 kills / 65 dmg; Tide 157 s / 29 kills / 69 dmg; Verdant 176 s / 24 kills / 134 dmg. 0 deaths, 0 potions. Roots are within 12% on time; Verdant takes about double the damage; Tide's slow/mana benefit is not visible in this metric.
-- Grove at L5, 12 kills: 66-71 s, 37 dmg total. Marsh at L3 with all enemies alerted: 12 kills, 80 s, 49 dmg.
-- Ruins at L7, 12 kills: 66 s, 21 dmg; with `alertAll` every loop: 70 s, 6 dmg. Round 2 measured 175-222 dmg per jiangshi at L7. Either ruins tier 3.0 plus longer rusher windups made them soft, or the hook bot out-aims the old mouse bot (UNVERIFIED which; a human playtest is needed).
-- Elites (marsh-tier wolf/toad/ghost/skeleton, L6, 10 kills): 154 s, 324 dmg taken, about 15 s and 32 dmg each, 0 deaths. A real improvement over round 2 (5-10 s, 0-12 dmg).
-Reading: the only content with stakes is elites and bosses; normal packs need no potions. Consider restoring some ruins pressure.
+## 5. Ranked bug / issue list
 
-### S4
+| # | Sev | Issue | Repro | Evidence |
+|---|---|---|---|---|
+| 1 | S3 | Touch 844x390: Sound button overlaps Quest button (label clipped "Ques"). In TASKS.md as known, unfixed; e2e overlap check misses it (button outside `#hudlayer`). | `/?touch=1`, viewport 844x390 | qa/touch844.png |
+| 2 | S3 | Portrait 390x844 broken: minimap covers the objective bar, touch buttons overlap skill bar and potions. | resize to 390x844 with `?touch=1` | qa/touch_portrait.png |
+| 3 | S3 | Warden wall at L9 + shop gear; flat 40 HP potions cannot sustain; no in-game "recommended level" hint. | qa/b2.cjs warden 1682 steel-blade,sect-robe,jade-pendant 8 | qa/warden.log (res=died, boss 426/6600) |
+| 4 | S3 | Ch2 trivialised by free quest gear; Outpost shop duplicates rewards; stones have no sink. | equip Froststeel+Frost Mail at L12, kill Ch2 mobs | qa/c1.log; `src/data/quests.ts` L86, L102; `src/core/shop.ts` OUTPOST_STOCK |
+| 5 | S3 | Ch2 art repetition (hub clone, Sovereign = tinted Warden, tinted mobs). Declared PLACEHOLDER. | enter Ch2 | qa/c1_ch2_arrival.png, qa/c1_ch2_frostpass.png |
+| 6 | S3 | Quests+bosses reach the Ch1 gate level and the L20 cap without grinding; XP after cap silently discarded. | data | calc.cjs |
+| 7 | S4 | Mana starvation (6-15/82 during whole boss fight). | boss fight | qa/warden.log |
+| 8 | S4 | Mob TTK spread inside a zone (Ash Soldier 1.3 s vs Barrow Guard 10.9-25.7 s, 183 damage). | qa/c1.cjs | qa/c1.log |
+| 9 | S4 | Merchant nameplate partly under the minimap (1280x720, 844x390). | new game | qa/a1_spawn.png, qa/touch844.png |
+| 10 | S4 | Whitefrost ground blotches, near-black frost wolf tint, heavy vision cones. | teleport to frostpass anchor | qa/c1_ch2_frostpass.png |
+| 11 | S4 | Elder Treant took 28.6 s at L2 with zero damage taken: sponge or stuck behind a prop; cause not investigated. UNVERIFIED. | spawn treant at L2 | b1 run output (not saved to file) |
+| 12 | S4 | Test hooks `spawn`/`spawnElite` hardcode zone tiers ('bamboo'/'marsh'), so e2e never fights a Ch2-tier mob (test gap). | `installTestHooks` | source |
+| 13 | S4 | Tutorial objective can outrank chapter objective text in Ch2 if tutorial flags are unset (hook-only). | skip tutorial, travel | qa/c1_ch2_arrival.png |
+| 14 | S4 | Bot second-wolf fight timed out at 90 s at L1; likely my bot chasing respawned wolves. UNVERIFIED. | qa/b1.cjs | b1 run output |
 
-- **R3-6. Minimap zone label and the "Tab - world map" hint are overlapped by the quest tracker** (`qa4/ui2-1280x720-quest-arrow.png`, `qa4/ui2-1024x600-boss.png`: the label is cut by the tracker's top edge, the hint is hidden). Move the tracker about 20 px down.
-- **R3-7. Character panel is still clipped at 1024x600** (`qa4/ui-1024x600-chr.png`): the last "Breakthrough needs..." paragraph runs into the hotbar. The shop panel also touches both screen edges and sits under the hotbar (`qa4/ui-1024x600-shop.png`). Needs `max-height` plus scroll.
-- **R3-8. World map at 1024x600**: zone labels "Whispering Bamboo Forest" and "Broken Sword Ruins" overshoot the map frame; the hint line "World map - Tab or Esc to close" overlaps the hotbar (`qa4/ui-1024x600-map.png`). Enemy dots still spoil the hunt.
-- **R3-9. NPC nameplates are hidden behind the minimap** at 1280x720 ("Merchant Qiao . Shop" is cut at "Sho", `qa4/ui-1280x720-spawn.png`). The backplates themselves read well.
-- **R3-10. Vision cone overlay is barely visible** on bright ground (alpha 0.09/0.07 in `drawOverlays`) and only drawn for idle enemies (`qa4/ui2-1280x720-cones.png`). The `!` cue is small and low contrast. Stealth is readable mainly on dark terrain.
-- **R3-11. Boss bar abuts the objective line** at 1024x600 (`qa4/ui2-1024x600-boss.png`), cosmetic.
-- **R3-12. No reward for stealth, no pack alerts.** Unaware enemies can be approached to about 27 px and hit from 26-34 px without waking, but the first hit wakes them with no backstab bonus. A facing-away wolf 30-60 px behind a standing player never noticed it in 12 s (stealth works), and a player circling at 45 px never woke a wolf in 12 s. `alertEnemy` is only called from `hitEnemy`: striking one of 3 clustered wolves woke one other, one stayed idle after 2 s.
+No S1/S2 found in what I exercised. Not exercised: death + respawn inside Ch2 (code: `respawn()` uses the current chapter's spawn), save mid-travel (`travelTo` saves before restart), export/import via the real file dialog.
 
-## 4. Verified working (round-3 claims)
+## 6. Benchmark-derived proposals (mechanics only; no IP, art or text)
 
-| Claim | Result | Evidence |
-|---|---|---|
-| Vision: LOS blocks sight | PASS | Wolf facing the player across a 1-tile obstacle for 5 s: idle, 0 damage. Adjacent through the obstacle (32 px apart): idle 10 s, 0 damage. |
-| 3 s memory, then give up and return home | PASS | Injected 3x9 wall: wolf, foxfire and swordspirit each stood at the wall in `chase` for 2.6-3.1 s, then `idle` and walked home; never attacked through the wall. `qa4/t4.mjs`. |
-| Cone / sense radius | PASS | Facing-away wolf at 22 px noticed at 0.0 s; at 30, 40, 60 px never in 12 s; at 90 px noticed at 4.2 s (idle sway). |
-| Chase ends beyond 1.5x aggro | PASS, with the side effect in R3-2 | Lure test: `idle` within 0.5 s of teleporting 250 px away (no `?`). |
-| Wake on hit | PASS | `strikeEnemy` -> `chase` within 0.3 s with the `!` cue. |
-| Sprite flip flicker | PASS | Player straddling the x axis 30 px above a chasing toad for 8 s: 1 flip in 236 samples. Idle wolf 20 s: 2 flips; orbiting caster 4 per 12 s; charger 4 per 12 s (windup/dash). |
-| Charger mid-windup | PASS | Locked direction, no state breakage in the orbit test. |
-| Burn DoT waking enemies | UNVERIFIED | Code read: `tickBurn` calls `applyDamage` directly, so DoT neither wakes nor alerts; the hit that applies burn does. |
-| canSee cost | NO REGRESSION SEEN | Noisy (box load 26): idle 33 ms, 40 enemies 45-47 ms, 80 enemies 39-40 ms average frame; alerted and unaware the same. |
-| Regen numbers (fresh session) | PASS | 1.2%/s after about 6-7.6 s (3.1 HP per 2.5 s at 100 max HP); array 5%/s (maxHp 147: 30 -> 120 in 12 s); village outside array 30 -> 62 in 18 s. |
-| Regen abuse paths | NONE FOUND | UI pause, shop and dialogue stop `simulate` (no free time); dead state skips `updatePlayer`; meditation adds no HP regen (qi only). The array heals fully in about 14 s: a free full-heal station in the village (design note). |
-| Death tax | PASS | min(stones, max(15, 10%)): 30 -> 15 observed. See R3-4 for the feel. |
-| Boss windup >= 85% of nominal | PASS | 27 Fox telegraphs: charge nominal 0.70 s, observed 0.62-0.91 (ratio 0.89-1.30); sweep nominal 0.60, observed 0.53-0.78 (0.88-1.30). Only Fox sampled. |
-| Repeat-kill stones x0.3 | PASS | Fox first kill +79 stones; repeats +24, +22, +24 (qi pill 50% only, no unique drop). |
-| No autosave during boss fight | PASS | Control autosave fired within 33 s; with the Fox engaged for about 70 s the save string did not change. Boss kill writes a save containing `ninetail`. Death mid-boss saves with the tax and respawns in the village; the boss resets. |
-| Minimap larger, zone label, click opens map, Tab | PASS | 165 px at 1024x600, 203 px at 1280x720, 255 px at 1920x1080; click -> `#wmap` shown; Tab toggles. |
-| Objective line overrides tutorial | PASS | After accepting the first quest at tut=9 (dash step not done) the line read "Slay Spirit Wolves 0/4". |
-| Objective arrow placement | PASS | Clamped clear of HUD in 3 captures (left edge, distance 29; bottom, 31, above the hotbar). |
-| Locked skill labels | PASS | Slots show "Lv 2/4/7" cleanly (`qa4/ui-1280x720-spawn.png`). |
-| Zone banner suppression | PASS | No banner during the engaged Fox (`qa4/ui2-1280x720-boss.png`) or on the death screen (`qa4/death.png`); it appears normally in the bamboo. |
-| Elite label near player only | PASS | "Vampiric Spirit Wolf" label only on the close elite. |
-| Console | PASS | 0 console errors/warnings and 0 pageerrors in every run; the 8 WebGL `texImage2D` warnings are gone; audio mute toggle did not throw; no AudioParam exception in grove/ruins/boss runs. |
-| Memory | PASS | Heap 45 MB at start and after 12 cycles of 10-enemy spawn/kill; scene children 599 -> 604, tweens 111 -> 114, textures 308 -> 309. |
-| Save/load round trip | PASS | Level, stones (333), potions (5), position, engaged boss restored exactly (see R3-3). |
+Sources (standard web search, thin; supporting only): Hades dash/telegraph/boon discussions ([steam thread](https://steamcommunity.com/app/1145360/discussions/0/2442588190937355878), [Hades II action gameplay](https://astra.bearblog.dev/hades-ii-action-gameplay), [wiki: Unblockable](https://hades.fandom.com/wiki/Unblockable)); Vampire Survivors design essays ([Secret Sauce](https://jboger.substack.com/p/the-secret-sauce-of-vampire-survivors), [banish](https://gmdq.substack.com/p/vampire-survivors-banish-mechanic)): frequent small choices pace the run, tiny meta increments avoid grind; Tale of Immortal reviews ([GameGeeker](https://gamegeeker.com/games/tale-of-immortal-1468810/review?market=US)) praise breadth but score combat 5.7/10 and call the loop repetitive, which is exactly this project's risk. PoE/Torchlight affixes, Hollow Knight flask, soulslike poise and Genshin reactions are from my own design knowledge, not fetched.
 
-## 5. Top 10 fixes (priority order)
+Ranked by value/cost:
 
-1. R3-1: reset `lastCombat` (and any other class-field timers) in `create()`; add an e2e: die, respawn, wait, expect regen.
-2. R3-2: keep alerted enemies hunting past 1.5x aggro (or give ranged hits a "searching" state).
-3. R3-3: grace period or dormant boss on Continue near an engaged boss.
-4. R3-5: re-check ruins difficulty with a human playtest; add a pressure source for normal mobs from L5 (pack alerts, more casters).
-5. R3-12: add pack alert propagation and a sneak-attack bonus so the stealth system pays off.
-6. R3-4: soften the 15-stone death floor early (or scale with level).
-7. R3-10: raise cone overlay alpha to about 0.16 plus an edge line; bigger, outlined `!` and `?`.
-8. R3-7/R3-8: scroll or max-height the character, shop and world-map panels at 1024x600; keep map labels inside the frame; lift the map hint above the hotbar.
-9. R3-6/R3-9: separate the quest tracker from the minimap label; keep nameplates under the minimap layer or offset them.
-10. Add an e2e for save mid-boss then Continue (R3-3) and a perf budget test with 80 alerted enemies on real GPU hardware (UNVERIFIED here).
+| # | Proposal | Value | Cost | How to build here | Risk |
+|---|---|---|---|---|---|
+| 1 | Healing flask with charges + percent heal (Hollow Knight/Estus style); potions become top-up | 5 | S | `src/core/recovery.ts`: `flask {charges, healPct}`; `GameState.flask` (additive save field); refill at array/NPC/boss kill; HUD slot F; tests in `tests/recovery.test.ts` | balance; save migration |
+| 2 | Mana refund on hit/crit + technique cost pass | 5 | S | `src/core/combo.ts`/`hit.ts` `manaOnHit`; tune `src/data/skills.ts`; unit tests in `combo.test.ts` | spam too strong |
+| 3 | Boon/insight picks (Hades boons + VS level-up choices): at L5/10/15 and boss kills pick 1 of 3 (combo applies burn, dash leaves blade line, crit after dash) | 5 | M | `src/data/boons.ts` `{id,rarity,effect}`; `src/core/boons.ts` pure `rollChoices(seed, owned)` and `applyBoons(stats, owned)`; `GameState.boons: string[]`; hooks in `deriveStats` and `hitEnemy`; picker in `src/ui/panels.ts` | balance explosion; UI work |
+| 4 | Boss poise/stagger + perfect-dodge reward | 4 | M | `BossDef.poise`; `core/boss.ts` accumulates poise damage, enters `staggered` (reuse `recover` state) for ~2 s with x1.5 damage; perfect dash (dash within 0.15 s of a hit) gives short slow-mo + mana | boss retune; hit-stop interplay |
+| 5 | Sect upgrade shop (VS-style meta): stones buy small permanent bonuses | 4 | S-M | `src/data/sect.ts` (tiers, cost curve), `core/sect.ts` `buyUpgrade(gs,id)`, `GameState.sect`, panel in `src/ui/trade.ts`. Fixes dead stone economy | keep increments small |
+| 6 | Trial tower / endless rift with escalating waves | 4 | M | `src/core/waves.ts` pure generator (seed, floor); arena `MapDef` in `src/data/maps.ts`; reward table in data; floors scale via `scaledEnemy`; post-cap content | needs in-scene map transition path (see 7.3) |
+| 7 | Per-hero technique kits (6 looks become 6 classes) | 5 | L | `SkillDef.heroes?`, `HeroDef.kit`, resolve in `core/skills.ts`; needs combat animations the pack lacks for 3 heroes | art-dependent; test matrix |
+| 8 | Loot affixes (PoE/Torchlight-lite), 1-3 rolled on rare+ gear | 4 | M-L | `src/data/affixes.ts`; `core/loot.ts` `rollItem(seed, ilvl)`; inventory must move from id strings to item instances (largest cost); tooltip UI | biggest save/schema migration |
+| 9 | Root reactions (Genshin-style pairs): burn + slow already exist (`rootEffect`, `tickBurn`) | 3 | M | `core/reactions.ts` pure table consumed in `core/hit.ts`; fx in `fx.ts` | readability |
+| 10 | Cultivation insight events and wandering-sage encounters (breadth without copying) | 3 | M | `src/data/events.ts` weighted table + `core/events.ts`; dialogue UI exists | content volume |
 
-## 6. UNVERIFIED
+Cheap and high impact outside mechanics: replace Ch2 hub and ground, give the Sovereign its own silhouette, and differentiate Ch2 mobs with affixes instead of tints only.
 
-Real-GPU performance; audio by ear; human reaction to the longer rusher windups; Fallen Sword Immortal windup statistics (only the Fox was sampled); whether the R3-3 reload kills the hero; burn DoT waking; Tide's mana benefit; ruins difficulty for a human.
+## 7. Code health (static review; `src/game/WorldScene.ts` 1322 lines, one class, ~60 methods)
 
-## 7. Evidence index (`qa4/`)
+Top refactor risks
+1. **God class.** Input, combat resolution, enemy stepping, boss events, quest/dialogue/trade orchestration, chapter travel, HUD feed, FX and test hooks share one class. Boons, flask, tower each touch 4+ areas. Extract `CombatSystem` (hitEnemy/hitBoss/hurtPlayer/killEnemy/onKill), `EnemyDirector` (spawn/topUp/updateEnemy), `BossController`, `ChapterFlow` (useGate/travelTo/story) behind a small context interface.
+2. **State duplication via push/pull.** `pc` (live combatant) vs `gs` (saved state) synchronised with `pushToState`/`pullFromState`/`mutate` at ~20 sites (e.g. lines 249-260, 357, 431-434, 795, 854, 963-966). A missed push silently loses HP/position; travel and respawn copy by hand.
+3. **`scene.restart` as the transition mechanism** (`travelTo`, `respawn`): every listener/UI mount must be torn down manually (long shutdown list near line 208). A tower map or in-place respawn multiplies this.
+4. **Chapter coupling.** `spawnEnemy(..., zone = 'bamboo')`, hooks defaulting to Ch1 zones, one `ZONES` record keyed by a `ZoneId` union with `chapter` filters, per-chapter stock constants in `shop.ts`. Chapter 3 means editing `ZoneId`, `ZONES`, `CHAPTERS`, `MapDef`, shop stock. Move stock/zones into `ChapterDef`.
+5. **Inventory holds item ids as strings**, so loot affixes force a schema + save + UI rewrite; decide the item-instance shape before adding gear variety.
+6. **Test hooks in the production bundle** (`__rpg.giveXp/setHp/defeatBoss/...` installed unconditionally): console cheating and larger attack surface. Gate behind a flag.
+7. **Imperative DOM UI** (`src/ui/*.ts`, 787 lines) with ad hoc overlap logic (`underMinimap`); each panel re-solves layout, which is how the sound/Quest overlap survived.
 
-Scripts: `t2.mjs t3.mjs t4.mjs t5.mjs` (vision, regen), `snipe.mjs`, `flip.mjs`, `bot.mjs bot2.mjs bot3.mjs` (balance), `boss1.mjs boss2.mjs save1.mjs regen2.mjs perf.mjs perf2.mjs`, `ui.mjs ui2.mjs`. Screenshots: `ui-{1024x600,1280x720,1920x1080}-*.png`, `ui2-*-{dialogue,quest-arrow,cones,cones2,elite,boss}.png`, `death.png`, `wall.png`, `boss-fight.png`, `array.png`. Logs: `*.log`.
+Test gaps
+- No test fights a Ch2-tier mob, Ch2 bosses beyond Corpse King, dies/respawns in Ch2, or saves/loads across a chapter change with active quests.
+- Overlap check scans only `#hudlayer` children; no portrait test.
+- No balance regression test. Combat is pure, so a headless fight sim in `src/core` (player level/kit vs boss) could assert duration and damage bands; my 3.2 numbers could seed it.
+- e2e depends on game time under load (known flakiness); my bots ran at 0.6-0.9x speed.
+- Story pages are skipped under `navigator.webdriver`; only `?story=1` exercises them.
+
+## 8. Recommended order of work
+
+Round A (balance and feel, mostly data): flask with charges/percent heal (P1); mana on hit and technique cost pass (P2); headless fight-sim test plus rebalance of Warden and Ch2 mobs/bosses; make Ch2 gear not free (rewards become materials/tokens or shop-only) and add stone sinks (P5); fix touch bugs 1-2 and nameplate clipping; show "Recommended Lv" on boss banners.
+
+Round B (depth): boon/insight picks (P3); boss poise + perfect dodge (P4); root reactions (P9); fix the cap problem (raise cap with a Foundation Establishment realm or shift XP weight to mobs); play through the story pages with `?story=1`; begin extracting `CombatSystem` and `ChapterFlow`.
+
+Round C (replay and identity): trial tower / rift (P6); Ch2 art pass (hub, ground, unique Sovereign, de-tinted mobs); one hero with a distinct kit (P7); decide the item-instance schema and then loot affixes (P8).

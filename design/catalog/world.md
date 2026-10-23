@@ -24,10 +24,10 @@ World seed 20261016. Chapter 1: 80×80 tiles; Chapter 2: 112×96 tiles (16 units
 | ruins | 1 | Broken Sword Ruins | Lv 7-12 | night | 3/2.4/4 | skeleton×4, jiangshi×3, soldier×3, golem×2 | – |
 | lair | 1 | Fallen Immortal's Court | Boss | night | 3/2.4/4 | – | warden |
 | outpost | 2 | Skyfall Outpost | Safe | frost | 1/1/1 | – | – |
-| frostpass | 2 | Whitefrost Pass | Lv 10-14 | frost | 3.4/2.7/4.6 | frostwolf×6, icesnake×3, frostwisp×3, rimebat×4, snowtreant×1 | – |
-| crystal | 2 | Crystal Hollow | Lv 12-16 | frost | 3.9/3/5.6 | crystalgolem×3, prismghost×3, shardbird×2, frostwisp×2, rimebat×3 | crystalcolossus |
-| barrow | 2 | Ashen Barrow | Lv 13-18 | night | 4.3/3.3/6.4 | ashskeleton×5, bloodjiangshi×3, ashguard×4, prismghost×2 | corpseking |
-| summit | 2 | Sundered Sky Summit | Boss | night | 4.6/3.5/7 | – | sovereign |
+| frostpass | 2 | Whitefrost Pass | Lv 10-14 | frost | 4.2/3/4.2 | frostwolf×6, icesnake×3, frostwisp×3, rimebat×4, snowtreant×1 | – |
+| crystal | 2 | Crystal Hollow | Lv 12-16 | frost | 4.8/3.3/5 | crystalgolem×3, prismghost×3, shardbird×2, frostwisp×2, rimebat×3 | crystalcolossus |
+| barrow | 2 | Ashen Barrow | Lv 13-18 | night | 5.3/3.6/5.8 | ashskeleton×5, bloodjiangshi×3, ashguard×4, prismghost×2 | corpseking |
+| summit | 2 | Sundered Sky Summit | Boss | night | 5.6/3.8/6.2 | – | sovereign |
 
 ## Props
 

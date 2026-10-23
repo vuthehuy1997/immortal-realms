@@ -30,6 +30,7 @@ import { SKILLS, type SkillDef } from '../data/skills';
 import { ZONES, zonesOfChapter } from '../data/zones';
 import { CHAPTERS, LAST_CHAPTER, canEnterChapter } from '../data/chapters';
 import { showStory } from '../ui/story';
+import { FLASK_MAX, manaOnSwing, refillFlask, useFlask } from '../core/sustain';
 import { buildPanels, closePanels, isDialogueOpen, isPanelOpen, refreshPanels, showDialogue, togglePanel } from '../ui/panels';
 import { hideScreen, showPause } from '../ui/menu';
 import { setBossBar, setObjectiveArrow, setPrompt, showDeath, showZoneBanner, toast, updateHud } from '../ui/hud';
@@ -184,7 +185,7 @@ export class WorldScene extends Phaser.Scene {
     kb.onPress(['Digit3', 'Numpad3'], () => this.digit(2)); kb.onPress(['Digit4', 'Numpad4'], () => this.digit(3));
     kb.onPress('Space', () => this.attack());
     kb.onPress(['ShiftLeft', 'ShiftRight'], () => this.dash());
-    kb.onPress('KeyF', () => this.quickUse('hp-potion')); kb.onPress('KeyG', () => this.quickUse('mana-potion'));
+    kb.onPress('KeyF', () => this.useFlaskOrPotion()); kb.onPress('KeyG', () => this.quickUse('mana-potion'));
     kb.onPress('KeyE', () => this.interact());
     kb.onPress('KeyM', () => this.toggleMeditate()); kb.onPress('KeyB', () => this.breakthrough());
     kb.onPress('KeyI', () => { if (!this.uiPause) togglePanel('inv'); }); kb.onPress('KeyC', () => { if (!this.uiPause) togglePanel('chr'); });
@@ -355,6 +356,7 @@ export class WorldScene extends Phaser.Scene {
     this.meditating = false;
     if (res.success) {
       this.mutate(() => { const s = statsOf(this.gs); this.gs.hp = s.maxHp; this.gs.mana = s.maxMana; });
+      refillFlask(this.gs.flask);
       toast(`Breakthrough! You reach ${REALMS[this.gs.cultivation.realm]!.name}. (+2 skill points)`, 3600); audio.sfx('breakthrough');
       this.fx.play('xf_ascend', this.pos.x, this.pos.y, { scale: 0.55, tint: COLORS.gold });
       this.fx.play('xf_taiji', this.pos.x, this.pos.y - 14, { scale: 0.4, tint: COLORS.gold });
@@ -367,6 +369,18 @@ export class WorldScene extends Phaser.Scene {
       toast('The breakthrough fails — qi backlash! The pill is lost, half your qi scatters and you are wounded.', 3600); audio.sfx('fail');
       this.fx.play('xf_mirror_shatter', this.pos.x, this.pos.y - 14, { scale: 0.3, tint: COLORS.hurt });
     }
+  }
+
+  /** F: the spirit flask first (percentage heal, refills over time), then a Vitality Draught from the bag. */
+  private useFlaskOrPotion(): void {
+    if (this.uiPause || this.dead) return;
+    if (this.now < this.potionReadyAt) { toast('Draughts are still settling…', 1000); return; }
+    const heal = this.mutate(() => useFlask(this.gs.flask, this.pc.hp, this.pc.maxHp));
+    if (heal === null) { this.quickUse('hp-potion'); return; }
+    this.mutate(() => { this.gs.hp = Math.min(this.pc.maxHp, this.pc.hp + heal); });
+    this.potionReadyAt = this.now + POTION_COOLDOWN;
+    toast(`Spirit flask: +${heal} HP (${this.gs.flask.charges}/${FLASK_MAX} left)`, 1400); audio.sfx('potion');
+    this.fx.play('xf_pill_light', this.pos.x, this.pos.y - 14, { scale: 0.22, tint: COLORS.heal });
   }
 
   private quickUse(itemId: string): void {
@@ -550,6 +564,7 @@ export class WorldScene extends Phaser.Scene {
         if (inArc(this.pos, dmgDir, hit.range, (finisher ? 80 : 65) * Math.PI / 180, t.pos, t.radius)) { t.hit(hit.mult, { kb: hit.knockback, from: this.pos }); any = true; }
       }
       if (finisher) { this.fx.shake(110, 0.0035); if (any) this.hitStop(70); }
+      if (any) this.pc.mana = Math.min(this.pc.maxMana, this.pc.mana + manaOnSwing(finisher)); // landing blows feeds the techniques
     });
   }
 
@@ -792,7 +807,7 @@ export class WorldScene extends Phaser.Scene {
 
   private respawn(): void {
     showDeath(false);
-    this.mutate(() => { const s = statsOf(this.gs); this.gs.hp = s.maxHp; this.gs.mana = s.maxMana; this.gs.pos = { ...this.world.spawn }; });
+    this.mutate(() => { const s = statsOf(this.gs); this.gs.hp = s.maxHp; this.gs.mana = s.maxMana; this.gs.pos = { ...this.world.spawn }; refillFlask(this.gs.flask); });
     this.scene.restart({ state: this.gs, host: this.host });
   }
 
@@ -816,7 +831,7 @@ export class WorldScene extends Phaser.Scene {
 
     const zone = zoneAt(this.world, this.pos);
     if (zone !== this.currentZone) this.currentZone = zone;
-    if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; if (!this.dead && !this.bosses.some((b) => b.engaged)) showZoneBanner(ZONES[zone].name, ZONES[zone].level); setMinimapZone(ZONES[zone].name, ZONES[zone].level); }
+    if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; if (zone === CHAPTERS[this.chapter]!.hub && this.gs.flask.charges < FLASK_MAX) { refillFlask(this.gs.flask); toast('Spirit flask refilled.', 1600); } if (!this.dead && !this.bosses.some((b) => b.engaged)) showZoneBanner(ZONES[zone].name, ZONES[zone].level); setMinimapZone(ZONES[zone].name, ZONES[zone].level); }
     this.ambient.update(dt, zone);
     const mood: Mood = this.bosses.some((b) => b.engaged) ? 'boss' : zone === 'marsh' ? 'mist' : zone === 'ruins' || zone === 'lair' || zone === 'barrow' || zone === 'summit' || this.enemies.some((e) => e.ai.state !== 'idle' && !e.minion) ? 'danger' : 'calm';
     audio.setMood(mood); audio.setZone(zone);
@@ -1316,6 +1331,7 @@ export class WorldScene extends Phaser.Scene {
       bossForce: (id: string, move: string) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; b.ai.force = move as never; b.ai.gap = 0; } },
       setStones: (n: number) => { this.gs.stones = n; },
       useGate: () => this.useGate(),
+      setFlask: (n: number) => { this.gs.flask.charges = n; this.gs.flask.kills = 0; },
       defeatBoss: (id: string) => { if (!this.gs.bosses.includes(id)) this.gs.bosses.push(id); },
     };
   }

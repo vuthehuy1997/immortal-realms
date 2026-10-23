@@ -981,23 +981,23 @@
     "scaled": {
       "frostpass": {
         "normal": {
-          "maxHp": 707,
-          "atk": 30,
-          "def": 4,
-          "xp": 92,
+          "maxHp": 874,
+          "atk": 33,
+          "def": 5,
+          "xp": 84,
           "stones": [
-            14,
-            28
+            13,
+            25
           ]
         },
         "elite": {
-          "maxHp": 1980,
-          "atk": 42,
-          "def": 4,
-          "xp": 276,
+          "maxHp": 2446,
+          "atk": 46,
+          "def": 5,
+          "xp": 252,
           "stones": [
-            41,
-            83
+            38,
+            76
           ]
         }
       }
@@ -1037,23 +1037,23 @@
     "scaled": {
       "frostpass": {
         "normal": {
-          "maxHp": 517,
-          "atk": 30,
-          "def": 2,
-          "xp": 74,
+          "maxHp": 638,
+          "atk": 33,
+          "def": 3,
+          "xp": 67,
           "stones": [
-            9,
-            23
+            8,
+            21
           ]
         },
         "elite": {
-          "maxHp": 1447,
-          "atk": 42,
-          "def": 2,
-          "xp": 221,
+          "maxHp": 1788,
+          "atk": 46,
+          "def": 3,
+          "xp": 202,
           "stones": [
-            28,
-            69
+            25,
+            63
           ]
         }
       }
@@ -1064,7 +1064,7 @@
     "id": "frostwisp",
     "name": "Frost Wisp",
     "behavior": "caster",
-    "maxHp": 30,
+    "maxHp": 48,
     "atk": 14,
     "def": 0,
     "speed": 42,
@@ -1099,45 +1099,45 @@
     "scaled": {
       "frostpass": {
         "normal": {
-          "maxHp": 408,
-          "atk": 38,
+          "maxHp": 806,
+          "atk": 42,
           "def": 0,
-          "xp": 110,
+          "xp": 101,
           "stones": [
-            14,
-            28
+            13,
+            25
           ]
         },
         "elite": {
-          "maxHp": 1142,
-          "atk": 53,
+          "maxHp": 2258,
+          "atk": 59,
           "def": 0,
-          "xp": 331,
+          "xp": 302,
           "stones": [
-            41,
-            83
+            38,
+            76
           ]
         }
       },
       "crystal": {
         "normal": {
-          "maxHp": 468,
-          "atk": 42,
+          "maxHp": 922,
+          "atk": 46,
           "def": 0,
-          "xp": 134,
+          "xp": 120,
           "stones": [
-            17,
-            34
+            15,
+            30
           ]
         },
         "elite": {
-          "maxHp": 1310,
-          "atk": 59,
+          "maxHp": 2580,
+          "atk": 65,
           "def": 0,
-          "xp": 403,
+          "xp": 360,
           "stones": [
-            50,
-            101
+            45,
+            90
           ]
         }
       }
@@ -1173,45 +1173,45 @@
     "scaled": {
       "frostpass": {
         "normal": {
-          "maxHp": 462,
-          "atk": 24,
+          "maxHp": 571,
+          "atk": 27,
           "def": 0,
-          "xp": 64,
+          "xp": 59,
           "stones": [
-            9,
-            18
+            8,
+            17
           ]
         },
         "elite": {
-          "maxHp": 1295,
-          "atk": 34,
+          "maxHp": 1599,
+          "atk": 38,
           "def": 0,
-          "xp": 193,
+          "xp": 176,
           "stones": [
-            28,
-            55
+            25,
+            50
           ]
         }
       },
       "crystal": {
         "normal": {
-          "maxHp": 530,
-          "atk": 27,
+          "maxHp": 653,
+          "atk": 30,
           "def": 0,
-          "xp": 78,
+          "xp": 70,
           "stones": [
-            11,
-            22
+            10,
+            20
           ]
         },
         "elite": {
-          "maxHp": 1485,
-          "atk": 38,
+          "maxHp": 1828,
+          "atk": 42,
           "def": 0,
-          "xp": 235,
+          "xp": 210,
           "stones": [
-            34,
-            67
+            30,
+            60
           ]
         }
       }
@@ -1257,23 +1257,23 @@
     "scaled": {
       "frostpass": {
         "normal": {
-          "maxHp": 2040,
-          "atk": 49,
-          "def": 15,
-          "xp": 253,
+          "maxHp": 2520,
+          "atk": 54,
+          "def": 18,
+          "xp": 231,
           "stones": [
-            37,
-            64
+            34,
+            59
           ]
         },
         "elite": {
-          "maxHp": 5712,
-          "atk": 68,
-          "def": 15,
-          "xp": 759,
+          "maxHp": 7056,
+          "atk": 76,
+          "def": 18,
+          "xp": 693,
           "stones": [
-            110,
-            193
+            101,
+            176
           ]
         }
       }
@@ -1284,8 +1284,8 @@
     "id": "crystalgolem",
     "name": "Crystal Golem",
     "behavior": "charger",
-    "maxHp": 170,
-    "atk": 22,
+    "maxHp": 120,
+    "atk": 17,
     "def": 11,
     "speed": 26,
     "aggroRange": 110,
@@ -1319,23 +1319,23 @@
     "scaled": {
       "crystal": {
         "normal": {
-          "maxHp": 2652,
-          "atk": 66,
-          "def": 27,
-          "xp": 392,
+          "maxHp": 2304,
+          "atk": 56,
+          "def": 32,
+          "xp": 350,
           "stones": [
-            56,
-            101
+            50,
+            90
           ]
         },
         "elite": {
-          "maxHp": 7426,
-          "atk": 92,
-          "def": 27,
-          "xp": 1176,
+          "maxHp": 6451,
+          "atk": 79,
+          "def": 32,
+          "xp": 1050,
           "stones": [
-            168,
-            302
+            150,
+            270
           ]
         }
       }
@@ -1380,45 +1380,45 @@
     "scaled": {
       "crystal": {
         "normal": {
-          "maxHp": 655,
-          "atk": 48,
+          "maxHp": 806,
+          "atk": 53,
           "def": 0,
-          "xp": 168,
+          "xp": 150,
           "stones": [
-            22,
-            45
+            20,
+            40
           ]
         },
         "elite": {
-          "maxHp": 1835,
-          "atk": 67,
+          "maxHp": 2258,
+          "atk": 74,
           "def": 0,
-          "xp": 504,
+          "xp": 450,
           "stones": [
-            67,
-            134
+            60,
+            120
           ]
         }
       },
       "barrow": {
         "normal": {
-          "maxHp": 722,
-          "atk": 53,
+          "maxHp": 890,
+          "atk": 58,
           "def": 0,
-          "xp": 192,
+          "xp": 174,
           "stones": [
-            26,
-            51
+            23,
+            46
           ]
         },
         "elite": {
-          "maxHp": 2023,
-          "atk": 74,
+          "maxHp": 2493,
+          "atk": 81,
           "def": 0,
-          "xp": 576,
+          "xp": 522,
           "stones": [
-            77,
-            154
+            70,
+            139
           ]
         }
       }
@@ -1463,23 +1463,23 @@
     "scaled": {
       "crystal": {
         "normal": {
-          "maxHp": 842,
-          "atk": 51,
-          "def": 2,
-          "xp": 224,
+          "maxHp": 1037,
+          "atk": 56,
+          "def": 3,
+          "xp": 200,
           "stones": [
-            34,
-            62
+            30,
+            55
           ]
         },
         "elite": {
-          "maxHp": 2359,
-          "atk": 71,
-          "def": 2,
-          "xp": 672,
+          "maxHp": 2903,
+          "atk": 79,
+          "def": 3,
+          "xp": 600,
           "stones": [
-            101,
-            185
+            90,
+            165
           ]
         }
       }
@@ -1523,23 +1523,23 @@
     "scaled": {
       "barrow": {
         "normal": {
-          "maxHp": 1135,
-          "atk": 50,
-          "def": 11,
-          "xp": 192,
+          "maxHp": 1399,
+          "atk": 54,
+          "def": 13,
+          "xp": 174,
           "stones": [
-            26,
-            51
+            23,
+            46
           ]
         },
         "elite": {
-          "maxHp": 3179,
-          "atk": 69,
-          "def": 11,
-          "xp": 576,
+          "maxHp": 3918,
+          "atk": 76,
+          "def": 13,
+          "xp": 522,
           "stones": [
-            77,
-            154
+            70,
+            139
           ]
         }
       }
@@ -1584,23 +1584,23 @@
     "scaled": {
       "barrow": {
         "normal": {
-          "maxHp": 1651,
-          "atk": 66,
-          "def": 13,
-          "xp": 294,
+          "maxHp": 2035,
+          "atk": 72,
+          "def": 16,
+          "xp": 267,
           "stones": [
-            38,
-            77
+            35,
+            70
           ]
         },
         "elite": {
-          "maxHp": 4623,
-          "atk": 92,
-          "def": 13,
-          "xp": 883,
+          "maxHp": 5699,
+          "atk": 101,
+          "def": 16,
+          "xp": 800,
           "stones": [
-            115,
-            230
+            104,
+            209
           ]
         }
       }
@@ -1612,12 +1612,12 @@
     "name": "Barrow Guard",
     "behavior": "rusher",
     "maxHp": 84,
-    "atk": 17,
+    "atk": 14,
     "def": 6,
     "speed": 42,
     "aggroRange": 120,
     "attackRange": 22,
-    "attackCooldown": 1.1,
+    "attackCooldown": 1.3,
     "strikeWindup": 0.34,
     "xp": 36,
     "sprite": "mob.soldier",
@@ -1644,23 +1644,23 @@
     "scaled": {
       "barrow": {
         "normal": {
-          "maxHp": 1445,
-          "atk": 56,
-          "def": 16,
-          "xp": 230,
+          "maxHp": 1781,
+          "atk": 50,
+          "def": 19,
+          "xp": 209,
           "stones": [
-            32,
-            64
+            29,
+            58
           ]
         },
         "elite": {
-          "maxHp": 4045,
-          "atk": 79,
-          "def": 16,
-          "xp": 691,
+          "maxHp": 4986,
+          "atk": 71,
+          "def": 19,
+          "xp": 626,
           "stones": [
-            96,
-            192
+            87,
+            174
           ]
         }
       }

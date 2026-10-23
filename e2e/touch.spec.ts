@@ -42,4 +42,20 @@ test.describe('touch controls', () => {
     await expect(page.locator('#btn-resume')).toBeVisible();
     await shot(page, 'touch-pause');
   });
+
+  test('portrait phone layout: nothing important is covered (stick, buttons, skill bar, minimap, sound)', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/?touch=1');
+    await page.click('#btn-new'); await page.fill('#name', 'Portrait'); await page.click('#btn-start');
+    await page.waitForFunction(() => window.__rpg !== undefined && window.__rpg.state().now > 0.2, null, { timeout: 60_000 });
+    await page.waitForTimeout(1500);
+    await shot(page, 'touch-portrait');
+    const ids = ['#tc-stick', '#tc-attack', '#tc-quest', '#tc-menu', '#skills', '#minimap', '#btn-audio'];
+    const boxes = new Map<string, { x: number; y: number; width: number; height: number }>();
+    for (const id of ids) { const b = await page.locator(id).boundingBox(); expect(b, id).not.toBeNull(); boxes.set(id, b!); }
+    const overlap = (a: { x: number; y: number; width: number; height: number }, b: typeof a) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+    const pairs: [string, string][] = [['#tc-stick', '#skills'], ['#tc-attack', '#skills'], ['#tc-quest', '#skills'], ['#tc-menu', '#skills'], ['#tc-quest', '#btn-audio'], ['#minimap', '#btn-audio'], ['#tc-stick', '#tc-attack']];
+    for (const [a, b] of pairs) expect(overlap(boxes.get(a)!, boxes.get(b)!), `${a} overlaps ${b}`).toBe(false);
+    for (const id of ids) { const b = boxes.get(id)!; expect(b.x, id).toBeGreaterThanOrEqual(-1); expect(b.x + b.width, id).toBeLessThanOrEqual(391); }
+  });
 });

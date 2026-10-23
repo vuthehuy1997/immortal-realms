@@ -5,7 +5,7 @@
     "name": "Fallen Sword Immortal",
     "home": "lair",
     "zone": "lair",
-    "xp": 900,
+    "xp": 600,
     "stones": [
       90,
       140
@@ -115,7 +115,7 @@
     "name": "Nine-Tailed Fox Spirit",
     "home": "den",
     "zone": "grove",
-    "xp": 420,
+    "xp": 300,
     "stones": [
       55,
       80
@@ -123,7 +123,7 @@
     "sprite": "boss.ninetail",
     "scale": 0.42,
     "radius": 22,
-    "maxHp": 2400,
+    "maxHp": 3200,
     "atk": 22,
     "def": 6,
     "speed": 48,
@@ -228,7 +228,7 @@
     "name": "Jiao Dragon of the Mist Pool",
     "home": "pool",
     "zone": "marsh",
-    "xp": 1100,
+    "xp": 700,
     "stones": [
       120,
       180
@@ -341,7 +341,7 @@
     "name": "Corpse King of the Ashen Barrow",
     "home": "barrow",
     "zone": "barrow",
-    "xp": 1500,
+    "xp": 800,
     "stones": [
       160,
       230
@@ -349,7 +349,7 @@
     "sprite": "mob.jiangshi_v_red",
     "scale": 0.78,
     "radius": 22,
-    "maxHp": 9000,
+    "maxHp": 11000,
     "atk": 44,
     "def": 12,
     "speed": 44,
@@ -444,7 +444,7 @@
     "name": "Crystal Colossus",
     "home": "hollow",
     "zone": "crystal",
-    "xp": 1900,
+    "xp": 1000,
     "stones": [
       200,
       280
@@ -547,7 +547,7 @@
     "name": "Sundered Sovereign",
     "home": "summit",
     "zone": "summit",
-    "xp": 3200,
+    "xp": 1700,
     "stones": [
       300,
       420

@@ -216,7 +216,7 @@
     "giver": "commander-shen",
     "intro": "You came through the gate? Then you are the disciple who put down the three guardians. Good. The Fissure widened when they fell, and frost beasts pour down the Whitefrost Pass. Cull eight Frost Wolves and four Frost Wisps so my scouts can reach the Barrow.",
     "reminder": "Eight Frost Wolves and four Frost Wisps in Whitefrost Pass, north-east of the outpost.",
-    "completeText": "The scouts are through. Take this blade; it was forged for this cold.",
+    "completeText": "The scouts are through. The quartermaster stocks blades forged for this cold; spend this well.",
     "objectives": [
       {
         "type": "kill",
@@ -232,16 +232,16 @@
       }
     ],
     "reward": {
-      "xp": 700,
-      "stones": 150,
+      "xp": 420,
+      "stones": 300,
       "items": [
         {
-          "id": "froststeel-blade",
-          "count": 1
+          "id": "greater-hp-potion",
+          "count": 4
         },
         {
-          "id": "greater-hp-potion",
-          "count": 3
+          "id": "qi-pill",
+          "count": 2
         }
       ]
     }
@@ -264,8 +264,8 @@
       }
     ],
     "reward": {
-      "xp": 520,
-      "stones": 120,
+      "xp": 330,
+      "stones": 160,
       "items": [
         {
           "id": "greater-mana-potion",
@@ -286,7 +286,7 @@
     "requires": "rift-scouts",
     "intro": "The Rift twists the strongest beasts, gold-marked and cruel. Slay three of these elites and my soldiers will know the road is safe.",
     "reminder": "Three elite monsters (golden names) anywhere beyond the outpost.",
-    "completeText": "Three less to fear. The quartermaster owes you a favour; here is mine.",
+    "completeText": "Three less to fear. Take this purse; frontier steel is not cheap.",
     "objectives": [
       {
         "type": "elite",
@@ -295,12 +295,16 @@
       }
     ],
     "reward": {
-      "xp": 900,
-      "stones": 220,
+      "xp": 540,
+      "stones": 450,
       "items": [
         {
-          "id": "frost-mail",
-          "count": 1
+          "id": "greater-mana-potion",
+          "count": 4
+        },
+        {
+          "id": "qi-pill",
+          "count": 2
         }
       ]
     }
@@ -323,8 +327,8 @@
       }
     ],
     "reward": {
-      "xp": 1400,
-      "stones": 250,
+      "xp": 900,
+      "stones": 400,
       "items": [
         {
           "id": "greater-hp-potion",
@@ -355,8 +359,8 @@
       }
     ],
     "reward": {
-      "xp": 1800,
-      "stones": 320,
+      "xp": 1100,
+      "stones": 520,
       "items": [
         {
           "id": "greater-mana-potion",
@@ -387,8 +391,8 @@
       }
     ],
     "reward": {
-      "xp": 3000,
-      "stones": 600,
+      "xp": 1800,
+      "stones": 900,
       "items": [
         {
           "id": "greater-hp-potion",

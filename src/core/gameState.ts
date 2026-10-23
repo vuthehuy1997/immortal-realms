@@ -11,6 +11,7 @@ import { addQi, type Cultivation } from './cultivation';
 import { addItem, countOf, newInventory, removeItem, unequip, useConsumable, type EquipKey, type Inventory } from './inventory';
 import { addXp, type Progress } from './progression';
 import { attemptBreakthrough, canBreakthrough, nextRealmLevel, type BreakthroughResult } from './cultivation';
+import { flaskOnKill, newFlask, type Flask } from './sustain';
 import { isComplete, newQuestLog, onKill, type QuestLog } from './quest';
 
 export interface GameState {
@@ -34,6 +35,8 @@ export interface GameState {
   chapter: number;
   /** chapters whose story pages have been shown */
   story: number[];
+  /** spirit flask: refilling healing charges */
+  flask: Flask;
 }
 
 export const WARDEN_ID = 'warden';
@@ -42,7 +45,7 @@ export const isBossDefeated = (gs: GameState, id: string): boolean => gs.bosses.
 export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
     character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [],
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(),
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);
@@ -80,6 +83,7 @@ export function registerKill(gs: GameState, enemyType: string, rng: () => number
   addQi(gs.cultivation, Math.round(xp * 0.12)); // fighting also feeds cultivation
   gs.stones += stones;
   gs.kills++;
+  flaskOnKill(gs.flask);
   if (boss && !gs.bosses.includes(enemyType)) gs.bosses.push(enemyType);
   onKill(gs.quests, enemyType, !!opts.elite);
   const drops: { id: string; count: number }[] = [];

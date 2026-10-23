@@ -94,6 +94,7 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
 
   test('potions: F hotkey and inventory click both heal and consume; no waste at full hp', async ({ page }) => {
     await newGame(page);
+    await page.evaluate(() => window.__rpg!.setFlask(0)); // the flask is drunk first; this test is about the bag potions
     await page.keyboard.press('f');
     await expect(page.locator('.toast', { hasText: 'already full' })).toBeVisible();
     expect((await st(page)).items).toContain('hp-potion:2');
@@ -101,7 +102,7 @@ test.describe('#10 xp/level, #11 cultivation, #13 inventory', () => {
     await page.keyboard.press('f');
     await expect.poll(async () => (await st(page)).hp).toBeGreaterThanOrEqual(60);
     expect((await st(page)).items).toContain('hp-potion:1');
-    await expect(page.locator('#cnt-hp')).toHaveText('1');
+    await expect(page.locator('#cnt-hp')).toHaveText('0+1');
     await page.evaluate(() => window.__rpg!.setHp(20));
     await page.keyboard.press('f');
     await expect(page.locator('.toast', { hasText: 'settling' })).toBeVisible(); // draughts share a short cooldown

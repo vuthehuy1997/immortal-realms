@@ -27,12 +27,12 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 | toads | Toads in the Ledger | merchant-qiao | pests | kill toad ×6 | 110 xp, 60 stones, hp-potion ×2 |
 | furnace | Herbs for the Furnace | alchemist-yun | pests | collect spirit-herb ×5 | 90 xp, 40 stones, qi-pill ×3, hp-potion ×2 |
 | champions | Trial of Champions | elder-lin | warden | elite  ×2 | 240 xp, 100 stones, tiger-fang ×1 |
-| rift-scouts | Scouts of the Rift | commander-shen | – | kill frostwolf ×8; kill frostwisp ×4 | 700 xp, 150 stones, froststeel-blade ×1, greater-hp-potion ×3 |
-| shard-harvest | Warmth for the Wounded | herbalist-mo | rift-scouts | collect spirit-herb ×6 | 520 xp, 120 stones, greater-mana-potion ×3, qi-pill ×3 |
-| frost-elites | Frostbound Champions | commander-shen | rift-scouts | elite  ×3 | 900 xp, 220 stones, frost-mail ×1 |
-| barrow-rites | The Barrow Rites | commander-shen | rift-scouts | kill corpseking ×1 | 1400 xp, 250 stones, greater-hp-potion ×3, qi-pill ×2 |
-| hollow-heart | The Heart of the Hollow | hermit-wen | barrow-rites | kill crystalcolossus ×1 | 1800 xp, 320 stones, greater-mana-potion ×3, greater-hp-potion ×3 |
-| sundered-sovereign | The Sundered Sovereign | commander-shen | hollow-heart | kill sovereign ×1 | 3000 xp, 600 stones, greater-hp-potion ×5, greater-mana-potion ×5 |
+| rift-scouts | Scouts of the Rift | commander-shen | – | kill frostwolf ×8; kill frostwisp ×4 | 420 xp, 300 stones, greater-hp-potion ×4, qi-pill ×2 |
+| shard-harvest | Warmth for the Wounded | herbalist-mo | rift-scouts | collect spirit-herb ×6 | 330 xp, 160 stones, greater-mana-potion ×3, qi-pill ×3 |
+| frost-elites | Frostbound Champions | commander-shen | rift-scouts | elite  ×3 | 540 xp, 450 stones, greater-mana-potion ×4, qi-pill ×2 |
+| barrow-rites | The Barrow Rites | commander-shen | rift-scouts | kill corpseking ×1 | 900 xp, 400 stones, greater-hp-potion ×3, qi-pill ×2 |
+| hollow-heart | The Heart of the Hollow | hermit-wen | barrow-rites | kill crystalcolossus ×1 | 1100 xp, 520 stones, greater-mana-potion ×3, greater-hp-potion ×3 |
+| sundered-sovereign | The Sundered Sovereign | commander-shen | hollow-heart | kill sovereign ×1 | 1800 xp, 900 stones, greater-hp-potion ×5, greater-mana-potion ×5 |
 
 **Wolves of the Bamboo** — Spirit wolves prowl the Whispering Bamboo Forest to the west and trample the herb beds. Slay four of them and gather two Spirit Herbs (lingzhi, press E beside the glowing mushrooms). The sect will reward you.
 

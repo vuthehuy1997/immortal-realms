@@ -36,7 +36,7 @@ export interface BossDef {
 }
 
 export const WARDEN: BossDef = {
-  id: 'warden', chapter: 1, name: 'Fallen Sword Immortal', home: 'lair', zone: 'lair', xp: 900, stones: [90, 140], sprite: 'boss.fallenimmortal', scale: 0.55, radius: 18,
+  id: 'warden', chapter: 1, name: 'Fallen Sword Immortal', home: 'lair', zone: 'lair', xp: 600, stones: [90, 140], sprite: 'boss.fallenimmortal', scale: 0.55, radius: 18,
   maxHp: 6600, atk: 30, def: 9, speed: 36,
   moves: {
     slam: { radius: 56, windup: 0.9, recover: 0.5, cooldown: 4, damageMult: 1.8, triggerRange: 90 },
@@ -52,8 +52,8 @@ export const WARDEN: BossDef = {
 };
 
 export const NINETAIL: BossDef = {
-  id: 'ninetail', chapter: 1, name: 'Nine-Tailed Fox Spirit', home: 'den', zone: 'grove', xp: 420, stones: [55, 80], sprite: 'boss.ninetail', scale: 0.42, radius: 22,
-  maxHp: 2400, atk: 22, def: 6, speed: 48,
+  id: 'ninetail', chapter: 1, name: 'Nine-Tailed Fox Spirit', home: 'den', zone: 'grove', xp: 300, stones: [55, 80], sprite: 'boss.ninetail', scale: 0.42, radius: 22,
+  maxHp: 3200, atk: 22, def: 6, speed: 48,
   moves: {
     sweep: { range: 74, halfAngle: 1.25, windup: 0.6, recover: 0.4, cooldown: 2.6, damageMult: 1.3, triggerRange: 80 },
     charge: { windup: 0.7, duration: 0.5, speed: 300, width: 20, recover: 0.7, cooldown: 4.5, damageMult: 1.5, minRange: 12, maxRange: 230 },
@@ -69,7 +69,7 @@ export const NINETAIL: BossDef = {
 
 /** Water dragon of Mistveil Marsh: a mid-game boss built around geysers and orb rings, with drowned-ghost adds. */
 export const JIAOLONG: BossDef = {
-  id: 'jiaolong', chapter: 1, name: 'Jiao Dragon of the Mist Pool', home: 'pool', zone: 'marsh', xp: 1100, stones: [120, 180], sprite: 'boss.jiaolong', scale: 0.4, radius: 24,
+  id: 'jiaolong', chapter: 1, name: 'Jiao Dragon of the Mist Pool', home: 'pool', zone: 'marsh', xp: 700, stones: [120, 180], sprite: 'boss.jiaolong', scale: 0.4, radius: 24,
   maxHp: 7400, atk: 34, def: 10, speed: 42,
   moves: {
     slam: { radius: 50, windup: 0.85, recover: 0.5, cooldown: 4.2, damageMult: 1.6, triggerRange: 84 },
@@ -87,8 +87,8 @@ export const JIAOLONG: BossDef = {
 // ---- Chapter 2 bosses. Art is PLACEHOLDER: pack mobs/bosses reused at larger scale and recoloured; replace before release. ----
 /** Undead lord of the Ashen Barrow: heavy charges and jiangshi adds. */
 export const CORPSEKING: BossDef = {
-  id: 'corpseking', chapter: 2, name: 'Corpse King of the Ashen Barrow', home: 'barrow', zone: 'barrow', xp: 1500, stones: [160, 230], sprite: 'mob.jiangshi_v_red', scale: 0.78, radius: 22,
-  maxHp: 9000, atk: 44, def: 12, speed: 44,
+  id: 'corpseking', chapter: 2, name: 'Corpse King of the Ashen Barrow', home: 'barrow', zone: 'barrow', xp: 800, stones: [160, 230], sprite: 'mob.jiangshi_v_red', scale: 0.78, radius: 22,
+  maxHp: 11000, atk: 44, def: 12, speed: 44,
   moves: {
     slam: { radius: 58, windup: 0.85, recover: 0.5, cooldown: 4, damageMult: 1.7, triggerRange: 90 },
     sweep: { range: 90, halfAngle: 1.0, windup: 0.7, recover: 0.45, cooldown: 3, damageMult: 1.4, triggerRange: 88 },
@@ -103,7 +103,7 @@ export const CORPSEKING: BossDef = {
 
 /** Living crystal guarding the Hollow: slow, huge hits and shard rain. */
 export const CRYSTALCOLOSSUS: BossDef = {
-  id: 'crystalcolossus', chapter: 2, name: 'Crystal Colossus', home: 'hollow', zone: 'crystal', xp: 1900, stones: [200, 280], sprite: 'mob.golem', tint: 0x7fe6ff, scale: 1.0, radius: 26,
+  id: 'crystalcolossus', chapter: 2, name: 'Crystal Colossus', home: 'hollow', zone: 'crystal', xp: 1000, stones: [200, 280], sprite: 'mob.golem', tint: 0x7fe6ff, scale: 1.0, radius: 26,
   maxHp: 11500, atk: 50, def: 18, speed: 32,
   moves: {
     slam: { radius: 66, windup: 1.0, recover: 0.6, cooldown: 4.2, damageMult: 1.9, triggerRange: 100 },
@@ -119,7 +119,7 @@ export const CRYSTALCOLOSSUS: BossDef = {
 
 /** The sealed thing the three guardians held back: every move in the book. */
 export const SOVEREIGN: BossDef = {
-  id: 'sovereign', chapter: 2, name: 'Sundered Sovereign', home: 'summit', zone: 'summit', xp: 3200, stones: [300, 420], sprite: 'boss.fallenimmortal', tint: 0x9fd0ff, scale: 0.72, radius: 22,
+  id: 'sovereign', chapter: 2, name: 'Sundered Sovereign', home: 'summit', zone: 'summit', xp: 1700, stones: [300, 420], sprite: 'boss.fallenimmortal', tint: 0x9fd0ff, scale: 0.72, radius: 22,
   maxHp: 16500, atk: 58, def: 20, speed: 42,
   moves: {
     slam: { radius: 62, windup: 0.85, recover: 0.45, cooldown: 3.8, damageMult: 1.8, triggerRange: 96 },
