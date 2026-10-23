@@ -8,6 +8,7 @@ import { mergePads } from '../core/gamepad';
 export class KeyInput {
   private down = new Set<string>();
   private virt = new Set<string>(); // keys held by a gamepad
+  private touch = new Set<string>(); // keys held by on-screen touch controls
   private handlers = new Map<string, (() => void)[]>();
 
   constructor() {
@@ -16,7 +17,15 @@ export class KeyInput {
     window.addEventListener('blur', this.onBlur);
   }
 
-  isDown(...codes: string[]): boolean { return codes.some((c) => this.down.has(c) || this.virt.has(c)); }
+  isDown(...codes: string[]): boolean { return codes.some((c) => this.down.has(c) || this.virt.has(c) || this.touch.has(c)); }
+
+  /** Hold or release a key from the on-screen controls; a new press fires the one-shot handlers. */
+  setTouch(code: string, held: boolean): void {
+    if (!held) { this.touch.delete(code); return; }
+    if (this.touch.has(code)) return;
+    this.touch.add(code);
+    for (const fn of this.handlers.get(code) ?? []) fn();
+  }
 
   /** Poll connected gamepads once per frame; new presses fire the same one-shot handlers as the keyboard. */
   pollGamepads(): void {
@@ -38,7 +47,7 @@ export class KeyInput {
     window.removeEventListener('keydown', this.onKeyDown);
     window.removeEventListener('keyup', this.onKeyUp);
     window.removeEventListener('blur', this.onBlur);
-    this.down.clear(); this.virt.clear(); this.handlers.clear();
+    this.down.clear(); this.virt.clear(); this.touch.clear(); this.handlers.clear();
   }
 
   private onKeyDown = (e: KeyboardEvent): void => {

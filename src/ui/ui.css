@@ -188,3 +188,14 @@ body.bossfight #objective { display: none; }
 .slotinfo b { display: block; } .slotinfo small { opacity: .8; } .slotinfo .warn { color: #ffd23f; }
 .slotbtns { display: flex; gap: .4em; flex-wrap: wrap; justify-content: flex-end; }
 .filebtn { cursor: pointer; display: inline-block; }
+
+/* touch controls (round 11) */
+body.touch #hint { display: none; }
+body.touch #skills .slot { pointer-events: auto; touch-action: none; }
+.touchctl { position: absolute; inset: 0; pointer-events: none; touch-action: none; user-select: none; -webkit-user-select: none; }
+.tc-stick { position: absolute; left: 4vmin; bottom: 4vmin; width: 28vmin; height: 28vmin; max-width: 160px; max-height: 160px; min-width: 110px; min-height: 110px; border-radius: 50%; background: rgba(10,10,18,.35); border: 2px solid rgba(255,210,63,.55); pointer-events: auto; touch-action: none; display: flex; align-items: center; justify-content: center; }
+.tc-stick i { width: 42%; height: 42%; border-radius: 50%; background: rgba(255,210,63,.55); border: 2px solid #ffd23f; }
+.tc-btns { position: absolute; right: 2vmin; bottom: 2vmin; display: grid; grid-template-columns: repeat(3, auto); gap: 1.2vmin; align-items: end; justify-items: end; direction: rtl; }
+.tc-btn { pointer-events: auto; touch-action: none; min-width: 11vmin; min-height: 11vmin; padding: 0 1.2vmin; border-radius: 12px; background: rgba(10,10,18,.6); color: #fff; border: 2px solid rgba(255,210,63,.7); font: inherit; font-size: max(12px, 2.4vmin); direction: ltr; }
+.tc-btn.big { min-width: 17vmin; min-height: 17vmin; border-radius: 50%; font-size: 7vmin; grid-row: span 2; background: rgba(120,30,30,.55); }
+.tc-btn:active { background: rgba(255,210,63,.4); }

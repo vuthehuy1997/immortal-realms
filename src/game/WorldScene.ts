@@ -40,6 +40,7 @@ import { audio, type Mood } from './audio';
 import { Actor } from './actor';
 import { COLORS, Fx, ROOT_COLOR } from './fx';
 import { KeyInput } from './input';
+import { mountTouchControls, wantsTouchControls } from '../ui/touch';
 import { saveGame } from './storage';
 import { renderWorld, updateOccluders, type HerbNode, type Occluder } from './worldRender';
 
@@ -109,6 +110,7 @@ export class WorldScene extends Phaser.Scene {
   private nextId = 1;
   private hpBars!: Phaser.GameObjects.Graphics;
   private kb!: KeyInput;
+  private unmountTouch?: () => void;
   private meditating = false;
   private auraSprite: Phaser.GameObjects.Sprite | null = null;
   private uiPause = false;
@@ -185,8 +187,9 @@ export class WorldScene extends Phaser.Scene {
     kb.onPress('Tab', () => { if (!this.uiPause) toggleWorldMap(this.world); });
     kb.onPress('Escape', () => this.escape());
     kb.onPress('KeyR', () => { if (this.dead) this.respawn(); });
+    if (wantsTouchControls()) this.unmountTouch = mountTouchControls(kb);
     this.input.on('pointerdown', () => { if (!this.uiPause) this.attack(); });
-    this.input.on('pointermove', () => { this.hasPointer = true; });
+    this.input.on('pointermove', (p: Phaser.Input.Pointer) => { if (!p.wasTouch) this.hasPointer = true; });
 
     const cam = this.cameras.main;
     cam.setBounds(0, 0, worldW, worldH);
@@ -196,7 +199,7 @@ export class WorldScene extends Phaser.Scene {
     // vignette is a CSS overlay (#vig): a full-screen WebGL filter pass cost ~2x frame time on weaker GPUs
     this.hpBars.setDepth(1e5); this.vision = this.add.graphics().setDepth(2);
     this.events.once('shutdown', () => {
-      this.kb.dispose(); closeTrade(); closeWorldMap(); showDeath(false); removeMinimap(); audio.stopMusic(); this.scale.off('resize'); closePanels(); showDialogue(null, () => undefined); setBossBar(null); setPrompt(null);
+      this.unmountTouch?.(); this.kb.dispose(); closeTrade(); closeWorldMap(); showDeath(false); removeMinimap(); audio.stopMusic(); this.scale.off('resize'); closePanels(); showDialogue(null, () => undefined); setBossBar(null); setPrompt(null);
       this.anims.globalTimeScale = 1;
     });
 
