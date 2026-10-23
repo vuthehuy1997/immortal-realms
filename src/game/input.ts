@@ -1,3 +1,4 @@
+import { mergePads } from '../core/gamepad';
 /**
  * Keyboard input via plain DOM events.
  * Phaser 4.2.1 re-emits queued key events when several arrive within one frame (observed: one tap of `I` fired the
@@ -6,6 +7,7 @@
  */
 export class KeyInput {
   private down = new Set<string>();
+  private virt = new Set<string>(); // keys held by a gamepad
   private handlers = new Map<string, (() => void)[]>();
 
   constructor() {
@@ -14,7 +16,15 @@ export class KeyInput {
     window.addEventListener('blur', this.onBlur);
   }
 
-  isDown(...codes: string[]): boolean { return codes.some((c) => this.down.has(c)); }
+  isDown(...codes: string[]): boolean { return codes.some((c) => this.down.has(c) || this.virt.has(c)); }
+
+  /** Poll connected gamepads once per frame; new presses fire the same one-shot handlers as the keyboard. */
+  pollGamepads(): void {
+    const pads = typeof navigator.getGamepads === 'function' ? [...navigator.getGamepads()].filter((g): g is Gamepad => !!g && g.connected) : [];
+    const now = mergePads(pads.map((g) => ({ axes: g.axes, buttons: g.buttons.map((b) => b.pressed) })));
+    for (const c of now) if (!this.virt.has(c)) for (const fn of this.handlers.get(c) ?? []) fn();
+    this.virt = now;
+  }
 
   /** Register a one-shot handler for one or more key codes (KeyboardEvent.code). */
   onPress(codes: string | string[], fn: () => void): void {
@@ -28,7 +38,7 @@ export class KeyInput {
     window.removeEventListener('keydown', this.onKeyDown);
     window.removeEventListener('keyup', this.onKeyUp);
     window.removeEventListener('blur', this.onBlur);
-    this.down.clear(); this.handlers.clear();
+    this.down.clear(); this.virt.clear(); this.handlers.clear();
   }
 
   private onKeyDown = (e: KeyboardEvent): void => {

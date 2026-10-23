@@ -35,3 +35,8 @@
 - Export downloads the save JSON; import validates (version, checksum, schema) before writing and never touches the slot on refusal.
 - Tests: updated corruption and "starting over" e2e (no backup / pick slot 1), new e2e for the full slot flow.
 - Not verified: export/import through a real browser file dialog (e2e covers the logic; the download/upload buttons themselves were not driven), behaviour with localStorage blocked beyond the guarded fallbacks.
+
+## Round 10
+- `tools/license_scan.mjs` / `npm run license:check` (part of qc): offline scan of package-lock + installed package.json. 2 shipped packages (all MIT); 157 dev-only, 12 MPL-2.0 (lightningcss, build tool, not distributed). Report: docs/LICENSE_SCAN.md. Reads declared licences only, not LICENSE text.
+- Gamepad support: `src/core/gamepad.ts` (pure mapping, 6 unit tests) feeds `KeyInput.pollGamepads()` so pads reuse the keyboard handlers. Left stick/d-pad move, A attack, B dash, X interact, Y meditate, LB/RB/LT/RT techniques 1-4, Back map, Start pause, stick clicks inventory/character. Potion hotkeys (F/G) have no pad button yet.
+- e2e/gamepad.spec.ts drives a faked `navigator.getGamepads`; no physical controller was tried.

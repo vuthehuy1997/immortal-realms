@@ -4,7 +4,7 @@ Status: [x] done, [ ] todo. Format: ID — task (deps) — acceptance.
 - [x] M0-2 Playwright boot e2e — WebGL renderer, frames advance, no page errors (headless Chromium, SwiftShader).
 - [x] M0-3 ESLint — `npm run lint` clean.
 - [ ] M0-4 Phaser 4 perf spike (M0-2) — measure fps: large tilemap (GPU layer), ~200 sprites, particles; record numbers in docs.
-- [ ] M0-5 Transitive license scan (license-checker) into ASSET_LICENSE_AUDIT.
+- [x] M0-5 Transitive license scan — `npm run license:check` (in qc), docs/LICENSE_SCAN.md.
 - [x] M1-1 World + camera — 64x64 deterministic map (seeded), camera follows with integer zoom, bounds.
 - [x] M1-2 Input + movement with tile collision (WASD/arrows, wall sliding) — unit + e2e tested.
 - [x] M2-1 Combat core (damage, crit, cooldown, hp/mana, tryCast) — 12 unit tests.
@@ -58,4 +58,5 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [x] R7 Jiao Dragon boss + capstone quest + unique drops, per-NPC portraits
 - [x] R8 design/ export gate in qc, NPC nameplates hidden behind minimap, docs refreshed from the code
 - [x] R9 save slots (3), backup recovery, export/import
-- [ ] Open: human playtest of ruins/normal-mob difficulty and dragon balance; flaky e2e under load (killOne/combo/boss); real-GPU perf (M0-4); licence scan (M0-5); UI guide + overlap check; trial deploy path; trial tower; more realms; controller/touch
+- [x] R10 transitive licence scan (`npm run license:check`, docs/LICENSE_SCAN.md); gamepad support (standard mapping -> virtual keys)
+- [ ] Open: human playtest of ruins/normal-mob difficulty and dragon balance; flaky e2e under load (killOne/combo/boss); real-GPU perf (M0-4); licence scan (M0-5); UI guide + overlap check; trial deploy path; trial tower; more realms; touch controls; controller menu navigation and right-stick aim; tested only with a faked pad, not a physical one

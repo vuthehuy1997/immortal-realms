@@ -28,4 +28,4 @@ Ground textures, shadows, glows, petals and sparks are generated in code (`src/g
 ### Candidates evaluated, not used
 Puny World, RPG Tileset (russpuppy), Adventure Awaits, OPP2017 Village — unverified; Minimalist Chinese Temple (CC-BY 3.0, side-view); LPC (CC-BY-SA).
 
-TODO: transitive dependency scan (license-checker) before release. No art/audio assets used yet.
+Transitive scan (M0-5): `npm run license:check`, report in docs/LICENSE_SCAN.md (2 shipped packages, all MIT; 12 dev-only lightningcss builds are MPL-2.0, build tool not distributed). No audio assets used (procedural).

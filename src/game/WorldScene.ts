@@ -757,6 +757,7 @@ export class WorldScene extends Phaser.Scene {
 
   // ---------- frame update ----------
   update(_t: number, deltaMs: number): void {
+    this.kb.pollGamepads();
     if (this.hitStopUntil > 0 && this.time.now >= this.hitStopUntil) { this.hitStopUntil = 0; this.anims.globalTimeScale = 1; }
     const stopped = this.hitStopUntil > 0;
     const dt = Math.min(deltaMs, 50) / 1000;
