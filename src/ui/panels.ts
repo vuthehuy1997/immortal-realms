@@ -8,6 +8,7 @@ import { REALMS } from '../data/realms';
 import { ROOTS } from '../data/roots';
 import { countOf, SLOT_COUNT, type EquipKey } from '../core/inventory';
 import { SKILLS } from '../data/skills';
+import { INSIGHT_IDS, INSIGHT_MAX, INSIGHTS } from '../data/insight';
 import { freePoints, SKILL_MAX, scaledSkill, skillLevel } from '../core/skills';
 import { progressOf } from '../core/quest';
 import { QUESTS, questsOfChapter } from '../data/quests';
@@ -15,7 +16,7 @@ import { CHAPTERS, CHAPTER_IDS } from '../data/chapters';
 import { $, el } from './dom';
 import { itemIconHtml, portraitUrl } from './skin';
 
-export interface PanelActions { clickSlot(i: number): void; unequip(key: EquipKey): void; upgradeSkill(id: string): void; toggleMeditate(): void; breakthrough(): void }
+export interface PanelActions { clickSlot(i: number): void; unequip(key: EquipKey): void; upgradeSkill(id: string): void; upgradeInsight(id: string): void; toggleMeditate(): void; breakthrough(): void }
 
 let actions: PanelActions;
 let built = false;
@@ -124,6 +125,15 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
     r.appendChild(up); skills.appendChild(r);
   }
   body.appendChild(skills);
+  const ins = el('div', 'insightbox'); ins.innerHTML = `<h4>Dao Insight <small>spend spare points · max ${INSIGHT_MAX}</small></h4>`;
+  for (const id of INSIGHT_IDS) {
+    const d = INSIGHTS[id], r = gs.insight[id];
+    const row2 = el('div', 'skrow');
+    row2.innerHTML = `<span class="skn"><b>${d.name}</b><small>Rank ${r}/${INSIGHT_MAX} · ${d.blurb}</small></span>`;
+    const up = el('button', 'btn', '+'); up.dataset.insight = id; up.disabled = r >= INSIGHT_MAX || pts < 1; up.onclick = () => actions.upgradeInsight(id);
+    row2.appendChild(up); ins.appendChild(row2);
+  }
+  body.appendChild(ins);
   body.appendChild(el('div', '', hasNextRealm(gs.cultivation)
     ? `Breakthrough needs full qi, level ${nextRealmLevel(gs.cultivation)} and a Foundation Pill (consumed each attempt). Success chance ${Math.round(BASE_BREAKTHROUGH_CHANCE * 100)}%; failure loses half your qi and wounds you (25% HP).`
     : 'You have reached the highest realm available in this build.'));

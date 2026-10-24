@@ -141,7 +141,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ---- equipment slots + technique list ---- */
 #equip { display: flex; gap: .7em; flex-wrap: wrap; } #equip .eqslot { display: flex; align-items: center; gap: .35em; font-size: .82em; } #equip .eqname { max-width: 7em; line-height: 1.15; opacity: .85; }
 #equip .cell { width: 3.2em; flex: none; }
-.skills h4 { margin: .5em 0 .25em; color: #ffe9a8; } .skills h4 small { opacity: .8; font-weight: 400; }
+.skills h4, .insightbox h4 { margin: .5em 0 .25em; color: #ffe9a8; } .skills h4 small, .insightbox h4 small { opacity: .8; font-weight: 400; }
 .skrow { display: flex; align-items: center; justify-content: space-between; gap: .5em; margin: .15em 0; font-size: .85em; } .skrow.locked { opacity: .5; }
 .skrow .skn b { display: block; } .skrow .skn small { display: block; opacity: .75; font-size: .82em; }
 .skrow .btn { min-width: 2.2em; margin: 0; padding: .2em .5em; }
@@ -244,3 +244,17 @@ body.touch #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width
 .boon .tag { align-self: flex-start; font-size: .68em; letter-spacing: .1em; text-transform: uppercase; padding: .1em .5em; border-radius: 3px; background: rgba(255,255,255,.08); }
 .boon.tag-off { border-left: 4px solid #e8664d; } .boon.tag-def { border-left: 4px solid #5fb36a; } .boon.tag-util { border-left: 4px solid #6aa8e8; }
 .boon .glyph { font-size: 1.5em; line-height: 1; opacity: .85; }
+
+/* small viewports (round 17, QA report 5): phones in portrait or short landscape windows, with or without touch */
+@media (max-width: 700px), (max-height: 480px) {
+  #minimap { width: 8.5em; height: 8.5em; } #mmlabel { display: none; }
+  #hint { display: none; }
+  #quest { display: none; }
+  #skills { bottom: 1vmin; transform: translateX(-50%) scale(.72); transform-origin: bottom center; }
+  #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width: 2.2em; height: 2.2em; font-size: 1em; }
+  #objective { top: 10.4em; max-width: 92vw; font-size: .9em; }
+}
+@media (max-height: 480px) and (min-width: 701px) {
+  #objective { top: .8em; max-width: 38vw; }
+  #skills { transform: translateX(-50%) scale(.8); }
+}

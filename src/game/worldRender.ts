@@ -65,7 +65,7 @@ export function updateOccluders(occluders: Occluder[], points: { x: number; y: n
   for (const o of occluders) {
     let hide = false;
     for (const p of points) {
-      if (o.y > p.y + 1 && Math.abs(p.x - o.x) < o.halfW && p.y - 24 < o.y && p.y > o.y - o.h) { hide = true; break; }
+      if (o.y > p.y + 1 && Math.abs(p.x - o.x) < o.halfW + 10 && p.y - 24 < o.y && p.y > o.y - o.h) { hide = true; break; }
     }
     const target = hide ? 0.3 : 1;
     if (o.img.alpha !== target) o.img.setAlpha(Phaser.Math.Linear(o.img.alpha, target, Math.min(1, dtSec * 9)));

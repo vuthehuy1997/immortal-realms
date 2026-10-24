@@ -5,6 +5,17 @@ let open = false;
 let teardown: (() => void) | null = null;
 export const isBoonPickerOpen = (): boolean => open;
 export function closeBoonPicker(): void { teardown?.(); }
+const cards = (): HTMLElement[] => [...document.querySelectorAll<HTMLElement>('#boonpick .boon')];
+/** Moves keyboard/gamepad focus between the cards (left/right). */
+export function moveBoonFocus(dir: -1 | 1): void {
+  const c = cards(); if (!c.length) return;
+  const i = Math.max(0, c.indexOf(document.activeElement as HTMLElement));
+  c[(i + dir + c.length) % c.length]!.focus();
+}
+/** Takes the focused card (A / E / Space on a gamepad or keyboard). */
+export function confirmBoonFocus(): void {
+  const c = cards(); (c.find((x) => x === document.activeElement) ?? c[0])?.click();
+}
 
 export interface PickerOpts {
   choices: string[]; left: number; owned: readonly string[];

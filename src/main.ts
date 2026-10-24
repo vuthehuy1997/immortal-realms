@@ -75,4 +75,4 @@ game.events.once('assets-ready', () => {
 document.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('button') && !(e.target as HTMLElement).closest('#btn-audio')) { audio.ensure(); audio.sfx('click'); if (document.getElementById('screen')) audio.startMusic(); } }, true);
 
 // Test hook for e2e verification only.
-(window as unknown as { __game: Phaser.Game }).__game = game;
+try { if (navigator.webdriver || new URLSearchParams(location.search).get('debug') === '1') (window as unknown as { __game: Phaser.Game }).__game = game; } catch { /* no navigator */ } // test handle only under automation or ?debug=1

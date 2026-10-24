@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import { addPoise, newBossAI, STAGGER_DAMAGE, updateBoss, type BossAI, type BossEvent } from '../core/boss';
 import { PERFECT_BUFF_TIME, PERFECT_DAMAGE, PERFECT_MANA, PERFECT_SLOWMO, perfectReady } from '../core/dodge';
-import { showBoonPicker, isBoonPickerOpen } from '../ui/boons';
-import { LEASH, newRun, TOWER_XP, updateTower, type FloorPlan, type FloorReward, type TowerRun } from '../core/tower';
+import { showBoonPicker, isBoonPickerOpen, moveBoonFocus, confirmBoonFocus } from '../ui/boons';
+import { TOWER_XP } from '../core/tower';
+import { RiftController } from './rift';
 import { BOONS } from '../data/boons';
 import { applyDamage, computeDamage, Cooldowns, regenMana, tryCast, type Combatant } from '../core/combat';
 import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo, newDash, nextStep, tryDash, type ComboState, type DashState } from '../core/combo';
@@ -15,7 +16,7 @@ import { deathTax, hpRegenPerSec } from '../core/recovery';
 import { canSee, FOV, SENSE_RADIUS, turnToward, TURN_RATE } from '../core/perception';
 import { newEnemyAI, updateEnemyAI, type EnemyAI } from '../core/enemyAI';
 import { boonChoices, boonMods, LEFTOVER_PICK_STONES, REROLL_COST, gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, takeBoon, tryBreakthrough, turnInQuest, unequipSlot, useItemSlot, type GameState } from '../core/gameState';
-import { freePoints, scaledSkill, skillLevel, upgradeSkill, type ScaledSkill } from '../core/skills';
+import { freePoints, scaledSkill, skillLevel, upgradeInsight, upgradeSkill, type ScaledSkill } from '../core/skills';
 import { progressOf, isComplete } from '../core/quest';
 import { inArc, inCircle, normalize } from '../core/hit';
 import { addItem, equipFromSlot } from '../core/inventory';
@@ -147,7 +148,7 @@ export class WorldScene extends Phaser.Scene {
 
   create(): void {
     this.enemies = []; this.bolts = []; this.rains = []; this.bosses = []; this.npcs = []; this.timers = [];
-    this.traveling = false; this.tower = null;
+    this.traveling = false; this.rift.end('left');
     this.now = 0; this.cds = new Cooldowns(); this.combo = newCombo(); this.dashState = newDash();
     this.meditating = false; this.uiPause = false; this.respawnTimer = 0; this.autosaveTimer = 0; this.dead = false;
     this.potionReadyAt = 0; this.playerLockUntil = 0; this.hurtInvulnUntil = 3; this.lastCombat = -99; this.playerKb = { x: 0, y: 0 }; this.hitStopUntil = 0; this.lastZoneBanner = null;
@@ -175,7 +176,7 @@ export class WorldScene extends Phaser.Scene {
       const ndef = NPCS[id]!;
       const actor = new Actor(this, ndef.sprite, p.x, p.y, 0.34, 22);
       actor.setPos(p.x, p.y);
-      const plate = this.add.text(p.x, p.y + 7, ndef.role, { color: '#f1e3b0', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#0b0d14', strokeThickness: 2, backgroundColor: 'rgba(11,13,20,0.72)', padding: { x: 3, y: 1 } }).setOrigin(0.5, 0).setDepth(9e4);
+      const plate = this.add.text(p.x, p.y + 7, ndef.role, { color: '#f1e3b0', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#0b0d14', strokeThickness: 2, resolution: 4, backgroundColor: 'rgba(11,13,20,0.72)', padding: { x: 3, y: 1 } }).setOrigin(0.5, 0).setDepth(9e4);
       const mark = this.add.text(p.x, p.y - 38, '!', { color: '#ffd23f', fontSize: '14px', fontStyle: 'bold', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5).setDepth(1e5);
       this.npcs.push({ id, pos: p, actor, mark, plate });
     }
@@ -188,6 +189,7 @@ export class WorldScene extends Phaser.Scene {
     kb.onPress(['Digit1', 'Numpad1'], () => this.digit(0)); kb.onPress(['Digit2', 'Numpad2'], () => this.digit(1));
     kb.onPress(['Digit3', 'Numpad3'], () => this.digit(2)); kb.onPress(['Digit4', 'Numpad4'], () => this.digit(3));
     kb.onPress('Space', () => this.attack());
+    kb.onPress(['ArrowLeft', 'KeyA'], () => { if (isBoonPickerOpen()) moveBoonFocus(-1); }); kb.onPress(['ArrowRight', 'KeyD'], () => { if (isBoonPickerOpen()) moveBoonFocus(1); });
     kb.onPress(['ShiftLeft', 'ShiftRight'], () => this.dash());
     kb.onPress('KeyF', () => this.useFlaskOrPotion()); kb.onPress('KeyG', () => this.quickUse('mana-potion'));
     kb.onPress('KeyE', () => this.interact());
@@ -220,6 +222,10 @@ export class WorldScene extends Phaser.Scene {
       upgradeSkill: (id) => {
         const r = this.mutate(() => upgradeSkill(this.gs, id));
         if (r.ok) { toast('Technique improved.', 1200); audio.sfx('pickup'); } else toast(r.reason === 'points' ? 'No skill points left.' : r.reason === 'max' ? 'Already at maximum level.' : 'Not available yet.', 1400);
+      },
+      upgradeInsight: (id) => {
+        const r = this.mutate(() => upgradeInsight(this.gs, id));
+        if (r.ok) { toast('Insight deepened.', 1200); audio.sfx('pickup'); } else toast(r.reason === 'points' ? 'No skill points left.' : 'Already at maximum rank.', 1800);
       },
       toggleMeditate: () => this.toggleMeditate(),
       breakthrough: () => this.breakthrough(),
@@ -308,7 +314,7 @@ export class WorldScene extends Phaser.Scene {
       const affixes: Affix[] = ['swift', 'vampiric', 'explosive', 'shielded'];
       e.affix = affixes[Math.floor(this.rng() * affixes.length)]!;
       if (e.affix === 'shielded') e.shield = Math.round(sc.maxHp * 0.3);
-      e.label = this.add.text(pos.x, pos.y, `${AFFIX_NAME[e.affix]} ${def.name}`, { color: '#ffd96a', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#1a0f00', strokeThickness: 2 }).setOrigin(0.5).setDepth(1e5);
+      e.label = this.add.text(pos.x, pos.y, `${AFFIX_NAME[e.affix]} ${def.name}`, { color: '#ffd96a', fontSize: '7px', fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#1a0f00', strokeThickness: 2, resolution: 4 }).setOrigin(0.5).setDepth(1e5);
     }
     this.enemies.push(e);
     return e;
@@ -425,6 +431,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private interact(): void {
+    if (isBoonPickerOpen()) { confirmBoonFocus(); return; }
     if (isDialogueOpen()) { document.querySelector<HTMLButtonElement>('#dlg button[data-opt="0"]')?.click(); return; } // E confirms the first (main) option
     if (this.uiPause || this.dead) return;
     const npc = this.nearestNpc();
@@ -476,13 +483,13 @@ export class WorldScene extends Phaser.Scene {
 
   private openDialogue(npcId: string): void {
     const npcDef = NPCS[npcId]!;
-    const d = getDialogue(npcId, this.gs.quests, this.gs.inventory, this.gs.bosses, { best: this.gs.towerBest, active: !!this.tower });
+    const d = getDialogue(npcId, this.gs.quests, this.gs.inventory, this.gs.bosses, { best: this.gs.towerBest, active: this.rift.active });
     if (npcDef.trade && npcDef.trade !== 'tower' && !d.quest) { this.openTrade(npcDef.trade, npcId); return; } // nothing to discuss: straight to the shop
     this.uiPause = true;
     showDialogue(d, (a) => {
       if (a.type === 'close') { showDialogue(null, () => undefined); this.uiPause = false; return; }
       if (a.type === 'trade') { showDialogue(null, () => undefined); this.openTrade(npcDef.trade as 'shop' | 'outpost' | 'alchemy', npcId); return; }
-      if (a.type === 'tower') { showDialogue(null, () => undefined); this.uiPause = false; if (a.start) this.startTower(); else this.endTower('left'); return; }
+      if (a.type === 'tower') { showDialogue(null, () => undefined); this.uiPause = false; if (a.start) this.rift.start(); else this.rift.end('left'); return; }
       if (a.type === 'accept') {
         if (acceptQuest(this.gs.quests, a.questId)) toast(`Quest accepted: ${QUESTS[a.questId]!.name}`, 2600);
         showDialogue(null, () => undefined); this.uiPause = false; return;
@@ -546,6 +553,7 @@ export class WorldScene extends Phaser.Scene {
 
   /** Three-hit sword combo (click / Space / J). */
   private attack(aim?: Vec2): void {
+    if (isBoonPickerOpen()) { confirmBoonFocus(); return; }
     if (isDialogueOpen()) { document.querySelector<HTMLButtonElement>('#dlg button[data-opt="0"]')?.click(); return; }
     if (this.uiPause || this.dead || isDashing(this.dashState, this.now)) return;
     const stepIdx = nextStep(this.combo, this.now);
@@ -711,62 +719,23 @@ export class WorldScene extends Phaser.Scene {
     this.fx.ring(b.pos.x, b.pos.y, 70, 0x9fe8ff, 500); this.fx.shake(160, 0.004); this.hitStop(90); audio.sfx('crit');
   }
 
-  // ---------- Trial Rift ----------
-  private startTower(): void {
-    if (this.tower || this.dead) return;
-    this.tower = newRun(); this.towerOrigin = { ...this.pos };
-    toast('The Trial Rift opens. Clear each floor to descend; falling or wandering off ends the run.', 3600); audio.sfx('roar');
-    this.fx.ring(this.pos.x, this.pos.y, 90, COLORS.gold, 700);
-  }
-  private endTower(why: 'left' | 'fallen' | 'strayed'): void {
-    if (!this.tower) return;
-    const reached = this.tower.floor - (this.tower.phase === 'break' ? 1 : 0);
-    for (const e of this.enemies.filter((x) => x.tower)) { e.label?.destroy(); e.actor.destroy(); }
-    this.enemies = this.enemies.filter((x) => !x.tower);
-    this.tower = null;
-    toast(why === 'fallen' ? `The Rift swallows you on floor ${reached + 1}. Best: ${this.gs.towerBest}.` : `You leave the Rift (floors cleared: ${reached}). Best: ${this.gs.towerBest}.`, 3600);
-  }
-  private spawnFloor(plan: FloorPlan): void {
-    const o = this.towerOrigin;
-    for (const fe of plan.enemies) {
-      let p: Vec2 | null = null;
-      for (let i = 0; i < 24 && !p; i++) {
-        const a = this.rng() * Math.PI * 2, d = 90 + this.rng() * 90, q = { x: o.x + Math.cos(a) * d, y: o.y + Math.sin(a) * d };
-        if (!isBlockedTile(this.world, Math.floor(q.x / TILE_SIZE), Math.floor(q.y / TILE_SIZE))) p = q;
-      }
-      const e = this.spawnEnemy(fe.type, p ?? { x: o.x + 70, y: o.y }, false, plan.zone, fe.elite);
-      if (!e) continue;
+  // ---------- Trial Rift (logic lives in rift.ts) ----------
+  private rift: RiftController = new RiftController({
+    gs: () => this.gs, world: () => this.world, rng: () => this.rng(), pos: () => this.pos, dead: () => this.dead,
+    spawnFoe: (type, at, zone, elite, hpMult, atkMult) => {
+      const e = this.spawnEnemy(type, at, false, zone, elite);
+      if (!e) return;
       e.tower = true;
-      const hp = Math.round(e.c.maxHp * plan.hpMult * (plan.guardian && fe === plan.enemies[0] ? 1.6 : 1));
-      e.c.maxHp = hp; e.c.hp = hp; e.c.atk = Math.round(e.c.atk * plan.atkMult);
+      const hp = Math.round(e.c.maxHp * hpMult);
+      e.c.maxHp = hp; e.c.hp = hp; e.c.atk = Math.round(e.c.atk * atkMult);
       if (e.affix === 'shielded') e.shield = Math.round(hp * 0.3);
       this.alertEnemy(e, false);
-    }
-    toast(plan.guardian ? `Floor ${plan.floor}: a guardian awaits!` : `Floor ${plan.floor}`, 2200); audio.sfx(plan.guardian ? 'roar' : 'click');
-  }
-  private towerClear(floor: number, r: FloorReward): void {
-    this.mutate(() => {
-      if (r.record) this.gs.towerBest = floor;
-      this.gs.stones += r.stones; this.gs.boonPicks += r.boonPick ? 1 : 0;
-      for (const it of r.items) addItem(this.gs.inventory, it.id, it.count);
-      const s = statsOf(this.gs);
-      this.gs.hp = Math.min(s.maxHp, this.gs.hp + Math.round(s.maxHp * 0.2)); this.gs.mana = s.maxMana;
-      if (floor % 5 === 0) refillFlask(this.gs.flask);
-    });
-    const parts = [r.record ? `New depth! +${r.stones} ◆` : 'Floor cleared', ...r.items.map((i) => `${ITEMS[i.id]!.name} x${i.count}`), ...(r.boonPick ? ['a boon pick'] : [])];
-    toast(`Floor ${floor} clear: ${parts.join(' · ')}`, 3200); audio.sfx(r.record ? 'levelup' : 'pickup');
-    this.fx.ring(this.pos.x, this.pos.y, 60, COLORS.gold, 500);
-    if (r.record) this.save(false);
-  }
-  private updateTowerRun(dt: number): void {
-    const run = this.tower;
-    if (!run) return;
-    if (Math.hypot(this.pos.x - this.towerOrigin.x, this.pos.y - this.towerOrigin.y) > LEASH) { this.endTower('strayed'); return; }
-    const alive = this.enemies.filter((e) => e.tower && e.c.hp > 0).length;
-    for (const ev of updateTower(run, this.gs.towerBest, alive, dt, this.rng)) {
-      if (ev.type === 'spawn') this.spawnFloor(ev.plan); else this.towerClear(ev.floor, ev.reward);
-    }
-  }
+    },
+    aliveFoes: () => this.enemies.filter((e) => e.tower && e.c.hp > 0).length,
+    clearFoes: () => { for (const e of this.enemies.filter((x) => x.tower)) { e.label?.destroy(); e.actor.destroy(); } this.enemies = this.enemies.filter((x) => !x.tower); },
+    mutate: (fn) => this.mutate(fn), save: () => { this.save(false); },
+    ring: (x, y, r, ms) => this.fx.ring(x, y, r, COLORS.gold, ms),
+  });
 
   /** Offers the next banked boon pick (not mid-fight; automation skips it unless `force`). */
   private offerBoon(force = false, reroll = 0): void {
@@ -926,14 +895,12 @@ export class WorldScene extends Phaser.Scene {
   private checkTips(): void {
     const gs = this.gs, st = statsOf(gs);
     if (this.now - this.lastCombat < 2 && this.pc.hp < st.maxHp * 0.45 && gs.flask.charges > 0) this.tip('flask', 'Low on health? Press F to drink the spirit flask (it heals 35% and refills as you kill).');
-    if (freePoints(gs) > 0 && gs.progress.level >= 3) this.tip('points', 'You have technique points: press C to upgrade your techniques.');
+    if (freePoints(gs) > 0 && gs.progress.level >= 3) this.tip('points', 'You have technique points: press C to upgrade techniques or deepen your Dao Insight.');
     if (this.bosses.some((b) => b.engaged)) this.tip('dodge', 'Boss attacks are shown in red. Dash (Shift) through one at the last moment for a Perfect Dodge: mana and +25% damage.');
     if (Object.values(gs.quests).some((q) => q.status === 'active')) this.tip('qlog', 'Press J or Q to open your quest log.');
   }
   private tipTimer = 0;
   private lastDodgeText = -9;
-  private tower: TowerRun | null = null;
-  private towerOrigin: Vec2 = { x: 0, y: 0 };
   private lastPerfect = -9;
   private perfectUntil = 0;
   private slowUntil = 0;
@@ -941,8 +908,8 @@ export class WorldScene extends Phaser.Scene {
   private lastCombat = -99;
 
   private die(): void {
-    const inRift = !!this.tower;
-    this.endTower('fallen');
+    const inRift = this.rift.active;
+    this.rift.end('fallen');
     this.dead = true; this.meditating = false; audio.sfx('death');
     const lost = inRift ? 0 : deathTax(this.gs.stones); // the rift is a challenge, not a toll
     this.gs.stones -= lost;
@@ -1029,7 +996,7 @@ export class WorldScene extends Phaser.Scene {
   /** What the player should do next, and where it is (drives the objective line, the edge arrow and the minimap ring). */
   private objective(): { text: string; target: Vec2 | null } {
     const gs = this.gs, elder = this.world.npcs['elder-lin'] ?? this.world.spawn;
-    if (this.tower) { const left = this.enemies.filter((e) => e.tower && e.c.hp > 0).length; return { text: `Trial Rift · Floor ${this.tower.floor} · ${this.tower.phase === 'fight' ? `${left} foe${left === 1 ? '' : 's'} left` : 'get ready'} · best ${this.gs.towerBest}`, target: null }; }
+    { const rt = this.rift.hud(); if (rt) return { text: rt, target: null }; }
     const chapterQuests = questsOfChapter(this.chapter);
     const activeQ = chapterQuests.find((q) => gs.quests[q.id]?.status === 'active');
     if (gs.tut < 15 && !activeQ) { // the tutorial yields as soon as there is a real quest to follow
@@ -1085,7 +1052,7 @@ export class WorldScene extends Phaser.Scene {
     this.updateRains(dt);
 
     for (const h of this.herbs) if (!h.alive && this.now >= h.respawnAt) { h.alive = true; h.img.setVisible(true); h.glow.setVisible(true); }
-    if (alive) { this.updateTowerRun(dt); this.tipTimer += dt; if (this.tipTimer > 1) { this.tipTimer = 0; this.checkTips(); } }
+    if (alive) { this.rift.update(dt); this.tipTimer += dt; if (this.tipTimer > 1) { this.tipTimer = 0; this.checkTips(); } }
     if (this.gs.boonPicks > 0 && alive && this.now >= this.boonCheckAt && this.now - this.lastCombat > 2.5 && !this.autoBoonOff()) this.offerBoon();
     this.respawnTimer += dt;
     if (this.respawnTimer >= RESPAWN_CHECK_SECONDS) { this.respawnTimer = 0; this.topUpEnemies(); }
@@ -1442,13 +1409,14 @@ export class WorldScene extends Phaser.Scene {
 
   // ---------- test hooks (used by e2e only) ----------
   private installTestHooks(): void {
+    try { if (!navigator.webdriver && new URLSearchParams(location.search).get('debug') !== '1') return; } catch { return; } // the cheat/test hooks exist only under automation or ?debug=1
     const w = window as unknown as Record<string, unknown>;
     w.__world = () => ({ x: this.pos.x, y: this.pos.y });
     w.__rpg = {
       state: () => ({
         now: this.now, hp: this.pc.hp, mana: this.pc.mana, maxHp: this.pc.maxHp, kills: this.gs.kills, xp: this.gs.progress.xp, level: this.gs.progress.level,
         realm: this.gs.cultivation.realm, qi: this.gs.cultivation.qi, weapon: this.gs.inventory.weapon, meditating: this.meditating, bossDefeated: isBossDefeated(this.gs, 'warden'), bossesDefeated: [...this.gs.bosses],
-        hero: this.gs.character.hero, stones: this.gs.stones, tut: this.gs.tut, objective: this.objective().text, skills: { ...this.gs.skills }, freePoints: freePoints(this.gs), inventoryGear: { weapon: this.gs.inventory.weapon, armor: this.gs.inventory.armor, charm: this.gs.inventory.charm }, zone: this.currentZone, tower: this.tower ? { floor: this.tower.floor, phase: this.tower.phase } : null, towerBest: this.gs.towerBest, boons: [...this.gs.boons], boonPicks: this.gs.boonPicks, perfectBuff: this.now < this.perfectUntil, dead: this.dead, comboStep: this.combo.step, dashing: isDashing(this.dashState, this.now), invulnerable: isInvulnerable(this.dashState, this.now),
+        hero: this.gs.character.hero, stones: this.gs.stones, tut: this.gs.tut, objective: this.objective().text, skills: { ...this.gs.skills }, freePoints: freePoints(this.gs), inventoryGear: { weapon: this.gs.inventory.weapon, armor: this.gs.inventory.armor, charm: this.gs.inventory.charm }, zone: this.currentZone, tower: this.rift.snapshot(), towerBest: this.gs.towerBest, boons: [...this.gs.boons], boonPicks: this.gs.boonPicks, perfectBuff: this.now < this.perfectUntil, dead: this.dead, comboStep: this.combo.step, dashing: isDashing(this.dashState, this.now), invulnerable: isInvulnerable(this.dashState, this.now),
         quests: Object.fromEntries(Object.entries(this.gs.quests).map(([k, v]) => [k, v.status])),
         enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
         bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams, poise: Math.round(b.ai.poise) })),
@@ -1485,7 +1453,7 @@ export class WorldScene extends Phaser.Scene {
       setFlask: (n: number) => { this.gs.flask.charges = n; this.gs.flask.kills = 0; },
       poiseBoss: (id: string, dmg: number) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; this.poiseHit(b, dmg); } },
       clearTowerFoes: () => { for (const e of this.enemies.filter((x) => x.tower)) this.killEnemy(e); },
-      startTower: () => this.startTower(), endTower: () => this.endTower('left'),
+      startTower: () => this.rift.start(), endTower: () => this.rift.end('left'),
       tip: (id: string, text: string) => this.tip(id, text),
       giveAllBoons: () => { this.gs.boons = Object.keys(BOONS); },
       offerBoon: () => this.offerBoon(true),

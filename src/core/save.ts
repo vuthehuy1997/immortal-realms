@@ -7,6 +7,7 @@ import { ROOTS } from '../data/roots';
 import { MAX_LEVEL } from './progression';
 import { picksForLevels, validBoons } from './boons';
 import { validTowerBest } from './tower';
+import { INSIGHT_IDS, INSIGHT_MAX, newInsight } from '../data/insight';
 import { SKILLS } from '../data/skills';
 import { SKILL_MAX, spentPoints, totalPoints } from './skills';
 import { NAME_MAX } from './character';
@@ -66,7 +67,7 @@ function validate(s: unknown): string | null {
   if (!num(s.tut, 0, 15) || !Number.isInteger(s.tut)) return 'bad tutorial';
   if (!isObj(s.skills)) return 'bad skills';
   for (const [k, v] of Object.entries(s.skills)) if (!SKILLS.some((d) => d.id === k) || !num(v, 0, SKILL_MAX - 1) || !Number.isInteger(v)) return 'bad skill level';
-  if (spentPoints({ skills: s.skills as Record<string, number> }) > totalPoints({ progress: p as { level: number; xp: number }, cultivation: cu as { realm: number; qi: number } })) return 'too many skill points';
+  if (spentPoints({ skills: s.skills as Record<string, number>, insight: s.insight as Record<string, number> }) > totalPoints({ progress: p as { level: number; xp: number }, cultivation: cu as { realm: number; qi: number } })) return 'too many skill points';
   if (!Array.isArray(s.bosses) || s.bosses.some((b) => typeof b !== 'string' || !BOSS_IDS.includes(b)) || new Set(s.bosses).size !== s.bosses.length) return 'bad bosses';
   if (!num(s.hp, 0, 1e5) || !num(s.mana, 0, 1e5)) return 'bad vitals';
   if (!isObj(pos) || !num(pos.x, 0, 1e5) || !num(pos.y, 0, 1e5)) return 'bad position';
@@ -74,6 +75,7 @@ function validate(s: unknown): string | null {
   if (!validFlask(s.flask)) return 'bad flask';
   if (!validBoons(s.boons)) return 'bad boons';
   if (!validTowerBest(s.towerBest)) return 'bad tower record';
+  if (!isObj(s.insight) || INSIGHT_IDS.some((id) => !num((s.insight as Record<string, unknown>)[id], 0, INSIGHT_MAX) || !Number.isInteger((s.insight as Record<string, unknown>)[id]))) return 'bad insight';
   if (!Array.isArray(s.hints) || s.hints.length > 40 || s.hints.some((h) => typeof h !== 'string' || h.length > 40)) return 'bad hints';
   if (typeof s.boonPicks !== 'number' || !Number.isInteger(s.boonPicks) || s.boonPicks < 0 || s.boonPicks > 99) return 'bad boon picks';
   if (!Array.isArray(s.story) || s.story.some((c) => typeof c !== 'number' || !(c in CHAPTERS))) return 'bad story flags';
@@ -95,6 +97,7 @@ export function parseSave(text: string | null): LoadResult {
     if (env.state.boons === undefined) env.state.boons = [];
     if (env.state.towerBest === undefined) env.state.towerBest = 0;
     if (env.state.hints === undefined) env.state.hints = [];
+    if (env.state.insight === undefined) env.state.insight = newInsight();
     if (env.state.boonPicks === undefined) { // older heroes are owed the picks they already earned
       const lv = isObj(env.state.progress) ? Number(env.state.progress.level) || 1 : 1;
       env.state.boonPicks = picksForLevels(0, lv) + (Array.isArray(env.state.bosses) ? env.state.bosses.length : 0);

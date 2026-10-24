@@ -14,6 +14,7 @@ import { attemptBreakthrough, canBreakthrough, nextRealmLevel, type Breakthrough
 import { flaskOnKill, newFlask, type Flask } from './sustain';
 import { aggregate, applyBoons, picksForLevels, rollChoices } from './boons';
 import { BOONS, type BoonMods } from '../data/boons';
+import { INSIGHT_IDS, INSIGHTS, newInsight, type InsightRanks } from '../data/insight';
 import { isComplete, newQuestLog, onKill, type QuestLog } from './quest';
 
 export interface GameState {
@@ -46,6 +47,8 @@ export interface GameState {
   towerBest: number;
   /** ids of one-time tips already shown */
   hints: string[];
+  /** Dao Insight ranks (spent skill points) */
+  insight: InsightRanks;
 }
 
 export const WARDEN_ID = 'warden';
@@ -54,7 +57,7 @@ export const isBossDefeated = (gs: GameState, id: string): boolean => gs.bosses.
 export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
     character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(), boons: [], boonPicks: 0, towerBest: 0, hints: [],
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(), boons: [], boonPicks: 0, towerBest: 0, hints: [], insight: newInsight(),
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);
@@ -65,7 +68,8 @@ export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { 
 export const statsOf = (gs: GameState): DerivedStats =>
   applyBoons(deriveStats(gs.character.root, gs.progress.level, gs.cultivation.realm, gs.inventory), heroAggregate(gs));
 
-const heroAggregate = (gs: GameState): BoonMods => aggregate(gs.boons, [HEROES[gs.character.hero].trait.mods]);
+const insightMods = (gs: GameState): Partial<BoonMods>[] => INSIGHT_IDS.flatMap((id) => Array.from({ length: gs.insight[id] }, () => INSIGHTS[id].perRank));
+const heroAggregate = (gs: GameState): BoonMods => aggregate(gs.boons, [HEROES[gs.character.hero].trait.mods, ...insightMods(gs)]);
 export const boonMods = (gs: GameState): BoonMods => heroAggregate(gs);
 
 /** Spends one pending pick on `id` if it is one of the offered choices. */

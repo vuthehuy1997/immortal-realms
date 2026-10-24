@@ -53,6 +53,15 @@
 - Tests: tests/chapters.test.ts (24), e2e/chapters.spec.ts (6): gate refusal/open, ch2 content, persistence + return gate, NPC shop, Corpse King kill, story pages.
 - Honest limits: ch2 art is reused/recoloured (PLACEHOLDER), balance untuned, no new playable heroes (the pack's other hero sprites lack combat animations), no companions yet.
 
+## Round 17 (leftovers from QA reports 4-5)
+- Dao Insight (`src/data/insight.ts`, `upgradeInsight`): Body Tempering (+3% HP), Sword Intent (+2% attack, +0.4% crit), Spirit Sea (+4% mana, +0.3 regen) per rank, 10 ranks each, paid from the same skill-point pool as techniques (only 16 technique ranks existed, so points used to pile up). Saved in `GameState.insight` (additive migration, validated against the point pool).
+- Small viewports: below 700 px wide or 480 px tall the minimap shrinks, the control hint and quest tracker hide, the skill bar scales and the objective moves clear of the minimap (verified with 360x640 and 640x360 screenshots, plus a bounding-box test).
+- NPC nameplates and elite labels render at 4x text resolution (they were blurry at game zoom); props fade over enemies slightly wider.
+- Boon picker: arrow keys / D-pad move focus, E / Space / pad A takes the card.
+- `window.__rpg` and `window.__game` are installed only when `navigator.webdriver` is set or the URL has `?debug=1` (test hooks no longer reachable in a normal session).
+- Refactor: Trial Rift extracted to `src/game/rift.ts` behind a small `RiftHost` interface (WorldScene 1505 -> 1465 lines).
+- Tests: tests/insight.test.ts (4), e2e/round6.spec.ts (4).
+
 ## Round 16 (independent QA report 5 -> new-player experience)
 - Toast manager: identical messages merge into one with a x2/x3 count, at most 4 visible (QA: spamming F/G stacked ~20 toasts over the screen).
 - One-time tips, remembered in the save (`hints`): low-health flask, spare technique points, perfect dodge on first boss engagement, poise on first stagger, quest log key. Automated browsers skip them unless `?tips=1`.
