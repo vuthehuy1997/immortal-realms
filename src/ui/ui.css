@@ -235,4 +235,6 @@ body.touch #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width
 .boon.rare { border-color: #4d7fb3; } .boon.rare b { color: #a9d4ff; }
 .boon.epic { border-color: #9a5bd0; } .boon.epic b { color: #e1b8ff; }
 .boonleft { margin-top: 1em; font-size: .85em; opacity: .7; }
-.hero small.trait { display: block; margin-top: .35em; color: var(--gold2); font-size: .68em; line-height: 1.25; opacity: .9; }
+.hero small.trait { display: block; margin-top: .4em; color: var(--gold2); font-size: .85em; line-height: 1.3; opacity: .95; }
+.boonfoot { margin-top: 1em; display: flex; gap: 1em; align-items: center; justify-content: center; flex-wrap: wrap; }
+.boonowned { margin-top: .8em; font-size: .78em; opacity: .65; line-height: 1.4; }

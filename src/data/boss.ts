@@ -122,7 +122,7 @@ export const CRYSTALCOLOSSUS: BossDef = {
 /** The sealed thing the three guardians held back: every move in the book. */
 export const SOVEREIGN: BossDef = {
   id: 'sovereign', chapter: 2, name: 'Sundered Sovereign', home: 'summit', zone: 'summit', xp: 1700, stones: [300, 420], sprite: 'boss.fallenimmortal', tint: 0x9fd0ff, scale: 0.72, radius: 22,
-  maxHp: 16500, atk: 58, def: 20, speed: 42,
+  maxHp: 21000, atk: 58, def: 20, speed: 42,
   moves: {
     slam: { radius: 62, windup: 0.85, recover: 0.45, cooldown: 3.8, damageMult: 1.8, triggerRange: 96 },
     sweep: { range: 96, halfAngle: 1.0, windup: 0.7, recover: 0.45, cooldown: 3, damageMult: 1.5, triggerRange: 92 },

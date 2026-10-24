@@ -58,4 +58,13 @@ test.describe('round C: Trial Rift and hero traits', () => {
     await expect(page.locator('.hero .trait')).toHaveCount(6);
     await page.screenshot({ path: 'test-results/hero-traits.png' });
   });
+
+  test('dying inside the rift costs no spirit stones, dying outside still does', async ({ page }) => {
+    await newGame(page, 'NoToll');
+    await page.evaluate(() => { window.__rpg!.clear(); window.__rpg!.setHp(1e5); window.__rpg!.setStones(200); window.__rpg!.startTower(); });
+    await expect.poll(async () => (await st(page)).tower?.phase, { timeout: 15000 }).toBe('fight');
+    await page.evaluate(() => window.__rpg!.killPlayer());
+    await expect.poll(async () => (await st(page)).dead).toBe(true);
+    expect((await st(page)).stones).toBe(200);
+  });
 });

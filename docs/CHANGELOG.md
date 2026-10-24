@@ -53,6 +53,15 @@
 - Tests: tests/chapters.test.ts (24), e2e/chapters.spec.ts (6): gate refusal/open, ch2 content, persistence + return gate, NPC shop, Corpse King kill, story pages.
 - Honest limits: ch2 art is reused/recoloured (PLACEHOLDER), balance untuned, no new playable heroes (the pack's other hero sprites lack combat animations), no companions yet.
 
+## Round 15 (independent QA report 4 -> fixes)
+- Lifesteal capped at 5% (hero trait + boons) and now heals on damage actually dealt (not shield or overkill); technique cost reduction capped at 50%.
+- Boon pool 15 -> 20 with behaviour boons: Storm Technique / Steady Hand (technique damage), Lotus Echo (cheaper techniques), Heart Seeker (+30% vs foes under 30% HP), Afterimage Step (perfect dodge refreshes the dash). Picker: reroll for 75 stones (R), owned-boon list, dialog role; a pick with nothing left to take becomes 150 stones with a message instead of vanishing.
+- Hero traits: Fan Scholar +15% technique damage; Twin-Blade's perfect dodge refreshes the dash.
+- Trial Rift: kills pay 35% XP (stones unchanged), no death-stone tax inside the rift, guardian floors have as many foes as the floor before them.
+- Sovereign (final boss) HP 16500 -> 21000 (QA: a no-boon L20 bot killed it in 32 s). Hero trait text on the creation cards is larger.
+- Loading a slot that had to fall back to its backup copy now says so.
+- Tests: tests/roundD.test.ts (6), e2e/boons.spec.ts +2.
+
 ## Round 14 (QA report 3 round C, part: replay and identity)
 - Trial Rift (`src/core/tower.ts`, glue in WorldScene): talk to Keeper Ming (Azure Cloud Sect) or Keeper Ren (Skyfall Outpost) to start. Endless floors drawn from eight difficulty bands (zone rosters and tiers), a guardian every 5th floor, stats climbing +6% HP / +4% attack per floor. Rewards pay only for floors beyond your record (stones, Qi pills every 5th, a Foundation Pill and a boon pick every 10th) so low floors cannot be farmed for them; a cleared floor heals 20% and refills mana. Falling, leaving, or straying 420 px away ends the run. `GameState.towerBest` (additive save migration).
 - Hero signature passives (`HeroDef.trait`): Sword Heart Focus (crit, mana on hit), Crimson Gale (dash, attack), Scholar Reserve (mana), Iron Discipline (HP, defence, poise), Road-Worn Edge (attack, lifesteal), Storm Steps (mana on hit, perfect-dodge time). Shown on the creation screen and the character panel; they flow through the same mods as boons.

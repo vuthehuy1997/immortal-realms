@@ -7,8 +7,12 @@ export const CHOICES = 3;
 
 export const NO_MODS: BoonMods = {
   atkPct: 0, maxHpPct: 0, maxManaPct: 0, defPct: 0, critChance: 0, critMult: 0, manaRegen: 0, manaOnHit: 0, lifesteal: 0,
-  dashCdMult: 1, flaskHeal: 0, poiseMult: 0, perfectMana: 0, perfectTime: 0,
+  dashCdMult: 1, flaskHeal: 0, poiseMult: 0, perfectMana: 0, perfectTime: 0, skillDmg: 0, skillCost: 0, execute: 0, perfectDash: 0,
 };
+
+/** Lifesteal and technique cost reduction are capped so stacking cannot make a build unkillable or free. */
+export const LIFESTEAL_CAP = 0.05;
+export const SKILL_COST_CAP = 0.5;
 
 /** Sums the mods of every owned boon (the dash multiplier multiplies). */
 export function aggregate(owned: readonly string[], extra: Partial<BoonMods>[] = []): BoonMods {
@@ -21,6 +25,7 @@ export function aggregate(owned: readonly string[], extra: Partial<BoonMods>[] =
       else m[k] += mods[k] ?? 0;
     }
   }
+  m.lifesteal = Math.min(LIFESTEAL_CAP, m.lifesteal); m.skillCost = Math.min(SKILL_COST_CAP, m.skillCost);
   return m;
 }
 

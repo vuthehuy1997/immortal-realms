@@ -6,7 +6,7 @@ import { BootScene } from './game/BootScene';
 import { WorldScene, type GameHost } from './game/WorldScene';
 import { hasSaveData, loadGame, loadSlotGame, saveNewGame, storage } from './game/storage';
 import { allSlots, deleteSlot, exportSlot, firstEmptySlot, activeSlot, importToSlot } from './core/slots';
-import { buildHud, showHud } from './ui/hud';
+import { buildHud, showHud, toast } from './ui/hud';
 import { hideScreen, showCreation, showSlots, showLoading, showMainMenu } from './ui/menu';
 import { installSkin } from './ui/skin';
 import { audio } from './game/audio';
@@ -42,7 +42,7 @@ function mainMenu(error?: string): void {
     }),
     onContinue: () => {
       const r = loadGame();
-      if (r.ok) begin(r.state); else mainMenu(`Could not load save: ${r.error}`);
+      if (r.ok) { begin(r.state); if (r.recovered) toast('The main save was damaged: restored from the backup copy (progress since that backup is lost).', 7000); } else mainMenu(`Could not load save: ${r.error}`);
     },
     onSlots: () => slotsMenu(),
   });
@@ -52,7 +52,7 @@ function slotsMenu(message?: string): void {
   showSlots({
     slots: allSlots(storage), message,
     onBack: () => mainMenu(),
-    onLoad: (slot) => { const r = loadSlotGame(slot); if (r.ok) begin(r.state); else slotsMenu(`Could not load slot ${slot}: ${r.error}`); },
+    onLoad: (slot) => { const r = loadSlotGame(slot); if (r.ok) { begin(r.state); if (r.recovered) toast('This slot was damaged: restored from the backup copy (recent progress may be lost).', 7000); } else slotsMenu(`Could not load slot ${slot}: ${r.error}`); },
     onDelete: (slot) => { deleteSlot(storage, slot); slotsMenu(`Slot ${slot} deleted.`); },
     onExport: (slot) => {
       const text = exportSlot(storage, slot); if (!text) return;

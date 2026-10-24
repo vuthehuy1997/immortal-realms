@@ -74,7 +74,10 @@ export function takeBoon(gs: GameState, id: string, offered: readonly string[]):
 }
 
 /** The three boons on offer right now (stable until one is taken). */
-export const boonChoices = (gs: GameState): string[] => rollChoices(gs.kills * 31 + gs.progress.level * 977 + gs.boons.length * 7919 + gs.bosses.length * 104729, gs.boons);
+export const boonChoices = (gs: GameState, reroll = 0): string[] => rollChoices(gs.kills * 31 + gs.progress.level * 977 + gs.boons.length * 7919 + gs.bosses.length * 104729 + reroll * 15485863, gs.boons);
+export const REROLL_COST = 75;
+/** Stones paid for a pick that can no longer be spent (every boon owned). */
+export const LEFTOVER_PICK_STONES = 150;
 
 /** Re-clamps current hp/mana after max stats change (gear/realm/level). */
 export function clampVitals(gs: GameState): void {
@@ -94,11 +97,11 @@ export function grantXp(gs: GameState, amount: number): number {
 
 export interface KillResult { xp: number; stones: number; levelsGained: number; drops: { id: string; count: number }[]; overflow: string[] }
 
-export function registerKill(gs: GameState, enemyType: string, rng: () => number, opts: { elite?: boolean; zone?: string } = {}): KillResult {
+export function registerKill(gs: GameState, enemyType: string, rng: () => number, opts: { elite?: boolean; zone?: string; xpMult?: number } = {}): KillResult {
   const boss = BOSSES[enemyType], edef = ENEMIES[enemyType];
   const sc = edef ? scaledEnemy(edef, (opts.zone as ZoneId | undefined) ?? 'bamboo', !!opts.elite) : undefined;
   const firstBossKill = !!boss && !gs.bosses.includes(enemyType);
-  const xp = boss ? (firstBossKill ? boss.xp : Math.round(boss.xp * 0.3)) : sc?.xp ?? 0;
+  const xp = Math.round((boss ? (firstBossKill ? boss.xp : Math.round(boss.xp * 0.3)) : sc?.xp ?? 0) * (opts.xpMult ?? 1));
   const range = boss ? boss.stones : sc?.stones ?? [0, 0];
   const base = range[0]! + Math.floor(rng() * (range[1]! - range[0]! + 1));
   const stones = boss && !firstBossKill ? Math.round(base * 0.3) : base; // repeat boss kills pay 30%

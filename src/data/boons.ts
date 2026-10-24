@@ -17,6 +17,12 @@ export interface BoonMods {
   poiseMult: number;
   /** extra mana and damage-buff seconds from a perfect dodge */
   perfectMana: number; perfectTime: number;
+  /** fraction added to technique (1-4) damage, and fraction off their mana cost */
+  skillDmg: number; skillCost: number;
+  /** extra damage against foes below 30% HP */
+  execute: number;
+  /** above 0: a perfect dodge refreshes the dash */
+  perfectDash: number;
 }
 
 export interface BoonDef { id: string; name: string; desc: string; rarity: BoonRarity; mods: Partial<BoonMods> }
@@ -34,6 +40,11 @@ export const BOONS: Record<string, BoonDef> = Object.fromEntries(([
   { id: 'elixir-body', name: 'Elixir Body', desc: 'The spirit flask restores 15% more max HP.', rarity: 'rare', mods: { flaskHeal: 0.15 } },
   { id: 'breaking-wave', name: 'Breaking Wave', desc: '+40% poise damage: bosses stagger sooner.', rarity: 'rare', mods: { poiseMult: 0.4 } },
   { id: 'ghost-blade', name: 'Ghost Blade Shadow', desc: 'A perfect dodge grants +10 mana and 2 s longer damage bonus.', rarity: 'rare', mods: { perfectMana: 10, perfectTime: 2 } },
+  { id: 'steady-hand', name: 'Steady Hand', desc: 'Techniques deal +8% damage.', rarity: 'common', mods: { skillDmg: 0.08 } },
+  { id: 'storm-art', name: 'Storm Technique', desc: 'Techniques deal +18% damage.', rarity: 'rare', mods: { skillDmg: 0.18 } },
+  { id: 'lotus-echo', name: 'Lotus Echo', desc: 'Techniques cost 20% less mana.', rarity: 'rare', mods: { skillCost: 0.20 } },
+  { id: 'heart-seeker', name: 'Heart Seeker', desc: '+30% damage against foes below 30% HP.', rarity: 'rare', mods: { execute: 0.30 } },
+  { id: 'afterimage', name: 'Afterimage Step', desc: 'A perfect dodge refreshes your dash and grants +5 mana.', rarity: 'epic', mods: { perfectDash: 1, perfectMana: 5 } },
   { id: 'dragon-vein', name: 'Dragon Vein Awakening', desc: '+8% attack, +8% max HP and +4% critical chance.', rarity: 'epic', mods: { atkPct: 0.08, maxHpPct: 0.08, critChance: 0.04 } },
   { id: 'void-edge', name: 'Void Edge', desc: 'Critical hits deal +0.5x more damage.', rarity: 'epic', mods: { critMult: 0.5 } },
   { id: 'heaven-sustain', name: 'Heaven-Sustaining Art', desc: 'Heal 2% of damage dealt and +1 mana per sword hit.', rarity: 'epic', mods: { lifesteal: 0.02, manaOnHit: 1 } },

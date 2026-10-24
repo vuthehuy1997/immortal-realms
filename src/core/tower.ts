@@ -12,6 +12,8 @@ export const BREAK_SECONDS = 3;
 export const START_SECONDS = 1.5;
 /** How far from the start the hero may stray before the run is abandoned. */
 export const LEASH = 420;
+/** Kills inside the rift pay this share of normal XP (stones are unchanged), so the tower is not the best levelling spot. */
+export const TOWER_XP = 0.35;
 
 /** Floors are grouped into bands; each band borrows the enemy roster and difficulty tier of a zone. */
 export const BANDS: { from: number; zone: ZoneId }[] = [
@@ -36,7 +38,7 @@ export function planFloor(floor: number, rng: () => number): FloorPlan {
   const eliteP = Math.min(0.4, 0.04 * floor);
   const enemies: FloorEnemy[] = [];
   if (guardian) enemies.push({ type: roster[roster.length - 1]!, elite: true });
-  while (enemies.length < (guardian ? Math.max(3, count - 2) : count)) enemies.push({ type: roster[Math.floor(rng() * roster.length)]!, elite: rng() < eliteP });
+  while (enemies.length < count) enemies.push({ type: roster[Math.floor(rng() * roster.length)]!, elite: rng() < eliteP });
   return { floor, zone, enemies, hpMult: floorHp(floor) * (guardian ? 1.4 : 1), atkMult: floorAtk(floor), guardian };
 }
 

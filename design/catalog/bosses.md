@@ -113,7 +113,7 @@ Drops: crystal-saber (100%), crystal-robe (70%), greater-mana-potion (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 16500 | 58 | 20 | 42 | 1700 | 300–420 | summit | summit | sundered-sovereign | 0.66 / 0.33 |
+| 21000 | 58 | 20 | 42 | 1700 | 300–420 | summit | summit | sundered-sovereign | 0.66 / 0.33 |
 
 Kit: **P1** slam, sweep, charge · **P2** slam, rain, summon, teleport, sweep · **P3** rain, teleport, ring, charge, slam, sweep
 

@@ -42,10 +42,11 @@
     "scale": 0.34,
     "trait": {
       "name": "Scholar Reserve",
-      "desc": "+25% max mana, +1.5 mana regeneration.",
+      "desc": "+25% max mana, +1.5 mana regeneration, techniques deal +15% damage.",
       "mods": {
         "maxManaPct": 0.25,
-        "manaRegen": 1.5
+        "manaRegen": 1.5,
+        "skillDmg": 0.15
       }
     },
     "image": "heroes/fanscholar.png"
@@ -94,10 +95,11 @@
     "scale": 0.34,
     "trait": {
       "name": "Storm Steps",
-      "desc": "+2 mana per sword hit, perfect dodges last 1.5 s longer.",
+      "desc": "+2 mana per sword hit; a perfect dodge refreshes your dash and lasts 1.5 s longer.",
       "mods": {
         "manaOnHit": 2,
-        "perfectTime": 1.5
+        "perfectTime": 1.5,
+        "perfectDash": 1
       }
     },
     "image": "heroes/twinblade.png"

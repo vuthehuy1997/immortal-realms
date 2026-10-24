@@ -87,4 +87,30 @@ test.describe('round B: boons, boss poise, perfect dodge', () => {
     expect(got).toBe(true);
     expect((await me(page)).x).toBeGreaterThan(0);
   });
+
+  test('rerolling costs stones and shows different boons; with no stones the button is disabled', async ({ page }) => {
+    await newGame(page, 'Reroller');
+    await page.evaluate(() => { window.__rpg!.setStones(500); window.__rpg!.addBoonPicks(1); window.__rpg!.offerBoon(); });
+    const ids = async () => page.locator('#boonpick .boon').evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.boon));
+    const first = await ids();
+    await expect(page.locator('#boon-reroll')).toBeEnabled();
+    await page.keyboard.press('r');
+    await expect(page.locator('#boonpick .boon')).toHaveCount(3);
+    expect(await ids()).not.toEqual(first);
+    expect((await st(page)).stones).toBe(425);
+    await page.evaluate(() => { window.__rpg!.setStones(10); });
+    await page.locator('#boonpick .boon').first().click(); // take it, picks are now spent
+    await page.evaluate(() => { window.__rpg!.addBoonPicks(1); window.__rpg!.offerBoon(); });
+    await expect(page.locator('#boon-reroll')).toBeDisabled();
+    await expect(page.locator('#boonpick')).toHaveAttribute('role', 'dialog');
+    await expect(page.locator('.boonowned')).toContainText('Owned:');
+  });
+
+  test('when every boon is owned a pick turns into stones with a message', async ({ page }) => {
+    await newGame(page, 'Master');
+    await page.evaluate(() => { window.__rpg!.setStones(0); window.__rpg!.giveAllBoons(); window.__rpg!.addBoonPicks(2); window.__rpg!.offerBoon(); });
+    await expect(page.locator('.toast', { hasText: 'mastered every boon' })).toBeVisible();
+    const s = await st(page);
+    expect(s.boonPicks).toBe(0); expect(s.stones).toBe(300);
+  });
 });

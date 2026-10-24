@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { addPoise, newBossAI, STAGGER_DAMAGE, updateBoss, type BossAI, type BossEvent } from '../core/boss';
 import { PERFECT_BUFF_TIME, PERFECT_DAMAGE, PERFECT_MANA, PERFECT_SLOWMO, perfectReady } from '../core/dodge';
 import { showBoonPicker, isBoonPickerOpen } from '../ui/boons';
-import { LEASH, newRun, updateTower, type FloorPlan, type FloorReward, type TowerRun } from '../core/tower';
+import { LEASH, newRun, TOWER_XP, updateTower, type FloorPlan, type FloorReward, type TowerRun } from '../core/tower';
 import { BOONS } from '../data/boons';
 import { applyDamage, computeDamage, Cooldowns, regenMana, tryCast, type Combatant } from '../core/combat';
 import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo, newDash, nextStep, tryDash, type ComboState, type DashState } from '../core/combo';
@@ -14,7 +14,7 @@ const PACK_ALERT_RADIUS = 70; // hearing range for packmates when one is struck
 import { deathTax, hpRegenPerSec } from '../core/recovery';
 import { canSee, FOV, SENSE_RADIUS, turnToward, TURN_RATE } from '../core/perception';
 import { newEnemyAI, updateEnemyAI, type EnemyAI } from '../core/enemyAI';
-import { boonChoices, boonMods, gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, takeBoon, tryBreakthrough, turnInQuest, unequipSlot, useItemSlot, type GameState } from '../core/gameState';
+import { boonChoices, boonMods, LEFTOVER_PICK_STONES, REROLL_COST, gatherHerb, grantXp, isBossDefeated, registerKill, statsOf, takeBoon, tryBreakthrough, turnInQuest, unequipSlot, useItemSlot, type GameState } from '../core/gameState';
 import { freePoints, scaledSkill, skillLevel, upgradeSkill, type ScaledSkill } from '../core/skills';
 import { progressOf, isComplete } from '../core/quest';
 import { inArc, inCircle, normalize } from '../core/hit';
@@ -597,8 +597,9 @@ export class WorldScene extends Phaser.Scene {
     if (!sk || this.dead || this.uiPause) return;
     if (this.gs.progress.level < sk.unlockLevel) { toast(`${sk.name} unlocks at level ${sk.unlockLevel}.`, 1800); return; }
     if (!this.canAct() && !aim) return;
-    const sc = scaledSkill(sk, skillLevel(this.gs, sk.id));
-    if (!tryCast(this.pc, this.cds, { id: sk.id, manaCost: sk.manaCost, cooldown: sc.cooldown }, this.now).ok) return;
+    const bm = boonMods(this.gs), base = scaledSkill(sk, skillLevel(this.gs, sk.id));
+    const sc = { ...base, damageMult: base.damageMult * (1 + bm.skillDmg) };
+    if (!tryCast(this.pc, this.cds, { id: sk.id, manaCost: Math.round(sk.manaCost * (1 - bm.skillCost)), cooldown: sc.cooldown }, this.now).ok) return;
     this.meditating = false;
     const dir = this.aimDir(aim);
     this.player.face(dir.x < 0 ? -1 : 1);
@@ -665,13 +666,14 @@ export class WorldScene extends Phaser.Scene {
   private hitEnemy(e: Enemy, mult: number, o: HitOpts = {}): void {
     if (e.c.hp <= 0) return;
     const ambush = !o.dot && e.ai.state === 'idle' && !e.minion && this.now >= e.alertUntil; // struck while unaware
-    const r = computeDamage(this.pc, e.c, (ambush ? mult * AMBUSH_MULT : mult) * this.dodgeBuff(), this.rng);
+    const r = computeDamage(this.pc, e.c, (ambush ? mult * AMBUSH_MULT : mult) * this.dodgeBuff() * this.executeMult(e.c), this.rng);
     if (ambush) this.floatText(e.pos, 'Ambush!', '#ffd23f', false, 8);
     let amount = r.amount;
     if (e.shield > 0) { const ab = Math.min(e.shield, amount); e.shield -= ab; amount -= ab; if (e.shield <= 0) this.floatText(e.pos, 'Ward broken', '#9fd8ff', false, 8); }
     this.lastCombat = this.now;
+    const hpBefore = e.c.hp;
     const killed = amount > 0 ? applyDamage(e.c, amount) : false;
-    if (!o.dot) this.leech(r.amount);
+    if (!o.dot) this.leech(hpBefore - e.c.hp); // heal on damage actually dealt: not on shield or overkill
     this.floatText(e.pos, String(r.amount), e.shield > 0 ? '#9fd8ff' : r.crit ? '#ffd23f' : '#ffffff', r.crit);
     audio.sfx(r.crit ? 'crit' : 'hit');
     if (!o.dot && !killed) this.rootEffect(e, null, r.amount);
@@ -691,6 +693,7 @@ export class WorldScene extends Phaser.Scene {
   private autoBoonOff(): boolean {
     try { if (new URLSearchParams(location.search).get('boons') === '1') return false; return navigator.webdriver === true; } catch { return false; }
   }
+  private executeMult(c: Combatant): number { const x = boonMods(this.gs).execute; return x > 0 && c.hp < c.maxHp * 0.3 ? 1 + x : 1; }
   private dodgeBuff(): number { return this.now < this.perfectUntil ? PERFECT_DAMAGE : 1; }
   private leech(dealt: number): void {
     const ls = boonMods(this.gs).lifesteal;
@@ -763,18 +766,25 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /** Offers the next banked boon pick (not mid-fight; automation skips it unless `force`). */
-  private offerBoon(force = false): void {
+  private offerBoon(force = false, reroll = 0): void {
     if (this.uiPause || this.dead || isBoonPickerOpen() || this.gs.boonPicks < 1) return;
+    const choices = boonChoices(this.gs, reroll);
+    if (!choices.length) { // every boon owned: the pick turns into stones instead of vanishing silently
+      const n = this.gs.boonPicks; this.mutate(() => { this.gs.stones += n * LEFTOVER_PICK_STONES; this.gs.boonPicks = 0; });
+      toast(`You have mastered every boon: ${n} pick${n > 1 ? 's' : ''} turned into ${n * LEFTOVER_PICK_STONES} ◆`, 3600); return;
+    }
     this.uiPause = true;
-    const choices = boonChoices(this.gs);
-    if (!choices.length) { this.gs.boonPicks = 0; this.uiPause = false; return; }
-    showBoonPicker(choices, this.gs.boonPicks, (id) => {
-      this.mutate(() => takeBoon(this.gs, id, choices));
-      this.uiPause = false;
-      toast(`Boon gained: ${BOONS[id]!.name}`, 2600); audio.sfx('levelup');
-      this.fx.play('xf_ascend', this.pos.x, this.pos.y, { scale: 0.35, tint: COLORS.gold });
-      this.save(false); refreshPanels(this.gs, this.meditating);
-      this.boonCheckAt = this.now + (force ? 9e9 : 1);
+    showBoonPicker({
+      choices, left: this.gs.boonPicks, owned: this.gs.boons,
+      reroll: { cost: REROLL_COST, stones: this.gs.stones, onReroll: () => { this.mutate(() => { this.gs.stones -= REROLL_COST; }); this.uiPause = false; this.offerBoon(force, reroll + 1); } },
+      onPick: (id) => {
+        this.mutate(() => takeBoon(this.gs, id, choices));
+        this.uiPause = false;
+        toast(`Boon gained: ${BOONS[id]!.name}`, 2600); audio.sfx('levelup');
+        this.fx.play('xf_ascend', this.pos.x, this.pos.y, { scale: 0.35, tint: COLORS.gold });
+        this.save(false); refreshPanels(this.gs, this.meditating);
+        this.boonCheckAt = this.now + (force ? 9e9 : 1);
+      },
     });
   }
 
@@ -827,15 +837,16 @@ export class WorldScene extends Phaser.Scene {
     this.fx.burst(e.pos.x, e.pos.y - 8, e.elite ? COLORS.gold : COLORS.wisp, 14);
     this.tweens.add({ targets: [actor.sprite], alpha: 0, duration: 700, delay: 500, onComplete: () => actor.destroy() });
     this.tweens.add({ targets: [actor.shadow], alpha: 0, duration: 700, delay: 500 });
-    if (!e.minion) this.onKill(e.def.id, e.pos, e.elite, e.zone);
+    if (!e.minion) this.onKill(e.def.id, e.pos, e.elite, e.zone, e.tower ? TOWER_XP : 1);
   }
 
   private hitBoss(b: BossEnt, mult: number, o: HitOpts = {}): void {
     if (!b.engaged) b.engaged = true;
     this.lastCombat = this.now;
-    const r = computeDamage(this.pc, b.c, mult * this.dodgeBuff() * (b.ai.state === 'stagger' ? STAGGER_DAMAGE : 1), this.rng);
+    const r = computeDamage(this.pc, b.c, mult * this.dodgeBuff() * this.executeMult(b.c) * (b.ai.state === 'stagger' ? STAGGER_DAMAGE : 1), this.rng);
+    const hpBefore = b.c.hp;
     const killed = applyDamage(b.c, r.amount);
-    if (!o.dot) this.leech(r.amount);
+    if (!o.dot) this.leech(hpBefore - b.c.hp);
     if (!o.dot && !killed) this.poiseHit(b, r.amount);
     this.floatText(b.pos, String(r.amount), r.crit ? '#ffd23f' : '#ffffff', r.crit);
     if (!o.dot && !killed) this.rootEffect(null, b, r.amount);
@@ -862,8 +873,8 @@ export class WorldScene extends Phaser.Scene {
     this.save(false);
   }
 
-  private onKill(type: string, at: Vec2, elite: boolean, zone?: string): void {
-    const r = this.mutate(() => registerKill(this.gs, type, this.roll, { elite, zone }));
+  private onKill(type: string, at: Vec2, elite: boolean, zone?: string, xpMult = 1): void {
+    const r = this.mutate(() => registerKill(this.gs, type, this.roll, { elite, zone, xpMult }));
     this.floatText({ x: at.x, y: at.y - 12 }, `+${r.xp} XP`, '#b9a3ff', false, 8);
     if (r.stones > 0) this.floatText({ x: at.x + 8, y: at.y - 2 }, `+${r.stones} ◆`, '#7fd8ff', false, 8);
     for (const d of r.drops) { toast(`Found ${ITEMS[d.id]!.name}`, 1800); audio.sfx('pickup'); }
@@ -898,6 +909,7 @@ export class WorldScene extends Phaser.Scene {
     this.lastPerfect = this.now; this.lastDodgeText = this.now;
     this.pc.mana = Math.min(this.pc.maxMana, this.pc.mana + PERFECT_MANA + m.perfectMana);
     this.perfectUntil = this.now + PERFECT_BUFF_TIME + m.perfectTime;
+    if (m.perfectDash > 0) this.dashState.readyAt = 0;
     this.slowUntil = this.time.now + PERFECT_SLOWMO * 1000;
     this.floatText({ x: this.pos.x, y: this.pos.y - 14 }, 'Perfect!', '#ffe27a', true, 11);
     this.fx.ring(this.pos.x, this.pos.y, 44, 0xffe27a, 380); audio.sfx('crit');
@@ -912,9 +924,11 @@ export class WorldScene extends Phaser.Scene {
   private lastCombat = -99;
 
   private die(): void {
+    const inRift = !!this.tower;
     this.endTower('fallen');
     this.dead = true; this.meditating = false; audio.sfx('death');
-    const lost = deathTax(this.gs.stones); this.gs.stones -= lost;
+    const lost = inRift ? 0 : deathTax(this.gs.stones); // the rift is a challenge, not a toll
+    this.gs.stones -= lost;
     showDeath(true, lost > 0 ? `You lose ${lost} spirit stones. Nothing else is lost: gather yourself and try again.` : 'Gather yourself and try again.', { respawn: () => this.respawn(), menu: () => { this.save(false); hideScreen(); this.host.quitToMenu(); } });
     this.player.play('death', { force: true });
     this.fx.shake(300, 0.005);
@@ -1454,6 +1468,7 @@ export class WorldScene extends Phaser.Scene {
       poiseBoss: (id: string, dmg: number) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; this.poiseHit(b, dmg); } },
       clearTowerFoes: () => { for (const e of this.enemies.filter((x) => x.tower)) this.killEnemy(e); },
       startTower: () => this.startTower(), endTower: () => this.endTower('left'),
+      giveAllBoons: () => { this.gs.boons = Object.keys(BOONS); },
       offerBoon: () => this.offerBoon(true),
       addBoonPicks: (n: number) => { this.gs.boonPicks += n; },
       perfectDodge: () => this.perfectDodge(),
