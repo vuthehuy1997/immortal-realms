@@ -50,5 +50,13 @@ export const BOONS: Record<string, BoonDef> = Object.fromEntries(([
   { id: 'heaven-sustain', name: 'Heaven-Sustaining Art', desc: 'Heal 2% of damage dealt and +1 mana per sword hit.', rarity: 'epic', mods: { lifesteal: 0.02, manaOnHit: 1 } },
 ] as BoonDef[]).map((b) => [b.id, b]));
 
+/** Offense / defence / utility, for the picker's accent colour and glyph. */
+export function boonTag(mods: Partial<BoonMods>): 'off' | 'def' | 'util' {
+  const off = (mods.atkPct ?? 0) + (mods.critChance ?? 0) + (mods.critMult ?? 0) + (mods.skillDmg ?? 0) + (mods.execute ?? 0) + (mods.poiseMult ?? 0);
+  const def = (mods.maxHpPct ?? 0) + (mods.defPct ?? 0) + (mods.lifesteal ?? 0) * 3 + (mods.flaskHeal ?? 0);
+  const util = (mods.maxManaPct ?? 0) + (mods.manaRegen ?? 0) / 10 + (mods.manaOnHit ?? 0) / 10 + (1 - (mods.dashCdMult ?? 1)) + (mods.skillCost ?? 0) + (mods.perfectMana ?? 0) / 40 + (mods.perfectDash ?? 0);
+  return off >= def && off >= util ? 'off' : def >= util ? 'def' : 'util';
+}
+export const TAG_LABEL = { off: ['⚔', 'Offence'], def: ['✚', 'Defence'], util: ['✦', 'Utility'] } as const;
 export const BOON_IDS = Object.keys(BOONS);
 export const RARITY_WEIGHT: Record<BoonRarity, number> = { common: 6, rare: 3, epic: 1 };

@@ -110,9 +110,20 @@ export function setPrompt(text: string | null): void {
   const p = $('prompt'); p.classList.toggle('hidden', text === null); if (text !== null) setText(p, text);
 }
 
-export function toast(text: string, ms = 2600): void {
-  const t = el('div', 'toast', text); $('toasts').appendChild(t);
-  setTimeout(() => t.remove(), ms);
+export const TOAST_MAX = 4;
+const toastTimers = new WeakMap<HTMLElement, ReturnType<typeof setTimeout>>();
+/** Shows a message. The same text already on screen is refreshed with a x2, x3... count instead of stacking, and at most TOAST_MAX stay visible. */
+export function toast(text: string, ms = 2600, cls = ''): void {
+  const host = $('toasts');
+  const same = [...host.children].find((c) => (c as HTMLElement).dataset.text === text) as HTMLElement | undefined;
+  if (same) {
+    const n = Number(same.dataset.count ?? '1') + 1; same.dataset.count = String(n); same.textContent = `${text} ×${n}`;
+    clearTimeout(toastTimers.get(same)); toastTimers.set(same, setTimeout(() => same.remove(), ms));
+    return;
+  }
+  const t = el('div', `toast${cls ? ` ${cls}` : ''}`, text); t.dataset.text = text; host.appendChild(t);
+  toastTimers.set(t, setTimeout(() => t.remove(), ms));
+  while (host.children.length > TOAST_MAX) host.firstElementChild?.remove();
 }
 
 let zoneTimer: ReturnType<typeof setTimeout> | undefined;

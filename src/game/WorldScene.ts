@@ -194,7 +194,7 @@ export class WorldScene extends Phaser.Scene {
     kb.onPress('KeyM', () => this.toggleMeditate()); kb.onPress('KeyB', () => this.breakthrough());
     kb.onPress('KeyI', () => { if (!this.uiPause) togglePanel('inv'); }); kb.onPress('KeyC', () => { if (!this.uiPause) togglePanel('chr'); });
     kb.onPress('KeyN', () => { audio.setMuted(!audio.muted); toast(audio.muted ? 'Sound off' : 'Sound on', 1000); document.getElementById('btn-audio')?.classList.toggle('off', audio.muted); });
-    kb.onPress('KeyJ', () => { if (!this.uiPause && !this.dead) togglePanel('qlog'); });
+    kb.onPress(['KeyJ', 'KeyQ'], () => { if (!this.uiPause && !this.dead) togglePanel('qlog'); });
     kb.onPress('Tab', () => { if (!this.uiPause) toggleWorldMap(this.world); });
     kb.onPress('Escape', () => this.escape());
     kb.onPress('KeyR', () => { if (this.dead) this.respawn(); });
@@ -425,6 +425,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private interact(): void {
+    if (isDialogueOpen()) { document.querySelector<HTMLButtonElement>('#dlg button[data-opt="0"]')?.click(); return; } // E confirms the first (main) option
     if (this.uiPause || this.dead) return;
     const npc = this.nearestNpc();
     if (npc) { this.meditating = false; this.gs.tut |= 8; this.openDialogue(npc.id); return; }
@@ -545,6 +546,7 @@ export class WorldScene extends Phaser.Scene {
 
   /** Three-hit sword combo (click / Space / J). */
   private attack(aim?: Vec2): void {
+    if (isDialogueOpen()) { document.querySelector<HTMLButtonElement>('#dlg button[data-opt="0"]')?.click(); return; }
     if (this.uiPause || this.dead || isDashing(this.dashState, this.now)) return;
     const stepIdx = nextStep(this.combo, this.now);
     if (stepIdx < 0) return;
@@ -705,6 +707,7 @@ export class WorldScene extends Phaser.Scene {
     b.tele?.destroy(); b.tele = null; b.rainTele?.destroy(); b.rainTele = null;
     b.actor.play('hurt', { force: true, duration: 0.5 }); b.lockUntil = this.now + 0.5;
     this.floatText({ x: b.pos.x, y: b.pos.y - 40 }, 'Staggered!', '#9fe8ff', true, 12);
+    this.tip('poise', 'A boss that takes enough punishment is interrupted and takes +50% damage for a moment: hit it now.');
     this.fx.ring(b.pos.x, b.pos.y, 70, 0x9fe8ff, 500); this.fx.shake(160, 0.004); this.hitStop(90); audio.sfx('crit');
   }
 
@@ -914,6 +917,20 @@ export class WorldScene extends Phaser.Scene {
     this.floatText({ x: this.pos.x, y: this.pos.y - 14 }, 'Perfect!', '#ffe27a', true, 11);
     this.fx.ring(this.pos.x, this.pos.y, 44, 0xffe27a, 380); audio.sfx('crit');
   }
+  /** One-time teaching tips, remembered in the save. */
+  private tip(id: string, text: string): void {
+    if (this.gs.hints.includes(id)) return;
+    try { if (navigator.webdriver && new URLSearchParams(location.search).get('tips') !== '1') return; } catch { /* no navigator */ } // automation: tips would push expected toasts off the screen
+    this.gs.hints.push(id); toast(text, 7000, 'tip');
+  }
+  private checkTips(): void {
+    const gs = this.gs, st = statsOf(gs);
+    if (this.now - this.lastCombat < 2 && this.pc.hp < st.maxHp * 0.45 && gs.flask.charges > 0) this.tip('flask', 'Low on health? Press F to drink the spirit flask (it heals 35% and refills as you kill).');
+    if (freePoints(gs) > 0 && gs.progress.level >= 3) this.tip('points', 'You have technique points: press C to upgrade your techniques.');
+    if (this.bosses.some((b) => b.engaged)) this.tip('dodge', 'Boss attacks are shown in red. Dash (Shift) through one at the last moment for a Perfect Dodge: mana and +25% damage.');
+    if (Object.values(gs.quests).some((q) => q.status === 'active')) this.tip('qlog', 'Press J or Q to open your quest log.');
+  }
+  private tipTimer = 0;
   private lastDodgeText = -9;
   private tower: TowerRun | null = null;
   private towerOrigin: Vec2 = { x: 0, y: 0 };
@@ -982,7 +999,8 @@ export class WorldScene extends Phaser.Scene {
       { const d = getDialogue(n.id, this.gs.quests, this.gs.inventory, this.gs.bosses); const a = d.options[0]!.action; n.mark.setVisible(d.quest && (a.type === 'accept' || a.type === 'turnin')); }
       n.mark.y = n.pos.y - 38 + Math.sin(this.time.now / 260) * 2;
       const hidden = this.underMinimap(n.pos.x, n.pos.y + 7) || this.underMinimap(n.pos.x, n.pos.y - 38); // DOM widgets draw over the canvas, so hide what would sit behind them
-      n.plate.setVisible(!this.underMinimap(n.pos.x, n.pos.y + 7));
+      const half = n.plate.displayWidth / 2 / this.cameras.main.zoom + 4; // the whole label, not just its anchor, must clear the minimap
+      n.plate.setVisible(!this.underMinimap(n.pos.x - half, n.pos.y + 7) && !this.underMinimap(n.pos.x + half, n.pos.y + 7) && !this.underMinimap(n.pos.x, n.pos.y + 7));
       if (hidden) n.mark.setVisible(false);
     }
 
@@ -1067,7 +1085,7 @@ export class WorldScene extends Phaser.Scene {
     this.updateRains(dt);
 
     for (const h of this.herbs) if (!h.alive && this.now >= h.respawnAt) { h.alive = true; h.img.setVisible(true); h.glow.setVisible(true); }
-    if (alive) this.updateTowerRun(dt);
+    if (alive) { this.updateTowerRun(dt); this.tipTimer += dt; if (this.tipTimer > 1) { this.tipTimer = 0; this.checkTips(); } }
     if (this.gs.boonPicks > 0 && alive && this.now >= this.boonCheckAt && this.now - this.lastCombat > 2.5 && !this.autoBoonOff()) this.offerBoon();
     this.respawnTimer += dt;
     if (this.respawnTimer >= RESPAWN_CHECK_SECONDS) { this.respawnTimer = 0; this.topUpEnemies(); }
@@ -1468,6 +1486,7 @@ export class WorldScene extends Phaser.Scene {
       poiseBoss: (id: string, dmg: number) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; this.poiseHit(b, dmg); } },
       clearTowerFoes: () => { for (const e of this.enemies.filter((x) => x.tower)) this.killEnemy(e); },
       startTower: () => this.startTower(), endTower: () => this.endTower('left'),
+      tip: (id: string, text: string) => this.tip(id, text),
       giveAllBoons: () => { this.gs.boons = Object.keys(BOONS); },
       offerBoon: () => this.offerBoon(true),
       addBoonPicks: (n: number) => { this.gs.boonPicks += n; },

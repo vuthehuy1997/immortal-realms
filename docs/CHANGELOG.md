@@ -53,6 +53,14 @@
 - Tests: tests/chapters.test.ts (24), e2e/chapters.spec.ts (6): gate refusal/open, ch2 content, persistence + return gate, NPC shop, Corpse King kill, story pages.
 - Honest limits: ch2 art is reused/recoloured (PLACEHOLDER), balance untuned, no new playable heroes (the pack's other hero sprites lack combat animations), no companions yet.
 
+## Round 16 (independent QA report 5 -> new-player experience)
+- Toast manager: identical messages merge into one with a x2/x3 count, at most 4 visible (QA: spamming F/G stacked ~20 toasts over the screen).
+- One-time tips, remembered in the save (`hints`): low-health flask, spare technique points, perfect dodge on first boss engagement, poise on first stagger, quest log key. Automated browsers skip them unless `?tips=1`.
+- E (and Space) confirm the first dialogue option; Q opens the quest log like J; the control hint is larger.
+- NPC nameplates hide when any part of the label would sit under the minimap (QA: merchant label clipped, third report running).
+- Boon cards show an Offence/Defence/Utility tag with a glyph and accent colour; the character panel states the hero trait's effect; the Rift keeper states the rules and a recommended level.
+- Tests: tests/roundE.test.ts (3), e2e/round5.spec.ts (4).
+
 ## Round 15 (independent QA report 4 -> fixes)
 - Lifesteal capped at 5% (hero trait + boons) and now heals on damage actually dealt (not shield or overkill); technique cost reduction capped at 50%.
 - Boon pool 15 -> 20 with behaviour boons: Storm Technique / Steady Hand (technique damage), Lotus Echo (cheaper techniques), Heart Seeker (+30% vs foes under 30% HP), Afterimage Step (perfect dodge refreshes the dash). Picker: reroll for 75 stones (R), owned-boon list, dialog role; a pick with nothing left to take becomes 150 stones with a message instead of vanishing.

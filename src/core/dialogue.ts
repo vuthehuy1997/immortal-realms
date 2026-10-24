@@ -18,7 +18,7 @@ export function getDialogue(npcId: string, log: QuestLog, inv: Inventory, bosses
   const npc = NPCS[npcId]!;
   if (npc.trade === 'tower') {
     const t = tower ?? { best: 0, active: false };
-    return { speaker: npc.name, portrait: npc.portrait, quest: false, text: `${npc.idle} ${t.best > 0 ? `Your deepest floor: ${t.best}.` : 'You have not entered yet.'}`, options: [t.active ? { label: 'Leave the Rift.', action: { type: 'tower', start: false } } : { label: 'Enter the Trial Rift.', action: { type: 'tower', start: true } }, { label: 'Farewell.', action: { type: 'close' } }] };
+    return { speaker: npc.name, portrait: npc.portrait, quest: false, text: `${npc.idle} ${t.best > 0 ? `Your deepest floor: ${t.best}.` : 'You have not entered yet.'} Rules: clear each floor to descend; every 5th floor has a guardian; rewards and boon picks are paid only for floors deeper than your best; kills give reduced XP; falling, leaving or wandering off ends the run. Level 8 or higher is wise.`, options: [t.active ? { label: 'Leave the Rift.', action: { type: 'tower', start: false } } : { label: 'Enter the Trial Rift.', action: { type: 'tower', start: true } }, { label: 'Farewell.', action: { type: 'close' } }] };
   }
   const wares = npc.trade ? [{ label: 'Browse wares', action: { type: 'trade' } as DialogueAction }] : [];
   for (const qid of npc.quests) {

@@ -104,7 +104,7 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
   const body = $('chrbody');
   const row = (k: string, v: string | number) => `<div class="row"><span>${k}</span><span>${v}</span></div>`;
   body.innerHTML = [
-    row('Name', gs.character.name), row('Style', HEROES[gs.character.hero].trait.name), row('Root', root.name), row('Level', gs.progress.level),
+    row('Name', gs.character.name), row('Style', HEROES[gs.character.hero].trait.name), `<div class="row"><small>${HEROES[gs.character.hero].trait.desc}</small></div>`, row('Root', root.name), row('Level', gs.progress.level),
     row('Realm', realm.name), row('Qi', `${Math.floor(gs.cultivation.qi)} / ${realm.qiMax}`), row('Spirit stones', gs.stones), '<hr>',
     row('HP', `${Math.ceil(gs.hp)} / ${st.maxHp}`), row('Mana', `${Math.floor(gs.mana)} / ${st.maxMana}`),
     row('Attack', st.atk), row('Defence', st.def), row('Crit', `${Math.round(st.critChance * 100)}%`), row('Mana regen', `${st.manaRegen}/s`),

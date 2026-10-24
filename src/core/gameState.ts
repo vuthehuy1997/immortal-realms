@@ -44,6 +44,8 @@ export interface GameState {
   boonPicks: number;
   /** deepest Trial Rift floor cleared */
   towerBest: number;
+  /** ids of one-time tips already shown */
+  hints: string[];
 }
 
 export const WARDEN_ID = 'warden';
@@ -52,7 +54,7 @@ export const isBossDefeated = (gs: GameState, id: string): boolean => gs.bosses.
 export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
     character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(), boons: [], boonPicks: 0, towerBest: 0,
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(), boons: [], boonPicks: 0, towerBest: 0, hints: [],
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);

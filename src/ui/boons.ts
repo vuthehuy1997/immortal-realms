@@ -1,4 +1,4 @@
-import { BOONS } from '../data/boons';
+import { BOONS, TAG_LABEL, boonTag } from '../data/boons';
 import { el } from './dom';
 
 let open = false;
@@ -34,8 +34,9 @@ export function showBoonPicker(o: PickerOpts): void {
   const row = root.querySelector('.boonrow') as HTMLElement;
   o.choices.forEach((id, i) => {
     const b = BOONS[id]!;
-    const c = el('button', `boon ${b.rarity}`); c.dataset.boon = id;
-    c.innerHTML = `<small>${i + 1} · ${b.rarity}</small><b>${b.name}</b><span>${b.desc}</span>`;
+    const tag = boonTag(b.mods), [glyph, label] = TAG_LABEL[tag];
+    const c = el('button', `boon ${b.rarity} tag-${tag}`); c.dataset.boon = id;
+    c.innerHTML = `<small>${i + 1} · ${b.rarity}</small><i class="glyph">${glyph}</i><b>${b.name}</b><span>${b.desc}</span><em class="tag">${label}</em>`;
     c.onclick = () => { close(); o.onPick(id); };
     row.appendChild(c);
   });
