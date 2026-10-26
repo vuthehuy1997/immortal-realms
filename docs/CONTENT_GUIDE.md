@@ -108,7 +108,8 @@ Shop prices follow item `value`; `value` rises roughly 1.6x per chapter.
 ## 6. Verify before you hand over (run all, fix everything)
 
 ```bash
-export PATH=$HOME/.local/node/current/bin:$PATH
+export PATH=$HOME/.local/node/current/bin:$PATH NO_PROXY=127.0.0.1,localhost
+[ -e node_modules ] || ln -s /data/yuu/ai-data/yuu/self/ir-work/node_modules node_modules   # fresh worktrees have none
 npx tsc --noEmit -p . && npx eslint src tests && npx vitest run     # unit + data-integrity tests (seconds)
 npm run design && npm run design:check                             # regenerates design/ docs; must report "consistency: ok"
 node tools/balance_report.mjs <chapter>                            # numbers look right
