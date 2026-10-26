@@ -31,13 +31,14 @@ test.describe('chapters: multi-map progression and story', () => {
     const s = await st(page);
     expect(s.chapter).toBe(2);
     expect(s.zone).toBe('outpost');
-    expect(Object.keys(s.npcs).sort()).toEqual(['commander-shen', 'herbalist-mo', 'hermit-wen', 'keeper-ren', 'quartermaster-gu']);
+    expect(Object.keys(s.npcs).sort()).toEqual(['commander-shen', 'herbalist-mo', 'hermit-wen', 'keeper-ren', 'quartermaster-gu', 'seer-lian', 'surveyor-pei', 'trapper-hu', 'warden-ling']); // hub NPCs plus the wild ones;
     expect(s.bosses.map((b) => b.id).sort()).toEqual([...CH2_BOSSES].sort());
     expect(Object.keys(s.bossHomes).sort()).toEqual([...CH2_BOSSES].sort());
     expect(s.bossesDefeated).toEqual(expect.arrayContaining(['warden', 'ninetail', 'jiaolong'])); // progress carries over
     await page.evaluate(() => window.__rpg!.alertAll()); // let the roster show
     const types = new Set(s.enemies.map((e) => e.type));
-    for (const t of types) expect(['frostwolf', 'icesnake', 'frostwisp', 'rimebat', 'snowtreant', 'crystalgolem', 'prismghost', 'shardbird', 'ashskeleton', 'bloodjiangshi', 'ashguard']).toContain(t);
+    const base2 = ['frostwolf', 'icesnake', 'frostwisp', 'rimebat', 'snowtreant', 'crystalgolem', 'prismghost', 'shardbird', 'ashskeleton', 'bloodjiangshi', 'ashguard'];
+    for (const t of types) expect(base2.includes(t) || t.startsWith('s2-'), t).toBe(true); // the chapter 2 roster, plus the new s2- foes of the Glacier Maw and Howling Tundra
     expect(types.size).toBeGreaterThanOrEqual(5);
     await shot(page, 'chapter2-outpost');
     await expect(page.locator('#lvl')).toContainText('Lv');
