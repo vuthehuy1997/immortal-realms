@@ -128,3 +128,41 @@ Drops: sovereign-blade (100%), sky-seal (100%), qi-pill (100%)
 | teleport | windup 0.75, recover 0.45, cooldown 8, behind 46, radius 52, damageMult 1.7 |
 | summon | windup 0.8, cooldown 13, count 3, maxMinions 5, minionType prismghost |
 | ring | windup 0.75, cooldown 6, projectiles 14, damageMult 1 |
+
+## Moonfang Alpha (`alphawolf`)
+
+<img src="../images/bosses/alphawolf.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 4200 | 22 | 6 | 56 | 380 | 60–90 | wolfden | wolfden | – | 0.66 / 0.33 |
+
+Kit: **P1** sweep, charge · **P2** charge, summon, sweep · **P3** charge, ring, summon, sweep
+
+Drops: steel-blade (100%), hp-potion (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 70, halfAngle 1.1, windup 0.6, recover 0.4, cooldown 2.8, damageMult 1.3, triggerRange 76 |
+| charge | windup 0.65, duration 0.5, speed 290, width 22, recover 0.7, cooldown 4.2, damageMult 1.5, minRange 12, maxRange 230 |
+| summon | windup 0.7, cooldown 11, count 3, maxMinions 5, minionType wolf |
+| ring | windup 0.7, cooldown 7, projectiles 10, damageMult 0.9 |
+
+## Shade of the Sword Disciple (`swordshade`)
+
+<img src="../images/bosses/swordshade.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 6800 | 30 | 9 | 40 | 620 | 100–150 | swordsanctum | swordsanctum | – | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** slam, sweep, ring · **P3** teleport, ring, sweep, slam
+
+Drops: spirit-silk (100%), qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 52, windup 0.85, recover 0.5, cooldown 4, damageMult 1.7, triggerRange 86 |
+| sweep | range 80, halfAngle 0.95, windup 0.7, recover 0.5, cooldown 3.2, damageMult 1.5, triggerRange 80 |
+| teleport | windup 0.8, recover 0.5, cooldown 9, behind 44, radius 48, damageMult 1.5 |
+| ring | windup 0.8, cooldown 7, projectiles 12, damageMult 1 |

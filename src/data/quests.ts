@@ -1,3 +1,5 @@
+import { CONTENT } from './content';
+
 export type Objective =
   | { type: 'kill'; target: string; count: number; label: string }
   | { type: 'collect'; item: string; count: number; label: string }
@@ -130,6 +132,10 @@ export const QUESTS: Record<string, QuestDef> = {
 export interface NpcDef {
   name: string; portrait: string; quests: readonly string[]; idle: string;
   trade?: 'shop' | 'outpost' | 'alchemy' | 'tower';
+  /** shop stock id (default: 'sect' for shops, 'outpost' for outposts) */
+  stock?: string;
+  /** alchemy recipe book id (default 'base') */
+  recipes?: string;
   /** chapter whose hub they live in (default 1) */
   chapter?: number;
   /** actor sprite prefix and nameplate text */
@@ -151,3 +157,8 @@ export const NPCS: Record<string, NpcDef> = {
 
 export const questsOfChapter = (n: number): QuestDef[] => Object.values(QUESTS).filter((q) => (q.chapter ?? 1) === n);
 export const npcsOfChapter = (n: number): string[] => Object.keys(NPCS).filter((id) => (NPCS[id]!.chapter ?? 1) === n);
+
+for (const c of CONTENT) {
+  for (const q of c.quests) QUESTS[q.id] = q;
+  Object.assign(NPCS, c.npcs);
+}

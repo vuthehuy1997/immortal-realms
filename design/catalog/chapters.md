@@ -14,8 +14,8 @@ Each chapter is its own map with a hub, zones, bosses, NPCs and quest chain; the
 >
 > You are the newest of them. Walk the realms, grow in the Way, and put the guardians to rest.
 
-- hub: village; zones: village, bamboo, marsh, grove, ruins, lair
-- bosses: Fallen Sword Immortal → Nine-Tailed Fox Spirit → Jiao Dragon of the Mist Pool
+- hub: village; zones: village, bamboo, marsh, grove, ruins, lair, lake, cliffs, wolfden, swordsanctum
+- bosses: Fallen Sword Immortal → Nine-Tailed Fox Spirit → Jiao Dragon of the Mist Pool → Moonfang Alpha → Shade of the Sword Disciple
 - NPCs: elder-lin, merchant-qiao, alchemist-yun, keeper-ming
 - quests: pests → fox → warden → jiaolong → toads → furnace → champions
 - gate: always open

@@ -9,7 +9,7 @@ export interface ScaledEnemy { maxHp: number; atk: number; def: number; xp: numb
 
 /** Final stats of an enemy of `def` spawning in `zone` (optionally as an elite). Single source of truth for combat and rewards. */
 export function scaledEnemy(def: EnemyDef, zone: ZoneId, elite = false): ScaledEnemy {
-  const t = ZONES[zone].tier;
+  const t = ZONES[zone]!.tier;
   const xpMul = t.xp * (elite ? ELITE.xp : 1);
   return {
     maxHp: Math.round(def.maxHp * HP_BASE * t.hp * (elite ? ELITE.hp : 1)),

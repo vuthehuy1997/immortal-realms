@@ -24,6 +24,7 @@
       "icesnake",
       "ashskeleton",
       "ashguard",
+      "alphawolf",
       "quest:pests",
       "quest:fox",
       "quest:jiaolong",
@@ -87,6 +88,7 @@
       "corpseking",
       "sovereign",
       "ninetail",
+      "swordshade",
       "quest:fox",
       "quest:warden",
       "quest:furnace",
@@ -145,6 +147,7 @@
     "sellValue": 20,
     "sources": [
       "elite@bamboo",
+      "elite@lake",
       "shop"
     ]
   },
@@ -183,7 +186,9 @@
     "shopPrice": null,
     "sellValue": 208,
     "sources": [
-      "elite@ruins"
+      "swordshade",
+      "elite@ruins",
+      "elite@cliffs"
     ]
   },
   {
@@ -240,6 +245,7 @@
     "sources": [
       "ninetail",
       "elite@grove",
+      "elite@lake",
       "shop"
     ]
   },
@@ -259,6 +265,7 @@
     "sellValue": 168,
     "sources": [
       "elite@ruins",
+      "elite@cliffs",
       "quest:champions"
     ]
   },
@@ -314,6 +321,7 @@
     "sellValue": 24,
     "sources": [
       "elite@bamboo",
+      "elite@lake",
       "shop"
     ]
   },
@@ -348,8 +356,10 @@
     "shopPrice": 180,
     "sellValue": 72,
     "sources": [
+      "alphawolf",
       "elite@marsh",
       "elite@ruins",
+      "elite@cliffs",
       "quest:fox",
       "shop"
     ]

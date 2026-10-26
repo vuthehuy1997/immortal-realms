@@ -6,7 +6,7 @@ import { ENEMIES } from '../src/data/enemies';
 import { ITEMS } from '../src/data/items';
 import { NPCS, QUESTS, npcsOfChapter, questsOfChapter } from '../src/data/quests';
 import { ZONES, zonesOfChapter } from '../src/data/zones';
-import { generateChapter, generateWorld, isBlockedTile, TILE_SIZE, zoneAt, type WorldMap } from '../src/core/world';
+import { generateChapter, isBlockedTile, TILE_SIZE, zoneAt, type WorldMap } from '../src/core/world';
 import { newGameState } from '../src/core/gameState';
 import { parseSave, serialize, checksum } from '../src/core/save';
 import { OUTPOST_STOCK, buy } from '../src/core/shop';
@@ -22,14 +22,14 @@ const reach = (m: WorldMap) => {
 };
 
 describe('chapter maps', () => {
-  const maps: [number, WorldMap][] = CHAPTER_IDS.map((n) => [n, generateChapter(n, 20261016)]);
+  const maps: [number, WorldMap][] = CHAPTER_IDS.map((n) => [n, generateChapter(n)]);
   it.each(maps)('chapter %i: deterministic, right zones, hub at spawn', (n, m) => {
-    const again = generateChapter(n, 20261016);
+    const again = generateChapter(n);
     expect(again.ground).toEqual(m.ground); expect(again.props).toEqual(m.props);
     expect(m.chapter).toBe(n);
     expect(new Set(m.zone)).toEqual(new Set(zonesOfChapter(n)));
     expect(zoneAt(m, m.spawn)).toBe(CHAPTERS[n]!.hub);
-    for (const z of zonesOfChapter(n)) expect(zoneAt(m, { x: (ZONES[z].anchor.x + 0.5) * TILE_SIZE, y: (ZONES[z].anchor.y + 0.5) * TILE_SIZE }), z).toBe(z);
+    for (const z of zonesOfChapter(n)) expect(zoneAt(m, { x: (ZONES[z]!.anchor.x + 0.5) * TILE_SIZE, y: (ZONES[z]!.anchor.y + 0.5) * TILE_SIZE }), z).toBe(z);
   });
   it.each(maps)('chapter %i: everything the player needs is reachable from the spawn', (n, m) => {
     const ok = reach(m);
@@ -44,23 +44,20 @@ describe('chapter maps', () => {
   it.each(maps)('chapter %i: a gate prop stands at the portal', (_n, m) => {
     expect(m.props.some((p) => p.kind === 'moonwall' && Math.abs(p.x - m.portal.x) < 20 && Math.abs(p.y - m.portal.y) < 40)).toBe(true);
   });
-  it('the Sky Gate exists on several chapter 1 seeds', () => {
-    for (const seed of [1, 2, 3, 20261016]) { const m = generateWorld(seed); expect(m.props.some((p) => p.kind === 'moonwall' && Math.abs(p.x - m.portal.x) < 20), `seed ${seed}`).toBe(true); }
+  it('every chapter map is a real expanse, not a clearing', () => {
+    for (const n of CHAPTER_IDS) { const m = generateChapter(n); expect(m.width * m.height, `chapter ${n}`).toBeGreaterThanOrEqual(10000); }
   });
-  it('chapter 2 is substantially larger than chapter 1', () => {
-    expect(generateChapter(2, 1).width * generateChapter(2, 1).height).toBeGreaterThan(generateChapter(1, 1).width * generateChapter(1, 1).height * 1.3);
-  });
-  it('unknown chapters throw', () => { expect(() => generateChapter(99, 1)).toThrow(); });
+  it('unknown chapters throw', () => { expect(() => generateChapter(99)).toThrow(); });
 });
 
 describe('chapter data is consistent', () => {
   it('every zone belongs to a chapter and its spawns exist', () => {
     for (const z of Object.values(ZONES)) { expect(CHAPTERS[z.chapter], z.id).toBeDefined(); for (const t of Object.keys(z.spawns)) expect(ENEMIES[t], `${z.id}: ${t}`).toBeDefined(); }
-    for (const c of Object.values(CHAPTERS)) expect(ZONES[c.hub].chapter).toBe(c.id);
+    for (const c of Object.values(CHAPTERS)) expect(ZONES[c.hub]!.chapter).toBe(c.id);
   });
   it('every boss has a chapter, a zone of that chapter, a manifest sprite and spawnable minions', () => {
     for (const b of Object.values(BOSSES)) {
-      expect(ZONES[b.zone].chapter, b.id).toBe(b.chapter);
+      expect(ZONES[b.zone]!.chapter, b.id).toBe(b.chapter);
       expect(MANIFEST.sheets[`${b.sprite}.idle` as keyof typeof MANIFEST.sheets], `${b.id} sprite`).toBeDefined();
       const m = b.moves.summon?.minionType; if (m) expect(ENEMIES[m], `${b.id} minion`).toBeDefined();
     }
@@ -86,7 +83,7 @@ describe('chapter data is consistent', () => {
         const isBoss = o.target in BOSSES, isMob = o.target in ENEMIES;
         expect(isBoss || isMob, `${q.id}: ${o.target}`).toBe(true);
         if (isBoss) expect(BOSSES[o.target]!.chapter).toBe(q.chapter ?? 1);
-        else expect(zonesOfChapter(q.chapter ?? 1).some((z) => o.target in ZONES[z].spawns), `${q.id}: ${o.target} spawns in chapter`).toBe(true);
+        else expect(zonesOfChapter(q.chapter ?? 1).some((z) => o.target in ZONES[z]!.spawns), `${q.id}: ${o.target} spawns in chapter`).toBe(true);
       }
       for (const r of q.reward.items) expect(ITEMS[r.id], `${q.id}: ${r.id}`).toBeDefined();
     }

@@ -13,6 +13,7 @@ import { SKILL_MAX, spentPoints, totalPoints } from './skills';
 import { NAME_MAX } from './character';
 import { SLOT_COUNT } from './inventory';
 import { CHAPTERS } from '../data/chapters';
+import { DUNGEONS } from '../data/dungeons';
 import { newFlask, validFlask } from './sustain';
 import type { GameState } from './gameState';
 
@@ -72,6 +73,7 @@ function validate(s: unknown): string | null {
   if (!num(s.hp, 0, 1e5) || !num(s.mana, 0, 1e5)) return 'bad vitals';
   if (!isObj(pos) || !num(pos.x, 0, 1e5) || !num(pos.y, 0, 1e5)) return 'bad position';
   if (typeof s.chapter !== 'number' || !Number.isInteger(s.chapter) || !(s.chapter in CHAPTERS)) return 'bad chapter';
+  if (s.dungeon !== null && (typeof s.dungeon !== 'string' || DUNGEONS[s.dungeon]?.chapter !== s.chapter)) return 'bad dungeon';
   if (!validFlask(s.flask)) return 'bad flask';
   if (!validBoons(s.boons)) return 'bad boons';
   if (!validTowerBest(s.towerBest)) return 'bad tower record';
@@ -92,6 +94,7 @@ export function parseSave(text: string | null): LoadResult {
   if (isObj(env.state) && isObj(env.state.quests)) for (const id of Object.keys(QUESTS)) if (!(id in env.state.quests)) env.state.quests[id] = { status: 'inactive', kills: {} }; // quests added after the save was written
   if (isObj(env.state)) { // fields added after v4 shipped: older saves are on chapter 1 and have seen its prologue
     if (env.state.chapter === undefined) env.state.chapter = 1;
+    if (env.state.dungeon === undefined) env.state.dungeon = null;
     if (env.state.story === undefined) env.state.story = [1];
     if (env.state.flask === undefined) env.state.flask = newFlask();
     if (env.state.boons === undefined) env.state.boons = [];

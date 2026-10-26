@@ -1,0 +1,143 @@
+[
+  {
+    "id": "wolfden",
+    "name": "Moonfang Den",
+    "chapter": 1,
+    "kind": "cave",
+    "blurb": "a wolf pack's lair under the roots",
+    "entrance": {
+      "x": 10,
+      "y": 48,
+      "zone": "bamboo"
+    },
+    "minLevel": 3,
+    "level": "Lv 4-6",
+    "seed": 7401683,
+    "size": {
+      "w": 76,
+      "h": 56
+    },
+    "floor": "moss",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.02
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.004
+      },
+      {
+        "kind": "bambooshoot",
+        "p": 0.01
+      }
+    ],
+    "spawns": {
+      "wolf": 12,
+      "snake": 5,
+      "bat": 6,
+      "foxfire": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 1.5,
+      "atk": 1.55,
+      "xp": 1.7
+    },
+    "propTint": 12110000,
+    "boss": "alphawolf",
+    "reward": {
+      "xp": 260,
+      "stones": 120,
+      "items": [
+        {
+          "id": "steel-blade",
+          "count": 1
+        },
+        {
+          "id": "qi-pill",
+          "count": 2
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Moonfang Alpha",
+    "foes": [
+      "Spirit Wolf ×12",
+      "Jade Serpent ×5",
+      "Cave Bat ×6",
+      "Foxfire Wisp ×3"
+    ]
+  },
+  {
+    "id": "swordsanctum",
+    "name": "Hidden Sword Sanctum",
+    "chapter": 1,
+    "kind": "realm",
+    "blurb": "a sealed pocket of the old sect, outside time",
+    "entrance": {
+      "x": 126,
+      "y": 88,
+      "zone": "ruins"
+    },
+    "minLevel": 7,
+    "level": "Lv 8-11",
+    "seed": 6211489,
+    "size": {
+      "w": 104,
+      "h": 60
+    },
+    "floor": "stone",
+    "wall": "void",
+    "rooms": 5,
+    "scatter": [
+      {
+        "kind": "standstone",
+        "p": 0.006
+      },
+      {
+        "kind": "stonecircle",
+        "p": 0.0015
+      }
+    ],
+    "spawns": {
+      "swordspirit": 8,
+      "skeleton": 6,
+      "soldier": 5,
+      "paperdoll": 5,
+      "golem": 2
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 3.2,
+      "atk": 2.5,
+      "xp": 4.2
+    },
+    "propTint": 13156607,
+    "boss": "swordshade",
+    "reward": {
+      "xp": 520,
+      "stones": 260,
+      "items": [
+        {
+          "id": "spirit-silk",
+          "count": 1
+        },
+        {
+          "id": "qi-pill",
+          "count": 3
+        }
+      ]
+    },
+    "herbs": 5,
+    "bossName": "Shade of the Sword Disciple",
+    "foes": [
+      "Sword Spirit ×8",
+      "Bone Soldier ×6",
+      "Fallen Guard ×5",
+      "Paper Doll ×5",
+      "Stone Golem ×2"
+    ]
+  }
+]

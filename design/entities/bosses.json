@@ -665,5 +665,185 @@
       }
     ],
     "questId": "sundered-sovereign"
+  },
+  {
+    "id": "alphawolf",
+    "chapter": 1,
+    "dungeon": "wolfden",
+    "name": "Moonfang Alpha",
+    "home": "wolfden",
+    "zone": "wolfden",
+    "xp": 380,
+    "stones": [
+      60,
+      90
+    ],
+    "sprite": "mob.wolf",
+    "tint": 13623551,
+    "scale": 0.95,
+    "radius": 20,
+    "maxHp": 4200,
+    "atk": 22,
+    "def": 6,
+    "speed": 56,
+    "moves": {
+      "sweep": {
+        "range": 70,
+        "halfAngle": 1.1,
+        "windup": 0.6,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.3,
+        "triggerRange": 76
+      },
+      "charge": {
+        "windup": 0.65,
+        "duration": 0.5,
+        "speed": 290,
+        "width": 22,
+        "recover": 0.7,
+        "cooldown": 4.2,
+        "damageMult": 1.5,
+        "minRange": 12,
+        "maxRange": 230
+      },
+      "summon": {
+        "windup": 0.7,
+        "cooldown": 11,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "wolf"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 7,
+        "projectiles": 10,
+        "damageMult": 0.9
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "charge"
+      ],
+      [
+        "charge",
+        "summon",
+        "sweep"
+      ],
+      [
+        "charge",
+        "ring",
+        "summon",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.3,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/alphawolf.png",
+    "drops": [
+      {
+        "item": "steel-blade",
+        "chance": 1
+      },
+      {
+        "item": "hp-potion",
+        "chance": 1
+      }
+    ],
+    "questId": null
+  },
+  {
+    "id": "swordshade",
+    "chapter": 1,
+    "dungeon": "swordsanctum",
+    "name": "Shade of the Sword Disciple",
+    "home": "swordsanctum",
+    "zone": "swordsanctum",
+    "xp": 620,
+    "stones": [
+      100,
+      150
+    ],
+    "sprite": "boss.fallenimmortal",
+    "tint": 12101887,
+    "scale": 0.5,
+    "radius": 17,
+    "maxHp": 6800,
+    "atk": 30,
+    "def": 9,
+    "speed": 40,
+    "moves": {
+      "slam": {
+        "radius": 52,
+        "windup": 0.85,
+        "recover": 0.5,
+        "cooldown": 4,
+        "damageMult": 1.7,
+        "triggerRange": 86
+      },
+      "sweep": {
+        "range": 80,
+        "halfAngle": 0.95,
+        "windup": 0.7,
+        "recover": 0.5,
+        "cooldown": 3.2,
+        "damageMult": 1.5,
+        "triggerRange": 80
+      },
+      "teleport": {
+        "windup": 0.8,
+        "recover": 0.5,
+        "cooldown": 9,
+        "behind": 44,
+        "radius": 48,
+        "damageMult": 1.5
+      },
+      "ring": {
+        "windup": 0.8,
+        "cooldown": 7,
+        "projectiles": 12,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep"
+      ],
+      [
+        "slam",
+        "sweep",
+        "ring"
+      ],
+      [
+        "teleport",
+        "ring",
+        "sweep",
+        "slam"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/swordshade.png",
+    "drops": [
+      {
+        "item": "spirit-silk",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": null
   }
 ]

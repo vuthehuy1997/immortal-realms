@@ -24,8 +24,10 @@ import { impulse, stepKnockback } from '../core/knockback';
 import { step, type Vec2 } from '../core/movement';
 import { acceptQuest } from '../core/quest';
 import { createRng } from '../core/rng';
-import { generateChapter, isBlockedTile, moveWithCollision, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
-import { bossesOfChapter, type BossDef } from '../data/boss';
+import { generateChapter, generateDungeonMap, isBlockedTile, moveWithCollision, tileToWorld, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
+import { BOSSES, bossesOfChapter, bossesOfDungeon, type BossDef } from '../data/boss';
+import { DUNGEONS, dungeonsOfChapter, type DungeonDef } from '../data/dungeons';
+import { canEnterDungeon, claimDungeonReward, isDungeonCleared } from '../core/dungeonRun';
 import { ENEMIES, type EnemyDef } from '../data/enemies';
 import { HEROES } from '../data/heroes';
 import { ITEMS } from '../data/items';
@@ -50,7 +52,8 @@ import { COLORS, Fx, ROOT_COLOR } from './fx';
 import { KeyInput } from './input';
 import { mountTouchControls, wantsTouchControls } from '../ui/touch';
 import { saveGame } from './storage';
-import { renderWorld, updateOccluders, type HerbNode, type Occluder } from './worldRender';
+import { renderWorld, OccluderIndex, type HerbNode } from './worldRender';
+import type { GroundChunks } from './ground';
 
 const PLAYER_SPEED = 78;
 const PLAYER_RADIUS = 5;
@@ -61,6 +64,8 @@ const WORLD_SEED = 20261016;
 const AUTOSAVE_SECONDS = 30;
 const RESPAWN_CHECK_SECONDS = 4;
 const ARRAY_RADIUS = 48;
+/** idle foes beyond this distance from the hero are frozen and hidden */
+const DORMANT_RANGE = 720;
 const HERB_RESPAWN_SECONDS = 90;
 const POTION_COOLDOWN = 2.5;
 
@@ -70,7 +75,7 @@ interface Enemy {
   id: number; def: EnemyDef; c: Combatant; ai: EnemyAI; pos: Vec2; actor: Actor; kb: Vec2; stun: number;
   lockUntil: number; minion: boolean; elite: boolean; zone: ZoneId; vel: Vec2; home: Vec2; stuckT: number; stuckPos: Vec2; detour: { until: number; sign: number } | null; stuckCount: number; lastDetourEnd: number;
   burn: { t: number; dps: number; tick: number } | null; slow: number; shield: number; affix: Affix | null; label: Phaser.GameObjects.Text | null;
-  alertUntil: number; sees: boolean; tower?: boolean;
+  alertUntil: number; sees: boolean; tower?: boolean; dormant?: boolean;
 }
 type Affix = 'swift' | 'vampiric' | 'explosive' | 'shielded';
 const AFFIX_NAME: Record<Affix, string> = { swift: 'Swift', vampiric: 'Vampiric', explosive: 'Volatile', shielded: 'Warded' };
@@ -114,7 +119,12 @@ export class WorldScene extends Phaser.Scene {
   /** the main boss (Fallen Sword Immortal), or the first one present — used by the minimal test hooks */
   private get boss(): BossEnt | null { return this.bosses.find((b) => b.def.id === 'warden') ?? this.bosses[0] ?? null; }
   private herbs: HerbNode[] = [];
-  private occluders: Occluder[] = [];
+  private occluders!: OccluderIndex;
+  private groundChunks!: GroundChunks;
+  /** the cave / secret realm the hero is in (null on the open map) */
+  private dungeon: DungeonDef | null = null;
+  /** zones whose foes populate the current map */
+  private zoneIds: ZoneId[] = [];
   private npcs: Npc[] = [];
   private chapter = 1;
   private traveling = false;
@@ -155,17 +165,20 @@ export class WorldScene extends Phaser.Scene {
     this.anims.globalTimeScale = 1;
     this.rng = createRng(WORLD_SEED + 1);
     this.chapter = this.gs.chapter;
-    this.world = generateChapter(this.chapter, WORLD_SEED);
+    this.dungeon = this.gs.dungeon ? DUNGEONS[this.gs.dungeon] ?? null : null;
+    this.zoneIds = this.dungeon ? [this.dungeon.id] : zonesOfChapter(this.chapter);
+    this.world = this.dungeon ? generateDungeonMap(this.dungeon.id) : generateChapter(this.chapter);
     const worldW = this.world.width * TILE_SIZE, worldH = this.world.height * TILE_SIZE;
 
-    const rendered = renderWorld(this, this.world, WORLD_SEED + this.chapter - 1);
-    this.herbs = rendered.herbs; this.occluders = rendered.occluders;
+    const rendered = renderWorld(this, this.world, this.dungeon ? this.dungeon.seed : WORLD_SEED + this.chapter - 1);
+    this.herbs = rendered.herbs; this.occluders = new OccluderIndex(rendered.occluders); this.groundChunks = rendered.ground;
     initMinimap(this.world, () => { if (!this.uiPause) toggleWorldMap(this.world); });
     this.fx = new Fx(this);
     this.ambient = new Ambient(this, worldW, worldH);
 
     if (this.gs.hp <= 0) { const s0 = statsOf(this.gs); this.gs.hp = s0.maxHp; this.gs.mana = s0.maxMana; this.gs.pos = { ...this.world.spawn }; } // safety net for old/zombie saves
     this.pos = { ...this.gs.pos };
+    if (isBlockedTile(this.world, Math.floor(this.pos.x / TILE_SIZE), Math.floor(this.pos.y / TILE_SIZE))) this.pos = { ...this.world.spawn }; // saves from before a map was redrawn
     this.pc = { hp: 0, maxHp: 1, mana: 0, maxMana: 1, atk: 0, def: 0, critChance: 0, critMult: 1, manaRegen: 0 };
     this.pullFromState();
     const hero = HEROES[this.gs.character.hero];
@@ -181,8 +194,8 @@ export class WorldScene extends Phaser.Scene {
       this.npcs.push({ id, pos: p, actor, mark, plate });
     }
 
-    for (const zid of zonesOfChapter(this.chapter)) for (const [type, n] of Object.entries(ZONES[zid].spawns)) for (let i = 0; i < n; i++) this.spawnInZone(zid, type);
-    for (const def of bossesOfChapter(this.chapter)) this.spawnBoss(def); // bosses always return: repeat kills pay less and drop no unique items
+    for (const zid of this.zoneIds) for (const [type, n] of Object.entries(ZONES[zid]!.spawns)) for (let i = 0; i < n; i++) this.spawnInZone(zid, type);
+    for (const def of this.dungeon ? bossesOfDungeon(this.dungeon.id) : bossesOfChapter(this.chapter)) this.spawnBoss(def); // bosses always return: repeat kills pay less and drop no unique items
     this.hpBars = this.add.graphics().setDepth(1e5);
 
     const kb = this.kb = new KeyInput();
@@ -208,11 +221,12 @@ export class WorldScene extends Phaser.Scene {
     cam.setBounds(0, 0, worldW, worldH);
     cam.startFollow(this.camTarget, true, 0.12, 0.12);
     this.applyZoom();
+    this.groundChunks.prime(this.viewRect());
     this.scale.on('resize', () => this.applyZoom());
     // vignette is a CSS overlay (#vig): a full-screen WebGL filter pass cost ~2x frame time on weaker GPUs
     this.hpBars.setDepth(1e5); this.vision = this.add.graphics().setDepth(2);
     this.events.once('shutdown', () => {
-      this.unmountTouch?.(); this.kb.dispose(); closeTrade(); closeWorldMap(); showDeath(false); removeMinimap(); audio.stopMusic(); this.scale.off('resize'); closePanels(); showDialogue(null, () => undefined); setBossBar(null); setPrompt(null);
+      this.unmountTouch?.(); this.groundChunks.destroy(); this.kb.dispose(); closeTrade(); closeWorldMap(); showDeath(false); removeMinimap(); audio.stopMusic(); this.scale.off('resize'); closePanels(); showDialogue(null, () => undefined); setBossBar(null); setPrompt(null);
       this.anims.globalTimeScale = 1;
     });
 
@@ -251,6 +265,12 @@ export class WorldScene extends Phaser.Scene {
     for (const t of tmp) t.setVisible(false);
   }
 
+  /** World rectangle the camera covers, centred on the hero (used to decide which ground chunks to paint). */
+  private viewRect(): { x: number; y: number; width: number; height: number } {
+    const z = this.cameras.main.zoom || 1, w = this.scale.width / z, h = this.scale.height / z;
+    return { x: this.pos.x - w / 2, y: this.pos.y - 10 - h / 2, width: w, height: h };
+  }
+
   private applyZoom(): void {
     // integer zoom keeps pixels even: 3 at 720p, 4 at 1080p
     this.cameras.main.setZoom(Phaser.Math.Clamp(Math.floor(this.scale.height / 225), 2, 5));
@@ -268,7 +288,7 @@ export class WorldScene extends Phaser.Scene {
   private save(announce: boolean): boolean {
     this.pushToState();
     // never persist a dead hero: quitting from the death screen respawns you at the village with full vitals
-    const snapshot: GameState = this.dead || this.gs.hp <= 0 ? { ...this.gs, hp: this.pc.maxHp, mana: this.pc.maxMana, pos: { ...this.world.spawn } } : this.gs;
+    const snapshot: GameState = this.dead || this.gs.hp <= 0 ? { ...this.gs, hp: this.pc.maxHp, mana: this.pc.maxMana, pos: this.respawnSpot(), dungeon: null } : this.gs;
     const ok = saveGame(snapshot);
     if (announce) toast(ok ? 'Game saved.' : 'Could not save (storage unavailable).');
     return ok;
@@ -287,6 +307,8 @@ export class WorldScene extends Phaser.Scene {
       if (Object.values(w.npcs).some((n) => Math.hypot(p.x - n.x, p.y - n.y) < 240)) continue; // never next to a shopkeeper
       if (Object.values(w.bossHomes).some((h) => Math.hypot(p.x - h.x, p.y - h.y) < 170)) continue; // boss courts stay clear of wanderers
       if (Math.hypot(p.x - w.portal.x, p.y - w.portal.y) < 90) continue;
+      if (w.portalNext && Math.hypot(p.x - w.portalNext.x, p.y - w.portalNext.y) < 90) continue;
+      if (Object.values(w.entrances).some((g) => Math.hypot(p.x - g.x, p.y - g.y) < 110)) continue; // dungeon gates are not ambush spots
       if (farFrom && Math.hypot(p.x - farFrom.x, p.y - farFrom.y) < minDist) continue;
       if (isBlockedTile(w, tx + 1, ty) || isBlockedTile(w, tx - 1, ty) || isBlockedTile(w, tx, ty + 1) || isBlockedTile(w, tx, ty - 1)) continue;
       return p;
@@ -438,29 +460,82 @@ export class WorldScene extends Phaser.Scene {
     if (npc) { this.meditating = false; this.gs.tut |= 8; this.openDialogue(npc.id); return; }
     const herb = this.nearestHerb();
     if (herb) { this.gather(herb); return; }
-    if (Math.hypot(this.pos.x - this.world.portal.x, this.pos.y - this.world.portal.y) < PORTAL_RANGE) this.useGate();
+    const g = this.gateHere();
+    if (g?.kind === 'dungeon') this.enterDungeon(g.id!);
+    else if (g?.kind === 'exit') this.exitDungeon();
+    else if (g) this.useGate(g.kind);
+  }
+
+  /** The gate or dungeon entrance the hero stands at, with the prompt to show. */
+  private gateHere(): { kind: 'next' | 'back' | 'exit' | 'dungeon'; id?: string; prompt: string } | null {
+    const w = this.world;
+    const near = (p: Vec2 | undefined): boolean => !!p && Math.hypot(this.pos.x - p.x, this.pos.y - p.y) < PORTAL_RANGE;
+    if (this.dungeon) return near(w.portal) ? { kind: 'exit', prompt: `Press E: leave ${this.dungeon.name}` } : null;
+    for (const d of dungeonsOfChapter(this.chapter)) {
+      if (!near(w.entrances[d.id])) continue;
+      const c = canEnterDungeon(d, this.gs.progress.level);
+      return { kind: 'dungeon', id: d.id, prompt: c.ok ? `Press E: enter ${d.name} (${d.level}) · ${d.blurb}` : c.reason };
+    }
+    const nextCh = CHAPTERS[this.chapter + 1], prevCh = CHAPTERS[this.chapter - 1];
+    const nextText = nextCh ? `Press E: step through the ${CHAPTERS[this.chapter]!.gateName ?? 'gate'} to ${nextCh.subtitle}: ${nextCh.name}` : 'The gate is sealed: more of the story is yet to be written';
+    if (near(w.portalNext)) return { kind: 'next', prompt: nextText };
+    if (near(w.portal)) return this.chapter === 1 ? { kind: 'next', prompt: nextText } : { kind: 'back', prompt: `Press E: return through the gate to ${prevCh?.subtitle ?? 'the previous chapter'}` };
+    return null;
   }
 
   /** Chapter gate: forward to the next chapter (needs its gate conditions) or back to the previous one. */
-  private useGate(): void {
-    const target = this.chapter === 1 ? 2 : this.chapter - 1;
+  private useGate(kind: 'next' | 'back' = this.chapter === 1 ? 'next' : 'back'): void {
+    const target = kind === 'next' ? this.chapter + 1 : this.chapter - 1;
     if (!CHAPTERS[target]) { toast('The gate is sealed. More of the story is yet to be written.', 3000); return; }
-    if (target > this.chapter) {
+    if (kind === 'next') {
       const gate = canEnterChapter(target, this.gs.progress.level, this.gs.bosses);
       if (!gate.ok) { toast(gate.reason, 4200); audio.sfx('fail'); return; }
     }
-    this.travelTo(target);
+    this.travelTo(target, kind);
   }
 
-  private travelTo(n: number): void {
+  private travelTo(n: number, kind: 'next' | 'back' = 'next'): void {
     if (this.traveling || !CHAPTERS[n]) return;
     this.traveling = true;
     this.pushToState();
-    this.gs.chapter = n;
-    this.gs.pos = { ...generateChapter(n, WORLD_SEED).spawn };
+    this.gs.chapter = n; this.gs.dungeon = null;
+    const m = generateChapter(n);
+    const g = kind === 'back' ? m.portalNext ?? m.portal : null; // coming back, you step out of the gate you left by
+    this.gs.pos = g ? { x: g.x, y: g.y + 34 } : { ...m.spawn };
     this.gs.hp = Math.max(1, this.pc.hp);
     saveGame(this.gs);
     toast(`${CHAPTERS[n]!.subtitle}: ${CHAPTERS[n]!.name}`, 2600);
+    this.scene.restart({ state: this.gs, host: this.host });
+  }
+
+  /** Where you stand when you walk out of a dungeon: just in front of its gate on the chapter map. */
+  private dungeonFront(d: DungeonDef): Vec2 { return tileToWorld({ x: d.entrance.x, y: d.entrance.y + 3 }); }
+
+  private enterDungeon(id: string): void {
+    const d = DUNGEONS[id];
+    if (this.traveling || !d || this.dungeon) return;
+    if (this.rift.active) { toast('Leave the Trial Rift first.', 2200); return; }
+    const c = canEnterDungeon(d, this.gs.progress.level);
+    if (!c.ok) { toast(c.reason, 4200); audio.sfx('fail'); return; }
+    this.traveling = true;
+    this.pushToState();
+    this.gs.dungeon = id;
+    this.gs.pos = { ...generateDungeonMap(id).spawn };
+    this.gs.hp = Math.max(1, this.pc.hp);
+    saveGame(this.gs);
+    toast(`${d.kind === 'cave' ? 'Cave' : 'Secret realm'}: ${d.name}`, 2600); audio.sfx('levelup');
+    this.scene.restart({ state: this.gs, host: this.host });
+  }
+
+  private exitDungeon(): void {
+    const d = this.dungeon;
+    if (this.traveling || !d) return;
+    this.traveling = true;
+    this.pushToState();
+    this.gs.dungeon = null;
+    this.gs.pos = this.dungeonFront(d);
+    this.gs.hp = Math.max(1, this.pc.hp);
+    saveGame(this.gs);
     this.scene.restart({ state: this.gs, host: this.host });
   }
 
@@ -512,10 +587,10 @@ export class WorldScene extends Phaser.Scene {
     const refresh = () => renderTrade(this.gs);
     const close = () => { closeTrade(); this.uiPause = false; };
     const who = NPCS[npcId]!;
-    showTrade(kind, this.gs, { name: who.name, portrait: who.portrait, blurb: who.blurb ?? '' }, {
+    showTrade(kind, this.gs, { name: who.name, portrait: who.portrait, blurb: who.blurb ?? '', stock: who.stock, recipes: who.recipes }, {
       close,
       buy: (id) => {
-        const r = this.mutate(() => buy(this.gs, id, 1, kind === 'outpost' ? 'outpost' : 'sect'));
+        const r = this.mutate(() => buy(this.gs, id, 1, who.stock ?? (kind === 'outpost' ? 'outpost' : 'sect')));
         if (r.ok) { toast(`Bought ${ITEMS[id]!.name}.`, 1400); audio.sfx('pickup'); } else toast(r.reason === 'stones' ? 'Not enough spirit stones.' : r.reason === 'full' ? 'Your bag is full.' : 'Not available.', 1800);
         refresh();
       },
@@ -840,8 +915,15 @@ export class WorldScene extends Phaser.Scene {
     this.hitStop(160);
     this.tweens.add({ targets: [actor.sprite], alpha: 0, duration: 1200, delay: 1200, onComplete: () => actor.destroy() });
     this.tweens.add({ targets: [actor.shadow], alpha: 0, duration: 1200, delay: 1200 });
+    const firstClear = !!this.dungeon && !this.gs.bosses.includes(b.def.id);
     this.onKill(b.def.id, b.pos, false);
     toast(`${b.def.name} has been defeated!`, 4500); audio.sfx('roar');
+    if (firstClear && this.dungeon) {
+      const d = this.dungeon, r = this.mutate(() => claimDungeonReward(this.gs, d));
+      toast(`${d.name} cleared: +${r.xp} XP, +${r.stones} stones${r.items.length ? `, ${r.items.map((i) => ITEMS[i.id]!.name).join(', ')}` : ''}`, 5200);
+      for (const o of r.overflow) toast(`Inventory full: lost ${ITEMS[o]!.name}`, 2600);
+      if (r.levelsGained > 0) this.levelUpFx();
+    }
     this.save(false);
   }
 
@@ -919,9 +1001,12 @@ export class WorldScene extends Phaser.Scene {
     this.save(false);
   }
 
+  /** Where a fallen hero wakes: the hub, or just outside the gate of the dungeon they fell in. */
+  private respawnSpot(): Vec2 { return this.dungeon ? this.dungeonFront(this.dungeon) : { ...this.world.spawn }; }
+
   private respawn(): void {
     showDeath(false);
-    this.mutate(() => { const s = statsOf(this.gs); this.gs.hp = s.maxHp; this.gs.mana = s.maxMana; this.gs.pos = { ...this.world.spawn }; refillFlask(this.gs.flask); });
+    this.mutate(() => { const s = statsOf(this.gs); this.gs.hp = s.maxHp; this.gs.mana = s.maxMana; this.gs.pos = this.respawnSpot(); this.gs.dungeon = null; refillFlask(this.gs.flask); });
     this.scene.restart({ state: this.gs, host: this.host });
   }
 
@@ -941,23 +1026,25 @@ export class WorldScene extends Phaser.Scene {
     if (!this.uiPause && !stopped) this.simulate(dt);
     this.player.setPos(this.pos.x, this.pos.y);
     this.camTarget.setPosition(this.pos.x, this.pos.y - 10);
+    this.groundChunks.update(this.viewRect());
     this.drawOverlays();
 
     const zone = zoneAt(this.world, this.pos);
     if (zone !== this.currentZone) this.currentZone = zone;
-    if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; if (zone === CHAPTERS[this.chapter]!.hub && this.gs.flask.charges < FLASK_MAX) { refillFlask(this.gs.flask); toast('Spirit flask refilled.', 1600); } if (!this.dead && !this.bosses.some((b) => b.engaged)) showZoneBanner(ZONES[zone].name, ZONES[zone].level); setMinimapZone(ZONES[zone].name, ZONES[zone].level); }
+    if (this.lastZoneBanner !== zone) { this.lastZoneBanner = zone; if (zone === CHAPTERS[this.chapter]!.hub && this.gs.flask.charges < FLASK_MAX) { refillFlask(this.gs.flask); toast('Spirit flask refilled.', 1600); } if (!this.dead && !this.bosses.some((b) => b.engaged)) showZoneBanner(ZONES[zone]!.name, ZONES[zone]!.level); setMinimapZone(ZONES[zone]!.name, ZONES[zone]!.level); }
     this.ambient.update(dt, zone);
-    const mood: Mood = this.bosses.some((b) => b.engaged) ? 'boss' : zone === 'marsh' ? 'mist' : zone === 'ruins' || zone === 'lair' || zone === 'barrow' || zone === 'summit' || this.enemies.some((e) => e.ai.state !== 'idle' && !e.minion) ? 'danger' : 'calm';
+    const zmood = ZONES[zone]!.mood;
+    const mood: Mood = this.bosses.some((b) => b.engaged) ? 'boss' : zmood === 'mist' ? 'mist' : zmood === 'night' || this.enemies.some((e) => e.ai.state !== 'idle' && !e.minion) ? 'danger' : 'calm';
     audio.setMood(mood); audio.setZone(zone);
-    updateOccluders(this.occluders, [{ x: this.pos.x, y: this.pos.y }, ...this.enemies.map((e) => e.pos), ...this.bosses.flatMap((b) => [b.pos, { x: b.pos.x, y: b.pos.y - 26 }, { x: b.pos.x - 26, y: b.pos.y - 10 }, { x: b.pos.x + 26, y: b.pos.y - 10 }])], dt);
+    this.occluders.update([{ x: this.pos.x, y: this.pos.y }, ...this.enemies.map((e) => e.pos), ...this.bosses.flatMap((b) => [b.pos, { x: b.pos.x, y: b.pos.y - 26 }, { x: b.pos.x - 26, y: b.pos.y - 10 }, { x: b.pos.x + 26, y: b.pos.y - 10 }])], dt);
 
     const npc = this.nearestNpc(), herb = this.nearestHerb();
-    const nearPortal = !npc && Math.hypot(this.pos.x - this.world.portal.x, this.pos.y - this.world.portal.y) < PORTAL_RANGE;
+    const gateHere = !npc ? this.gateHere() : null;
     const nearArray = Math.hypot(this.pos.x - this.world.arrayPos.x, this.pos.y - this.world.arrayPos.y) < ARRAY_RADIUS;
     const prompt = this.dead ? null // the death screen already offers respawn
       : this.uiPause ? null
       : npc ? `Press E to talk to ${NPCS[npc.id]!.name}`
-      : nearPortal ? (this.chapter === 1 ? 'Press E: step through the Sky Gate to Chapter 2' : 'Press E: return through the gate to Chapter 1')
+      : gateHere ? gateHere.prompt
       : herb ? 'Press E to gather the Spirit Herb'
       : nearArray && !this.meditating ? 'Spirit array: press M to meditate (qi gathers faster here)' : null;
     setPrompt(prompt);
@@ -978,7 +1065,7 @@ export class WorldScene extends Phaser.Scene {
       bosses: this.bosses.map((b) => b.pos), npcs: this.npcs.map((n) => n.pos), herbs: this.herbs.filter((h) => h.alive), objective: obj.target,
     };
     updateMinimap(mm, dt);
-    if (isWorldMapOpen()) updateWorldMap({ ...mm, zones: zonesOfChapter(this.chapter).map((zid) => ({ name: ZONES[zid].name, x: this.world.anchors[zid]!.x, y: this.world.anchors[zid]!.y })) });
+    if (isWorldMapOpen()) updateWorldMap({ ...mm, zones: [...this.zoneIds.map((zid) => ({ name: ZONES[zid]!.name, x: this.world.anchors[zid]!.x, y: this.world.anchors[zid]!.y })), ...dungeonsOfChapter(this.chapter).filter(() => !this.dungeon).map((d) => ({ name: `◈ ${d.name}`, x: this.world.entrances[d.id]!.x, y: this.world.entrances[d.id]!.y }))] });
     const cam = this.cameras.main;
     setObjectiveArrow(obj.target && !this.uiPause ? { sx: (obj.target.x - cam.worldView.x) * cam.zoom, sy: (obj.target.y - cam.worldView.y) * cam.zoom, dist: Math.hypot(obj.target.x - this.pos.x, obj.target.y - this.pos.y) } : null, this.scale.width, this.scale.height);
     this.pushToState();
@@ -988,7 +1075,7 @@ export class WorldScene extends Phaser.Scene {
       cooldownMax: SKILLS.map((s) => scaledSkill(s, skillLevel(this.gs, s.id)).cooldown), skillLevels: SKILLS.map((s) => skillLevel(this.gs, s.id)), freePoints: freePoints(this.gs),
       potionCd: Math.max(0, this.potionReadyAt - this.now), potionMax: POTION_COOLDOWN, objective: obj.text,
       comboStep: this.now - this.combo.lastAt <= COMBO_WINDOW ? this.combo.step + 1 : 0,
-      dashCd: Math.max(0, this.dashState.readyAt - this.now), dashMax: DASH.cooldown, zone: ZONES[zone].name,
+      dashCd: Math.max(0, this.dashState.readyAt - this.now), dashMax: DASH.cooldown, zone: ZONES[zone]!.name,
     });
     refreshPanels(this.gs, this.meditating);
   }
@@ -997,6 +1084,12 @@ export class WorldScene extends Phaser.Scene {
   private objective(): { text: string; target: Vec2 | null } {
     const gs = this.gs, elder = this.world.npcs['elder-lin'] ?? this.world.spawn;
     { const rt = this.rift.hud(); if (rt) return { text: rt, target: null }; }
+    if (this.dungeon) {
+      const d = this.dungeon, boss = BOSSES[d.boss]!;
+      return isDungeonCleared(gs, d.id)
+        ? { text: `${d.name} is cleared. Gather what you can, then leave by the gate (E)`, target: this.world.portal }
+        : { text: `${d.name}: fight through the dark to ${boss.name}`, target: this.world.bossHomes[d.boss] ?? null };
+    }
     const chapterQuests = questsOfChapter(this.chapter);
     const activeQ = chapterQuests.find((q) => gs.quests[q.id]?.status === 'active');
     if (gs.tut < 15 && !activeQ) { // the tutorial yields as soon as there is a real quest to follow
@@ -1010,7 +1103,7 @@ export class WorldScene extends Phaser.Scene {
     if (!active) {
       const next = chapterQuests.find((q) => gs.quests[q.id]?.status === 'inactive' && (!q.requires || gs.quests[q.requires]?.status === 'turnedIn'));
       if (next) return { text: `Talk to ${NPCS[next.giver]!.name}: "${next.name}"${pts}`, target: this.world.npcs[next.giver] ?? elder };
-      if (this.chapter < LAST_CHAPTER && canEnterChapter(this.chapter + 1, gs.progress.level, gs.bosses).ok) return { text: `The way onward is open: step through the Sky Gate${pts}`, target: this.world.portal };
+      if (this.chapter < LAST_CHAPTER && canEnterChapter(this.chapter + 1, gs.progress.level, gs.bosses).ok) return { text: `The way onward is open: step through the gate to ${CHAPTERS[this.chapter + 1]!.name}${pts}`, target: this.world.portalNext ?? this.world.portal };
       return { text: `Explore the realms, grow stronger, cultivate${pts}`, target: null };
     }
     const st = gs.quests[active.id]!;
@@ -1018,7 +1111,7 @@ export class WorldScene extends Phaser.Scene {
     const prog = progressOf(active, st, gs.inventory, gs.bosses), i = prog.findIndex((p) => p.have < p.need), o = active.objectives[i]!, p = prog[i]!;
     let target: Vec2 | null = null;
     if (o.type === 'kill') {
-      const zone = zonesOfChapter(this.chapter).find((z) => o.target in ZONES[z].spawns);
+      const zone = this.zoneIds.find((z) => o.target in ZONES[z]!.spawns);
       target = this.world.bossHomes[o.target] ?? (zone ? this.world.anchors[zone] : undefined) ?? this.world.spawn;
     } else if (o.type === 'elite') {
       let bd = Infinity; for (const e of this.enemies) { if (!e.elite || e.minion) continue; const d = Math.hypot(e.pos.x - this.pos.x, e.pos.y - this.pos.y); if (d < bd) { bd = d; target = { ...e.pos }; } }
@@ -1059,7 +1152,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private topUpEnemies(): void {
-    for (const z of zonesOfChapter(this.chapter).map((zid) => ZONES[zid])) {
+    for (const z of this.zoneIds.map((zid) => ZONES[zid]!)) {
       for (const [type, n] of Object.entries(z.spawns)) {
         const alive = this.enemies.filter((e) => !e.minion && !e.tower && e.def.id === type && e.zone === z.id).length;
         if (alive < n) { this.spawnInZone(z.id, type, this.pos); return; } // one per check
@@ -1121,6 +1214,15 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private updateEnemy(e: Enemy, target: Vec2, alive: boolean, dt: number): void {
+    // far from the hero and unaware: freeze in place (no AI, no drawing). Keeps hundreds of foes on a big map affordable.
+    if (alive && !e.minion && !e.tower && e.ai.state === 'idle' && this.now >= e.alertUntil && e.stun <= 0 && Math.hypot(e.pos.x - target.x, e.pos.y - target.y) > DORMANT_RANGE) {
+      if (!e.dormant) { e.dormant = true; e.actor.setVisible(false); e.label?.setVisible(false); }
+      e.pos = { ...e.home }; e.kb = { x: 0, y: 0 }; e.burn = null;
+      if (e.c.hp < e.c.maxHp) e.c.hp = Math.min(e.c.maxHp, e.c.hp + e.c.maxHp * 0.08 * dt);
+      e.actor.setPos(e.pos.x, e.pos.y);
+      return;
+    }
+    if (e.dormant) { e.dormant = false; e.actor.setVisible(true); }
     e.stun = Math.max(0, e.stun - dt); e.slow = Math.max(0, e.slow - dt);
     this.tickBurn(e, dt, () => { e.burn = null; this.killEnemy(e); });
     if (e.c.hp <= 0) return;
@@ -1421,7 +1523,7 @@ export class WorldScene extends Phaser.Scene {
         enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
         bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams, poise: Math.round(b.ai.poise) })),
         boss: this.boss ? { hp: this.boss.c.hp, maxHp: this.boss.c.maxHp, x: this.boss.pos.x, y: this.boss.pos.y, engaged: this.boss.engaged, phase: this.boss.ai.phase, state: this.boss.ai.state === 'windup' ? `${this.boss.ai.move}-windup` : this.boss.ai.state, slams: this.boss.slams } : null,
-        chapter: this.chapter, portal: this.world.portal, bossHomes: this.world.bossHomes, story: [...this.gs.story],
+        chapter: this.chapter, dungeon: this.dungeon?.id ?? null, entrances: this.world.entrances, portalNext: this.world.portalNext ?? null, portal: this.world.portal, bossHomes: this.world.bossHomes, story: [...this.gs.story],
         palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, pool: this.world.pool, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, npcPlates: Object.fromEntries(this.npcs.map((n) => [n.id, n.plate.visible])), arrayPos: this.world.arrayPos,
         herbs: this.herbs.map((h) => ({ x: h.x, y: h.y, alive: h.alive })), anchors: this.world.anchors,
         bag: this.gs.inventory.slots.map((sl) => sl?.id ?? null), bolts: this.bolts.filter((b) => b.kind === 'hostile').length, props: this.world.props.filter((p) => p.kind === 'lotusbowl' || p.kind === 'palace').map((p) => ({ kind: p.kind, x: p.x, y: p.y })), playerAnim: this.player.anim, items: this.gs.inventory.slots.filter((s) => s).map((s) => `${s!.id}:${s!.count}`),
@@ -1450,6 +1552,10 @@ export class WorldScene extends Phaser.Scene {
       bossForce: (id: string, move: string) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; b.ai.force = move as never; b.ai.gap = 0; } },
       setStones: (n: number) => { this.gs.stones = n; },
       useGate: () => this.useGate(),
+      enterDungeon: (id: string) => this.enterDungeon(id),
+      chapterIds: () => Object.keys(CHAPTERS).map(Number),
+      goChapter: (n: number) => this.travelTo(n, 'next'),
+      exitDungeon: () => this.exitDungeon(),
       setFlask: (n: number) => { this.gs.flask.charges = n; this.gs.flask.kills = 0; },
       poiseBoss: (id: string, dmg: number) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; this.poiseHit(b, dmg); } },
       clearTowerFoes: () => { for (const e of this.enemies.filter((x) => x.tower)) this.killEnemy(e); },

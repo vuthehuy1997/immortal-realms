@@ -1,4 +1,4 @@
-import { canCraft, RECIPES } from '../core/alchemy';
+import { canCraft, RECIPES, RECIPE_BOOKS } from '../core/alchemy';
 import { countOf } from '../core/inventory';
 import type { GameState } from '../core/gameState';
 import { STOCKS, sellValue } from '../core/shop';
@@ -7,7 +7,7 @@ import { $, el } from './dom';
 import { itemIconHtml, portraitUrl } from './skin';
 
 export type TradeKind = 'shop' | 'outpost' | 'alchemy';
-export interface TradeWho { name: string; portrait: string; blurb: string }
+export interface TradeWho { name: string; portrait: string; blurb: string; /** shop stock id */ stock?: string; /** recipe book id */ recipes?: string }
 export interface TradeActions { buy(id: string): void; sell(slot: number): void; craft(id: string): void; close(): void }
 
 let current: { kind: TradeKind; who: TradeWho; actions: TradeActions } | null = null;
@@ -38,7 +38,7 @@ export function renderTrade(gs: GameState): void {
   const blurb = who.blurb;
   let body = '';
   if (kind !== 'alchemy') {
-    body += '<div class="tcols"><div><h4>Buy</h4>' + STOCKS[kind === 'outpost' ? 'outpost' : 'sect'].map((e) => {
+    body += '<div class="tcols"><div><h4>Buy</h4>' + (STOCKS[who.stock ?? (kind === 'outpost' ? 'outpost' : 'sect')] ?? []).map((e) => {
       const d = ITEMS[e.id]!, can = gs.stones >= e.price;
       return `<div class="trow">${iconBox(e.id)}<div class="tx"><b style="color:${RARITY_COLOR[d.rarity]}">${d.name}</b><small>${d.description}</small></div><button class="btn" data-buy="${e.id}" ${can ? '' : 'disabled'}>${e.price} ◆</button></div>`;
     }).join('') + '</div><div><h4>Sell</h4>';
@@ -49,7 +49,7 @@ export function renderTrade(gs: GameState): void {
     }).join('') : '<div class="empty">Your bag is empty.</div>';
     body += '</div></div>';
   } else {
-    body += '<h4>Furnace</h4>' + RECIPES.map((r) => {
+    body += '<h4>Furnace</h4>' + (RECIPE_BOOKS[who.recipes ?? 'base'] ?? RECIPES).map((r) => {
       const d = ITEMS[r.output]!, can = canCraft(gs, r), herbs = countOf(gs.inventory, 'spirit-herb');
       return `<div class="trow">${iconBox(r.output)}<div class="tx"><b style="color:${RARITY_COLOR[d.rarity]}">${r.name}</b><small>${r.note} · needs ${r.herbs} Spirit Herb (${herbs} owned) + ${r.stones} ◆</small></div><button class="btn" data-craft="${r.id}" ${can ? '' : 'disabled'}>Brew</button></div>`;
     }).join('');

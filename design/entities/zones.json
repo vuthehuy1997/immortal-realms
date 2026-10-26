@@ -4,8 +4,8 @@
     "chapter": 1,
     "name": "Azure Cloud Sect",
     "anchor": {
-      "x": 40,
-      "y": 42
+      "x": 72,
+      "y": 66
     },
     "level": "Safe",
     "spawns": {},
@@ -23,15 +23,15 @@
     "chapter": 1,
     "name": "Whispering Bamboo Forest",
     "anchor": {
-      "x": 13,
-      "y": 42
+      "x": 22,
+      "y": 62
     },
     "level": "Lv 1-4",
     "spawns": {
-      "wolf": 6,
-      "snake": 3,
-      "foxfire": 3,
-      "treant": 1
+      "wolf": 12,
+      "snake": 6,
+      "foxfire": 6,
+      "treant": 2
     },
     "mood": "day",
     "tier": {
@@ -52,15 +52,15 @@
     "chapter": 1,
     "name": "Mistveil Marsh",
     "anchor": {
-      "x": 40,
-      "y": 68
+      "x": 74,
+      "y": 104
     },
     "level": "Lv 3-7",
     "spawns": {
-      "toad": 4,
-      "waterghost": 3,
-      "ghost": 3,
-      "snake": 2
+      "toad": 8,
+      "waterghost": 6,
+      "ghost": 6,
+      "snake": 4
     },
     "mood": "mist",
     "tier": {
@@ -83,16 +83,16 @@
     "chapter": 1,
     "name": "Peach Spirit Grove",
     "anchor": {
-      "x": 30,
-      "y": 14
+      "x": 48,
+      "y": 24
     },
     "level": "Lv 5-9",
     "spawns": {
-      "peachspirit": 3,
-      "bat": 4,
-      "paperdoll": 3,
-      "swordspirit": 2,
-      "thunderbird": 1
+      "peachspirit": 6,
+      "bat": 8,
+      "paperdoll": 6,
+      "swordspirit": 4,
+      "thunderbird": 2
     },
     "mood": "dusk",
     "tier": {
@@ -116,15 +116,15 @@
     "chapter": 1,
     "name": "Broken Sword Ruins",
     "anchor": {
-      "x": 68,
-      "y": 48
+      "x": 118,
+      "y": 70
     },
     "level": "Lv 7-12",
     "spawns": {
-      "skeleton": 4,
-      "jiangshi": 3,
-      "soldier": 3,
-      "golem": 2
+      "skeleton": 8,
+      "jiangshi": 6,
+      "soldier": 6,
+      "golem": 4
     },
     "mood": "night",
     "tier": {
@@ -145,8 +145,8 @@
     "chapter": 1,
     "name": "Fallen Immortal's Court",
     "anchor": {
-      "x": 66,
-      "y": 13
+      "x": 128,
+      "y": 18
     },
     "level": "Boss",
     "spawns": {},
@@ -299,6 +299,134 @@
     "enemyTypes": [],
     "bosses": [
       "sovereign"
+    ]
+  },
+  {
+    "id": "lake",
+    "chapter": 1,
+    "name": "Moonmirror Lake",
+    "anchor": {
+      "x": 38,
+      "y": 98
+    },
+    "level": "Lv 2-6",
+    "spawns": {
+      "snake": 6,
+      "waterghost": 5,
+      "foxfire": 5,
+      "toad": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 1.25,
+      "atk": 1.35,
+      "xp": 1.4
+    },
+    "enemyTypes": [
+      "snake",
+      "waterghost",
+      "foxfire",
+      "toad"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "cliffs",
+    "chapter": 1,
+    "name": "Thunderpeak Cliffs",
+    "anchor": {
+      "x": 110,
+      "y": 30
+    },
+    "level": "Lv 8-12",
+    "spawns": {
+      "thunderbird": 4,
+      "swordspirit": 5,
+      "bat": 6,
+      "golem": 3,
+      "jiangshi": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 2.7,
+      "atk": 2.2,
+      "xp": 3.4
+    },
+    "enemyTypes": [
+      "thunderbird",
+      "swordspirit",
+      "bat",
+      "golem",
+      "jiangshi"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "wolfden",
+    "chapter": 1,
+    "name": "Moonfang Den",
+    "anchor": {
+      "x": 38,
+      "y": 28
+    },
+    "level": "Lv 4-6",
+    "spawns": {
+      "wolf": 12,
+      "snake": 5,
+      "bat": 6,
+      "foxfire": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 1.5,
+      "atk": 1.55,
+      "xp": 1.7
+    },
+    "propTint": 12110000,
+    "dungeon": "wolfden",
+    "enemyTypes": [
+      "wolf",
+      "snake",
+      "bat",
+      "foxfire"
+    ],
+    "bosses": [
+      "alphawolf"
+    ]
+  },
+  {
+    "id": "swordsanctum",
+    "chapter": 1,
+    "name": "Hidden Sword Sanctum",
+    "anchor": {
+      "x": 52,
+      "y": 30
+    },
+    "level": "Lv 8-11",
+    "spawns": {
+      "swordspirit": 8,
+      "skeleton": 6,
+      "soldier": 5,
+      "paperdoll": 5,
+      "golem": 2
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 3.2,
+      "atk": 2.5,
+      "xp": 4.2
+    },
+    "propTint": 13156607,
+    "dungeon": "swordsanctum",
+    "enemyTypes": [
+      "swordspirit",
+      "skeleton",
+      "soldier",
+      "paperdoll",
+      "golem"
+    ],
+    "bosses": [
+      "swordshade"
     ]
   }
 ]

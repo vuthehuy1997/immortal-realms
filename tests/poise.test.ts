@@ -63,7 +63,9 @@ describe('perfect dodge + dash', () => {
 });
 
 describe('raised level cap', () => {
-  it('is 30 with a Foundation Establishment realm gated at level 20', () => {
-    expect(MAX_LEVEL).toBe(30); expect(REALMS.at(-1)!.reqLevel).toBe(20); expect(REALMS.at(-1)!.statMult).toBeGreaterThan(REALMS.at(-2)!.statMult);
+  it('is 50, with realms every ~10 levels, each stronger than the last', () => {
+    expect(MAX_LEVEL).toBe(50);
+    expect(REALMS.map((r) => r.reqLevel)).toEqual([1, 5, 10, 20, 28, 38, 46]);
+    for (let i = 1; i < REALMS.length; i++) { expect(REALMS[i]!.statMult).toBeGreaterThan(REALMS[i - 1]!.statMult); expect(REALMS[i]!.qiMax).toBeGreaterThan(REALMS[i - 1]!.qiMax); }
   });
 });

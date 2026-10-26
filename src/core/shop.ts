@@ -1,4 +1,5 @@
 import { ITEMS } from '../data/items';
+import { CONTENT } from '../data/content';
 import type { GameState } from './gameState';
 import { addItem, countOf, type Inventory } from './inventory';
 
@@ -9,8 +10,9 @@ export const SHOP_STOCK: readonly ShopEntry[] = ['hp-potion', 'mana-potion', 'qi
 
 /** Quartermaster Gu's stock at the Skyfall Outpost (chapter 2 gear; stronger and pricier). */
 export const OUTPOST_STOCK: readonly ShopEntry[] = ['greater-hp-potion', 'greater-mana-potion', 'qi-pill', 'foundation-pill', 'froststeel-blade', 'frost-mail'].map((id) => ({ id, price: ITEMS[id]!.value }));
-export type StockId = 'sect' | 'outpost';
+export type StockId = string;
 export const STOCKS: Record<StockId, readonly ShopEntry[]> = { sect: SHOP_STOCK, outpost: OUTPOST_STOCK };
+for (const c of CONTENT) for (const [id, items] of Object.entries(c.stocks)) STOCKS[id] = items.map((i) => ({ id: i, price: ITEMS[i]!.value }));
 
 export const SELL_RATE = 0.4;
 export const sellValue = (id: string): number => Math.max(1, Math.floor((ITEMS[id]?.value ?? 0) * SELL_RATE));
@@ -19,7 +21,7 @@ export type TradeResult = { ok: true } | { ok: false; reason: 'unknown' | 'stone
 
 /** Atomic purchase: nothing changes unless the player can pay and the goods fit in the bag. */
 export function buy(gs: GameState, id: string, count = 1, stock: StockId = 'sect'): TradeResult {
-  const entry = STOCKS[stock].find((e) => e.id === id);
+  const entry = STOCKS[stock]?.find((e) => e.id === id);
   if (!entry || count < 1) return { ok: false, reason: 'unknown' };
   const cost = entry.price * count;
   if (gs.stones < cost) return { ok: false, reason: 'stones' };

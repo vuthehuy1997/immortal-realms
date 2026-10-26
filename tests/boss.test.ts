@@ -70,7 +70,7 @@ for (const def of Object.values(BOSSES)) {
       const chaseSpeed = (ratio: number) => Math.max(...sim(def, ratio, 2000, 3).velDuring.filter((v) => v.state === 'chase').map((v) => v.vx));
       expect(chaseSpeed(0.2)).toBeGreaterThan(chaseSpeed(1) * 1.25);
     });
-    it('does not summon past its minion cap', () => {
+    it.skipIf(!def.moves.summon)('does not summon past its minion cap', () => {
       const cap = def.moves.summon!.maxMinions;
       expect([...movesUsed(sim(def, 0.5, 60, 150, { minions: cap, seed: 2 }).log)]).not.toContain('summon');
       expect([...movesUsed(sim(def, 0.5, 60, 150, { minions: 0, seed: 2 }).log)]).toContain('summon');

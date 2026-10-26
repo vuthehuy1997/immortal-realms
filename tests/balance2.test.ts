@@ -18,7 +18,7 @@ const enemyDps = (atk: number, cd: number, def: number) => Math.max(1, atk - def
 
 describe('chapter 2 fights', () => {
   for (const zid of ['frostpass', 'crystal', 'barrow'] as ZoneId[]) {
-    for (const id of Object.keys(ZONES[zid].spawns)) {
+    for (const id of Object.keys(ZONES[zid]!.spawns)) {
       it(`${zid}/${id}: a real fight with chapter 1 gear, still winnable with shop gear`, () => {
         const def = ENEMIES[id]!, sc = scaledEnemy(def, zid);
         const old = stats(LEVEL[zid]!, CH1_BEST), shop = stats(LEVEL[zid]!, CH2_SHOP);
@@ -33,9 +33,9 @@ describe('chapter 2 fights', () => {
     }
   }
   it('chapter 2 zones get strictly tougher along the main path', () => {
-    const t = (z: ZoneId) => ZONES[z].tier;
+    const t = (z: ZoneId) => ZONES[z]!.tier;
     expect(t('crystal').hp).toBeGreaterThan(t('frostpass').hp); expect(t('barrow').hp).toBeGreaterThan(t('crystal').hp);
-    for (const z of zonesOfChapter(2).filter((x) => Object.keys(ZONES[x].spawns).length)) expect(t(z).hp).toBeGreaterThan(ZONES.ruins.tier.hp);
+    for (const z of zonesOfChapter(2).filter((x) => Object.keys(ZONES[x]!.spawns).length)) expect(t(z).hp).toBeGreaterThan(ZONES.ruins!.tier.hp);
   });
   it('chapter 2 bosses outrank chapter 1 bosses and last long enough to have phases', () => {
     const s = stats(18, { weapon: 'froststeel-blade', armor: 'frost-mail', charm: 'barrow-ward' });

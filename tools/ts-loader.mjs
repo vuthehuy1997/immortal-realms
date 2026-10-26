@@ -8,6 +8,8 @@ registerHooks({
     if (specifier.startsWith('.') && context.parentURL?.startsWith('file:') && !/\.[cm]?[jt]s$|\.json$/.test(specifier)) {
       const url = new URL(`${specifier}.ts`, context.parentURL);
       if (existsSync(fileURLToPath(url))) return next(url.href, context);
+      const idx = new URL(`${specifier}/index.ts`, context.parentURL);
+      if (existsSync(fileURLToPath(idx))) return next(idx.href, context);
     }
     return next(specifier, context);
   },

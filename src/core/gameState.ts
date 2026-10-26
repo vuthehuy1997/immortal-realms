@@ -36,6 +36,8 @@ export interface GameState {
   pos: { x: number; y: number };
   /** current chapter (map); `pos` is a position on that map */
   chapter: number;
+  /** id of the cave / secret realm the hero is inside (null on the open map); `pos` is then a position in that dungeon */
+  dungeon: string | null;
   /** chapters whose story pages have been shown */
   story: number[];
   /** spirit flask: refilling healing charges */
@@ -57,7 +59,7 @@ export const isBossDefeated = (gs: GameState, id: string): boolean => gs.bosses.
 export function newGameState(name: string, root: RootId, hero: HeroId, spawn: { x: number; y: number }): GameState {
   const gs: GameState = {
     character: { name, root, hero }, progress: { level: 1, xp: 0 }, cultivation: { realm: 0, qi: 0 },
-    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, story: [], flask: newFlask(), boons: [], boonPicks: 0, towerBest: 0, hints: [], insight: newInsight(),
+    inventory: newInventory(), quests: newQuestLog(), kills: 0, stones: 30, bosses: [], skills: {}, tut: 0, hp: 0, mana: 0, pos: { ...spawn }, chapter: 1, dungeon: null, story: [], flask: newFlask(), boons: [], boonPicks: 0, towerBest: 0, hints: [], insight: newInsight(),
   };
   addItem(gs.inventory, 'hp-potion', 2);
   const s = statsOf(gs);

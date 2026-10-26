@@ -44,10 +44,18 @@ md('enemies', 'Enemies', `${enemies.length} enemy types. "Scaled" is the final s
 
 // ---------- bosses
 const bosses = Object.values(BOSSES).map((b) => ({ ...b, image: spriteImg('bosses', b.id, b.sprite), drops: DROPS[b.id] ?? [], questId: Object.values(QUESTS).find((q) => q.objectives.some((o) => o.target === b.id))?.id ?? null }));
-for (const b of bosses) { if (!b.image) problems.push(`boss ${b.id}: no idle sheet`); if (!b.drops.length) problems.push(`boss ${b.id}: no drop table`); if (!b.questId) problems.push(`boss ${b.id}: no quest targets it`); }
+for (const b of bosses) { if (!b.image) problems.push(`boss ${b.id}: no idle sheet`); if (!b.drops.length) problems.push(`boss ${b.id}: no drop table`); if (!b.questId && !b.dungeon) problems.push(`boss ${b.id}: no quest targets it`); }
 json('bosses', bosses);
 md('bosses', 'Bosses', 'Each boss draws moves from a per-phase pool; every damaging move is telegraphed (see `tests/boss.test.ts`).',
   bosses.map((b) => `## ${b.name} (\`${b.id}\`)\n\n${b.image ? `<img src="${img(b.image)}" height="160">\n\n` : ''}${table(['HP', 'ATK', 'DEF', 'speed', 'XP', 'stones', 'home', 'minion zone', 'quest', 'phase 2 / 3 at'], [[b.maxHp, b.atk, b.def, b.speed, b.xp, b.stones.join('–'), b.home, b.zone, b.questId, `${b.phase2At} / ${b.phase3At}`]])}\nKit: ${b.kit.map((k, i) => `**P${i + 1}** ${k.join(', ')}`).join(' · ')}\n\nDrops: ${b.drops.map((d) => `${d.item} (${Math.round(d.chance * 100)}%)`).join(', ')}\n\n${table(['move', 'parameters'], Object.entries(b.moves).map(([m, p]) => [m, Object.entries(p).map(([k, v]) => `${k} ${typeof v === 'number' ? fmt(v) : v}`).join(', ')]))}`).join('\n'));
+
+// ---------- dungeons (caves and secret realms)
+const { DUNGEONS } = await src('data/dungeons');
+const dungeons = Object.values(DUNGEONS).map((d) => ({ ...d, bossName: BOSSES[d.boss]?.name, foes: Object.entries(d.spawns).map(([t, n]) => `${ENEMIES[t]?.name ?? t} ×${n}`) }));
+for (const d of dungeons) { if (!BOSSES[d.boss]) problems.push(`dungeon ${d.id}: boss ${d.boss} missing`); if (!d.reward.items.length) problems.push(`dungeon ${d.id}: no reward items`); }
+json('dungeons', dungeons);
+md('dungeons', 'Caves and secret realms', 'Small maps entered through a gate on a chapter map. Caves are organic caverns; realms are chains of chambers. Each ends in a guardian with a one-time first-clear reward.',
+  table(['id', 'name', 'chapter', 'kind', 'zone of gate', 'min level', 'level', 'size', 'guardian', 'foes', 'first clear'], dungeons.map((d) => [d.id, d.name, d.chapter, d.kind, d.entrance.zone, d.minLevel, d.level, `${d.size.w}×${d.size.h}`, d.bossName, d.foes.join(', '), `${d.reward.xp} XP, ${d.reward.stones} ◆, ${d.reward.items.map((i) => `${i.id}×${i.count}`).join(', ')}`])));
 
 // ---------- heroes, roots, realms
 const heroes = Object.values(HEROES).map((h) => ({ ...h, image: spriteImg('heroes', h.id, h.sprite) }));
@@ -87,7 +95,7 @@ md('quests-npcs', 'Quests and NPCs', 'Chain: pests → fox → warden → champi
 // ---------- zones, props, world map
 const zones = Object.values(ZONES).map((z) => ({ ...z, enemyTypes: Object.keys(z.spawns), bosses: Object.values(BOSSES).filter((b) => b.zone === z.id).map((b) => b.id) }));
 const bossName = (id) => BOSSES[id]?.name ?? id;
-const worlds = CHAPTER_IDS.map((n) => ({ n, w: worldMod.generateChapter(n, WORLD_SEED) }));
+const worlds = CHAPTER_IDS.map((n) => ({ n, w: worldMod.generateChapter(n) }));
 const counts = {}; for (const { w } of worlds) for (const p of w.props) counts[p.kind] = (counts[p.kind] ?? 0) + 1;
 const props = Object.entries(PROPS).map(([kind, p]) => ({ kind, ...p, placedInWorld: counts[kind] ?? 0, image: manifest.props[kind] ? job({ kind: 'prop', key: kind, out: `props/${kind}.png` }) : null }));
 for (const p of props) if (!p.image) problems.push(`prop ${p.kind}: no art`);

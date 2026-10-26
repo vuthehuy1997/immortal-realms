@@ -4,7 +4,7 @@ import type { BoonMods } from './boons';
 export type InsightId = 'vitality' | 'edge' | 'spirit';
 export interface InsightDef { id: InsightId; name: string; blurb: string; perRank: Partial<BoonMods> }
 
-export const INSIGHT_MAX = 10;
+export const INSIGHT_MAX = 15;
 export const INSIGHTS: Record<InsightId, InsightDef> = {
   vitality: { id: 'vitality', name: 'Body Tempering', blurb: '+3% max HP per rank', perRank: { maxHpPct: 0.03 } },
   edge: { id: 'edge', name: 'Sword Intent', blurb: '+2% attack and +0.4% crit per rank', perRank: { atkPct: 0.02, critChance: 0.004 } },

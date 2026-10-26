@@ -22,8 +22,8 @@ describe('Dao Insight', () => {
   });
   it('each track has a real, bounded effect', () => {
     for (const id of INSIGHT_IDS) { expect(Object.keys(INSIGHTS[id].perRank).length).toBeGreaterThan(0); }
-    const gs = fresh(30); gs.insight = { vitality: INSIGHT_MAX, edge: INSIGHT_MAX, spirit: INSIGHT_MAX };
-    const m = boonMods(gs); expect(m.maxHpPct).toBeCloseTo(0.3); expect(m.atkPct).toBeCloseTo(0.2); expect(m.maxManaPct).toBeCloseTo(0.4);
+    const gs = fresh(50); gs.insight = { vitality: INSIGHT_MAX, edge: INSIGHT_MAX, spirit: INSIGHT_MAX };
+    const m = boonMods(gs); expect(m.maxHpPct).toBeCloseTo(0.03 * INSIGHT_MAX); expect(m.atkPct).toBeCloseTo(0.02 * INSIGHT_MAX); expect(m.maxManaPct).toBeCloseTo(0.04 * INSIGHT_MAX);
   });
   it('saves round-trip; old saves start at zero; overspending is rejected', () => {
     const gs = fresh(10); gs.insight = { vitality: 3, edge: 0, spirit: 1 };

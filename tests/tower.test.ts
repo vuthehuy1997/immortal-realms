@@ -18,7 +18,7 @@ describe('trial rift floors', () => {
       const p = planFloor(f, rng);
       expect(p.enemies.length).toBeGreaterThanOrEqual(3); expect(p.enemies.length).toBeLessThanOrEqual(10);
       for (const e of p.enemies) expect(ENEMIES[e.type]).toBeDefined();
-      expect(ZONES[p.zone]).toBeDefined();
+      expect(ZONES[p.zone]!).toBeDefined();
       expect(p.guardian).toBe(f % GUARDIAN_EVERY === 0);
     }
   });

@@ -1,3 +1,5 @@
+import { CONTENT } from './content';
+
 export type EnemyBehavior = 'rusher' | 'caster' | 'charger';
 
 export interface EnemyDef {
@@ -34,7 +36,7 @@ export interface EnemyDef {
   stones: [number, number];
 }
 
-export const ENEMIES: Record<string, EnemyDef> = {
+const BASE_ENEMIES: Record<string, EnemyDef> = {
   wolf: { id: 'wolf', name: 'Spirit Wolf', behavior: 'rusher', maxHp: 40, atk: 8, def: 1, speed: 58, aggroRange: 110, attackRange: 18, attackCooldown: 1.0, strikeWindup: 0.3, xp: 12, sprite: 'mob.wolf', scale: 0.36, radius: 8, stones: [1, 3] },
   snake: { id: 'snake', name: 'Jade Serpent', behavior: 'rusher', maxHp: 28, atk: 7, def: 0, speed: 44, aggroRange: 90, attackRange: 16, attackCooldown: 0.9, strikeWindup: 0.28, xp: 9, sprite: 'mob.snake', scale: 0.34, radius: 7, stones: [1, 2] },
   foxfire: { id: 'foxfire', name: 'Foxfire Wisp', behavior: 'caster', maxHp: 22, atk: 10, def: 0, speed: 40, aggroRange: 130, attackRange: 110, attackCooldown: 1.7, preferredRange: 80, xp: 16, sprite: 'mob.foxfire', scale: 0.36, radius: 7, stones: [2, 4], eliteSprites: ['mob.foxfire_v_red', 'mob.foxfire_v_green'] },
@@ -64,3 +66,6 @@ export const ENEMIES: Record<string, EnemyDef> = {
   bloodjiangshi: { id: 'bloodjiangshi', name: 'Blood Jiangshi', behavior: 'charger', maxHp: 96, atk: 20, def: 5, speed: 38, aggroRange: 120, attackRange: 84, attackCooldown: 2.4, windup: 0.55, dashTime: 0.4, dashSpeedMult: 5, xp: 46, sprite: 'mob.jiangshi_v_red', scale: 0.4, radius: 8, stones: [6, 12] },
   ashguard: { id: 'ashguard', name: 'Barrow Guard', behavior: 'rusher', maxHp: 84, atk: 14, def: 6, speed: 42, aggroRange: 120, attackRange: 22, attackCooldown: 1.3, strikeWindup: 0.34, xp: 36, sprite: 'mob.soldier', tint: 0xb0a0a0, scale: 0.38, radius: 8, stones: [5, 10] },
 };
+
+export const ENEMIES: Record<string, EnemyDef> = { ...BASE_ENEMIES };
+for (const c of CONTENT) for (const e of c.enemies) ENEMIES[e.id] = e;

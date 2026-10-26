@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import './ui/ui.css';
 import { newGameState, type GameState } from './core/gameState';
-import { generateWorld } from './core/world';
+import { generateChapter } from './core/world';
 import { BootScene } from './game/BootScene';
 import { WorldScene, type GameHost } from './game/WorldScene';
 import { hasSaveData, loadGame, loadSlotGame, saveNewGame, storage } from './game/storage';
@@ -11,7 +11,6 @@ import { hideScreen, showCreation, showSlots, showLoading, showMainMenu } from '
 import { installSkin } from './ui/skin';
 import { audio } from './game/audio';
 
-const WORLD_SEED = 20261016;
 
 const game = new Phaser.Game({
   type: Phaser.WEBGL,
@@ -38,7 +37,7 @@ function mainMenu(error?: string): void {
     error,
     onNew: () => showCreation({
       onBack: () => mainMenu(), slots: allSlots(storage), defaultSlot: firstEmptySlot(storage) ?? activeSlot(storage),
-      onStart: (name, root, hero, slot) => { const gs = newGameState(name, root, hero, generateWorld(WORLD_SEED).spawn); saveNewGame(gs, slot); begin(gs); },
+      onStart: (name, root, hero, slot) => { const gs = newGameState(name, root, hero, generateChapter(1).spawn); saveNewGame(gs, slot); begin(gs); },
     }),
     onContinue: () => {
       const r = loadGame();

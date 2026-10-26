@@ -28,8 +28,8 @@ export const isGuardian = (floor: number): boolean => floor % GUARDIAN_EVERY ===
 
 /** Summit has no wild roster of its own: it draws on the barrow and crystal mobs. */
 function rosterOf(zone: ZoneId): string[] {
-  const own = Object.keys(ZONES[zone].spawns);
-  return own.length ? own : [...Object.keys(ZONES.barrow.spawns), ...Object.keys(ZONES.crystal.spawns)];
+  const own = Object.keys(ZONES[zone]!.spawns);
+  return own.length ? own : [...Object.keys(ZONES.barrow!.spawns), ...Object.keys(ZONES.crystal!.spawns)];
 }
 
 export function planFloor(floor: number, rng: () => number): FloorPlan {

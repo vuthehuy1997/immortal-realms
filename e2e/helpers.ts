@@ -11,7 +11,7 @@ export interface RpgState {
   bag: (string | null)[]; bolts: number; props: { kind: string; x: number; y: number }[];
   boss: { hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number; poise: number } | null;
   bosses: { id: string; hp: number; maxHp: number; x: number; y: number; engaged: boolean; phase: number; state: string; slams: number; poise: number }[];
-  bossesDefeated: string[]; chapter: number; story: number[]; portal: { x: number; y: number }; bossHomes: Record<string, { x: number; y: number }>; den: { x: number; y: number }; pool: { x: number; y: number };
+  bossesDefeated: string[]; chapter: number; dungeon: string | null; entrances: Record<string, { x: number; y: number }>; portalNext: { x: number; y: number } | null; story: number[]; portal: { x: number; y: number }; bossHomes: Record<string, { x: number; y: number }>; den: { x: number; y: number }; pool: { x: number; y: number };
   palace?: { x: number; y: number };
   lair: { x: number; y: number }; spawn: { x: number; y: number }; npc: { x: number; y: number }; npcs: Record<string, { x: number; y: number }>; npcPlates: Record<string, boolean>;
   arrayPos: { x: number; y: number }; herbs: { x: number; y: number; alive: boolean }[]; anchors: Record<string, { x: number; y: number }>; items: string[];
@@ -20,7 +20,7 @@ interface Rpg {
   state(): RpgState; cast(i: number, x: number, y: number): void; attack(x: number, y: number): void; dash(): void; teleport(x: number, y: number): void;
   spawn(type: string, x: number, y: number): void; clear(): void; setRoll(v: number | null): void; setQi(v: number): void;
   setBossHpRatio(r: number, id?: string): void; giveXp(n: number): void; give(id: string, n: number): void; setHp(n: number): void;
-  killPlayer(): void; useGate(): void; setFlask(n: number): void; defeatBoss(id: string): void; respawnNow(): void; useSlot(i: number): void; gather(): void; bossForce(id: string, move: string): void; setStones(n: number): void; spawnElite(type: string, x: number, y: number): void; spawnUnaware(type: string, x: number, y: number): number; strikeEnemy(id: number): void; offerBoon(): void; giveAllBoons(): void; tip(id: string, text: string): void; startTower(): void; clearTowerFoes(): void; endTower(): void; addBoonPicks(n: number): void; perfectDodge(): void; poiseBoss(id: string, dmg: number): void; alertAll(): void; setTut(n: number): void;
+  killPlayer(): void; useGate(): void; enterDungeon(id: string): void; exitDungeon(): void; chapterIds(): number[]; goChapter(n: number): void; setFlask(n: number): void; defeatBoss(id: string): void; respawnNow(): void; useSlot(i: number): void; gather(): void; bossForce(id: string, move: string): void; setStones(n: number): void; spawnElite(type: string, x: number, y: number): void; spawnUnaware(type: string, x: number, y: number): number; strikeEnemy(id: number): void; offerBoon(): void; giveAllBoons(): void; tip(id: string, text: string): void; startTower(): void; clearTowerFoes(): void; endTower(): void; addBoonPicks(n: number): void; perfectDodge(): void; poiseBoss(id: string, dmg: number): void; alertAll(): void; setTut(n: number): void;
 }
 declare global { interface Window { __rpg?: Rpg; __world?: () => { x: number; y: number } } }
 

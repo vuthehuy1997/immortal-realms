@@ -1,3 +1,5 @@
+import { CONTENT } from './content';
+
 /** Item icons come from the Xianxia Pixel Pack UI kit (`ui`) and weapon icon sheet (`icon`). */
 export const ITEM_ICON: Record<string, { kind: 'ui' | 'icon'; key: string }> = {
   'hp-potion': { kind: 'ui', key: 'item_gourd' },
@@ -29,3 +31,5 @@ export const ITEM_ICON: Record<string, { kind: 'ui' | 'icon'; key: string }> = {
   'barrow-ward': { kind: 'icon', key: 'relic_01_05' },
   'sky-seal': { kind: 'icon', key: 'relic_02_03' },
 };
+
+for (const c of CONTENT) Object.assign(ITEM_ICON, c.icons);

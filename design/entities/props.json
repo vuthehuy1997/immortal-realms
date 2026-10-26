@@ -10,7 +10,7 @@
         "h": 1.6
       }
     ],
-    "placedInWorld": 3,
+    "placedInWorld": 4,
     "image": "props/pavilion.png"
   },
   {
@@ -32,7 +32,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 113,
+    "placedInWorld": 215,
     "image": "props/bamboo.png"
   },
   {
@@ -46,7 +46,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 165,
+    "placedInWorld": 263,
     "image": "props/pine.png"
   },
   {
@@ -107,7 +107,7 @@
         "h": 1.2
       }
     ],
-    "placedInWorld": 8,
+    "placedInWorld": 9,
     "image": "props/moonwall.png"
   },
   {
@@ -141,7 +141,7 @@
         "h": 1.2
       }
     ],
-    "placedInWorld": 86,
+    "placedInWorld": 97,
     "image": "props/taihurocks.png"
   },
   {
@@ -155,21 +155,21 @@
         "h": 1
       }
     ],
-    "placedInWorld": 43,
+    "placedInWorld": 132,
     "image": "props/willow.png"
   },
   {
     "kind": "lingzhi",
     "scale": 0.13,
     "blocks": [],
-    "placedInWorld": 36,
+    "placedInWorld": 66,
     "image": "props/lingzhi.png"
   },
   {
     "kind": "orchid",
     "scale": 0.13,
     "blocks": [],
-    "placedInWorld": 54,
+    "placedInWorld": 193,
     "image": "props/orchid.png"
   },
   {
@@ -183,14 +183,14 @@
         "h": 1
       }
     ],
-    "placedInWorld": 87,
+    "placedInWorld": 195,
     "image": "props/rock.png"
   },
   {
     "kind": "bambooshoot",
     "scale": 0.13,
     "blocks": [],
-    "placedInWorld": 15,
+    "placedInWorld": 26,
     "image": "props/bambooshoot.png"
   },
   {
@@ -198,7 +198,7 @@
     "scale": 0.26,
     "blocks": [],
     "flat": true,
-    "placedInWorld": 1,
+    "placedInWorld": 2,
     "image": "props/lotuspond.png"
   },
   {
@@ -226,7 +226,7 @@
         "h": 1.2
       }
     ],
-    "placedInWorld": 1,
+    "placedInWorld": 0,
     "image": "props/goldpaifang.png"
   },
   {
@@ -332,7 +332,7 @@
     "scale": 0.3,
     "blocks": [],
     "flat": true,
-    "placedInWorld": 10,
+    "placedInWorld": 12,
     "image": "props/array.png"
   },
   {
@@ -346,7 +346,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 228,
+    "placedInWorld": 256,
     "image": "props/standstone.png"
   },
   {
@@ -360,7 +360,7 @@
         "h": 1.2
       }
     ],
-    "placedInWorld": 0,
+    "placedInWorld": 1,
     "image": "props/stonecircle.png"
   },
   {
@@ -374,7 +374,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 64,
+    "placedInWorld": 126,
     "image": "props/peachtree.png"
   },
   {

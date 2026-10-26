@@ -4,16 +4,15 @@ import { createRng } from '../core/rng';
 import { PROPS } from '../data/props';
 import { ZONES } from '../data/zones';
 import { MANIFEST } from './assets';
-import { bakeGround, GROUND_PX } from './ground';
+import { GroundChunks } from './ground';
 
 export interface Occluder { img: Phaser.GameObjects.Image; x: number; y: number; halfW: number; h: number }
 export interface HerbNode { x: number; y: number; img: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Image; alive: boolean; respawnAt: number }
 
 /** Builds the visible world: baked ground, y-sorted scenery, herb nodes, water ripples. */
-export function renderWorld(scene: Phaser.Scene, world: WorldMap, seed: number): { herbs: HerbNode[]; occluders: Occluder[] } {
+export function renderWorld(scene: Phaser.Scene, world: WorldMap, seed: number): { herbs: HerbNode[]; occluders: Occluder[]; ground: GroundChunks } {
   const occluders: Occluder[] = [];
-  bakeGround(scene, world, seed);
-  scene.add.image(0, 0, 'ground').setOrigin(0).setScale(1 / GROUND_PX).setDepth(0);
+  const ground = new GroundChunks(scene, world, seed);
   const rng = createRng(seed ^ 0xbeef);
 
   for (const p of world.props) {
@@ -57,17 +56,39 @@ export function renderWorld(scene: Phaser.Scene, world: WorldMap, seed: number):
     const g = scene.add.image(t.x + rng() * TILE_SIZE, t.y + rng() * TILE_SIZE, 'spark').setBlendMode(Phaser.BlendModes.ADD).setDepth(3).setAlpha(0).setScale(0.5 + rng() * 0.6).setTint(0xcfefff);
     scene.tweens.add({ targets: g, alpha: 0.9, duration: 700 + rng() * 900, delay: rng() * 3000, yoyo: true, repeat: -1 });
   }
-  return { herbs, occluders };
+  return { herbs, occluders, ground };
 }
 
-/** Fades tall scenery that stands in front of the player or an enemy so characters are never hidden. */
-export function updateOccluders(occluders: Occluder[], points: { x: number; y: number }[], dtSec: number): void {
-  for (const o of occluders) {
-    let hide = false;
-    for (const p of points) {
-      if (o.y > p.y + 1 && Math.abs(p.x - o.x) < o.halfW + 10 && p.y - 24 < o.y && p.y > o.y - o.h) { hide = true; break; }
+const OCC_CELL = 96;
+/** Occluders bucketed on a coarse grid, so the per-frame fade test only looks at scenery near a character (thousands on big maps). */
+export class OccluderIndex {
+  private cells = new Map<number, Occluder[]>();
+  private faded = new Set<Occluder>();
+  constructor(list: Occluder[]) {
+    for (const o of list) {
+      const k = this.key(Math.floor(o.x / OCC_CELL), Math.floor(o.y / OCC_CELL));
+      const c = this.cells.get(k); if (c) c.push(o); else this.cells.set(k, [o]);
     }
-    const target = hide ? 0.3 : 1;
-    if (o.img.alpha !== target) o.img.setAlpha(Phaser.Math.Linear(o.img.alpha, target, Math.min(1, dtSec * 9)));
+  }
+  private key(cx: number, cy: number): number { return cy * 4096 + cx; }
+
+  /** Fades tall scenery that stands in front of a point so characters are never hidden. */
+  update(points: { x: number; y: number }[], dtSec: number): void {
+    const hide = new Set<Occluder>();
+    for (const p of points) {
+      const cx = Math.floor(p.x / OCC_CELL), cy = Math.floor(p.y / OCC_CELL);
+      for (let y = cy; y <= cy + 2; y++) for (let x = cx - 1; x <= cx + 1; x++) {
+        for (const o of this.cells.get(this.key(x, y)) ?? []) {
+          if (o.y > p.y + 1 && Math.abs(p.x - o.x) < o.halfW + 10 && p.y - 24 < o.y && p.y > o.y - o.h) hide.add(o);
+        }
+      }
+    }
+    const k = Math.min(1, dtSec * 9);
+    for (const o of hide) { this.faded.add(o); if (o.img.alpha !== 0.3) o.img.setAlpha(Phaser.Math.Linear(o.img.alpha, 0.3, k)); }
+    for (const o of this.faded) {
+      if (hide.has(o)) continue;
+      const a = Phaser.Math.Linear(o.img.alpha, 1, k);
+      if (a > 0.995) { o.img.setAlpha(1); this.faded.delete(o); } else o.img.setAlpha(a);
+    }
   }
 }

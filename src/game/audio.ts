@@ -2,6 +2,8 @@
  * Procedural audio (WebAudio): every sound effect and the music are synthesised in code, so there is nothing to license.
  * Music is a generative guqin-style pentatonic loop whose density follows the mood (calm / mist / danger / boss).
  */
+import { ZONES } from '../data/zones';
+
 export type SfxName =
   | 'slash1' | 'slash2' | 'slash3' | 'hit' | 'crit' | 'cast' | 'sword' | 'moon' | 'lotus' | 'rain' | 'dash' | 'hurt' | 'death'
   | 'pickup' | 'levelup' | 'breakthrough' | 'potion' | 'click' | 'slam' | 'roar' | 'gather' | 'telegraph' | 'kill' | 'fail';
@@ -146,8 +148,9 @@ class AudioEngine {
     if (z === this.zone) return;
     this.zone = z;
     const tonic: Record<string, number> = { village: 62, bamboo: 64, marsh: 58, grove: 67, ruins: 57, lair: 55, outpost: 60, frostpass: 55, crystal: 66, barrow: 52, summit: 54 };
-    this.tonic = tonic[z] ?? 62;
-    this.scale = z === 'marsh' || z === 'ruins' || z === 'lair' || z === 'barrow' || z === 'summit' || z === 'crystal' ? MIST_SCALE : PENTA;
+    this.tonic = tonic[z] ?? 52 + ([...z].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7) % 16); // new zones get a stable tonic of their own
+    const mood = ZONES[z]?.mood;
+    this.scale = z === 'crystal' || mood === 'mist' || mood === 'night' ? MIST_SCALE : PENTA; // eerie zones play in the minor pentatonic
     let h = 7; for (const ch of z) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
     this.motif = Array.from({ length: 4 }, () => { h = (h * 1103515245 + 12345) >>> 0; return (h >>> 8) % (this.scale.length * 2); });
   }

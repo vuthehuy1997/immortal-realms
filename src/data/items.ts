@@ -1,3 +1,5 @@
+import { CONTENT } from './content';
+
 export type ItemType = 'consumable' | 'equipment' | 'quest' | 'material';
 export type EquipSlot = 'weapon' | 'armor' | 'charm';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic';
@@ -105,3 +107,9 @@ export const DROPS: Record<string, { item: string; chance: number }[]> = {
   sovereign: [{ item: 'sovereign-blade', chance: 1 }, { item: 'sky-seal', chance: 1 }, { item: 'qi-pill', chance: 1 }],
   ninetail: [{ item: 'spirit-saber', chance: 1 }, { item: 'qi-pill', chance: 1 }, { item: 'spirit-ring', chance: 0.5 }],
 };
+
+for (const c of CONTENT) {
+  for (const i of c.items) ITEMS[i.id] = i;
+  for (const [id, d] of Object.entries(c.drops)) DROPS[id] = d;
+  for (const [z, l] of Object.entries(c.eliteLoot)) ELITE_LOOT[z] = l;
+}

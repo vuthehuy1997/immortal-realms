@@ -1,4 +1,5 @@
 import type { GameState } from './gameState';
+import { CONTENT } from '../data/content';
 import { addItem, countOf, removeItem, type Inventory } from './inventory';
 
 export interface Recipe { id: string; name: string; output: string; herbs: number; stones: number; note: string }
@@ -11,6 +12,11 @@ export const RECIPES: readonly Recipe[] = [
   { id: 'brew-qi', name: 'Qi Gathering Pill', output: 'qi-pill', herbs: 2, stones: 8, note: 'Adds 60 qi' },
 ];
 
+/** Recipe books by id: 'base' is Alchemist Yun's; chapter modules add their own. */
+export const RECIPE_BOOKS: Record<string, readonly Recipe[]> = { base: RECIPES };
+for (const c of CONTENT) for (const [id, r] of Object.entries(c.recipes)) RECIPE_BOOKS[id] = r;
+const ALL_RECIPES: readonly Recipe[] = Object.values(RECIPE_BOOKS).flat();
+
 export type CraftResult = { ok: true } | { ok: false; reason: 'unknown' | 'herbs' | 'stones' | 'full' };
 
 export function canCraft(gs: GameState, r: Recipe): boolean {
@@ -19,7 +25,7 @@ export function canCraft(gs: GameState, r: Recipe): boolean {
 
 /** Atomic craft: ingredients are only consumed if the result fits in the bag. */
 export function craft(gs: GameState, recipeId: string): CraftResult {
-  const r = RECIPES.find((x) => x.id === recipeId);
+  const r = ALL_RECIPES.find((x) => x.id === recipeId);
   if (!r) return { ok: false, reason: 'unknown' };
   if (countOf(gs.inventory, 'spirit-herb') < r.herbs) return { ok: false, reason: 'herbs' };
   if (gs.stones < r.stones) return { ok: false, reason: 'stones' };

@@ -6,22 +6,22 @@
 
 |  | id | name | behaviour | zones | base HP/ATK/DEF | speed | aggro | windup | XP | stones | drops |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| <img src="../images/enemies/wolf.png" height="64"> | wolf | Spirit Wolf | rusher | bamboo | 40/8/1 | 58 | 110 | 0.3 | 12 | 1–3 | hp-potion 12% |
-| <img src="../images/enemies/snake.png" height="64"> | snake | Jade Serpent | rusher | bamboo, marsh | 28/7/0 | 44 | 90 | 0.28 | 9 | 1–2 | hp-potion 10% |
-| <img src="../images/enemies/foxfire.png" height="64"> | foxfire | Foxfire Wisp | caster | bamboo | 22/10/0 | 40 | 130 | – | 16 | 2–4 | mana-potion 25% |
+| <img src="../images/enemies/wolf.png" height="64"> | wolf | Spirit Wolf | rusher | bamboo, wolfden | 40/8/1 | 58 | 110 | 0.3 | 12 | 1–3 | hp-potion 12% |
+| <img src="../images/enemies/snake.png" height="64"> | snake | Jade Serpent | rusher | bamboo, marsh, lake, wolfden | 28/7/0 | 44 | 90 | 0.28 | 9 | 1–2 | hp-potion 10% |
+| <img src="../images/enemies/foxfire.png" height="64"> | foxfire | Foxfire Wisp | caster | bamboo, lake, wolfden | 22/10/0 | 40 | 130 | – | 16 | 2–4 | mana-potion 25% |
 | <img src="../images/enemies/treant.png" height="64"> | treant | Elder Treant | charger | bamboo | 110/13/5 | 26 | 100 | 0.7 | 35 | 4–8 | qi-pill 30%, hp-potion 40% |
-| <img src="../images/enemies/toad.png" height="64"> | toad | Marsh Toad | rusher | marsh | 64/9/3 | 30 | 90 | 0.42 | 18 | 2–4 | hp-potion 20% |
-| <img src="../images/enemies/waterghost.png" height="64"> | waterghost | Drowned Ghost | rusher | marsh | 34/9/0 | 36 | 120 | 0.3 | 17 | 2–4 | mana-potion 25% |
+| <img src="../images/enemies/toad.png" height="64"> | toad | Marsh Toad | rusher | marsh, lake | 64/9/3 | 30 | 90 | 0.42 | 18 | 2–4 | hp-potion 20% |
+| <img src="../images/enemies/waterghost.png" height="64"> | waterghost | Drowned Ghost | rusher | marsh, lake | 34/9/0 | 36 | 120 | 0.3 | 17 | 2–4 | mana-potion 25% |
 | <img src="../images/enemies/ghost.png" height="64"> | ghost | Lantern Ghost | caster | marsh | 26/11/0 | 38 | 130 | – | 20 | 2–5 | mana-potion 30%, qi-pill 10% |
 | <img src="../images/enemies/peachspirit.png" height="64"> | peachspirit | Peach Spirit | caster | grove | 30/10/0 | 36 | 130 | – | 20 | 2–5 | mana-potion 30%, qi-pill 12% |
-| <img src="../images/enemies/bat.png" height="64"> | bat | Cave Bat | rusher | grove | 26/6/0 | 78 | 130 | 0.24 | 8 | 1–2 | – |
-| <img src="../images/enemies/paperdoll.png" height="64"> | paperdoll | Paper Doll | rusher | grove | 26/8/0 | 52 | 100 | 0.3 | 11 | 1–2 | hp-potion 10% |
-| <img src="../images/enemies/swordspirit.png" height="64"> | swordspirit | Sword Spirit | charger | grove | 34/12/1 | 40 | 130 | 0.45 | 24 | 3–6 | qi-pill 20% |
-| <img src="../images/enemies/thunderbird.png" height="64"> | thunderbird | Thunder Bird | caster | grove | 40/13/1 | 44 | 150 | – | 34 | 4–8 | qi-pill 30%, mana-potion 30% |
-| <img src="../images/enemies/skeleton.png" height="64"> | skeleton | Bone Soldier | rusher | ruins | 46/10/2 | 42 | 110 | 0.3 | 20 | 2–5 | hp-potion 20% |
-| <img src="../images/enemies/jiangshi.png" height="64"> | jiangshi | Jiangshi | charger | ruins | 62/13/3 | 34 | 110 | 0.6 | 30 | 3–7 | qi-pill 25% |
-| <img src="../images/enemies/soldier.png" height="64"> | soldier | Fallen Guard | rusher | ruins | 56/11/4 | 40 | 110 | 0.36 | 24 | 3–6 | hp-potion 25% |
-| <img src="../images/enemies/golem.png" height="64"> | golem | Stone Golem | charger | ruins | 110/16/8 | 24 | 100 | 0.8 | 48 | 6–12 | qi-pill 35%, hp-potion 40% |
+| <img src="../images/enemies/bat.png" height="64"> | bat | Cave Bat | rusher | grove, cliffs, wolfden | 26/6/0 | 78 | 130 | 0.24 | 8 | 1–2 | – |
+| <img src="../images/enemies/paperdoll.png" height="64"> | paperdoll | Paper Doll | rusher | grove, swordsanctum | 26/8/0 | 52 | 100 | 0.3 | 11 | 1–2 | hp-potion 10% |
+| <img src="../images/enemies/swordspirit.png" height="64"> | swordspirit | Sword Spirit | charger | grove, cliffs, swordsanctum | 34/12/1 | 40 | 130 | 0.45 | 24 | 3–6 | qi-pill 20% |
+| <img src="../images/enemies/thunderbird.png" height="64"> | thunderbird | Thunder Bird | caster | grove, cliffs | 40/13/1 | 44 | 150 | – | 34 | 4–8 | qi-pill 30%, mana-potion 30% |
+| <img src="../images/enemies/skeleton.png" height="64"> | skeleton | Bone Soldier | rusher | ruins, swordsanctum | 46/10/2 | 42 | 110 | 0.3 | 20 | 2–5 | hp-potion 20% |
+| <img src="../images/enemies/jiangshi.png" height="64"> | jiangshi | Jiangshi | charger | ruins, cliffs | 62/13/3 | 34 | 110 | 0.6 | 30 | 3–7 | qi-pill 25% |
+| <img src="../images/enemies/soldier.png" height="64"> | soldier | Fallen Guard | rusher | ruins, swordsanctum | 56/11/4 | 40 | 110 | 0.36 | 24 | 3–6 | hp-potion 25% |
+| <img src="../images/enemies/golem.png" height="64"> | golem | Stone Golem | charger | ruins, cliffs, swordsanctum | 110/16/8 | 24 | 100 | 0.8 | 48 | 6–12 | qi-pill 35%, hp-potion 40% |
 | <img src="../images/enemies/frostwolf.png" height="64"> | frostwolf | Frost Wolf | rusher | frostpass | 52/11/2 | 66 | 120 | 0.28 | 20 | 3–6 | greater-hp-potion 8%, hp-potion 15% |
 | <img src="../images/enemies/icesnake.png" height="64"> | icesnake | Rime Serpent | rusher | frostpass | 38/11/1 | 50 | 100 | 0.26 | 16 | 2–5 | hp-potion 12% |
 | <img src="../images/enemies/frostwisp.png" height="64"> | frostwisp | Frost Wisp | caster | frostpass, crystal | 48/14/0 | 42 | 140 | – | 24 | 3–6 | greater-mana-potion 10%, mana-potion 25% |
@@ -39,22 +39,40 @@
 | enemy | zone | HP | ATK | DEF | XP | stones |
 |---|---|---|---|---|---|---|
 | Spirit Wolf | bamboo | 160 / 448 | 10 / 13 | 1 | 12 / 36 | 1–3 |
+| Spirit Wolf | wolfden | 240 / 672 | 12 / 17 | 1 | 20 / 61 | 2–5 |
 | Jade Serpent | bamboo | 112 / 314 | 8 / 12 | 0 | 9 / 27 | 1–2 |
 | Jade Serpent | marsh | 168 / 470 | 11 / 15 | 0 | 16 / 49 | 2–4 |
+| Jade Serpent | lake | 140 / 392 | 9 / 13 | 0 | 13 / 38 | 1–3 |
+| Jade Serpent | wolfden | 168 / 470 | 11 / 15 | 0 | 15 / 46 | 2–3 |
 | Foxfire Wisp | bamboo | 88 / 246 | 12 / 17 | 0 | 16 / 48 | 2–4 |
+| Foxfire Wisp | lake | 110 / 308 | 14 / 19 | 0 | 22 / 67 | 3–6 |
+| Foxfire Wisp | wolfden | 132 / 370 | 16 / 22 | 0 | 27 / 82 | 3–7 |
 | Elder Treant | bamboo | 440 / 1232 | 16 / 22 | 5 | 35 / 105 | 4–8 |
 | Marsh Toad | marsh | 384 / 1075 | 14 / 19 | 4 | 32 / 97 | 4–7 |
+| Marsh Toad | lake | 320 / 896 | 12 / 17 | 3 | 25 / 76 | 3–6 |
 | Drowned Ghost | marsh | 204 / 571 | 14 / 19 | 0 | 31 / 92 | 4–7 |
+| Drowned Ghost | lake | 170 / 476 | 12 / 17 | 0 | 24 / 71 | 3–6 |
 | Lantern Ghost | marsh | 156 / 437 | 17 / 23 | 0 | 36 / 108 | 4–9 |
 | Peach Spirit | grove | 276 / 773 | 19 / 27 | 0 | 56 / 168 | 6–14 |
 | Cave Bat | grove | 239 / 670 | 11 / 16 | 0 | 22 / 67 | 3–6 |
+| Cave Bat | cliffs | 281 / 786 | 13 / 18 | 0 | 27 / 82 | 3–7 |
+| Cave Bat | wolfden | 156 / 437 | 9 / 13 | 0 | 14 / 41 | 2–3 |
 | Paper Doll | grove | 239 / 670 | 15 / 21 | 0 | 31 / 92 | 3–6 |
+| Paper Doll | swordsanctum | 333 / 932 | 20 / 28 | 0 | 46 / 139 | 4–8 |
 | Sword Spirit | grove | 313 / 876 | 23 / 32 | 2 | 67 / 202 | 8–17 |
+| Sword Spirit | cliffs | 367 / 1028 | 26 / 37 | 2 | 82 / 245 | 10–20 |
+| Sword Spirit | swordsanctum | 435 / 1219 | 30 / 42 | 2 | 101 / 302 | 13–25 |
 | Thunder Bird | grove | 368 / 1030 | 25 / 35 | 2 | 95 / 286 | 11–22 |
+| Thunder Bird | cliffs | 432 / 1210 | 29 / 40 | 2 | 116 / 347 | 14–27 |
 | Bone Soldier | ruins | 552 / 1546 | 24 / 34 | 4 | 80 / 240 | 8–20 |
+| Bone Soldier | swordsanctum | 589 / 1649 | 25 / 35 | 4 | 84 / 252 | 8–21 |
 | Jiangshi | ruins | 744 / 2083 | 31 / 44 | 6 | 120 / 360 | 12–28 |
+| Jiangshi | cliffs | 670 / 1875 | 29 / 40 | 6 | 102 / 306 | 10–24 |
 | Fallen Guard | ruins | 672 / 1882 | 26 / 37 | 8 | 96 / 288 | 12–24 |
+| Fallen Guard | swordsanctum | 717 / 2007 | 28 / 39 | 8 | 101 / 302 | 13–25 |
 | Stone Golem | ruins | 1320 / 3696 | 38 / 54 | 16 | 192 / 576 | 24–48 |
+| Stone Golem | cliffs | 1188 / 3326 | 35 / 49 | 15 | 163 / 490 | 20–41 |
+| Stone Golem | swordsanctum | 1408 / 3942 | 40 / 56 | 17 | 202 / 605 | 25–50 |
 | Frost Wolf | frostpass | 874 / 2446 | 33 / 46 | 5 | 84 / 252 | 13–25 |
 | Rime Serpent | frostpass | 638 / 1788 | 33 / 46 | 3 | 67 / 202 | 8–21 |
 | Frost Wisp | frostpass | 806 / 2258 | 42 / 59 | 0 | 101 / 302 | 13–25 |

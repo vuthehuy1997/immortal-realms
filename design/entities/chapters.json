@@ -4,6 +4,7 @@
     "name": "The Broken Seals",
     "subtitle": "Chapter 1",
     "hub": "village",
+    "gateName": "Sky Gate",
     "story": [
       "Long ago the founder of the Azure Cloud Sect sealed the Heavenly Fissure, a wound in the sky that leaks ruin into the world.",
       "He bound three guardians to hold the seals: a sword immortal, a nine-tailed fox, a dragon of the mist pool.",
@@ -16,12 +17,18 @@
       "marsh",
       "grove",
       "ruins",
-      "lair"
+      "lair",
+      "lake",
+      "cliffs",
+      "wolfden",
+      "swordsanctum"
     ],
     "bosses": [
       "warden",
       "ninetail",
-      "jiaolong"
+      "jiaolong",
+      "alphawolf",
+      "swordshade"
     ],
     "npcs": [
       "elder-lin",

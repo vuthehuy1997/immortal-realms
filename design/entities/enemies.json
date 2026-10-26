@@ -20,7 +20,8 @@
       3
     ],
     "zones": [
-      "bamboo"
+      "bamboo",
+      "wolfden"
     ],
     "drops": [
       {
@@ -50,6 +51,28 @@
             9
           ]
         }
+      },
+      "wolfden": {
+        "normal": {
+          "maxHp": 240,
+          "atk": 12,
+          "def": 1,
+          "xp": 20,
+          "stones": [
+            2,
+            5
+          ]
+        },
+        "elite": {
+          "maxHp": 672,
+          "atk": 17,
+          "def": 1,
+          "xp": 61,
+          "stones": [
+            5,
+            15
+          ]
+        }
       }
     },
     "image": "enemies/wolf.png"
@@ -76,7 +99,9 @@
     ],
     "zones": [
       "bamboo",
-      "marsh"
+      "marsh",
+      "lake",
+      "wolfden"
     ],
     "drops": [
       {
@@ -128,6 +153,50 @@
             11
           ]
         }
+      },
+      "lake": {
+        "normal": {
+          "maxHp": 140,
+          "atk": 9,
+          "def": 0,
+          "xp": 13,
+          "stones": [
+            1,
+            3
+          ]
+        },
+        "elite": {
+          "maxHp": 392,
+          "atk": 13,
+          "def": 0,
+          "xp": 38,
+          "stones": [
+            4,
+            8
+          ]
+        }
+      },
+      "wolfden": {
+        "normal": {
+          "maxHp": 168,
+          "atk": 11,
+          "def": 0,
+          "xp": 15,
+          "stones": [
+            2,
+            3
+          ]
+        },
+        "elite": {
+          "maxHp": 470,
+          "atk": 15,
+          "def": 0,
+          "xp": 46,
+          "stones": [
+            5,
+            10
+          ]
+        }
       }
     },
     "image": "enemies/snake.png"
@@ -157,7 +226,9 @@
       "mob.foxfire_v_green"
     ],
     "zones": [
-      "bamboo"
+      "bamboo",
+      "lake",
+      "wolfden"
     ],
     "drops": [
       {
@@ -185,6 +256,50 @@
           "stones": [
             6,
             12
+          ]
+        }
+      },
+      "lake": {
+        "normal": {
+          "maxHp": 110,
+          "atk": 14,
+          "def": 0,
+          "xp": 22,
+          "stones": [
+            3,
+            6
+          ]
+        },
+        "elite": {
+          "maxHp": 308,
+          "atk": 19,
+          "def": 0,
+          "xp": 67,
+          "stones": [
+            8,
+            17
+          ]
+        }
+      },
+      "wolfden": {
+        "normal": {
+          "maxHp": 132,
+          "atk": 16,
+          "def": 0,
+          "xp": 27,
+          "stones": [
+            3,
+            7
+          ]
+        },
+        "elite": {
+          "maxHp": 370,
+          "atk": 22,
+          "def": 0,
+          "xp": 82,
+          "stones": [
+            10,
+            20
           ]
         }
       }
@@ -273,7 +388,8 @@
       4
     ],
     "zones": [
-      "marsh"
+      "marsh",
+      "lake"
     ],
     "drops": [
       {
@@ -303,6 +419,28 @@
             22
           ]
         }
+      },
+      "lake": {
+        "normal": {
+          "maxHp": 320,
+          "atk": 12,
+          "def": 3,
+          "xp": 25,
+          "stones": [
+            3,
+            6
+          ]
+        },
+        "elite": {
+          "maxHp": 896,
+          "atk": 17,
+          "def": 3,
+          "xp": 76,
+          "stones": [
+            8,
+            17
+          ]
+        }
       }
     },
     "image": "enemies/toad.png"
@@ -328,7 +466,8 @@
       4
     ],
     "zones": [
-      "marsh"
+      "marsh",
+      "lake"
     ],
     "drops": [
       {
@@ -356,6 +495,28 @@
           "stones": [
             11,
             22
+          ]
+        }
+      },
+      "lake": {
+        "normal": {
+          "maxHp": 170,
+          "atk": 12,
+          "def": 0,
+          "xp": 24,
+          "stones": [
+            3,
+            6
+          ]
+        },
+        "elite": {
+          "maxHp": 476,
+          "atk": 17,
+          "def": 0,
+          "xp": 71,
+          "stones": [
+            8,
+            17
           ]
         }
       }
@@ -507,7 +668,9 @@
       2
     ],
     "zones": [
-      "grove"
+      "grove",
+      "cliffs",
+      "wolfden"
     ],
     "drops": [],
     "scaled": {
@@ -530,6 +693,50 @@
           "stones": [
             8,
             17
+          ]
+        }
+      },
+      "cliffs": {
+        "normal": {
+          "maxHp": 281,
+          "atk": 13,
+          "def": 0,
+          "xp": 27,
+          "stones": [
+            3,
+            7
+          ]
+        },
+        "elite": {
+          "maxHp": 786,
+          "atk": 18,
+          "def": 0,
+          "xp": 82,
+          "stones": [
+            10,
+            20
+          ]
+        }
+      },
+      "wolfden": {
+        "normal": {
+          "maxHp": 156,
+          "atk": 9,
+          "def": 0,
+          "xp": 14,
+          "stones": [
+            2,
+            3
+          ]
+        },
+        "elite": {
+          "maxHp": 437,
+          "atk": 13,
+          "def": 0,
+          "xp": 41,
+          "stones": [
+            5,
+            10
           ]
         }
       }
@@ -557,7 +764,8 @@
       2
     ],
     "zones": [
-      "grove"
+      "grove",
+      "swordsanctum"
     ],
     "drops": [
       {
@@ -585,6 +793,28 @@
           "stones": [
             8,
             17
+          ]
+        }
+      },
+      "swordsanctum": {
+        "normal": {
+          "maxHp": 333,
+          "atk": 20,
+          "def": 0,
+          "xp": 46,
+          "stones": [
+            4,
+            8
+          ]
+        },
+        "elite": {
+          "maxHp": 932,
+          "atk": 28,
+          "def": 0,
+          "xp": 139,
+          "stones": [
+            13,
+            25
           ]
         }
       }
@@ -618,7 +848,9 @@
       "mob.swordspirit_v_blood"
     ],
     "zones": [
-      "grove"
+      "grove",
+      "cliffs",
+      "swordsanctum"
     ],
     "drops": [
       {
@@ -648,6 +880,50 @@
             50
           ]
         }
+      },
+      "cliffs": {
+        "normal": {
+          "maxHp": 367,
+          "atk": 26,
+          "def": 2,
+          "xp": 82,
+          "stones": [
+            10,
+            20
+          ]
+        },
+        "elite": {
+          "maxHp": 1028,
+          "atk": 37,
+          "def": 2,
+          "xp": 245,
+          "stones": [
+            31,
+            61
+          ]
+        }
+      },
+      "swordsanctum": {
+        "normal": {
+          "maxHp": 435,
+          "atk": 30,
+          "def": 2,
+          "xp": 101,
+          "stones": [
+            13,
+            25
+          ]
+        },
+        "elite": {
+          "maxHp": 1219,
+          "atk": 42,
+          "def": 2,
+          "xp": 302,
+          "stones": [
+            38,
+            76
+          ]
+        }
       }
     },
     "image": "enemies/swordspirit.png"
@@ -674,7 +950,8 @@
       8
     ],
     "zones": [
-      "grove"
+      "grove",
+      "cliffs"
     ],
     "drops": [
       {
@@ -708,6 +985,28 @@
             67
           ]
         }
+      },
+      "cliffs": {
+        "normal": {
+          "maxHp": 432,
+          "atk": 29,
+          "def": 2,
+          "xp": 116,
+          "stones": [
+            14,
+            27
+          ]
+        },
+        "elite": {
+          "maxHp": 1210,
+          "atk": 40,
+          "def": 2,
+          "xp": 347,
+          "stones": [
+            41,
+            82
+          ]
+        }
       }
     },
     "image": "enemies/thunderbird.png"
@@ -733,7 +1032,8 @@
       5
     ],
     "zones": [
-      "ruins"
+      "ruins",
+      "swordsanctum"
     ],
     "drops": [
       {
@@ -761,6 +1061,28 @@
           "stones": [
             24,
             60
+          ]
+        }
+      },
+      "swordsanctum": {
+        "normal": {
+          "maxHp": 589,
+          "atk": 25,
+          "def": 4,
+          "xp": 84,
+          "stones": [
+            8,
+            21
+          ]
+        },
+        "elite": {
+          "maxHp": 1649,
+          "atk": 35,
+          "def": 4,
+          "xp": 252,
+          "stones": [
+            25,
+            63
           ]
         }
       }
@@ -794,7 +1116,8 @@
       "mob.jiangshi_v_purple"
     ],
     "zones": [
-      "ruins"
+      "ruins",
+      "cliffs"
     ],
     "drops": [
       {
@@ -824,6 +1147,28 @@
             84
           ]
         }
+      },
+      "cliffs": {
+        "normal": {
+          "maxHp": 670,
+          "atk": 29,
+          "def": 6,
+          "xp": 102,
+          "stones": [
+            10,
+            24
+          ]
+        },
+        "elite": {
+          "maxHp": 1875,
+          "atk": 40,
+          "def": 6,
+          "xp": 306,
+          "stones": [
+            31,
+            71
+          ]
+        }
       }
     },
     "image": "enemies/jiangshi.png"
@@ -849,7 +1194,8 @@
       6
     ],
     "zones": [
-      "ruins"
+      "ruins",
+      "swordsanctum"
     ],
     "drops": [
       {
@@ -879,6 +1225,28 @@
             72
           ]
         }
+      },
+      "swordsanctum": {
+        "normal": {
+          "maxHp": 717,
+          "atk": 28,
+          "def": 8,
+          "xp": 101,
+          "stones": [
+            13,
+            25
+          ]
+        },
+        "elite": {
+          "maxHp": 2007,
+          "atk": 39,
+          "def": 8,
+          "xp": 302,
+          "stones": [
+            38,
+            76
+          ]
+        }
       }
     },
     "image": "enemies/soldier.png"
@@ -906,7 +1274,9 @@
       12
     ],
     "zones": [
-      "ruins"
+      "ruins",
+      "cliffs",
+      "swordsanctum"
     ],
     "drops": [
       {
@@ -938,6 +1308,50 @@
           "stones": [
             72,
             144
+          ]
+        }
+      },
+      "cliffs": {
+        "normal": {
+          "maxHp": 1188,
+          "atk": 35,
+          "def": 15,
+          "xp": 163,
+          "stones": [
+            20,
+            41
+          ]
+        },
+        "elite": {
+          "maxHp": 3326,
+          "atk": 49,
+          "def": 15,
+          "xp": 490,
+          "stones": [
+            61,
+            122
+          ]
+        }
+      },
+      "swordsanctum": {
+        "normal": {
+          "maxHp": 1408,
+          "atk": 40,
+          "def": 17,
+          "xp": 202,
+          "stones": [
+            25,
+            50
+          ]
+        },
+        "elite": {
+          "maxHp": 3942,
+          "atk": 56,
+          "def": 17,
+          "xp": 605,
+          "stones": [
+            76,
+            151
           ]
         }
       }

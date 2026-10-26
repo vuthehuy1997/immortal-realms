@@ -1,9 +1,12 @@
 export interface RealmDef { id: string; name: string; qiMax: number; statMult: number; /** character level needed to break through INTO this realm */ reqLevel: number }
 
-/** Qi Condensation 1-3 and Foundation Establishment. Later realms are future content. */
+/** Qi Condensation 1-3, Foundation Establishment, Golden Core, Nascent Soul and Spirit Severing (one realm per couple of chapters). */
 export const REALMS: readonly RealmDef[] = [
   { id: 'qc1', name: 'Qi Condensation I', qiMax: 120, statMult: 1.0, reqLevel: 1 },
   { id: 'qc2', name: 'Qi Condensation II', qiMax: 400, statMult: 1.15, reqLevel: 5 },
   { id: 'qc3', name: 'Qi Condensation III', qiMax: 1000, statMult: 1.35, reqLevel: 10 },
   { id: 'fe1', name: 'Foundation Establishment', qiMax: 2400, statMult: 1.65, reqLevel: 20 },
+  { id: 'gc1', name: 'Golden Core', qiMax: 5200, statMult: 2.05, reqLevel: 28 },
+  { id: 'ns1', name: 'Nascent Soul', qiMax: 9500, statMult: 2.6, reqLevel: 38 },
+  { id: 'ss1', name: 'Spirit Severing', qiMax: 16000, statMult: 3.2, reqLevel: 46 },
 ];

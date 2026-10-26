@@ -1,14 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { generateWorld, isBlockedTile, moveWithCollision, TILE_SIZE, tileToWorld, zoneAt, type WorldMap } from '../src/core/world';
+import { generateChapter, isBlockedTile, moveWithCollision, TILE_SIZE, tileToWorld, zoneAt, type WorldMap } from '../src/core/world';
 import { step } from '../src/core/movement';
 import { createRng } from '../src/core/rng';
 import { createNoise, fbm } from '../src/core/noise';
 import { ZONES, zonesOfChapter } from '../src/data/zones';
 
 const ZONE_IDS = zonesOfChapter(1);
+/** chapter 1's map is fixed (its seed lives in the map def), so the old per-seed variants all build the same world */
+const generateWorld = (): WorldMap => generateChapter(1);
 
 const open = (w = 8, h = 8): WorldMap => ({
-  chapter: 1, bossHomes: {}, portal: { x: 0, y: 0 }, width: w, height: h,
+  chapter: 1, bossHomes: {}, portal: { x: 0, y: 0 }, entrances: {}, width: w, height: h,
   ground: Array(w * h).fill('grass'), zone: Array(w * h).fill('village'), blocked: new Uint8Array(w * h), props: [],
   spawn: { x: 40, y: 40 }, lair: { x: 100, y: 100 }, den: { x: 60, y: 60 }, pool: { x: 70, y: 70 }, anchors: {} as WorldMap['anchors'], npcs: {}, herbs: [], arrayPos: { x: 0, y: 0 },
 });
@@ -39,24 +41,24 @@ describe('rng & noise', () => {
   });
 });
 
-describe('generateWorld', () => {
+describe('chapter 1 map', () => {
   const SEEDS = [1, 7, 42, 20261016, 99999];
-  it('is deterministic', () => { expect(generateWorld(42)).toEqual(generateWorld(42)); });
+  it('is deterministic', () => { expect(generateWorld()).toEqual(generateWorld()); });
   it('has an impassable border and an open spawn', () => {
-    const m = generateWorld(7);
+    const m = generateWorld();
     expect(isBlockedTile(m, Math.floor(m.spawn.x / TILE_SIZE), Math.floor(m.spawn.y / TILE_SIZE))).toBe(false);
     for (let i = 0; i < m.width; i++) { expect(isBlockedTile(m, i, 0)).toBe(true); expect(isBlockedTile(m, i, m.height - 1)).toBe(true); }
     expect(isBlockedTile(m, -1, 5)).toBe(true);
   });
-  it('contains all six zones and the spawn is in the village', () => {
-    const m = generateWorld(20261016);
+  it('contains every zone of the chapter and the spawn is in the village', () => {
+    const m = generateWorld();
     expect(new Set(m.zone)).toEqual(new Set(ZONE_IDS));
     expect(zoneAt(m, m.spawn)).toBe('village');
-    for (const z of ZONE_IDS) expect(zoneAt(m, tileToWorld(ZONES[z].anchor))).toBe(z);
+    for (const z of ZONE_IDS) expect(zoneAt(m, tileToWorld(ZONES[z]!.anchor))).toBe(z);
   });
   it('everything the player needs is reachable from the spawn (several seeds)', () => {
     for (const seed of SEEDS) {
-      const m = generateWorld(seed); const ok = reachable(m, m.spawn);
+      const m = generateWorld(); const ok = reachable(m, m.spawn);
       for (const z of ZONE_IDS) expect(ok(m.anchors[z]!), `${seed}: ${z}`).toBe(true);
       for (const [name, p] of Object.entries(m.npcs)) expect(ok(p), `${seed}: npc ${name}`).toBe(true);
       expect(ok(m.arrayPos)).toBe(true);
@@ -67,7 +69,7 @@ describe('generateWorld', () => {
     }
   });
   it('is varied scenery: many props, herbs in several zones, water in the marsh', () => {
-    const m = generateWorld(20261016);
+    const m = generateWorld();
     expect(m.props.length).toBeGreaterThan(150);
     expect(new Set(m.props.map((p) => p.kind)).size).toBeGreaterThan(15);
     expect(m.herbs.length).toBeGreaterThanOrEqual(15);
@@ -75,14 +77,14 @@ describe('generateWorld', () => {
     expect(m.props.some((p) => p.kind === 'palace') && m.props.some((p) => p.kind === 'pagoda7')).toBe(true);
   });
   it('solid props block movement; the boss gate leaves a walkable gap', () => {
-    const m = generateWorld(20261016);
+    const m = generateWorld();
     const pal = m.props.find((p) => p.kind === 'palace')!;
     expect(isBlockedTile(m, Math.floor(pal.x / TILE_SIZE), Math.floor((pal.y - 6) / TILE_SIZE))).toBe(true);
     const gate = m.props.find((p) => p.kind === 'goldgate')!;
     expect(isBlockedTile(m, Math.floor(gate.x / TILE_SIZE), Math.floor((gate.y - 4) / TILE_SIZE))).toBe(false);
   });
   it('NPCs stand on open ground and roads link the village to every zone', () => {
-    const m = generateWorld(1);
+    const m = generateWorld();
     for (const p of Object.values(m.npcs)) expect(isBlockedTile(m, Math.floor(p.x / TILE_SIZE), Math.floor(p.y / TILE_SIZE))).toBe(false);
     expect(m.ground.filter((g) => g === 'path').length).toBeGreaterThan(200);
   });
@@ -100,7 +102,7 @@ describe('moveWithCollision', () => {
   });
   it('cannot leave the map', () => { expect(moveWithCollision(open(), { x: 8, y: 40 }, { x: -3, y: 40 }, 5).x).toBe(8); });
   it('walking east from the spawn eventually hits something, never leaves the map', () => {
-    const m = generateWorld(7); let p = { ...m.spawn };
+    const m = generateWorld(); let p = { ...m.spawn };
     for (let i = 0; i < 1200; i++) p = moveWithCollision(m, p, step(p, { x: 1, y: 0 }, 70, 1 / 60), 5);
     expect(p.x).toBeGreaterThan(m.spawn.x); expect(p.x).toBeLessThan(m.width * TILE_SIZE);
   });

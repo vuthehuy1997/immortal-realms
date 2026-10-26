@@ -1,4 +1,5 @@
 import type { ZoneId } from './zones';
+import { CONTENT } from './content';
 
 /** A boss is a sprite + stats + a kit of telegraphed moves; each phase draws from its own pool of moves. */
 export type MoveId = 'slam' | 'sweep' | 'charge' | 'rain' | 'teleport' | 'summon' | 'ring';
@@ -15,8 +16,10 @@ export interface BossDef {
   id: string; name: string;
   /** chapter (map) the boss lives in; its arena is `WorldMap.bossHomes[id]` */
   chapter: number;
+  /** set for cave / secret-realm bosses: the dungeon id (they do not appear on the open map) */
+  dungeon?: string;
   /** legacy chapter-1 landmark name (kept for the design export) */
-  home: 'lair' | 'den' | 'pool' | 'barrow' | 'hollow' | 'summit';
+  home: string;
   /** zone its summoned minions belong to */
   zone: ZoneId;
   /** multiply-tint over the sprite (recoloured reuse) */
@@ -138,6 +141,9 @@ export const SOVEREIGN: BossDef = {
 };
 
 export const BOSSES: Record<string, BossDef> = { warden: WARDEN, ninetail: NINETAIL, jiaolong: JIAOLONG, corpseking: CORPSEKING, crystalcolossus: CRYSTALCOLOSSUS, sovereign: SOVEREIGN };
-export const bossesOfChapter = (chapter: number): BossDef[] => Object.values(BOSSES).filter((b) => b.chapter === chapter);
+for (const c of CONTENT) for (const b of c.bosses) BOSSES[b.id] = b;
+/** Bosses standing on a chapter's open map (dungeon bosses live in their dungeon). */
+export const bossesOfChapter = (chapter: number): BossDef[] => Object.values(BOSSES).filter((b) => b.chapter === chapter && !b.dungeon);
+export const bossesOfDungeon = (id: string): BossDef[] => Object.values(BOSSES).filter((b) => b.dungeon === id);
 
 export const BOSS_IDS = Object.keys(BOSSES);

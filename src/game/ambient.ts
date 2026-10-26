@@ -47,7 +47,7 @@ export class Ambient {
     this.flyZone.setSize(v.width, v.height);
     this.petals.frequency = zone === 'grove' || zone === 'village' ? 260 : 900;
     // mood overlay
-    const mood = ZONES[zone].mood;
+    const mood = ZONES[zone]!.mood;
     const t = Phaser.Display.Color.IntegerToColor(MOOD_TINT[mood]!);
     this.target.setTo(t.red, t.green, t.blue);
     const k = Math.min(1, dtSec * 1.2);

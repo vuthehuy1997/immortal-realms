@@ -27,14 +27,14 @@ const enemyDps = (atk: number, cooldown: number, playerDef: number) => Math.max(
 describe('zone danger', () => {
   it('each zone is strictly tougher and more rewarding than the previous one', () => {
     for (let i = 1; i < GRIND_ZONES.length; i++) {
-      const a = ZONES[GRIND_ZONES[i - 1]!].tier, b = ZONES[GRIND_ZONES[i]!].tier;
+      const a = ZONES[GRIND_ZONES[i - 1]!]!.tier, b = ZONES[GRIND_ZONES[i]!]!.tier;
       expect(b.hp).toBeGreaterThan(a.hp); expect(b.atk).toBeGreaterThan(a.atk); expect(b.xp).toBeGreaterThan(a.xp);
     }
   });
 
   for (const zid of GRIND_ZONES) {
     const level = ZONE_LEVEL[zid]!;
-    for (const id of Object.keys(ZONES[zid].spawns)) {
+    for (const id of Object.keys(ZONES[zid]!.spawns)) {
       it(`${zid}/${id} at level ${level}: a real fight (several seconds) that hurts but does not one-shot`, () => {
         const def = ENEMIES[id]!, sc = scaledEnemy(def, zid), p = stats(level);
         const ttk = sc.maxHp / comboDps(level, sc.def);
@@ -98,7 +98,7 @@ describe('bosses', () => {
 describe('progression pacing', () => {
   it('levelling inside a zone needs a meaningful number of kills, never one or hundreds', () => {
     for (const zid of GRIND_ZONES) {
-      const level = ZONE_LEVEL[zid]!, entries = Object.entries(ZONES[zid].spawns);
+      const level = ZONE_LEVEL[zid]!, entries = Object.entries(ZONES[zid]!.spawns);
       const total = entries.reduce((a, [, n]) => a + n, 0);
       const avgXp = entries.reduce((a, [id, n]) => a + scaledEnemy(ENEMIES[id]!, zid).xp * n, 0) / total;
       const kills = xpToNext(level) / avgXp;
