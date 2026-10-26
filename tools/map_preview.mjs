@@ -3,6 +3,7 @@
 // Convert with: python3 -c "from PIL import Image; Image.open('out.ppm').save('out.png')"
 import './ts-loader.mjs';
 import { writeFileSync } from 'node:fs';
+import { Buffer } from 'node:buffer';
 
 const world = await import(new URL('../src/core/world.ts', import.meta.url).href);
 const [, , mode, which, out = 'preview.ppm'] = process.argv;
