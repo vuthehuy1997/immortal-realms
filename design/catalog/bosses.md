@@ -135,11 +135,11 @@ Drops: sovereign-blade (100%), sky-seal (100%), qi-pill (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 4200 | 22 | 6 | 56 | 380 | 60–90 | wolfden | wolfden | – | 0.66 / 0.33 |
+| 4200 | 22 | 6 | 56 | 380 | 60–90 | wolfden | wolfden | s1-denhunt | 0.66 / 0.33 |
 
 Kit: **P1** sweep, charge · **P2** charge, summon, sweep · **P3** charge, ring, summon, sweep
 
-Drops: steel-blade (100%), hp-potion (100%)
+Drops: steel-blade (100%), hp-potion (100%), s1-moonfang-cloak (50%)
 
 | move | parameters |
 |---|---|
@@ -154,11 +154,11 @@ Drops: steel-blade (100%), hp-potion (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 6800 | 30 | 9 | 40 | 620 | 100–150 | swordsanctum | swordsanctum | – | 0.66 / 0.33 |
+| 6800 | 30 | 9 | 40 | 620 | 100–150 | swordsanctum | swordsanctum | s1-sanctum | 0.66 / 0.33 |
 
 Kit: **P1** slam, sweep · **P2** slam, sweep, ring · **P3** teleport, ring, sweep, slam
 
-Drops: spirit-silk (100%), qi-pill (100%)
+Drops: spirit-silk (100%), qi-pill (100%), s1-discipline-seal (50%)
 
 | move | parameters |
 |---|---|
@@ -166,3 +166,540 @@ Drops: spirit-silk (100%), qi-pill (100%)
 | sweep | range 80, halfAngle 0.95, windup 0.7, recover 0.5, cooldown 3.2, damageMult 1.5, triggerRange 80 |
 | teleport | windup 0.8, recover 0.5, cooldown 9, behind 44, radius 48, damageMult 1.5 |
 | ring | windup 0.8, cooldown 7, projectiles 12, damageMult 1 |
+
+## Tidecaller Matron (`s1-tidecaller`)
+
+<img src="../images/bosses/s1-tidecaller.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 4800 | 25 | 6 | 44 | 460 | 80–120 | pearlgrotto | s1-pearlgrotto | s1-grotto | 0.66 / 0.33 |
+
+Kit: **P1** sweep, rain · **P2** rain, summon, sweep · **P3** rain, ring, summon, sweep
+
+Drops: s1-tidepearl (100%), s1-lotus-draught (100%), qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 76, halfAngle 1.2, windup 0.6, recover 0.4, cooldown 2.8, damageMult 1.3, triggerRange 80 |
+| rain | count 6, radius 28, spread 110, windup 0.5, delay 0.95, recover 0.4, cooldown 6, damageMult 1.1 |
+| summon | windup 0.7, cooldown 12, count 2, maxMinions 4, minionType waterghost |
+| ring | windup 0.75, cooldown 7, projectiles 10, damageMult 0.9 |
+
+## Thunderroost Matriarch (`s1-stormmatriarch`)
+
+<img src="../images/bosses/s1-stormmatriarch.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 6000 | 29 | 7 | 52 | 560 | 90–140 | stormroost | s1-stormroost | s1-stormroost | 0.66 / 0.33 |
+
+Kit: **P1** charge, rain · **P2** charge, rain, summon · **P3** rain, teleport, ring, charge, summon
+
+Drops: s1-stormcaller-saber (100%), s1-storm-pill (100%), qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| charge | windup 0.65, duration 0.5, speed 300, width 22, recover 0.7, cooldown 4.6, damageMult 1.5, minRange 12, maxRange 240 |
+| rain | count 7, radius 28, spread 120, windup 0.5, delay 0.9, recover 0.4, cooldown 5.5, damageMult 1.2 |
+| teleport | windup 0.7, recover 0.45, cooldown 9, behind 42, radius 46, damageMult 1.4 |
+| ring | windup 0.75, cooldown 6.5, projectiles 12, damageMult 0.95 |
+| summon | windup 0.75, cooldown 13, count 2, maxMinions 4, minionType s1-thunderimp |
+
+## Rime Matriarch (`s2-rimematriarch`)
+
+<img src="../images/bosses/s2-rimematriarch.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 8800 | 38 | 10 | 62 | 700 | 120–180 | rimeheart | s2-rimeheart | s2-rimeheart | 0.66 / 0.33 |
+
+Kit: **P1** sweep, charge · **P2** charge, summon, sweep · **P3** charge, ring, summon, sweep
+
+Drops: s2-rime-cloak (70%), s2-rime-elixir (100%), qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 78, halfAngle 1.15, windup 0.55, recover 0.4, cooldown 2.8, damageMult 1.35, triggerRange 82 |
+| charge | windup 0.6, duration 0.5, speed 320, width 24, recover 0.65, cooldown 4, damageMult 1.55, minRange 12, maxRange 250 |
+| summon | windup 0.7, cooldown 11, count 3, maxMinions 5, minionType s2-glacierwolf |
+| ring | windup 0.7, cooldown 7, projectiles 12, damageMult 0.9 |
+
+## Bone Warden of the Gravewind (`s2-bonewarden`)
+
+<img src="../images/bosses/s2-bonewarden.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 11500 | 44 | 14 | 44 | 900 | 150–220 | gravewind | s2-gravewind | s2-bonewarden | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** slam, charge, summon, sweep · **P3** charge, ring, summon, slam, sweep
+
+Drops: s2-warden-signet (80%), s2-frostlotus-pill (100%), greater-hp-potion (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 60, windup 0.85, recover 0.5, cooldown 4, damageMult 1.7, triggerRange 92 |
+| sweep | range 92, halfAngle 1, windup 0.7, recover 0.45, cooldown 3, damageMult 1.4, triggerRange 90 |
+| charge | windup 0.7, duration 0.5, speed 300, width 26, recover 0.7, cooldown 4.8, damageMult 1.6, minRange 14, maxRange 250 |
+| summon | windup 0.75, cooldown 12, count 3, maxMinions 5, minionType ashskeleton |
+| ring | windup 0.75, cooldown 6.5, projectiles 12, damageMult 0.95 |
+
+## Prism Sage of the Mirror Vault (`s2-prismsage`)
+
+<img src="../images/bosses/s2-prismsage.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 12500 | 46 | 15 | 40 | 1000 | 170–250 | mirrorvault | s2-mirrorvault | s2-mirror | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** slam, rain, summon, sweep · **P3** rain, teleport, ring, summon, slam
+
+Drops: s2-mirror-blade (100%), s2-aurora-draught (100%), qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 56, windup 0.9, recover 0.5, cooldown 4.2, damageMult 1.7, triggerRange 88 |
+| sweep | range 86, halfAngle 0.95, windup 0.7, recover 0.45, cooldown 3.2, damageMult 1.45, triggerRange 84 |
+| rain | count 7, radius 30, spread 130, windup 0.5, delay 0.95, recover 0.4, cooldown 5.5, damageMult 1.15 |
+| teleport | windup 0.75, recover 0.45, cooldown 8.5, behind 44, radius 50, damageMult 1.6 |
+| summon | windup 0.8, cooldown 13, count 2, maxMinions 4, minionType prismghost |
+| ring | windup 0.75, cooldown 6.2, projectiles 14, damageMult 1 |
+
+## Glacier Wyrm (`s2-glacierwyrm`)
+
+<img src="../images/bosses/s2-glacierwyrm.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 13500 | 48 | 14 | 42 | 1100 | 190–270 | wyrmden | s2-wyrmden | s2-wyrm | 0.66 / 0.33 |
+
+Kit: **P1** sweep, rain · **P2** sweep, charge, ring, summon · **P3** rain, ring, charge, slam, sweep
+
+Drops: s2-wyrm-pearl (100%), s2-glacier-saber (50%), s2-rime-elixir (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 56, windup 0.9, recover 0.5, cooldown 4.2, damageMult 1.7, triggerRange 90 |
+| sweep | range 96, halfAngle 1.1, windup 0.65, recover 0.45, cooldown 3, damageMult 1.4, triggerRange 92 |
+| charge | windup 0.75, duration 0.55, speed 290, width 26, recover 0.7, cooldown 5, damageMult 1.55, minRange 14, maxRange 250 |
+| rain | count 8, radius 30, spread 120, windup 0.5, delay 0.95, recover 0.4, cooldown 5.5, damageMult 1.15 |
+| summon | windup 0.75, cooldown 13, count 2, maxMinions 4, minionType s2-mawserpent |
+| ring | windup 0.75, cooldown 6.5, projectiles 12, damageMult 0.95 |
+
+## Sand Wyrm of the Scorched Canyon (`sandwyrm`)
+
+<img src="../images/bosses/sandwyrm.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 22000 | 70 | 20 | 46 | 1800 | 260–360 | canyon | canyon | ember-wyrm | 0.66 / 0.33 |
+
+Kit: **P1** sweep, charge · **P2** charge, rain, summon, slam · **P3** rain, ring, charge, slam, sweep
+
+Drops: ember-wyrm-scale (100%), ember-hp-potion (100%), ember-qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 62, windup 0.9, recover 0.5, cooldown 4.2, damageMult 1.7, triggerRange 96 |
+| sweep | range 100, halfAngle 1.1, windup 0.65, recover 0.45, cooldown 3, damageMult 1.4, triggerRange 96 |
+| charge | windup 0.7, duration 0.55, speed 330, width 28, recover 0.7, cooldown 4.6, damageMult 1.6, minRange 14, maxRange 260 |
+| rain | count 8, radius 30, spread 130, windup 0.5, delay 0.95, recover 0.4, cooldown 5.5, damageMult 1.2 |
+| summon | windup 0.8, cooldown 13, count 3, maxMinions 5, minionType sandviper |
+| ring | windup 0.75, cooldown 6.5, projectiles 12, damageMult 0.95 |
+
+## Mirage Empress (`mirageempress`)
+
+<img src="../images/bosses/mirageempress.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 30000 | 80 | 22 | 52 | 2400 | 320–440 | suntemple | suntemple | ember-mirage | 0.66 / 0.33 |
+
+Kit: **P1** sweep, teleport · **P2** teleport, rain, summon, sweep · **P3** teleport, ring, rain, charge, sweep
+
+Drops: furnace-robe (100%), ember-mana-potion (100%), ember-qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 92, halfAngle 1.3, windup 0.6, recover 0.4, cooldown 2.8, damageMult 1.4, triggerRange 90 |
+| charge | windup 0.65, duration 0.5, speed 340, width 24, recover 0.6, cooldown 4.8, damageMult 1.6, minRange 14, maxRange 250 |
+| rain | count 9, radius 30, spread 140, windup 0.5, delay 0.9, recover 0.4, cooldown 5.5, damageMult 1.2 |
+| teleport | windup 0.7, recover 0.4, cooldown 7, behind 44, radius 50, damageMult 1.6 |
+| summon | windup 0.75, cooldown 12, count 3, maxMinions 5, minionType mirageghost |
+| ring | windup 0.7, cooldown 6, projectiles 14, damageMult 1 |
+
+## Furnace Warden (`furnacewarden`)
+
+<img src="../images/bosses/furnacewarden.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 48000 | 95 | 26 | 46 | 3600 | 480–640 | furnace | furnace | ember-furnace | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep, charge · **P2** slam, rain, summon, ring, sweep · **P3** rain, teleport, ring, charge, slam, summon
+
+Drops: furnace-saber (100%), furnace-seal (100%), ember-qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 68, windup 0.85, recover 0.45, cooldown 3.8, damageMult 1.8, triggerRange 100 |
+| sweep | range 104, halfAngle 1, windup 0.7, recover 0.45, cooldown 3, damageMult 1.5, triggerRange 98 |
+| charge | windup 0.7, duration 0.5, speed 340, width 26, recover 0.6, cooldown 5, damageMult 1.6, minRange 14, maxRange 270 |
+| rain | count 10, radius 32, spread 140, windup 0.5, delay 0.9, recover 0.4, cooldown 5.2, damageMult 1.25 |
+| teleport | windup 0.75, recover 0.45, cooldown 8, behind 48, radius 54, damageMult 1.7 |
+| summon | windup 0.8, cooldown 13, count 3, maxMinions 5, minionType sunblade |
+| ring | windup 0.75, cooldown 5.8, projectiles 16, damageMult 1 |
+
+## Glass-Worm Queen (`glasswormqueen`)
+
+<img src="../images/bosses/glasswormqueen.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 17000 | 62 | 18 | 44 | 1400 | 200–300 | burrow | ember-burrow | ember-worm-queen | 0.66 / 0.33 |
+
+Kit: **P1** slam, charge · **P2** charge, rain, summon · **P3** rain, charge, summon, slam
+
+Drops: ember-glass-shard (100%), ember-hp-potion (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 58, windup 0.9, recover 0.5, cooldown 4.2, damageMult 1.6, triggerRange 90 |
+| charge | windup 0.75, duration 0.55, speed 310, width 26, recover 0.7, cooldown 4.8, damageMult 1.5, minRange 14, maxRange 240 |
+| rain | count 7, radius 28, spread 120, windup 0.5, delay 1, recover 0.4, cooldown 6, damageMult 1.1 |
+| summon | windup 0.8, cooldown 12, count 3, maxMinions 5, minionType glasswormling |
+
+## Obsidian Colossus (`obsidiancolossus`)
+
+<img src="../images/bosses/obsidiancolossus.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 22000 | 72 | 26 | 30 | 1800 | 260–380 | mine | ember-mine | ember-mine-heart | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** slam, rain, summon, sweep · **P3** rain, ring, slam, sweep, summon
+
+Drops: ember-obsidian-shard (100%), ember-mana-potion (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 70, windup 1, recover 0.6, cooldown 4, damageMult 1.8, triggerRange 104 |
+| sweep | range 104, halfAngle 1.1, windup 0.8, recover 0.5, cooldown 3.4, damageMult 1.5, triggerRange 100 |
+| rain | count 9, radius 30, spread 140, windup 0.5, delay 1, recover 0.4, cooldown 5.5, damageMult 1.2 |
+| ring | windup 0.8, cooldown 6, projectiles 14, damageMult 1 |
+| summon | windup 0.8, cooldown 14, count 2, maxMinions 3, minionType magmasprite |
+
+## Vault Warden of the Forge (`vaultwarden`)
+
+<img src="../images/bosses/vaultwarden.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 26000 | 78 | 22 | 50 | 2200 | 300–420 | vault | ember-vault | ember-vault-seal | 0.66 / 0.33 |
+
+Kit: **P1** sweep, charge · **P2** teleport, rain, summon, sweep · **P3** teleport, ring, rain, charge, summon
+
+Drops: ember-qi-pill (100%), ember-hp-potion (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 96, halfAngle 1.2, windup 0.6, recover 0.4, cooldown 2.8, damageMult 1.4, triggerRange 92 |
+| charge | windup 0.6, duration 0.45, speed 350, width 24, recover 0.6, cooldown 4.4, damageMult 1.6, minRange 14, maxRange 260 |
+| rain | count 9, radius 30, spread 130, windup 0.5, delay 0.9, recover 0.4, cooldown 5.4, damageMult 1.2 |
+| teleport | windup 0.7, recover 0.4, cooldown 7.5, behind 44, radius 50, damageMult 1.6 |
+| summon | windup 0.75, cooldown 12, count 3, maxMinions 5, minionType vaultblade |
+| ring | windup 0.7, cooldown 6, projectiles 14, damageMult 1 |
+
+## Storm Crane Lord (`cranelord`)
+
+<img src="../images/bosses/cranelord.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 52000 | 130 | 20 | 46 | 3400 | 380–520 | storm | storm | jade-storm-lord | 0.66 / 0.33 |
+
+Kit: **P1** sweep, charge · **P2** charge, rain, summon, sweep · **P3** teleport, rain, ring, charge, sweep
+
+Drops: jade-crane-saber (100%), jade-elixir (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 96, halfAngle 1.2, windup 0.65, recover 0.45, cooldown 3, damageMult 1.4, triggerRange 92 |
+| charge | windup 0.7, duration 0.5, speed 320, width 26, recover 0.65, cooldown 4.6, damageMult 1.6, minRange 14, maxRange 260 |
+| rain | count 8, radius 30, spread 130, windup 0.5, delay 0.95, recover 0.4, cooldown 5.4, damageMult 1.2 |
+| teleport | windup 0.7, recover 0.4, cooldown 8, behind 44, radius 50, damageMult 1.5 |
+| summon | windup 0.75, cooldown 13, count 3, maxMinions 5, minionType stormcrane |
+| ring | windup 0.7, cooldown 6, projectiles 14, damageMult 1 |
+
+## Keeper of the Jade Archive (`archivekeeper`)
+
+<img src="../images/bosses/archivekeeper.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 64000 | 145 | 24 | 44 | 4200 | 450–600 | library | library | jade-archive-keeper | 0.66 / 0.33 |
+
+Kit: **P1** sweep, rain · **P2** slam, rain, summon, sweep · **P3** teleport, ring, rain, summon, slam, sweep
+
+Drops: heaven-robe (100%), jade-elixir (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 62, windup 0.85, recover 0.5, cooldown 4, damageMult 1.7, triggerRange 94 |
+| sweep | range 92, halfAngle 1.2, windup 0.65, recover 0.45, cooldown 3, damageMult 1.4, triggerRange 90 |
+| rain | count 9, radius 30, spread 140, windup 0.5, delay 1, recover 0.4, cooldown 5.4, damageMult 1.2 |
+| teleport | windup 0.75, recover 0.45, cooldown 8, behind 46, radius 52, damageMult 1.6 |
+| summon | windup 0.8, cooldown 12, count 3, maxMinions 6, minionType scrollwraith |
+| ring | windup 0.75, cooldown 6, projectiles 14, damageMult 1 |
+
+## Celestial Magistrate (`magistrate`)
+
+<img src="../images/bosses/magistrate.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 118000 | 170 | 28 | 44 | 7000 | 800–1100 | dais | dais | jade-magistrate | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep, charge · **P2** slam, rain, summon, teleport, sweep · **P3** rain, teleport, ring, charge, slam, sweep, summon
+
+Drops: heaven-sword (100%), jade-seal (100%), jade-elixir (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 68, windup 0.85, recover 0.45, cooldown 3.8, damageMult 1.8, triggerRange 100 |
+| sweep | range 100, halfAngle 1, windup 0.7, recover 0.45, cooldown 3, damageMult 1.5, triggerRange 96 |
+| charge | windup 0.7, duration 0.5, speed 330, width 26, recover 0.6, cooldown 5, damageMult 1.6, minRange 14, maxRange 270 |
+| rain | count 10, radius 30, spread 150, windup 0.5, delay 0.95, recover 0.4, cooldown 5, damageMult 1.25 |
+| teleport | windup 0.7, recover 0.4, cooldown 7.5, behind 48, radius 54, damageMult 1.75 |
+| summon | windup 0.8, cooldown 13, count 3, maxMinions 6, minionType celestialguard |
+| ring | windup 0.75, cooldown 5.6, projectiles 16, damageMult 1.05 |
+
+## Cloudwyrm of the Hollow (`cloudwyrm`)
+
+<img src="../images/bosses/cloudwyrm.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 30000 | 118 | 18 | 44 | 2400 | 260–360 | cloudhollow | cloudhollow | jade-cavern-echo | 0.66 / 0.33 |
+
+Kit: **P1** sweep, rain · **P2** sweep, charge, ring, summon · **P3** rain, ring, charge, slam, sweep
+
+Drops: jade-wyrm-pearl (50%), jade-hp-potion (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 56, windup 0.85, recover 0.5, cooldown 4.2, damageMult 1.6, triggerRange 90 |
+| sweep | range 96, halfAngle 1.1, windup 0.65, recover 0.45, cooldown 3, damageMult 1.4, triggerRange 92 |
+| charge | windup 0.75, duration 0.55, speed 300, width 26, recover 0.7, cooldown 5, damageMult 1.5, minRange 14, maxRange 250 |
+| rain | count 7, radius 28, spread 120, windup 0.5, delay 0.95, recover 0.4, cooldown 5.5, damageMult 1.1 |
+| summon | windup 0.75, cooldown 13, count 2, maxMinions 4, minionType cloudserpent |
+| ring | windup 0.75, cooldown 6.5, projectiles 12, damageMult 0.95 |
+
+## Jade Seam Tyrant (`seamtyrant`)
+
+<img src="../images/bosses/seamtyrant.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 38000 | 135 | 30 | 32 | 3000 | 320–440 | jademine | jademine | jade-mine-dust | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** slam, rain, summon, sweep · **P3** rain, charge, slam, sweep, summon
+
+Drops: jade-miner-plate (50%), jade-ore (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 70, windup 1, recover 0.6, cooldown 4.2, damageMult 1.9, triggerRange 100 |
+| sweep | range 104, halfAngle 1.1, windup 0.8, recover 0.5, cooldown 3.4, damageMult 1.5, triggerRange 98 |
+| charge | windup 0.85, duration 0.5, speed 280, width 30, recover 0.8, cooldown 5.6, damageMult 1.7, minRange 16, maxRange 240 |
+| rain | count 9, radius 32, spread 140, windup 0.55, delay 1, recover 0.4, cooldown 5.5, damageMult 1.2 |
+| summon | windup 0.8, cooldown 14, count 2, maxMinions 4, minionType oregolem |
+
+## Calligrapher of the Sealed Vault (`vaultcalligrapher`)
+
+<img src="../images/bosses/vaultcalligrapher.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 44000 | 150 | 22 | 42 | 3800 | 380–520 | scrollvault | scrollvault | jade-vault-key | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** rain, summon, slam, sweep · **P3** teleport, ring, rain, summon, slam
+
+Drops: jade-vault-robe (50%), jade-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 60, windup 0.85, recover 0.5, cooldown 4, damageMult 1.7, triggerRange 92 |
+| sweep | range 90, halfAngle 1, windup 0.7, recover 0.45, cooldown 3, damageMult 1.45, triggerRange 90 |
+| rain | count 10, radius 30, spread 140, windup 0.5, delay 0.95, recover 0.4, cooldown 5, damageMult 1.2 |
+| teleport | windup 0.75, recover 0.45, cooldown 8, behind 44, radius 50, damageMult 1.6 |
+| summon | windup 0.8, cooldown 12, count 3, maxMinions 6, minionType scrollwraith |
+| ring | windup 0.75, cooldown 6, projectiles 16, damageMult 1 |
+
+## Lady of the Moon Mirror (`mirrorqueen`)
+
+<img src="../images/bosses/mirrorqueen.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 48000 | 155 | 22 | 48 | 4000 | 400–560 | moonpalace | moonpalace | jade-moon-echo | 0.66 / 0.33 |
+
+Kit: **P1** sweep, charge · **P2** charge, rain, summon, sweep · **P3** teleport, charge, ring, rain, summon, sweep
+
+Drops: jade-moon-pendant (50%), jade-elixir (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 86, halfAngle 1.3, windup 0.6, recover 0.4, cooldown 2.8, damageMult 1.35, triggerRange 84 |
+| charge | windup 0.7, duration 0.5, speed 320, width 24, recover 0.65, cooldown 4.4, damageMult 1.55, minRange 12, maxRange 250 |
+| rain | count 8, radius 30, spread 130, windup 0.45, delay 0.9, recover 0.4, cooldown 5, damageMult 1.2 |
+| teleport | windup 0.65, recover 0.4, cooldown 7, behind 42, radius 50, damageMult 1.55 |
+| summon | windup 0.75, cooldown 12, count 3, maxMinions 5, minionType moonwisp |
+| ring | windup 0.7, cooldown 5.6, projectiles 16, damageMult 1 |
+
+## Blood-River Tyrant (`abyss-tyrant`)
+
+<img src="../images/bosses/abyss-tyrant.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 150000 | 250 | 40 | 46 | 7600 | 900–1300 | abyss-basin | abyss-basin | abyss-blood-river | 0.66 / 0.33 |
+
+Kit: **P1** sweep, rain, slam · **P2** sweep, charge, ring, summon, rain · **P3** rain, ring, charge, slam, sweep, summon
+
+Drops: tribulation-robe (100%), abyss-heal-pill (100%), abyss-hp-potion (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 64, windup 0.9, recover 0.5, cooldown 4, damageMult 1.7, triggerRange 100 |
+| sweep | range 104, halfAngle 1.1, windup 0.68, recover 0.45, cooldown 3, damageMult 1.4, triggerRange 100 |
+| charge | windup 0.75, duration 0.55, speed 300, width 28, recover 0.7, cooldown 4.8, damageMult 1.6, minRange 14, maxRange 260 |
+| rain | count 9, radius 30, spread 130, windup 0.5, delay 0.95, recover 0.4, cooldown 5.5, damageMult 1.2 |
+| summon | windup 0.8, cooldown 13, count 3, maxMinions 5, minionType abyss-lavatoad |
+| ring | windup 0.75, cooldown 6, projectiles 14, damageMult 1 |
+
+## Matron of Regrets (`abyss-matron`)
+
+<img src="../images/bosses/abyss-matron.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 190000 | 270 | 30 | 54 | 8800 | 1100–1600 | abyss-regret | abyss-regret | abyss-matron | 0.66 / 0.33 |
+
+Kit: **P1** sweep, charge, rain · **P2** charge, rain, summon, teleport, sweep · **P3** teleport, charge, ring, rain, sweep, summon
+
+Drops: abyss-bone-charm (50%), abyss-heal-pill (100%), abyss-qi-pill (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 96, halfAngle 1.25, windup 0.62, recover 0.4, cooldown 2.8, damageMult 1.4, triggerRange 92 |
+| charge | windup 0.7, duration 0.5, speed 330, width 24, recover 0.65, cooldown 4.6, damageMult 1.6, minRange 14, maxRange 270 |
+| rain | count 8, radius 30, spread 130, windup 0.45, delay 0.9, recover 0.4, cooldown 5.2, damageMult 1.2 |
+| teleport | windup 0.7, recover 0.4, cooldown 7.5, behind 44, radius 52, damageMult 1.7 |
+| summon | windup 0.75, cooldown 12, count 3, maxMinions 5, minionType abyss-regretghost |
+| ring | windup 0.7, cooldown 5.8, projectiles 16, damageMult 1 |
+
+## Dao Demon of Tribulation (`abyss-daodemon`)
+
+<img src="../images/bosses/abyss-daodemon.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 330000 | 330 | 60 | 48 | 18000 | 3000–4200 | abyss-peak | abyss-peak | abyss-dao-demon | 0.7 / 0.35 |
+
+Kit: **P1** slam, sweep, charge, ring · **P2** slam, rain, summon, teleport, sweep, charge · **P3** rain, teleport, ring, charge, slam, sweep, summon
+
+Drops: tribulation-sword (100%), abyss-seal (100%), abyss-heal-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 70, windup 0.85, recover 0.45, cooldown 3.6, damageMult 1.8, triggerRange 104 |
+| sweep | range 108, halfAngle 1.05, windup 0.66, recover 0.4, cooldown 2.8, damageMult 1.5, triggerRange 102 |
+| charge | windup 0.68, duration 0.5, speed 340, width 26, recover 0.6, cooldown 4.6, damageMult 1.7, minRange 14, maxRange 280 |
+| rain | count 10, radius 32, spread 140, windup 0.45, delay 0.9, recover 0.4, cooldown 5, damageMult 1.25 |
+| teleport | windup 0.7, recover 0.4, cooldown 7, behind 48, radius 56, damageMult 1.8 |
+| summon | windup 0.75, cooldown 12, count 3, maxMinions 6, minionType abyss-regretghost |
+| ring | windup 0.7, cooldown 5.4, projectiles 18, damageMult 1.05 |
+
+## Ossuary Root-King (`abyss-rootking`)
+
+<img src="../images/bosses/abyss-rootking.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 80000 | 210 | 30 | 38 | 4200 | 500–760 | abyss-bonecavern | abyss-bonecavern | abyss-bone-cavern-delve | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** slam, charge, summon, sweep · **P3** charge, ring, summon, slam, sweep
+
+Drops: abyss-bonefang (60%), abyss-hp-potion (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 62, windup 0.9, recover 0.5, cooldown 4, damageMult 1.8, triggerRange 96 |
+| sweep | range 96, halfAngle 1, windup 0.7, recover 0.45, cooldown 3.2, damageMult 1.4, triggerRange 92 |
+| charge | windup 0.75, duration 0.5, speed 300, width 28, recover 0.7, cooldown 5, damageMult 1.6, minRange 14, maxRange 250 |
+| summon | windup 0.8, cooldown 12, count 3, maxMinions 5, minionType abyss-bonehound |
+| ring | windup 0.75, cooldown 6.4, projectiles 12, damageMult 0.95 |
+
+## Heretic of the Blood Spring (`abyss-springfox`)
+
+<img src="../images/bosses/abyss-springfox.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 72000 | 200 | 22 | 56 | 3800 | 460–700 | abyss-bloodgrotto | abyss-bloodgrotto | abyss-grotto-spring | 0.66 / 0.33 |
+
+Kit: **P1** sweep, charge · **P2** charge, rain, summon, sweep · **P3** teleport, charge, rain, summon, sweep
+
+Drops: abyss-ember-ring (60%), abyss-mana-potion (100%)
+
+| move | parameters |
+|---|---|
+| sweep | range 84, halfAngle 1.2, windup 0.6, recover 0.4, cooldown 2.8, damageMult 1.4, triggerRange 84 |
+| charge | windup 0.65, duration 0.5, speed 320, width 22, recover 0.65, cooldown 4.4, damageMult 1.6, minRange 14, maxRange 260 |
+| rain | count 7, radius 28, spread 120, windup 0.45, delay 0.9, recover 0.4, cooldown 5.4, damageMult 1.15 |
+| teleport | windup 0.7, recover 0.4, cooldown 8, behind 42, radius 48, damageMult 1.6 |
+| summon | windup 0.7, cooldown 12, count 3, maxMinions 5, minionType abyss-bloodfoxfire |
+
+## The Self You Left Behind (`abyss-vaultself`)
+
+<img src="../images/bosses/abyss-vaultself.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 105000 | 230 | 34 | 58 | 5200 | 620–900 | abyss-mirrorvault | abyss-mirrorvault | abyss-vault-selves | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep, charge · **P2** sweep, teleport, summon, slam · **P3** teleport, ring, charge, sweep, slam, summon
+
+Drops: abyss-veil-robe (60%), abyss-heal-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 56, windup 0.8, recover 0.45, cooldown 3.8, damageMult 1.7, triggerRange 88 |
+| sweep | range 90, halfAngle 1, windup 0.62, recover 0.4, cooldown 2.8, damageMult 1.4, triggerRange 88 |
+| charge | windup 0.65, duration 0.5, speed 330, width 22, recover 0.6, cooldown 4.6, damageMult 1.6, minRange 14, maxRange 260 |
+| teleport | windup 0.65, recover 0.4, cooldown 7, behind 44, radius 50, damageMult 1.7 |
+| summon | windup 0.75, cooldown 13, count 2, maxMinions 4, minionType abyss-mirrorshade |
+| ring | windup 0.7, cooldown 6, projectiles 14, damageMult 1 |
+
+## Cinder Warden of the Reliquary (`abyss-cinderwarden`)
+
+<img src="../images/bosses/abyss-cinderwarden.png" height="160">
+
+| HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
+|---|---|---|---|---|---|---|---|---|---|
+| 118000 | 240 | 48 | 34 | 5600 | 680–980 | abyss-ashmaw | abyss-ashmaw | abyss-reliquary-delve | 0.66 / 0.33 |
+
+Kit: **P1** slam, sweep · **P2** slam, rain, summon, sweep · **P3** rain, ring, charge, slam, sweep, summon
+
+Drops: abyss-bone-charm (60%), abyss-heal-pill (100%)
+
+| move | parameters |
+|---|---|
+| slam | radius 72, windup 1, recover 0.55, cooldown 4, damageMult 1.9, triggerRange 104 |
+| sweep | range 104, halfAngle 1.1, windup 0.78, recover 0.5, cooldown 3.2, damageMult 1.5, triggerRange 100 |
+| rain | count 9, radius 32, spread 140, windup 0.5, delay 1, recover 0.4, cooldown 5.4, damageMult 1.2 |
+| charge | windup 0.85, duration 0.5, speed 280, width 30, recover 0.8, cooldown 5.4, damageMult 1.7, minRange 14, maxRange 240 |
+| summon | windup 0.85, cooldown 14, count 2, maxMinions 4, minionType abyss-ashknight |
+| ring | windup 0.8, cooldown 6, projectiles 16, damageMult 1 |

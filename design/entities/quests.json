@@ -404,5 +404,1984 @@
         }
       ]
     }
+  },
+  {
+    "id": "s1-ferry",
+    "name": "The Ferryman's Lantern",
+    "giver": "ferryman-bo",
+    "requires": "pests",
+    "intro": "Eh? A sect robe at my landing. Good. Pearl wisps and drowned ghosts have been snuffing the lanterns I hang along the Moonmirror shore, and no barge will cross after dusk. Put out five Pearl Wisps and four Drowned Ghosts and I will show my gratitude.",
+    "reminder": "Five Pearl Wisps and four Drowned Ghosts along the lake shore, south-west of the sect.",
+    "completeText": "Look at that, the lanterns are burning again. A ferryman pays his debts: take these.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s1-pearlwisp",
+        "count": 5,
+        "label": "Quench Pearl Wisps"
+      },
+      {
+        "type": "kill",
+        "target": "waterghost",
+        "count": 4,
+        "label": "Lay Drowned Ghosts to rest"
+      }
+    ],
+    "reward": {
+      "xp": 150,
+      "stones": 60,
+      "items": [
+        {
+          "id": "hp-potion",
+          "count": 2
+        },
+        {
+          "id": "s1-mist-tonic",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "s1-grotto",
+    "name": "The Tidecaller",
+    "giver": "ferryman-bo",
+    "requires": "s1-ferry",
+    "intro": "Under the south shore there is a cave the old boatmen called the Pearl Grotto. Something drowned in there and never left: the Tidecaller Matron. She calls the wisps and the ghosts up from the water. End her and the lake will rest.",
+    "reminder": "Find the Pearl Grotto on the south shore of Moonmirror Lake and defeat the Tidecaller Matron.",
+    "completeText": "The water is quiet. I can hear the reeds again. The lake owes you more than I can pay.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s1-tidecaller",
+        "count": 1,
+        "label": "Defeat the Tidecaller Matron"
+      }
+    ],
+    "reward": {
+      "xp": 340,
+      "stones": 140,
+      "items": [
+        {
+          "id": "s1-lotus-draught",
+          "count": 3
+        },
+        {
+          "id": "s1-tidepearl",
+          "count": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "s1-denhunt",
+    "name": "The Moonfang Alpha",
+    "giver": "hunter-tao",
+    "requires": "pests",
+    "intro": "You thinned the wolves on the road, and that was the easy part. The pack answers to a pale alpha that lives in the den under the old roots, west of here. I lost two good dogs to it. Go into the Moonfang Den and bring its head down.",
+    "reminder": "The Moonfang Den lies in the far west of the bamboo forest. The alpha waits at its far end.",
+    "completeText": "Quiet nights again. Take this: I cured the pelt from its last litter, and it will turn a blade better than silk.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "alphawolf",
+        "count": 1,
+        "label": "Slay the Moonfang Alpha"
+      }
+    ],
+    "reward": {
+      "xp": 280,
+      "stones": 100,
+      "items": [
+        {
+          "id": "s1-moonfang-cloak",
+          "count": 1
+        },
+        {
+          "id": "hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "s1-hawks",
+    "name": "Lightning Tempering",
+    "giver": "hermit-zhuo",
+    "requires": "fox",
+    "intro": "Quiet, child. Do you hear it? The cliffs hum before every storm. The storm hawks nest here and feed on what falls from the sky, and lately their talismans have gone mad. Kill five Storm Hawks and four Thunder Talismans and I will tell you what the lightning is for.",
+    "reminder": "Five Storm Hawks and four Thunder Talismans on the Thunderpeak Cliffs, north of the ruins road.",
+    "completeText": "Good. Lightning forgets nothing: it tempers or it breaks. You are tempered. Take these.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s1-stormhawk",
+        "count": 5,
+        "label": "Bring down Storm Hawks"
+      },
+      {
+        "type": "kill",
+        "target": "s1-thunderimp",
+        "count": 4,
+        "label": "Tear up Thunder Talismans"
+      }
+    ],
+    "reward": {
+      "xp": 400,
+      "stones": 130,
+      "items": [
+        {
+          "id": "mana-potion",
+          "count": 3
+        },
+        {
+          "id": "s1-storm-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "s1-stormroost",
+    "name": "The Thunderroost Matriarch",
+    "giver": "hermit-zhuo",
+    "requires": "s1-hawks",
+    "intro": "The hawks have a mother, and she has made her roost in the cliff itself. The cavern is full of lightning, and she is its heart. She will not leave the nest, so you must go to her. Defeat the Thunderroost Matriarch.",
+    "reminder": "The Thunderroost Cavern opens in the cliffs, west of the road to the Fallen Immortal.",
+    "completeText": "The sky is calm for the first time in a decade. Keep this saber: it was made for exactly such a storm.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s1-stormmatriarch",
+        "count": 1,
+        "label": "Defeat the Thunderroost Matriarch"
+      }
+    ],
+    "reward": {
+      "xp": 560,
+      "stones": 200,
+      "items": [
+        {
+          "id": "s1-stormcaller-saber",
+          "count": 1
+        },
+        {
+          "id": "greater-hp-potion",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "s1-sanctum",
+    "name": "Echoes of the Sword Disciple",
+    "giver": "sister-lan",
+    "requires": "warden",
+    "intro": "I tend the stones of the Broken Sword Ruins. The immortal you felled had one disciple, who would not leave his master, and sealed himself in a pocket of the sect outside time. His shade still keeps the Hidden Sword Sanctum. Free him, if you can.",
+    "reminder": "The Hidden Sword Sanctum is a gate south of the ruins road. The disciple's shade waits at its end.",
+    "completeText": "I felt the seal lift from here. He can finally put the sword down. Thank you, disciple.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "swordshade",
+        "count": 1,
+        "label": "Free the Shade of the Sword Disciple"
+      }
+    ],
+    "reward": {
+      "xp": 620,
+      "stones": 220,
+      "items": [
+        {
+          "id": "s1-discipline-seal",
+          "count": 1
+        },
+        {
+          "id": "s1-mist-tonic",
+          "count": 3
+        },
+        {
+          "id": "qi-pill",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "s2-trapper",
+    "chapter": 2,
+    "name": "The Trapper's Due",
+    "giver": "trapper-hu",
+    "requires": "rift-scouts",
+    "intro": "You walk like someone who can fight. Good: the tundra is crawling. Glacier wolves hunt in packs of ten and the hawks above them pick off whatever the wolves leave. Thin out six Glacier Wolves and four Blizzard Hawks and I can run my lines again.",
+    "reminder": "Six Glacier Wolves and four Blizzard Hawks on the Howling Tundra, south-east of the pass.",
+    "completeText": "Now that is a clean sweep. My lines are yours to follow, and so are these.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s2-glacierwolf",
+        "count": 6,
+        "label": "Cull Glacier Wolves"
+      },
+      {
+        "type": "kill",
+        "target": "s2-blizzardhawk",
+        "count": 4,
+        "label": "Shoot down Blizzard Hawks"
+      }
+    ],
+    "reward": {
+      "xp": 520,
+      "stones": 350,
+      "items": [
+        {
+          "id": "greater-hp-potion",
+          "count": 3
+        },
+        {
+          "id": "greater-mana-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "s2-rimeheart",
+    "chapter": 2,
+    "name": "The Rime Matriarch",
+    "giver": "trapper-hu",
+    "requires": "s2-trapper",
+    "intro": "Every pack has a queen, and this one has a cave in the Whitefrost Pass. The wolves never stop coming while she lives. Go into Rimeheart Cave and end her.",
+    "reminder": "Rimeheart Cave opens in the rocks north of the pass road. The Matriarch lairs at its far end.",
+    "completeText": "No more howling at night. Her cloak is yours: nothing in the north keeps out the cold better.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s2-rimematriarch",
+        "count": 1,
+        "label": "Slay the Rime Matriarch"
+      }
+    ],
+    "reward": {
+      "xp": 760,
+      "stones": 380,
+      "items": [
+        {
+          "id": "s2-rime-elixir",
+          "count": 3
+        },
+        {
+          "id": "s2-rime-cloak",
+          "count": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "s2-gravewind",
+    "chapter": 2,
+    "name": "Rest for the Barrow Dead",
+    "giver": "warden-ling",
+    "requires": "rift-scouts",
+    "intro": "I keep the old rites here, or what is left of them. The soldiers in the ash were buried with honour, and now they walk. I cannot lay eight of them to rest alone. Break eight Ash Soldiers and four Barrow Guards, and I will do the rest.",
+    "reminder": "Eight Ash Soldiers and four Barrow Guards in the Ashen Barrow, north of the outpost.",
+    "completeText": "The wind is quieter. Thank you. There is one more thing under the barrow, though.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "ashskeleton",
+        "count": 8,
+        "label": "Lay Ash Soldiers to rest"
+      },
+      {
+        "type": "kill",
+        "target": "ashguard",
+        "count": 4,
+        "label": "Break Barrow Guards"
+      }
+    ],
+    "reward": {
+      "xp": 640,
+      "stones": 320,
+      "items": [
+        {
+          "id": "greater-hp-potion",
+          "count": 3
+        },
+        {
+          "id": "qi-pill",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "s2-bonewarden",
+    "chapter": 2,
+    "name": "The Bone Warden",
+    "giver": "warden-ling",
+    "requires": "s2-gravewind",
+    "intro": "Beneath the barrow there is a catacomb the founders sealed with a single guardian, the Bone Warden. It keeps the dead in. Something has made it keep the living out, too. Descend into the Gravewind Catacomb and put him down.",
+    "reminder": "The Gravewind Catacomb opens in the barrow ash, south-east of the Corpse King's court.",
+    "completeText": "He was a good man once. His signet is yours; wear it for the dead.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s2-bonewarden",
+        "count": 1,
+        "label": "Defeat the Bone Warden"
+      }
+    ],
+    "reward": {
+      "xp": 980,
+      "stones": 450,
+      "items": [
+        {
+          "id": "s2-warden-signet",
+          "count": 1
+        },
+        {
+          "id": "s2-frostlotus-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "s2-survey",
+    "chapter": 2,
+    "name": "Charting the Maw",
+    "giver": "surveyor-pei",
+    "requires": "rift-scouts",
+    "intro": "Surveyor Pei, of the old sect cartographers. The Glacier Maw moves: every winter it swallows another valley. I am mapping its edge, but serpents and wisps drive off my crew. Kill six Maw Serpents and five Aurora Wisps so I can finish the chart.",
+    "reminder": "Six Maw Serpents and five Aurora Wisps in the Glacier Maw, in the middle of the sundered plateau.",
+    "completeText": "The edge is mapped, and it is closer than we feared. Take this for your trouble.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s2-mawserpent",
+        "count": 6,
+        "label": "Slay Maw Serpents"
+      },
+      {
+        "type": "kill",
+        "target": "s2-aurorawisp",
+        "count": 5,
+        "label": "Douse Aurora Wisps"
+      }
+    ],
+    "reward": {
+      "xp": 700,
+      "stones": 380,
+      "items": [
+        {
+          "id": "s2-aurora-draught",
+          "count": 3
+        },
+        {
+          "id": "greater-hp-potion",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "s2-wyrm",
+    "chapter": 2,
+    "name": "The Glacier Wyrm",
+    "giver": "surveyor-pei",
+    "requires": "s2-survey",
+    "intro": "Now the thing I could not chart. The ice booms from below, and the old river bed under the Maw is not empty. A wyrm, I think, frozen into the glacier and finally waking. Whatever it is, go down into its den and stop it.",
+    "reminder": "The Glacier Wyrm Den opens in the ice of the Maw, east of the meltwater river.",
+    "completeText": "The booming has stopped. I will mark the den closed. That blade is the least of what you have earned.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s2-glacierwyrm",
+        "count": 1,
+        "label": "Slay the Glacier Wyrm"
+      }
+    ],
+    "reward": {
+      "xp": 1050,
+      "stones": 480,
+      "items": [
+        {
+          "id": "s2-glacier-saber",
+          "count": 1
+        },
+        {
+          "id": "s2-aurora-draught",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "s2-mirror",
+    "chapter": 2,
+    "name": "The Mirror Vault",
+    "giver": "seer-lian",
+    "requires": "hollow-heart",
+    "intro": "I see you in a hundred mirrors, and in each one you are about to ask me something. Yes: a vault of ice mirrors lies behind the Hollow, and a sage sleeps in it who tried to hold the Fissure's light. I cannot see how it ends. Go and see for both of us.",
+    "reminder": "The Mirror Vault is a gate in the ice, south-east of the Crystal Hollow.",
+    "completeText": "In every mirror now, you win. How strange. Take the blade; it was always meant for the one who walked in.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "s2-prismsage",
+        "count": 1,
+        "label": "Defeat the Prism Sage"
+      }
+    ],
+    "reward": {
+      "xp": 1000,
+      "stones": 500,
+      "items": [
+        {
+          "id": "s2-aurora-draught",
+          "count": 3
+        },
+        {
+          "id": "greater-mana-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-silent-roads",
+    "chapter": 3,
+    "name": "The Silent Roads",
+    "giver": "caravan-master-hui",
+    "intro": "You came through the Ember Gate, so you know the Fissure bled its heat south. This is where it landed. The dunes east of the Bazaar crawl with vipers and jackals, and not one caravan has crossed in a month. Cull eight sand vipers and six dune jackals.",
+    "reminder": "Eight Sand Vipers and six Dune Jackals in the Sunscour Dunes, east of the Bazaar.",
+    "completeText": "Better. The first road is breathing again. Spend this at Trader Sahn's: the steel here is made for the heat.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "sandviper",
+        "count": 8,
+        "label": "Cull Sand Vipers"
+      },
+      {
+        "type": "kill",
+        "target": "dunejackal",
+        "count": 6,
+        "label": "Cull Dune Jackals"
+      }
+    ],
+    "reward": {
+      "xp": 1500,
+      "stones": 500,
+      "items": [
+        {
+          "id": "greater-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "qi-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-wyrm",
+    "chapter": 3,
+    "name": "The Wyrm Under the Road",
+    "giver": "caravan-master-hui",
+    "requires": "ember-silent-roads",
+    "intro": "The vipers are only the smallest teeth. Something vast burrows under the canyon road, and caravans vanish where it surfaces. Scouts call it the Sand Wyrm. It guards the Scorched Canyon, south-east along the road. End it.",
+    "reminder": "The Sand Wyrm lies at the end of the canyon road, south-east of the dunes.",
+    "completeText": "The road is open to the Magma Rift. Take this, you will need it.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "sandwyrm",
+        "count": 1,
+        "label": "Slay the Sand Wyrm"
+      }
+    ],
+    "reward": {
+      "xp": 2300,
+      "stones": 800,
+      "items": [
+        {
+          "id": "ember-hp-potion",
+          "count": 3
+        },
+        {
+          "id": "ember-mana-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-champions",
+    "chapter": 3,
+    "name": "Champions of the Sands",
+    "giver": "caravan-master-hui",
+    "requires": "ember-wyrm",
+    "intro": "Heat twists the strongest beasts: gold-marked, cruel, clever. My guards refuse to ride while four of them walk the wastes. Slay four elite monsters.",
+    "reminder": "Four elite monsters (golden names), anywhere in the Ember Wastes.",
+    "completeText": "Four fewer. The guards are saddling up. Here is the purse I promised.",
+    "objectives": [
+      {
+        "type": "elite",
+        "count": 4,
+        "label": "Slay Elite Monsters"
+      }
+    ],
+    "reward": {
+      "xp": 2400,
+      "stones": 900,
+      "items": [
+        {
+          "id": "ember-qi-pill",
+          "count": 2
+        },
+        {
+          "id": "ember-hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-rift-survey",
+    "chapter": 3,
+    "name": "Survey of the Rift",
+    "giver": "caravan-master-hui",
+    "requires": "ember-wyrm",
+    "intro": "Beyond the canyon the ground splits and lava flows where there was a dry riverbed. If we are to reach the temple, we must know the way. Clear eight magma sprites and six cinder hounds from the Magma Rift.",
+    "reminder": "Eight Magma Sprites and six Cinder Hounds in the Magma Rift, north of the canyon.",
+    "completeText": "A map I can finally draw. The causeways hold. The temple is next, and beyond it, the Furnace.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "magmasprite",
+        "count": 8,
+        "label": "Douse Magma Sprites"
+      },
+      {
+        "type": "kill",
+        "target": "cinderhound",
+        "count": 6,
+        "label": "Cull Cinder Hounds"
+      }
+    ],
+    "reward": {
+      "xp": 2500,
+      "stones": 1000,
+      "items": [
+        {
+          "id": "ember-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "ember-mana-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-mirage",
+    "chapter": 3,
+    "name": "The Mirage Empress",
+    "giver": "caravan-master-hui",
+    "requires": "ember-rift-survey",
+    "intro": "The Sun Temple lies buried north of the rift. Travellers who reach it speak of an empress who walks on sand without leaving a mark, and who wears a different face for each. She holds the temple key to the Furnace. Slay the Mirage Empress.",
+    "reminder": "The Mirage Empress holds the Buried Sun Temple, north of the Magma Rift.",
+    "completeText": "The mirage has broken. The way to the summit stands open, and this vestment is yours.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "mirageempress",
+        "count": 1,
+        "label": "Slay the Mirage Empress"
+      }
+    ],
+    "reward": {
+      "xp": 3000,
+      "stones": 1400,
+      "items": [
+        {
+          "id": "ember-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "ember-qi-pill",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-furnace",
+    "chapter": 3,
+    "name": "The Heavenly Furnace",
+    "giver": "caravan-master-hui",
+    "requires": "ember-mirage",
+    "intro": "At the summit the Furnace Warden, the immortals' last servant, feeds the forge with whatever the Fissure sends it. The dunes turn to glass because it has not stopped burning. Climb the east road and put out the fire.",
+    "reminder": "The Furnace Warden waits at the Furnace Summit, at the far end of the north-east road.",
+    "completeText": "The sands are cooling. Disciple, you have done what the sect could not. But the smoke still reaches the sky, and something up there has noticed.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "furnacewarden",
+        "count": 1,
+        "label": "Slay the Furnace Warden"
+      }
+    ],
+    "reward": {
+      "xp": 4200,
+      "stones": 2400,
+      "items": [
+        {
+          "id": "ember-hp-potion",
+          "count": 6
+        },
+        {
+          "id": "ember-mana-potion",
+          "count": 6
+        },
+        {
+          "id": "ember-qi-pill",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-viper-fangs",
+    "chapter": 3,
+    "name": "Fangs for the Guards",
+    "giver": "wanderer-dahl",
+    "requires": "ember-silent-roads",
+    "intro": "Caravan guards pay well for sand viper fangs: they grind them into antivenom. Bring me six, and I will split what they give me.",
+    "reminder": "Six Sand Viper Fangs. Sand vipers dwell in the dunes, and in the oasis reeds.",
+    "completeText": "Clean fangs, good work. Here is your share.",
+    "objectives": [
+      {
+        "type": "collect",
+        "item": "ember-viper-fang",
+        "count": 6,
+        "label": "Collect Sand Viper Fangs"
+      }
+    ],
+    "reward": {
+      "xp": 1000,
+      "stones": 450,
+      "items": [
+        {
+          "id": "greater-hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-worm-queen",
+    "chapter": 3,
+    "name": "The Queen Beneath the Glass",
+    "giver": "wanderer-dahl",
+    "requires": "ember-viper-fangs",
+    "intro": "South of the dunes the sand has fused into green glass, and the tunnels beneath ring when I knock. A queen lives there. I have heard her breathe. If you go in, go strong: there is a cave mouth by the standing stones.",
+    "reminder": "The Glass-Worm Burrow opens by a pair of standing stones in the Sunscour Dunes. Clear it and slay the Queen.",
+    "completeText": "You went down and came back up. That is rarer than you think. Keep the fang.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "glasswormqueen",
+        "count": 1,
+        "label": "Slay the Glass-Worm Queen"
+      }
+    ],
+    "reward": {
+      "xp": 1800,
+      "stones": 700,
+      "items": [
+        {
+          "id": "ember-hp-potion",
+          "count": 3
+        },
+        {
+          "id": "ember-qi-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-oasis-herbs",
+    "chapter": 3,
+    "name": "The Spring Still Runs",
+    "giver": "keeper-ila",
+    "requires": "ember-silent-roads",
+    "intro": "The heat is poisoning my spring-herbs. Bring me eight Spirit Herbs and put down the drowned caravaneers that haunt the reeds: they stir the water until it clouds.",
+    "reminder": "Eight Spirit Herbs, and six Drowned Caravaneers, at the Mirage Oasis.",
+    "completeText": "The water clears already. Drink, and take this with my blessing.",
+    "objectives": [
+      {
+        "type": "collect",
+        "item": "spirit-herb",
+        "count": 8,
+        "label": "Gather Spirit Herbs"
+      },
+      {
+        "type": "kill",
+        "target": "drownedcaravaneer",
+        "count": 6,
+        "label": "Lay Drowned Caravaneers to rest"
+      }
+    ],
+    "reward": {
+      "xp": 1300,
+      "stones": 550,
+      "items": [
+        {
+          "id": "ember-mana-potion",
+          "count": 3
+        },
+        {
+          "id": "greater-hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-roc-hunt",
+    "chapter": 3,
+    "name": "Rocs on the Rim",
+    "giver": "hunter-tarq",
+    "requires": "ember-silent-roads",
+    "intro": "Ash rocs nest on the canyon rim and rain feathers like knives. I need five of their grey feathers to fletch arrows that can pierce glass-scorpion shells, and I need six of the birds gone before they get clever.",
+    "reminder": "Five Ash Roc Feathers and six Ash Rocs, in the Scorched Canyon and the Salt Flats.",
+    "completeText": "Good feathers. These will fly true. Take your pay, and a few draughts.",
+    "objectives": [
+      {
+        "type": "collect",
+        "item": "ember-roc-feather",
+        "count": 5,
+        "label": "Collect Ash Roc Feathers"
+      },
+      {
+        "type": "kill",
+        "target": "ashroc",
+        "count": 6,
+        "label": "Cull Ash Rocs"
+      }
+    ],
+    "reward": {
+      "xp": 1700,
+      "stones": 650,
+      "items": [
+        {
+          "id": "ember-hp-potion",
+          "count": 3
+        },
+        {
+          "id": "greater-mana-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-obsidian",
+    "chapter": 3,
+    "name": "Warm Stone",
+    "giver": "miner-borok",
+    "requires": "ember-wyrm",
+    "intro": "My crew dug the Obsidian Mine until the stone started to glow. Golems walk out of the rock now. Break six of them and bring me five shards from their chests: I need to know what is waking them.",
+    "reminder": "Six Obsidian Golems and five Obsidian Shards, in the Magma Rift.",
+    "completeText": "Still warm, and getting warmer. You should know: the mine goes deeper than any map I made. Be careful.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "obsidiangolem",
+        "count": 6,
+        "label": "Break Obsidian Golems"
+      },
+      {
+        "type": "collect",
+        "item": "ember-obsidian-shard",
+        "count": 5,
+        "label": "Collect Obsidian Shards"
+      }
+    ],
+    "reward": {
+      "xp": 2400,
+      "stones": 900,
+      "items": [
+        {
+          "id": "ember-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "ember-qi-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-mine-heart",
+    "chapter": 3,
+    "name": "The Heart of the Mine",
+    "giver": "miner-borok",
+    "requires": "ember-obsidian",
+    "intro": "At the bottom of my mine stands a thing the crew named the Colossus: a pile of obsidian that remembers being a man. Enter the Obsidian Mine and put it down. My crew's lamps are still down there.",
+    "reminder": "The Obsidian Mine opens in the Magma Rift. Its Colossus waits at the bottom.",
+    "completeText": "The lamps went out. I could hear it from here. Rest, friend. Take this.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "obsidiancolossus",
+        "count": 1,
+        "label": "Slay the Obsidian Colossus"
+      }
+    ],
+    "reward": {
+      "xp": 2600,
+      "stones": 1100,
+      "items": [
+        {
+          "id": "ember-obsidian-plate",
+          "count": 1
+        },
+        {
+          "id": "ember-hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-salt-road",
+    "chapter": 3,
+    "name": "Footprints in the Salt",
+    "giver": "hermit-zaim",
+    "requires": "ember-wyrm",
+    "intro": "The salt flats keep every footprint, even the ones that have not been made yet. Salt ghouls rise where the drowned lie, and mirage ghosts lure the living in circles. Lay five ghouls and six ghosts to rest.",
+    "reminder": "Five Salt Ghouls and six Mirage Ghosts, on the Whitesalt Flats.",
+    "completeText": "My footprints are my own again. Thank you. The vault in the salt opens only to the strong; ask me when you are ready.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "saltghoul",
+        "count": 5,
+        "label": "Lay Salt Ghouls to rest"
+      },
+      {
+        "type": "kill",
+        "target": "mirageghost",
+        "count": 6,
+        "label": "Banish Mirage Ghosts"
+      }
+    ],
+    "reward": {
+      "xp": 2000,
+      "stones": 800,
+      "items": [
+        {
+          "id": "ember-mana-potion",
+          "count": 3
+        },
+        {
+          "id": "ember-qi-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-vault-seal",
+    "chapter": 3,
+    "name": "The Sunken Vault",
+    "giver": "hermit-zaim",
+    "requires": "ember-salt-road",
+    "intro": "Under the white ground lies a laboratory of the immortals, drowned in brine, its furnaces still burning. Its Warden never stopped working. Open the vault by the standing moon-gate near my hut and put the Warden out.",
+    "reminder": "The Sunken Alchemy Vault is a moon-gate in the Whitesalt Flats. Slay the Vault Warden within.",
+    "completeText": "The furnaces beneath the salt are quiet. Perhaps the great one will quiet now too.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "vaultwarden",
+        "count": 1,
+        "label": "Slay the Vault Warden"
+      }
+    ],
+    "reward": {
+      "xp": 3000,
+      "stones": 1300,
+      "items": [
+        {
+          "id": "ember-qi-pill",
+          "count": 3
+        },
+        {
+          "id": "ember-mana-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "ember-sun-scrolls",
+    "chapter": 3,
+    "name": "Records of the Sun",
+    "giver": "scholar-eun",
+    "requires": "ember-rift-survey",
+    "intro": "The temple's records were gilded tablets, shattered when it sank. Bring me four fragments from the mummies and sentinels that guard it, and I will tell you how the Empress was made.",
+    "reminder": "Four Sun Tablet Fragments, from mummies and temple sentinels in the Buried Sun Temple.",
+    "completeText": "Yes. She was a mirror the immortals built to see the sun without being burned. The mirror cracked, and it stares back. That is what you will meet.",
+    "objectives": [
+      {
+        "type": "collect",
+        "item": "ember-sun-tablet",
+        "count": 4,
+        "label": "Collect Sun Tablet Fragments"
+      }
+    ],
+    "reward": {
+      "xp": 2600,
+      "stones": 1000,
+      "items": [
+        {
+          "id": "ember-mana-potion",
+          "count": 3
+        },
+        {
+          "id": "ember-hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-ascent",
+    "chapter": 4,
+    "name": "Up the Closed Gate",
+    "giver": "warden-lian",
+    "intro": "You came through the Jade Gate? It has been shut for a season. Sentinels of jade patrol the orchard and the stair now, and blossom sprites bewitch whoever walks the petals. Cull eight Jade Sentinels and six Blossom Sprites, and the road east is yours.",
+    "reminder": "Eight Jade Sentinels and six Blossom Sprites, in the Peach Blossom Orchard and on the stair beyond it.",
+    "completeText": "The road holds. Take these; the Magistrate's beasts will not be so gentle.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "jadesentinel",
+        "count": 8,
+        "label": "Smash Jade Sentinels"
+      },
+      {
+        "type": "kill",
+        "target": "blossomsprite",
+        "count": 6,
+        "label": "Banish Blossom Sprites"
+      }
+    ],
+    "reward": {
+      "xp": 2800,
+      "stones": 700,
+      "items": [
+        {
+          "id": "jade-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "jade-mana-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-storm-lord",
+    "chapter": 4,
+    "name": "The Crane That Calls Thunder",
+    "giver": "warden-lian",
+    "requires": "jade-ascent",
+    "intro": "The thunder over the Court of Storms is not weather. The Magistrate's crane lord answers his call, and the sky answers the crane. Follow the stair road north-east and bring the Storm Crane Lord down.",
+    "reminder": "The Storm Crane Lord holds the Court of Storms, north-east along the stair road.",
+    "completeText": "The clouds are quiet. Its saber is yours; the Court owes it to you.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "cranelord",
+        "count": 1,
+        "label": "Slay the Storm Crane Lord"
+      }
+    ],
+    "reward": {
+      "xp": 3800,
+      "stones": 1100,
+      "items": [
+        {
+          "id": "jade-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "jade-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-archive-keeper",
+    "chapter": 4,
+    "name": "What the Archive Remembers",
+    "giver": "scholar-mei",
+    "requires": "jade-storm-lord",
+    "intro": "The Archive Keeper was a gentle thing once. When the smoke stained the slips it decided that knowledge from below must be burned, and now it burns everything. It guards the way to the dais. End it, and save what slips remain.",
+    "reminder": "The Keeper of the Jade Archive is at the heart of the Library, north-west of the stair.",
+    "completeText": "The slips are quiet. The Magistrate's dais is open to you now. Go. Finish this.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "archivekeeper",
+        "count": 1,
+        "label": "Slay the Keeper of the Jade Archive"
+      }
+    ],
+    "reward": {
+      "xp": 4600,
+      "stones": 1400,
+      "items": [
+        {
+          "id": "jade-elixir",
+          "count": 3
+        },
+        {
+          "id": "jade-mana-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-magistrate",
+    "chapter": 4,
+    "name": "The Celestial Magistrate",
+    "giver": "warden-lian",
+    "requires": "jade-archive-keeper",
+    "intro": "The last judge sits on his dais at the top of the terraces. He is not cruel; he is certain, which is worse. Cross the causeway north-east of the Court of Storms and show him the mortal world is more than smoke.",
+    "reminder": "Follow either causeway north to the Magistrate's Dais, in the far north-east.",
+    "completeText": "The gate is open. For the first time in an age, the sky is willing to listen. Rest, climber. There is more below the clouds than any of us knew.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "magistrate",
+        "count": 1,
+        "label": "Defeat the Celestial Magistrate"
+      }
+    ],
+    "reward": {
+      "xp": 7000,
+      "stones": 2500,
+      "items": [
+        {
+          "id": "jade-elixir",
+          "count": 5
+        },
+        {
+          "id": "jade-pill",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-peach-wine",
+    "chapter": 4,
+    "name": "Peaches Out of Season",
+    "giver": "gardener-fen",
+    "requires": "jade-ascent",
+    "intro": "My treants have gone wild and the peaches ripen too fast and rot before I can reach them. Fell six Blossom Treants and bring me five Heavenly Peaches from the trees, and I will brew you something worth drinking.",
+    "reminder": "Six Blossom Treants and five Heavenly Peaches in the orchard.",
+    "completeText": "Sweet as the first spring. Drink slowly; it is stronger than it tastes.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "blossomtreant",
+        "count": 6,
+        "label": "Fell Blossom Treants"
+      },
+      {
+        "type": "collect",
+        "item": "jade-peach",
+        "count": 5,
+        "label": "Gather Heavenly Peaches"
+      }
+    ],
+    "reward": {
+      "xp": 2000,
+      "stones": 500,
+      "items": [
+        {
+          "id": "jade-elixir",
+          "count": 2
+        },
+        {
+          "id": "jade-mana-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-lake-lanterns",
+    "chapter": 4,
+    "name": "Lanterns for the Drowned",
+    "giver": "boatman-ke",
+    "requires": "jade-ascent",
+    "intro": "On still nights the lake shows a second sky, and things step out of it with my lost passengers' faces. Banish eight Mirror Wraiths and bring me four Spirit Herbs to light the lanterns.",
+    "reminder": "Eight Mirror Wraiths and four Spirit Herbs by the Mirror Lake.",
+    "completeText": "The lanterns burn steady. Thank you. They can rest now.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "mirrorwraith",
+        "count": 8,
+        "label": "Banish Mirror Wraiths"
+      },
+      {
+        "type": "collect",
+        "item": "spirit-herb",
+        "count": 4,
+        "label": "Gather Spirit Herbs"
+      }
+    ],
+    "reward": {
+      "xp": 2200,
+      "stones": 600,
+      "items": [
+        {
+          "id": "jade-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "jade-pill",
+          "count": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-stair-toll",
+    "chapter": 4,
+    "name": "The Thousand-Step Toll",
+    "giver": "sentinel-zhao",
+    "requires": "jade-ascent",
+    "intro": "The stair's old wards now strike at anyone who climbs. Break six Jade Colossi and two of the elite guardians that lead them, and the steps will be safe again.",
+    "reminder": "Six Jade Colossi and two elites on the Thousand-Step Stair.",
+    "completeText": "Quieter already. Take this. You earned it more honestly than I did mine.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "jadecolossus",
+        "count": 6,
+        "label": "Shatter Jade Colossi"
+      },
+      {
+        "type": "elite",
+        "count": 2,
+        "label": "Slay Elite Monsters"
+      }
+    ],
+    "reward": {
+      "xp": 2600,
+      "stones": 800,
+      "items": [
+        {
+          "id": "jade-elixir",
+          "count": 2
+        },
+        {
+          "id": "jade-hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-cavern-echo",
+    "chapter": 4,
+    "name": "The Wyrm Under the Orchard",
+    "giver": "sentinel-zhao",
+    "requires": "jade-stair-toll",
+    "intro": "Something old turns in the cavern under the orchard terrace, and the whole stair feels it. Go down into Cloudhollow Cavern and slay the Cloudwyrm.",
+    "reminder": "Cloudhollow Cavern lies on the south edge of the Peach Blossom Orchard.",
+    "completeText": "The stair has stopped shaking. Good work, climber.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "cloudwyrm",
+        "count": 1,
+        "label": "Slay the Cloudwyrm"
+      }
+    ],
+    "reward": {
+      "xp": 3200,
+      "stones": 1000,
+      "items": [
+        {
+          "id": "jade-hp-potion",
+          "count": 5
+        },
+        {
+          "id": "jade-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-lost-slips",
+    "chapter": 4,
+    "name": "Scraps of Scripture",
+    "giver": "scholar-mei",
+    "requires": "jade-ascent",
+    "intro": "The scroll wraiths are made of the slips that burned. If I can piece enough of them together I might learn what the Magistrate was told. Banish eight Scroll Wraiths and bring me six Charred Jade Slips.",
+    "reminder": "Eight Scroll Wraiths and six Charred Jade Slips, in the Library of Jade Slips.",
+    "completeText": "It is worse than I feared and better than I hoped. The smoke did not poison the Magistrate; someone told him it did.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "scrollwraith",
+        "count": 8,
+        "label": "Banish Scroll Wraiths"
+      },
+      {
+        "type": "collect",
+        "item": "jade-slip-scrap",
+        "count": 6,
+        "label": "Gather Charred Jade Slips"
+      }
+    ],
+    "reward": {
+      "xp": 2800,
+      "stones": 800,
+      "items": [
+        {
+          "id": "jade-mana-potion",
+          "count": 4
+        },
+        {
+          "id": "jade-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-vault-key",
+    "chapter": 4,
+    "name": "The Sealed Vault",
+    "giver": "scholar-mei",
+    "requires": "jade-lost-slips",
+    "intro": "The worst slips were folded into a vault, out of reach. Its door has opened on the west edge of the Library, and its calligrapher is still writing. Put down the Calligrapher of the Sealed Vault.",
+    "reminder": "The vault door is on the west edge of the Library of Jade Slips.",
+    "completeText": "It is finished. May we never need to write that page again.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "vaultcalligrapher",
+        "count": 1,
+        "label": "Slay the Vault Calligrapher"
+      }
+    ],
+    "reward": {
+      "xp": 4000,
+      "stones": 1400,
+      "items": [
+        {
+          "id": "jade-elixir",
+          "count": 3
+        },
+        {
+          "id": "jade-mana-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-crane-feathers",
+    "chapter": 4,
+    "name": "Feathers of Thunder",
+    "giver": "hermit-gu",
+    "requires": "jade-ascent",
+    "intro": "A crane's feather still holds a little of its sky. Bring me five from the Storm Cranes, and slay three of the gold-named elites that lead them. I mean to make a talisman against the Magistrate's judgement.",
+    "reminder": "Five Storm Crane Feathers and three elites around the Crane Pavilions and the Court of Storms.",
+    "completeText": "It will not stop a verdict. It may make him listen to the appeal.",
+    "objectives": [
+      {
+        "type": "collect",
+        "item": "jade-feather",
+        "count": 5,
+        "label": "Gather Storm Crane Feathers"
+      },
+      {
+        "type": "elite",
+        "count": 3,
+        "label": "Slay Elite Monsters"
+      }
+    ],
+    "reward": {
+      "xp": 3400,
+      "stones": 1000,
+      "items": [
+        {
+          "id": "jade-elixir",
+          "count": 3
+        },
+        {
+          "id": "jade-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-mine-dust",
+    "chapter": 4,
+    "name": "Jade Dust for the Furnace",
+    "giver": "alchemist-ning",
+    "requires": "jade-ascent",
+    "intro": "My finest pills need raw jade dust. Bring me six Raw Jade Ore from the stair's Colossi, and clear the Jade Seam Tyrant out of the old mine so we can dig in peace.",
+    "reminder": "Six Raw Jade Ore from jade constructs, and the Jade Seam Tyrant in Seamdeep Jade Mine on the stair.",
+    "completeText": "Beautiful. Heavy and pure. Here is the first batch, as promised.",
+    "objectives": [
+      {
+        "type": "collect",
+        "item": "jade-ore",
+        "count": 6,
+        "label": "Gather Raw Jade Ore"
+      },
+      {
+        "type": "kill",
+        "target": "seamtyrant",
+        "count": 1,
+        "label": "Slay the Jade Seam Tyrant"
+      }
+    ],
+    "reward": {
+      "xp": 3600,
+      "stones": 1200,
+      "items": [
+        {
+          "id": "jade-elixir",
+          "count": 3
+        },
+        {
+          "id": "jade-pill",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "jade-moon-echo",
+    "chapter": 4,
+    "name": "The Palace in the Water",
+    "giver": "boatman-ke",
+    "requires": "jade-lake-lanterns",
+    "intro": "There is a palace under the lake, and a lady in it who wears my wife's face. I cannot row there. You can. Break the Lady of the Moon Mirror.",
+    "reminder": "The palace gate stands on the south shore of the Mirror Lake.",
+    "completeText": "The water is just water now. I think I can sleep. Thank you.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "mirrorqueen",
+        "count": 1,
+        "label": "Defeat the Lady of the Moon Mirror"
+      }
+    ],
+    "reward": {
+      "xp": 4200,
+      "stones": 1500,
+      "items": [
+        {
+          "id": "jade-elixir",
+          "count": 3
+        },
+        {
+          "id": "jade-hp-potion",
+          "count": 5
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-first-flame",
+    "chapter": 5,
+    "name": "The Last Lantern",
+    "giver": "matron-hui",
+    "intro": "So you are the one who came down. Good. The lantern is our only law: while it burns, nobody here is alone. The blade-wraiths in the field to the east keep trying to put it out. Cut down eight of them, and bring back four lingzhi for the furnace. Then we will talk about the rest of the Abyss.",
+    "reminder": "Eight Blade-Wraiths in the Field of Unburied Blades, and four Spirit Herbs. East along the road.",
+    "completeText": "The lantern did not flicker once tonight. That is the nicest thing anyone has done for this camp in a year. Sit, eat, and then I will tell you about the river.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-bladewraith",
+        "count": 8,
+        "label": "Cut down Blade-Wraiths"
+      },
+      {
+        "type": "collect",
+        "item": "spirit-herb",
+        "count": 4,
+        "label": "Gather Spirit Herbs"
+      }
+    ],
+    "reward": {
+      "xp": 4200,
+      "stones": 800,
+      "items": [
+        {
+          "id": "abyss-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "abyss-mana-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-blood-river",
+    "chapter": 5,
+    "name": "The Blood-River Tyrant",
+    "giver": "matron-hui",
+    "requires": "abyss-first-flame",
+    "intro": "A river of fire runs through the south of the Abyss, and it has a king. The Tyrant was once a flood god, sworn to carry the dead across. It ferries nobody now. It is in the way of everything. Follow the road through the Bloodfire Basin to its shore, and put it to rest.",
+    "reminder": "The Blood-River Tyrant waits on the far shore of Bloodfire Basin, east of the blades along the southern road.",
+    "completeText": "The river is quiet. I can hear it breathing, almost like water. Take this robe. It was the Tyrant's promise to keep the dead dry, and it never did get to use it.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-tyrant",
+        "count": 1,
+        "label": "Slay the Blood-River Tyrant"
+      }
+    ],
+    "reward": {
+      "xp": 5200,
+      "stones": 1200,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 2
+        },
+        {
+          "id": "abyss-hp-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-mirror-truth",
+    "chapter": 5,
+    "name": "What the Mirrors Say",
+    "giver": "scribe-ao",
+    "requires": "abyss-blood-river",
+    "intro": "You crossed the river? Then you can walk the Mirror City. The mirrors there show a person what they refused to become. Some people stay. Bring me six shards from the shades that wander its streets, and cut down eight of them; I would like the streets quiet enough to read in.",
+    "reminder": "Eight Mirror Shades, and six Mirror Shards from them. The Ruined Mirror City, north of the Field of Blades.",
+    "completeText": "This is strange. The shard reads, \"You were right to be afraid.\" And on the back: \"That is not the same as being wrong.\" Thank you. It helps more than you know.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-mirrorshade",
+        "count": 8,
+        "label": "Banish Mirror Shades"
+      },
+      {
+        "type": "collect",
+        "item": "abyss-mirror-shard",
+        "count": 6,
+        "label": "Collect Mirror Shards"
+      }
+    ],
+    "reward": {
+      "xp": 5000,
+      "stones": 1000,
+      "items": [
+        {
+          "id": "abyss-mana-potion",
+          "count": 5
+        },
+        {
+          "id": "abyss-qi-pill",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-matron",
+    "chapter": 5,
+    "name": "The Matron of Regrets",
+    "giver": "sister-sen",
+    "requires": "abyss-mirror-truth",
+    "intro": "Do you hear the singing? It is the Matron. She gathers every might-have-been in the Abyss and gives each one a name and a bed. She means it kindly. That is the worst part. Beyond the Ash Plains lies her bower. Please end her song, and let the petals fall.",
+    "reminder": "The Matron's bower lies east of the Gardens of Regret, past the ash.",
+    "completeText": "It is quiet at last. Thank you. She truly meant well, you know. Take this robe: the hem is scorched, and she wore it all the same.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-matron",
+        "count": 1,
+        "label": "End the Matron of Regrets"
+      }
+    ],
+    "reward": {
+      "xp": 6200,
+      "stones": 1600,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 3
+        },
+        {
+          "id": "abyss-qi-pill",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-ash-trial",
+    "chapter": 5,
+    "name": "The Procession of Ash",
+    "giver": "matron-hui",
+    "requires": "abyss-matron",
+    "intro": "Word came down from the peak: the Dao Demon has woken, and the marked ones are marching to meet it. These are gold-named elites, and stronger than anything you have met. Cut down four of them before you climb. A student who comes to the examiner unprepared has only herself to blame.",
+    "reminder": "Four elite monsters (golden names), anywhere in the Abyss.",
+    "completeText": "Four fewer between you and the mountain. I will light the lantern in the window tonight. If you do not come down again, at least you will know there was a light.",
+    "objectives": [
+      {
+        "type": "elite",
+        "count": 4,
+        "label": "Slay Elite Monsters"
+      }
+    ],
+    "reward": {
+      "xp": 5600,
+      "stones": 1800,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 3
+        },
+        {
+          "id": "abyss-hp-potion",
+          "count": 5
+        },
+        {
+          "id": "abyss-mana-potion",
+          "count": 5
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-dao-demon",
+    "chapter": 5,
+    "name": "The Dao Demon of Tribulation",
+    "giver": "matron-hui",
+    "requires": "abyss-ash-trial",
+    "intro": "This is the last road. Every cultivator meets it at the top of the Way, and every one of them thought they would be ready. The Demon wears every ambition you ever set down and says each one back to you. It is not evil. It is only complete. Climb the peak in the north-east, and give it your answer.",
+    "reminder": "Follow the road north from the Gardens of Regret, through the gold gate, to the Tribulation Peak.",
+    "completeText": "It was never the monster at the top. It was whoever you were willing to become to reach it, and you walked past that, too. The Abyss grows quiet. Somewhere above, the sky is mending: slowly, like a bone. Come back to the lantern when you are ready. There is soup, and there is time. The Way goes on, and so, for now, do you.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-daodemon",
+        "count": 1,
+        "label": "Defeat the Dao Demon of Tribulation"
+      }
+    ],
+    "reward": {
+      "xp": 12000,
+      "stones": 6000,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 5
+        },
+        {
+          "id": "abyss-hp-potion",
+          "count": 5
+        },
+        {
+          "id": "abyss-qi-pill",
+          "count": 5
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-sword-grave",
+    "chapter": 5,
+    "name": "Swords Without Hands",
+    "giver": "gravetender-jun",
+    "requires": "abyss-first-flame",
+    "intro": "Every blade in this field was drawn by someone who never came back, and they still hum at night. Bring me six shards so I can bury what is left, and cut down ten of the wraiths that carry them. I will pay in what I have.",
+    "reminder": "Ten Blade-Wraiths and six Blade Shards, Field of Unburied Blades.",
+    "completeText": "That is six fewer songs in the dark. I will bury them by the lantern, where someone can hear. Take this.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-bladewraith",
+        "count": 10,
+        "label": "Cut down Blade-Wraiths"
+      },
+      {
+        "type": "collect",
+        "item": "abyss-blade-shard",
+        "count": 6,
+        "label": "Collect Blade Shards"
+      }
+    ],
+    "reward": {
+      "xp": 3600,
+      "stones": 900,
+      "items": [
+        {
+          "id": "abyss-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "abyss-qi-pill",
+          "count": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-ferry-fire",
+    "chapter": 5,
+    "name": "A Boat for the Fire",
+    "giver": "ferryman-tu",
+    "requires": "abyss-first-flame",
+    "intro": "My boat has an easy job: carry a thing from one shore of fire to the other. The toads and foxfires have made it hard. Burn out eight of the magma toads and six of the blood foxfires, and I will tell you the river's secret.",
+    "reminder": "Eight Magma Toads and six Blood Foxfires in Bloodfire Basin.",
+    "completeText": "The river's secret is that it is only afraid. It flows fast so nothing can catch it. Here: for a crossing well made.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-lavatoad",
+        "count": 8,
+        "label": "Slay Magma Toads"
+      },
+      {
+        "type": "kill",
+        "target": "abyss-bloodfoxfire",
+        "count": 6,
+        "label": "Douse Blood Foxfires"
+      }
+    ],
+    "reward": {
+      "xp": 4000,
+      "stones": 1000,
+      "items": [
+        {
+          "id": "abyss-mana-potion",
+          "count": 4
+        },
+        {
+          "id": "abyss-hp-potion",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-grotto-spring",
+    "chapter": 5,
+    "name": "The Spring That Runs Red",
+    "giver": "ferryman-tu",
+    "requires": "abyss-ferry-fire",
+    "intro": "South of the river, a spring bubbles up in a cave, warm and red as a pulse. Someone bathes there, and nothing that goes in comes back quite the same. Go into the Blood-Spring Grotto and put the Heretic out of its misery.",
+    "reminder": "The Blood-Spring Grotto lies in the south of Bloodfire Basin. Defeat the Heretic inside.",
+    "completeText": "The spring is turning clear again. It looks like nothing so much as water. That is the best thing I have seen in ten years.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-springfox",
+        "count": 1,
+        "label": "Defeat the Heretic of the Blood Spring"
+      }
+    ],
+    "reward": {
+      "xp": 4800,
+      "stones": 1200,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 2
+        },
+        {
+          "id": "abyss-qi-pill",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-vault-selves",
+    "chapter": 5,
+    "name": "The Vault of Past Selves",
+    "giver": "scribe-ao",
+    "requires": "abyss-mirror-truth",
+    "intro": "In the north of the city there is a vault of mirrors, and in the deepest hall stands the person you used to be. I do not recommend meeting yourself. But if you are going to, someone should write down who wins.",
+    "reminder": "The Vault of Past Selves is a gate in the north of the Mirror City. Defeat what waits at the end.",
+    "completeText": "I will write that you won. Then I will write that you were gentle, because I think that is what happened. Thank you.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-vaultself",
+        "count": 1,
+        "label": "Defeat the Self You Left Behind"
+      }
+    ],
+    "reward": {
+      "xp": 5400,
+      "stones": 1400,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 3
+        },
+        {
+          "id": "abyss-mana-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-bone-ledger",
+    "chapter": 5,
+    "name": "The Bone Ledger",
+    "giver": "huntress-ye",
+    "requires": "abyss-first-flame",
+    "intro": "The forest is growing, and what it grows from is not wood. I count what I can: five of the great treants, and bone roots enough to read the pattern. Help me with the ledger, and I will give you a share of the payment.",
+    "reminder": "Five Bone Treants, five Bone Roots. The Bone Forest, north-west of the camp.",
+    "completeText": "The ledger balances. The forest has taken forty from us and returned nothing. Take this, and tell no one how short the list is.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-bonetreant",
+        "count": 5,
+        "label": "Fell Bone Treants"
+      },
+      {
+        "type": "collect",
+        "item": "abyss-bone-root",
+        "count": 5,
+        "label": "Collect Bone Roots"
+      }
+    ],
+    "reward": {
+      "xp": 4000,
+      "stones": 1100,
+      "items": [
+        {
+          "id": "abyss-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "abyss-heal-pill",
+          "count": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-ash-whispers",
+    "chapter": 5,
+    "name": "What the Ash Remembers",
+    "giver": "drifter-dun",
+    "requires": "abyss-first-flame",
+    "intro": "Eight knights wander the plains in armour with nobody inside. I want to know who they were. Cut down eight of the Ash Knights and bring me five pieces of their ore; if the ash remembers, I will learn it.",
+    "reminder": "Eight Ash Knights and five Reliquary Ash Ore. The Ash Plains and the Mirror City.",
+    "completeText": "The ore says only one thing, over and over: \"I was going to be somebody.\" That will do. Thank you. Here, take what I carry.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-ashknight",
+        "count": 8,
+        "label": "Fell Ash Knights"
+      },
+      {
+        "type": "collect",
+        "item": "abyss-ash-ore",
+        "count": 5,
+        "label": "Collect Ash Ore"
+      }
+    ],
+    "reward": {
+      "xp": 4400,
+      "stones": 1000,
+      "items": [
+        {
+          "id": "abyss-qi-pill",
+          "count": 3
+        },
+        {
+          "id": "abyss-mana-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-regret-letters",
+    "chapter": 5,
+    "name": "Letters Never Sent",
+    "giver": "sister-sen",
+    "requires": "abyss-mirror-truth",
+    "intro": "The peach trees here bloom with every apology nobody made. I gather the petals and read them aloud to the dead. Cut down six of the withered spirits that shake them loose, and bring me five blooms.",
+    "reminder": "Six Withered Peach Spirits and five Regret Blooms, in the Gardens of Regret.",
+    "completeText": "I will read these tonight. The dead are patient listeners. Please take this for your trouble.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-witheredpeach",
+        "count": 6,
+        "label": "Quiet Withered Peach Spirits"
+      },
+      {
+        "type": "collect",
+        "item": "abyss-regret-bloom",
+        "count": 5,
+        "label": "Collect Regret Blooms"
+      }
+    ],
+    "reward": {
+      "xp": 5200,
+      "stones": 1200,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 2
+        },
+        {
+          "id": "abyss-qi-pill",
+          "count": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-slag-and-ash",
+    "chapter": 5,
+    "name": "Slag and Ash",
+    "giver": "smith-tang",
+    "requires": "abyss-first-flame",
+    "intro": "The cinder golems on the plains and in the basin are made of the finest slag I have ever seen, and it is just lying there inside them. Break four, and bring me six pieces of ash ore. I will make you something sharp.",
+    "reminder": "Four Cinder Golems and six Reliquary Ash Ore. The Ash Plains and Bloodfire Basin.",
+    "completeText": "Excellent slag. It rings like a bell when I strike it. Here is your payment; the sword will take a week.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-cindergolem",
+        "count": 4,
+        "label": "Break Cinder Golems"
+      },
+      {
+        "type": "collect",
+        "item": "abyss-ash-ore",
+        "count": 6,
+        "label": "Collect Ash Ore"
+      }
+    ],
+    "reward": {
+      "xp": 4600,
+      "stones": 1500,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 2
+        },
+        {
+          "id": "abyss-hp-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-bone-cavern-delve",
+    "chapter": 5,
+    "name": "The Ossuary Below",
+    "giver": "huntress-ye",
+    "requires": "abyss-bone-ledger",
+    "intro": "Every root in this forest leads to one place, a cavern under the western woods where the dead have been stacked like firewood. Go in and break the Root-King. Everything else is only branches.",
+    "reminder": "The Bone-Root Cavern lies in the west of the Bone Forest. Defeat the Root-King inside.",
+    "completeText": "You went all the way down and came back up. Most people only do one of those. Take this.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-rootking",
+        "count": 1,
+        "label": "Defeat the Ossuary Root-King"
+      }
+    ],
+    "reward": {
+      "xp": 5000,
+      "stones": 1300,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 2
+        },
+        {
+          "id": "abyss-hp-potion",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "abyss-reliquary-delve",
+    "chapter": 5,
+    "name": "The Cinder Reliquary",
+    "giver": "drifter-dun",
+    "requires": "abyss-ash-whispers",
+    "intro": "There is a shrine inside the plains, burnt out and hollow. The ash comes from there. The warden at its centre is made from every name left unwritten. Go inside and put it down; then we will both know if anyone was remembered.",
+    "reminder": "The Cinder Reliquary stands east of the Ash Plains. Defeat the warden within.",
+    "completeText": "It said a name. One. Mine, I think. I had forgotten. Thank you. Go on, I will stay here a while.",
+    "objectives": [
+      {
+        "type": "kill",
+        "target": "abyss-cinderwarden",
+        "count": 1,
+        "label": "Defeat the Cinder Warden"
+      }
+    ],
+    "reward": {
+      "xp": 5800,
+      "stones": 1500,
+      "items": [
+        {
+          "id": "abyss-heal-pill",
+          "count": 3
+        },
+        {
+          "id": "abyss-qi-pill",
+          "count": 3
+        }
+      ]
+    }
   }
 ]

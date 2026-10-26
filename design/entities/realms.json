@@ -26,5 +26,26 @@
     "qiMax": 2400,
     "statMult": 1.65,
     "reqLevel": 20
+  },
+  {
+    "id": "gc1",
+    "name": "Golden Core",
+    "qiMax": 5200,
+    "statMult": 2.05,
+    "reqLevel": 28
+  },
+  {
+    "id": "ns1",
+    "name": "Nascent Soul",
+    "qiMax": 9500,
+    "statMult": 2.6,
+    "reqLevel": 38
+  },
+  {
+    "id": "ss1",
+    "name": "Spirit Severing",
+    "qiMax": 16000,
+    "statMult": 3.2,
+    "reqLevel": 46
   }
 ]

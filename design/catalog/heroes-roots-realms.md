@@ -31,5 +31,8 @@ Looks are cosmetic; the spirit root decides the stat bonus.
 | qc2 | Qi Condensation II | 400 | 1.15 | 5 |
 | qc3 | Qi Condensation III | 1000 | 1.35 | 10 |
 | fe1 | Foundation Establishment | 2400 | 1.65 | 20 |
+| gc1 | Golden Core | 5200 | 2.05 | 28 |
+| ns1 | Nascent Soul | 9500 | 2.6 | 38 |
+| ss1 | Spirit Severing | 16000 | 3.2 | 46 |
 
-Level curve: xpToNext(L) = round(20 × L^1.5), max level 30. Breakthrough base chance 0.6.
+Level curve: xpToNext(L) = round(20 × L^1.5), max level 50. Breakthrough base chance 0.6.

@@ -300,6 +300,10 @@
       {
         "item": "hp-potion",
         "chance": 1
+      },
+      {
+        "item": "s1-moonfang-cloak",
+        "chance": 0.5
       }
     ],
     "swordshade": [
@@ -309,6 +313,1044 @@
       },
       {
         "item": "qi-pill",
+        "chance": 1
+      },
+      {
+        "item": "s1-discipline-seal",
+        "chance": 0.5
+      }
+    ],
+    "s1-tidecaller": [
+      {
+        "item": "s1-tidepearl",
+        "chance": 1
+      },
+      {
+        "item": "s1-lotus-draught",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "s1-stormmatriarch": [
+      {
+        "item": "s1-stormcaller-saber",
+        "chance": 1
+      },
+      {
+        "item": "s1-storm-pill",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "s1-pearlwisp": [
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      },
+      {
+        "item": "s1-mist-tonic",
+        "chance": 0.08
+      }
+    ],
+    "s1-driftwood": [
+      {
+        "item": "hp-potion",
+        "chance": 0.35
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.25
+      }
+    ],
+    "s1-tidemaiden": [
+      {
+        "item": "mana-potion",
+        "chance": 0.3
+      },
+      {
+        "item": "s1-lotus-draught",
+        "chance": 0.08
+      }
+    ],
+    "s1-stormhawk": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "s1-basaltgolem": [
+      {
+        "item": "qi-pill",
+        "chance": 0.35
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.4
+      }
+    ],
+    "s1-cragbat": [],
+    "s1-thunderimp": [
+      {
+        "item": "qi-pill",
+        "chance": 0.15
+      },
+      {
+        "item": "s1-storm-pill",
+        "chance": 0.08
+      }
+    ],
+    "s1-direwolf": [
+      {
+        "item": "hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "s2-rimematriarch": [
+      {
+        "item": "s2-rime-cloak",
+        "chance": 0.7
+      },
+      {
+        "item": "s2-rime-elixir",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "s2-bonewarden": [
+      {
+        "item": "s2-warden-signet",
+        "chance": 0.8
+      },
+      {
+        "item": "s2-frostlotus-pill",
+        "chance": 1
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 1
+      }
+    ],
+    "s2-prismsage": [
+      {
+        "item": "s2-mirror-blade",
+        "chance": 1
+      },
+      {
+        "item": "s2-aurora-draught",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "s2-glacierwyrm": [
+      {
+        "item": "s2-wyrm-pearl",
+        "chance": 1
+      },
+      {
+        "item": "s2-glacier-saber",
+        "chance": 0.5
+      },
+      {
+        "item": "s2-rime-elixir",
+        "chance": 1
+      }
+    ],
+    "s2-glacierwolf": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.08
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "s2-howlwraith": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "s2-blizzardhawk": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.15
+      }
+    ],
+    "s2-mawserpent": [
+      {
+        "item": "hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "s2-aurorawisp": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "s2-aurora-draught",
+        "chance": 0.04
+      }
+    ],
+    "s2-glacierbrute": [
+      {
+        "item": "qi-pill",
+        "chance": 0.4
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "s2-frozencorpse": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "s2-frostlotus-pill",
+        "chance": 0.05
+      }
+    ],
+    "s2-tombwraith": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.15
+      }
+    ],
+    "s2-mirrorspirit": [
+      {
+        "item": "qi-pill",
+        "chance": 0.2
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.1
+      }
+    ],
+    "s2-glasspuppet": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "s2-rimesentinel": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.25
+      }
+    ],
+    "sandviper": [
+      {
+        "item": "ember-viper-fang",
+        "chance": 0.4
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "dunejackal": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "glassscorpion": [
+      {
+        "item": "ember-glass-shard",
+        "chance": 0.35
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "dustwisp": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.15
+      }
+    ],
+    "cactuswarden": [
+      {
+        "item": "qi-pill",
+        "chance": 0.35
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "reedtoad": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.14
+      }
+    ],
+    "drownedcaravaneer": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.14
+      },
+      {
+        "item": "ember-glass-shard",
+        "chance": 0.15
+      }
+    ],
+    "oasisnymph": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.18
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.2
+      }
+    ],
+    "claygolem": [
+      {
+        "item": "qi-pill",
+        "chance": 0.4
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "ashroc": [
+      {
+        "item": "ember-roc-feather",
+        "chance": 0.45
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.15
+      }
+    ],
+    "duneraider": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.16
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.05
+      }
+    ],
+    "cindermoth": [
+      {
+        "item": "hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "saltghoul": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "mirageghost": [
+      {
+        "item": "ember-mana-potion",
+        "chance": 0.07
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.18
+      }
+    ],
+    "brinecrawler": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "saltsoldier": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.14
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.05
+      }
+    ],
+    "magmasprite": [
+      {
+        "item": "ember-mana-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.18
+      }
+    ],
+    "obsidiangolem": [
+      {
+        "item": "ember-obsidian-shard",
+        "chance": 0.5
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.12
+      }
+    ],
+    "slagtoad": [
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "cinderhound": [
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.08
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "mummy": [
+      {
+        "item": "ember-sun-tablet",
+        "chance": 0.3
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "sunhusk": [
+      {
+        "item": "ember-sun-tablet",
+        "chance": 0.25
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.12
+      }
+    ],
+    "templeguard": [
+      {
+        "item": "ember-sun-tablet",
+        "chance": 0.25
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "sunblade": [
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.15
+      }
+    ],
+    "vaultblade": [
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.15
+      }
+    ],
+    "homunculus": [
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "vaultwisp": [
+      {
+        "item": "ember-mana-potion",
+        "chance": 0.12
+      }
+    ],
+    "bronzeguardian": [
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.2
+      },
+      {
+        "item": "ember-obsidian-shard",
+        "chance": 0.2
+      }
+    ],
+    "glasswormling": [
+      {
+        "item": "ember-glass-shard",
+        "chance": 0.3
+      }
+    ],
+    "sandwyrm": [
+      {
+        "item": "ember-wyrm-scale",
+        "chance": 1
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 1
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 1
+      }
+    ],
+    "mirageempress": [
+      {
+        "item": "furnace-robe",
+        "chance": 1
+      },
+      {
+        "item": "ember-mana-potion",
+        "chance": 1
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 1
+      }
+    ],
+    "furnacewarden": [
+      {
+        "item": "furnace-saber",
+        "chance": 1
+      },
+      {
+        "item": "furnace-seal",
+        "chance": 1
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 1
+      }
+    ],
+    "glasswormqueen": [
+      {
+        "item": "ember-glass-shard",
+        "chance": 1
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 1
+      }
+    ],
+    "obsidiancolossus": [
+      {
+        "item": "ember-obsidian-shard",
+        "chance": 1
+      },
+      {
+        "item": "ember-mana-potion",
+        "chance": 1
+      }
+    ],
+    "vaultwarden": [
+      {
+        "item": "ember-qi-pill",
+        "chance": 1
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 1
+      }
+    ],
+    "jadesentinel": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.08
+      },
+      {
+        "item": "jade-ore",
+        "chance": 0.12
+      }
+    ],
+    "jadecolossus": [
+      {
+        "item": "jade-ore",
+        "chance": 0.4
+      },
+      {
+        "item": "jade-pill",
+        "chance": 0.12
+      }
+    ],
+    "oregolem": [
+      {
+        "item": "jade-ore",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "stormcrane": [
+      {
+        "item": "jade-feather",
+        "chance": 0.35
+      },
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.1
+      }
+    ],
+    "stormhound": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "cloudserpent": [
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "cloudhound": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.06
+      }
+    ],
+    "scrollwraith": [
+      {
+        "item": "jade-slip-scrap",
+        "chance": 0.4
+      },
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.08
+      }
+    ],
+    "inkwisp": [
+      {
+        "item": "jade-slip-scrap",
+        "chance": 0.3
+      },
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.14
+      }
+    ],
+    "scribe": [
+      {
+        "item": "jade-slip-scrap",
+        "chance": 0.3
+      },
+      {
+        "item": "jade-pill",
+        "chance": 0.1
+      }
+    ],
+    "celestialguard": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "jade-pill",
+        "chance": 0.08
+      }
+    ],
+    "skyblade": [
+      {
+        "item": "jade-pill",
+        "chance": 0.1
+      }
+    ],
+    "blossomsprite": [
+      {
+        "item": "jade-peach",
+        "chance": 0.3
+      },
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.08
+      }
+    ],
+    "blossomtreant": [
+      {
+        "item": "jade-peach",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.14
+      }
+    ],
+    "mirrorwraith": [
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.12
+      }
+    ],
+    "mirrorknight": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "moonwisp": [
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.12
+      }
+    ],
+    "veinbat": [
+      {
+        "item": "jade-ore",
+        "chance": 0.1
+      }
+    ],
+    "echobat": [],
+    "cranelord": [
+      {
+        "item": "jade-crane-saber",
+        "chance": 1
+      },
+      {
+        "item": "jade-elixir",
+        "chance": 1
+      }
+    ],
+    "archivekeeper": [
+      {
+        "item": "heaven-robe",
+        "chance": 1
+      },
+      {
+        "item": "jade-elixir",
+        "chance": 1
+      }
+    ],
+    "magistrate": [
+      {
+        "item": "heaven-sword",
+        "chance": 1
+      },
+      {
+        "item": "jade-seal",
+        "chance": 1
+      },
+      {
+        "item": "jade-elixir",
+        "chance": 1
+      }
+    ],
+    "cloudwyrm": [
+      {
+        "item": "jade-wyrm-pearl",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-hp-potion",
+        "chance": 1
+      }
+    ],
+    "seamtyrant": [
+      {
+        "item": "jade-miner-plate",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-ore",
+        "chance": 1
+      }
+    ],
+    "vaultcalligrapher": [
+      {
+        "item": "jade-vault-robe",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-pill",
+        "chance": 1
+      }
+    ],
+    "mirrorqueen": [
+      {
+        "item": "jade-moon-pendant",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-elixir",
+        "chance": 1
+      }
+    ],
+    "abyss-bladewraith": [
+      {
+        "item": "abyss-blade-shard",
+        "chance": 0.42
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.06
+      }
+    ],
+    "abyss-ashmoth": [
+      {
+        "item": "abyss-ash-ore",
+        "chance": 0.1
+      }
+    ],
+    "abyss-regretghost": [
+      {
+        "item": "abyss-regret-bloom",
+        "chance": 0.4
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.08
+      }
+    ],
+    "abyss-ashknight": [
+      {
+        "item": "abyss-ash-ore",
+        "chance": 0.4
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "abyss-lavatoad": [
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "abyss-bloodfoxfire": [
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "abyss-qi-pill",
+        "chance": 0.06
+      }
+    ],
+    "abyss-emberbird": [
+      {
+        "item": "abyss-qi-pill",
+        "chance": 0.12
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.1
+      }
+    ],
+    "abyss-hollowserpent": [
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "abyss-cindergolem": [
+      {
+        "item": "abyss-ash-ore",
+        "chance": 0.45
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 0.04
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.14
+      }
+    ],
+    "abyss-mirrorshade": [
+      {
+        "item": "abyss-mirror-shard",
+        "chance": 0.5
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.08
+      }
+    ],
+    "abyss-effigy": [
+      {
+        "item": "abyss-mirror-shard",
+        "chance": 0.15
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.06
+      }
+    ],
+    "abyss-bonetreant": [
+      {
+        "item": "abyss-bone-root",
+        "chance": 0.5
+      },
+      {
+        "item": "abyss-qi-pill",
+        "chance": 0.12
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 0.04
+      }
+    ],
+    "abyss-bonehound": [
+      {
+        "item": "abyss-bone-root",
+        "chance": 0.25
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.06
+      }
+    ],
+    "abyss-penitent": [
+      {
+        "item": "abyss-bone-root",
+        "chance": 0.15
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 0.05
+      },
+      {
+        "item": "abyss-qi-pill",
+        "chance": 0.12
+      }
+    ],
+    "abyss-witheredpeach": [
+      {
+        "item": "abyss-regret-bloom",
+        "chance": 0.45
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.1
+      }
+    ],
+    "abyss-tyrant": [
+      {
+        "item": "tribulation-robe",
+        "chance": 1
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 1
+      }
+    ],
+    "abyss-matron": [
+      {
+        "item": "abyss-bone-charm",
+        "chance": 0.5
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      },
+      {
+        "item": "abyss-qi-pill",
+        "chance": 1
+      }
+    ],
+    "abyss-daodemon": [
+      {
+        "item": "tribulation-sword",
+        "chance": 1
+      },
+      {
+        "item": "abyss-seal",
+        "chance": 1
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      }
+    ],
+    "abyss-rootking": [
+      {
+        "item": "abyss-bonefang",
+        "chance": 0.6
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 1
+      }
+    ],
+    "abyss-springfox": [
+      {
+        "item": "abyss-ember-ring",
+        "chance": 0.6
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 1
+      }
+    ],
+    "abyss-vaultself": [
+      {
+        "item": "abyss-veil-robe",
+        "chance": 0.6
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      }
+    ],
+    "abyss-cinderwarden": [
+      {
+        "item": "abyss-bone-charm",
+        "chance": 0.6
+      },
+      {
+        "item": "abyss-heal-pill",
         "chance": 1
       }
     ]
@@ -351,12 +1393,156 @@
     "lake": [
       "bronze-blade",
       "cloth-robe",
-      "spirit-ring"
+      "spirit-ring",
+      "s1-tidepearl"
     ],
     "cliffs": [
       "steel-blade",
       "spirit-silk",
+      "tiger-fang",
+      "s1-stormcaller-saber"
+    ],
+    "wolfden": [
+      "steel-blade",
+      "s1-moonfang-cloak",
+      "jade-pendant"
+    ],
+    "swordsanctum": [
+      "spirit-silk",
+      "tiger-fang",
+      "s1-discipline-seal"
+    ],
+    "s1-pearlgrotto": [
+      "spirit-ring",
+      "s1-tidepearl",
+      "sect-robe"
+    ],
+    "s1-stormroost": [
+      "s1-stormcaller-saber",
+      "spirit-silk",
       "tiger-fang"
+    ],
+    "glaciermaw": [
+      "froststeel-blade",
+      "frost-mail",
+      "s2-glacier-saber",
+      "barrow-ward"
+    ],
+    "tundra": [
+      "froststeel-blade",
+      "frost-mail",
+      "s2-rime-cloak",
+      "greater-hp-potion"
+    ],
+    "s2-rimeheart": [
+      "froststeel-blade",
+      "s2-rime-cloak",
+      "greater-hp-potion"
+    ],
+    "s2-gravewind": [
+      "frost-mail",
+      "barrow-ward",
+      "s2-warden-signet"
+    ],
+    "s2-mirrorvault": [
+      "s2-glacier-saber",
+      "barrow-ward",
+      "s2-wyrm-pearl"
+    ],
+    "s2-wyrmden": [
+      "s2-glacier-saber",
+      "frost-mail",
+      "s2-wyrm-pearl"
+    ],
+    "dunes": [
+      "ember-hp-potion",
+      "ember-blade",
+      "greater-hp-potion"
+    ],
+    "oasis": [
+      "ember-mail",
+      "ember-mana-potion",
+      "ember-hp-potion"
+    ],
+    "canyon": [
+      "ember-blade",
+      "ember-mail",
+      "ember-wyrm-scale"
+    ],
+    "saltflats": [
+      "ember-mail",
+      "ember-glassblade",
+      "ember-vault-sigil"
+    ],
+    "magmarift": [
+      "ember-glassblade",
+      "ember-obsidian-plate",
+      "ember-wyrm-scale"
+    ],
+    "suntemple": [
+      "ember-obsidian-plate",
+      "ember-vault-sigil",
+      "ember-glassblade"
+    ],
+    "orchard": [
+      "jade-blade",
+      "jade-mail",
+      "furnace-seal"
+    ],
+    "mirror": [
+      "jade-blade",
+      "jade-mail",
+      "jade-wyrm-pearl"
+    ],
+    "stair": [
+      "jade-blade",
+      "jade-mail",
+      "jade-miner-plate"
+    ],
+    "storm": [
+      "jade-crane-saber",
+      "jade-mail",
+      "jade-moon-pendant"
+    ],
+    "crane": [
+      "jade-crane-saber",
+      "jade-miner-plate",
+      "jade-wyrm-pearl"
+    ],
+    "library": [
+      "jade-vault-robe",
+      "jade-crane-saber",
+      "jade-moon-pendant"
+    ],
+    "abyss-blades": [
+      "abyss-blade",
+      "abyss-mail",
+      "abyss-hp-potion"
+    ],
+    "abyss-basin": [
+      "abyss-blade",
+      "abyss-ember-ring",
+      "abyss-mail"
+    ],
+    "abyss-mirror": [
+      "abyss-mail",
+      "abyss-veil-robe",
+      "abyss-blade"
+    ],
+    "abyss-bonewood": [
+      "abyss-bonefang",
+      "abyss-mail",
+      "abyss-bone-charm"
+    ],
+    "abyss-ash": [
+      "abyss-bonefang",
+      "abyss-veil-robe",
+      "abyss-ember-ring"
+    ],
+    "abyss-regret": [
+      "abyss-bonefang",
+      "abyss-veil-robe",
+      "abyss-bone-charm"
     ]
   }
 }

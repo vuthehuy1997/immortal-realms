@@ -122,5 +122,492 @@
     ],
     "idle": "The founder left a ledger of seals. Three guardians were never enough, you know.",
     "image": "npcs/hermit-wen.png"
+  },
+  {
+    "id": "ferryman-bo",
+    "sprite": "hero.spearman",
+    "role": "Ferryman Bo · Quests",
+    "name": "Ferryman Bo",
+    "portrait": "boatman_neutral",
+    "quests": [
+      "s1-ferry",
+      "s1-grotto"
+    ],
+    "idle": "The lake gives and the lake takes. Keep to the shore after dark.",
+    "image": "npcs/ferryman-bo.png"
+  },
+  {
+    "id": "hunter-tao",
+    "sprite": "hero.archer",
+    "role": "Hunter Tao · Quests",
+    "name": "Hunter Tao",
+    "portrait": "hunter_neutral",
+    "quests": [
+      "s1-denhunt"
+    ],
+    "idle": "Wolves hunt by moonlight. Do not be where the moon can find you.",
+    "image": "npcs/hunter-tao.png"
+  },
+  {
+    "id": "hermit-zhuo",
+    "sprite": "hero.monk",
+    "role": "Hermit Zhuo · Quests",
+    "name": "Hermit Zhuo",
+    "portrait": "hermit_neutral",
+    "quests": [
+      "s1-hawks",
+      "s1-stormroost"
+    ],
+    "idle": "The founder carved the first seal on this very cliff. Lightning answered. It has not stopped since.",
+    "image": "npcs/hermit-zhuo.png"
+  },
+  {
+    "id": "sister-lan",
+    "sprite": "hero.heroine",
+    "role": "Sister Lan · Quests",
+    "name": "Sister Lan",
+    "portrait": "nun_neutral",
+    "quests": [
+      "s1-sanctum"
+    ],
+    "idle": "Every stone here was a sword once. They remember being swords.",
+    "image": "npcs/sister-lan.png"
+  },
+  {
+    "id": "trapper-hu",
+    "chapter": 2,
+    "sprite": "hero.archer",
+    "role": "Trapper Hu · Quests",
+    "name": "Trapper Hu",
+    "portrait": "hunter_neutral",
+    "quests": [
+      "s2-trapper",
+      "s2-rimeheart"
+    ],
+    "idle": "The tundra remembers every footprint. So do the wolves.",
+    "image": "npcs/trapper-hu.png"
+  },
+  {
+    "id": "warden-ling",
+    "chapter": 2,
+    "sprite": "hero.swordsman",
+    "role": "Warden Ling · Quests",
+    "name": "Warden Ling",
+    "portrait": "taoist_neutral",
+    "quests": [
+      "s2-gravewind",
+      "s2-bonewarden"
+    ],
+    "idle": "Do not hurry the dead. They have waited longer than you have lived.",
+    "image": "npcs/warden-ling.png"
+  },
+  {
+    "id": "surveyor-pei",
+    "chapter": 2,
+    "sprite": "hero.fanscholar",
+    "role": "Surveyor Pei · Quests",
+    "name": "Surveyor Pei",
+    "portrait": "scholar_neutral",
+    "quests": [
+      "s2-survey",
+      "s2-wyrm"
+    ],
+    "idle": "Every map is a promise. Out here the ground breaks it every winter.",
+    "image": "npcs/surveyor-pei.png"
+  },
+  {
+    "id": "seer-lian",
+    "chapter": 2,
+    "sprite": "hero.heroine",
+    "role": "Seer Lian · Quests",
+    "name": "Seer Lian",
+    "portrait": "fairy_neutral",
+    "quests": [
+      "s2-mirror"
+    ],
+    "idle": "I have seen your road. It has more stairs than I would like.",
+    "image": "npcs/seer-lian.png"
+  },
+  {
+    "id": "caravan-master-hui",
+    "chapter": 3,
+    "sprite": "hero.saber",
+    "role": "Caravan-Master Hui · Quests",
+    "name": "Caravan-Master Hui",
+    "portrait": "general_neutral",
+    "quests": [
+      "ember-silent-roads",
+      "ember-wyrm",
+      "ember-champions",
+      "ember-rift-survey",
+      "ember-mirage",
+      "ember-furnace"
+    ],
+    "idle": "Forty caravans sailed these dunes every season. This season, none. Find out why, disciple.",
+    "image": "npcs/caravan-master-hui.png"
+  },
+  {
+    "id": "trader-sahn",
+    "chapter": 3,
+    "sprite": "hero.spearman",
+    "role": "Trader Sahn · Shop",
+    "blurb": "Whatever the caravans carried, I still stock. Prices have gone up, naturally.",
+    "name": "Trader Sahn",
+    "portrait": "peddler_neutral",
+    "quests": [],
+    "idle": "Cinderforged steel, sun-elixirs, honest weight. Sit, sit.",
+    "trade": "shop",
+    "stock": "ember",
+    "image": "npcs/trader-sahn.png"
+  },
+  {
+    "id": "alchemist-zhu",
+    "chapter": 3,
+    "sprite": "hero.fanscholar",
+    "role": "Alchemist Zhu · Alchemy",
+    "blurb": "The old furnace is awake again. I can feel its heat in my teeth. Bring herbs and I will brew.",
+    "name": "Alchemist Zhu",
+    "portrait": "alchemist_neutral",
+    "quests": [],
+    "idle": "Every pill I brew now tastes of smoke. Make of that what you will.",
+    "trade": "alchemy",
+    "recipes": "ember",
+    "image": "npcs/alchemist-zhu.png"
+  },
+  {
+    "id": "wanderer-dahl",
+    "chapter": 3,
+    "sprite": "hero.swordsman",
+    "role": "Wanderer Dahl · Quests",
+    "name": "Wanderer Dahl",
+    "portrait": "hunter_neutral",
+    "quests": [
+      "ember-viper-fangs",
+      "ember-worm-queen"
+    ],
+    "idle": "The sand sings before it moves. Learn to hear it and you will outlive the vipers.",
+    "image": "npcs/wanderer-dahl.png"
+  },
+  {
+    "id": "keeper-ila",
+    "chapter": 3,
+    "sprite": "hero.heroine",
+    "role": "Keeper Ila · Quests",
+    "name": "Keeper Ila",
+    "portrait": "granny_neutral",
+    "quests": [
+      "ember-oasis-herbs"
+    ],
+    "idle": "This spring has fed travellers for a thousand years. I will not watch it go dry.",
+    "image": "npcs/keeper-ila.png"
+  },
+  {
+    "id": "hunter-tarq",
+    "chapter": 3,
+    "sprite": "hero.archer",
+    "role": "Hunter Tarq · Quests",
+    "name": "Hunter Tarq",
+    "portrait": "drunkard_neutral",
+    "quests": [
+      "ember-roc-hunt"
+    ],
+    "idle": "Rocs nest on the canyon rim. The ash makes them mean. The heat makes them clever.",
+    "image": "npcs/hunter-tarq.png"
+  },
+  {
+    "id": "miner-borok",
+    "chapter": 3,
+    "sprite": "hero.twinblade",
+    "role": "Miner Borok · Quests",
+    "name": "Miner Borok",
+    "portrait": "blacksmith_neutral",
+    "quests": [
+      "ember-obsidian",
+      "ember-mine-heart"
+    ],
+    "idle": "Forty years I cut obsidian. It never used to be warm.",
+    "image": "npcs/miner-borok.png"
+  },
+  {
+    "id": "hermit-zaim",
+    "chapter": 3,
+    "sprite": "hero.staffbeggar",
+    "role": "Hermit Zaim · Quests",
+    "name": "Hermit Zaim",
+    "portrait": "hermit_neutral",
+    "quests": [
+      "ember-salt-road",
+      "ember-vault-seal"
+    ],
+    "idle": "White ground, white sky, white ghosts. Watch which footprints are yours.",
+    "image": "npcs/hermit-zaim.png"
+  },
+  {
+    "id": "scholar-eun",
+    "chapter": 3,
+    "sprite": "hero.monk",
+    "role": "Scholar Eun · Lore",
+    "name": "Scholar Eun",
+    "portrait": "scholar_neutral",
+    "quests": [
+      "ember-sun-scrolls"
+    ],
+    "idle": "The temple was a clock for the Furnace. Every hour was a different fire.",
+    "image": "npcs/scholar-eun.png"
+  },
+  {
+    "id": "warden-lian",
+    "chapter": 4,
+    "sprite": "hero.heroine",
+    "role": "Warden Lian · Quests",
+    "name": "Warden Lian",
+    "portrait": "fairy_neutral",
+    "quests": [
+      "jade-ascent",
+      "jade-storm-lord",
+      "jade-magistrate"
+    ],
+    "idle": "The wind is steady on the terrace. Below the cloud line, nothing is.",
+    "image": "npcs/warden-lian.png"
+  },
+  {
+    "id": "trader-yue",
+    "chapter": 4,
+    "sprite": "hero.twinblade",
+    "role": "Trader Yue · Shop",
+    "blurb": "Terrace prices are spirit-stone prices. Cloudscale, jade, draughts.",
+    "name": "Trader Yue",
+    "portrait": "innkeeper_neutral",
+    "quests": [],
+    "idle": "Everything here was carried up the stair on someone's back. Mind the price.",
+    "trade": "shop",
+    "stock": "jade",
+    "image": "npcs/trader-yue.png"
+  },
+  {
+    "id": "alchemist-ning",
+    "chapter": 4,
+    "sprite": "hero.fanscholar",
+    "role": "Alchemist Ning · Alchemy",
+    "blurb": "Peach, jade dust and a slow fire. Bring herbs.",
+    "name": "Alchemist Ning",
+    "portrait": "doctor_neutral",
+    "quests": [
+      "jade-mine-dust"
+    ],
+    "idle": "Fire slow, patience slower. What are we brewing?",
+    "trade": "alchemy",
+    "recipes": "jade",
+    "image": "npcs/alchemist-ning.png"
+  },
+  {
+    "id": "keeper-sui",
+    "chapter": 4,
+    "sprite": "hero.monk",
+    "role": "Keeper Sui · Trial Rift",
+    "name": "Keeper Sui",
+    "portrait": "nun_neutral",
+    "quests": [],
+    "idle": "The Rift opens a floor for every one you clear. How deep can you go?",
+    "trade": "tower",
+    "image": "npcs/keeper-sui.png"
+  },
+  {
+    "id": "gardener-fen",
+    "chapter": 4,
+    "sprite": "hero.staffbeggar",
+    "role": "Gardener Fen · Quests",
+    "name": "Gardener Fen",
+    "portrait": "granny_neutral",
+    "quests": [
+      "jade-peach-wine"
+    ],
+    "idle": "Forty summers I have pruned these trees. They have never once fruited out of season. Until now.",
+    "image": "npcs/gardener-fen.png"
+  },
+  {
+    "id": "boatman-ke",
+    "chapter": 4,
+    "sprite": "hero.spearman",
+    "role": "Boatman Ke · Quests",
+    "name": "Boatman Ke",
+    "portrait": "boatman_neutral",
+    "quests": [
+      "jade-lake-lanterns",
+      "jade-moon-echo"
+    ],
+    "idle": "The lake is a mirror. Do not look too long at the other side.",
+    "image": "npcs/boatman-ke.png"
+  },
+  {
+    "id": "sentinel-zhao",
+    "chapter": 4,
+    "sprite": "hero.saber",
+    "role": "Sentinel Zhao · Quests",
+    "name": "Sentinel Zhao",
+    "portrait": "general_neutral",
+    "quests": [
+      "jade-stair-toll",
+      "jade-cavern-echo"
+    ],
+    "idle": "A thousand steps, and every step a guard. I used to count them.",
+    "image": "npcs/sentinel-zhao.png"
+  },
+  {
+    "id": "scholar-mei",
+    "chapter": 4,
+    "sprite": "hero.archer",
+    "role": "Scholar Mei · Quests",
+    "name": "Scholar Mei",
+    "portrait": "scholar_neutral",
+    "quests": [
+      "jade-archive-keeper",
+      "jade-lost-slips",
+      "jade-vault-key"
+    ],
+    "idle": "The slips remember everything. That is the problem with them.",
+    "image": "npcs/scholar-mei.png"
+  },
+  {
+    "id": "hermit-gu",
+    "chapter": 4,
+    "sprite": "hero.swordsman",
+    "role": "Hermit Gu · Lore",
+    "name": "Hermit Gu",
+    "portrait": "taoist_neutral",
+    "quests": [
+      "jade-crane-feathers"
+    ],
+    "idle": "I was an immortal once. Then I looked down, and could not stop looking.",
+    "image": "npcs/hermit-gu.png"
+  },
+  {
+    "id": "matron-hui",
+    "chapter": 5,
+    "sprite": "hero.heroine",
+    "role": "Matron Hui · Quests",
+    "name": "Matron Hui",
+    "portrait": "granny_neutral",
+    "quests": [
+      "abyss-first-flame",
+      "abyss-blood-river",
+      "abyss-ash-trial",
+      "abyss-dao-demon"
+    ],
+    "idle": "Sit. Eat something. The flame does not mind if you rest, only if you give up.",
+    "image": "npcs/matron-hui.png"
+  },
+  {
+    "id": "smith-tang",
+    "chapter": 5,
+    "sprite": "hero.twinblade",
+    "role": "Smith Tang · Shop",
+    "blurb": "Blades reforged from what the Abyss gave back. They remember. I only make them sharper.",
+    "name": "Smith Tang",
+    "portrait": "blacksmith_neutral",
+    "quests": [
+      "abyss-slag-and-ash"
+    ],
+    "idle": "Everything here is heavier than it looks. Mind the edge, mind the weight.",
+    "trade": "shop",
+    "stock": "abyss",
+    "image": "npcs/smith-tang.png"
+  },
+  {
+    "id": "alchemist-lian",
+    "chapter": 5,
+    "sprite": "hero.fanscholar",
+    "role": "Alchemist Lian · Alchemy",
+    "blurb": "Bring me lingzhi and a few stones. I brew with what the Abyss cannot spoil.",
+    "name": "Alchemist Lian",
+    "portrait": "alchemist_neutral",
+    "quests": [],
+    "idle": "Even down here the furnace is warm. That counts for something.",
+    "trade": "alchemy",
+    "recipes": "abyss",
+    "image": "npcs/alchemist-lian.png"
+  },
+  {
+    "id": "gravetender-jun",
+    "chapter": 5,
+    "sprite": "hero.swordsman",
+    "role": "Gravetender Jun · Quests",
+    "name": "Gravetender Jun",
+    "portrait": "swordsman_neutral",
+    "quests": [
+      "abyss-sword-grave"
+    ],
+    "idle": "I bury the blades when I can. There are always more blades than I have hands.",
+    "image": "npcs/gravetender-jun.png"
+  },
+  {
+    "id": "ferryman-tu",
+    "chapter": 5,
+    "sprite": "hero.saber",
+    "role": "Ferryman Tu · Quests",
+    "name": "Ferryman Tu",
+    "portrait": "boatman_neutral",
+    "quests": [
+      "abyss-ferry-fire",
+      "abyss-grotto-spring"
+    ],
+    "idle": "The river is fire, friend. My boat is the only thing between the two shores. It is mostly a very long bridge.",
+    "image": "npcs/ferryman-tu.png"
+  },
+  {
+    "id": "scribe-ao",
+    "chapter": 5,
+    "sprite": "hero.archer",
+    "role": "Scribe Ao · Lore",
+    "name": "Scribe Ao",
+    "portrait": "scholar_neutral",
+    "quests": [
+      "abyss-mirror-truth",
+      "abyss-vault-selves"
+    ],
+    "idle": "I write what the mirrors say. It changes each time I read it back.",
+    "image": "npcs/scribe-ao.png"
+  },
+  {
+    "id": "huntress-ye",
+    "chapter": 5,
+    "sprite": "hero.spearman",
+    "role": "Huntress Ye · Quests",
+    "name": "Huntress Ye",
+    "portrait": "hunter_neutral",
+    "quests": [
+      "abyss-bone-ledger",
+      "abyss-bone-cavern-delve"
+    ],
+    "idle": "The forest grows toward the dead. Do not stand still too long.",
+    "image": "npcs/huntress-ye.png"
+  },
+  {
+    "id": "drifter-dun",
+    "chapter": 5,
+    "sprite": "hero.staffbeggar",
+    "role": "Drifter Dun · Lore",
+    "name": "Drifter Dun",
+    "portrait": "drunkard_neutral",
+    "quests": [
+      "abyss-ash-whispers",
+      "abyss-reliquary-delve"
+    ],
+    "idle": "I was a sect elder once. I forget which sect. The ash remembers, if you ask it nicely.",
+    "image": "npcs/drifter-dun.png"
+  },
+  {
+    "id": "sister-sen",
+    "chapter": 5,
+    "sprite": "hero.monk",
+    "role": "Sister Sen · Quests",
+    "name": "Sister Sen",
+    "portrait": "nun_neutral",
+    "quests": [
+      "abyss-matron",
+      "abyss-regret-letters"
+    ],
+    "idle": "Every petal here was a letter nobody sent. Please do not step on them.",
+    "image": "npcs/sister-sen.png"
   }
 ]

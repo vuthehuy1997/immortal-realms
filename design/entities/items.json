@@ -25,11 +25,22 @@
       "ashskeleton",
       "ashguard",
       "alphawolf",
+      "s1-driftwood",
+      "s1-basaltgolem",
+      "s1-direwolf",
+      "s2-glacierwolf",
+      "s2-mawserpent",
+      "s2-rimesentinel",
+      "dunejackal",
+      "cindermoth",
+      "cloudserpent",
       "quest:pests",
       "quest:fox",
       "quest:jiaolong",
       "quest:toads",
       "quest:furnace",
+      "quest:s1-ferry",
+      "quest:s1-denhunt",
       "brew:brew-hp",
       "shop"
     ]
@@ -53,7 +64,12 @@
       "peachspirit",
       "thunderbird",
       "frostwisp",
+      "s1-pearlwisp",
+      "s1-tidemaiden",
+      "s1-stormhawk",
+      "s2-howlwraith",
       "quest:jiaolong",
+      "quest:s1-hawks",
       "brew:brew-mana",
       "shop"
     ]
@@ -89,6 +105,23 @@
       "sovereign",
       "ninetail",
       "swordshade",
+      "s1-tidecaller",
+      "s1-stormmatriarch",
+      "s1-driftwood",
+      "s1-stormhawk",
+      "s1-basaltgolem",
+      "s1-thunderimp",
+      "s2-rimematriarch",
+      "s2-prismsage",
+      "s2-blizzardhawk",
+      "s2-glacierbrute",
+      "s2-frozencorpse",
+      "s2-tombwraith",
+      "s2-mirrorspirit",
+      "cactuswarden",
+      "oasisnymph",
+      "claygolem",
+      "saltghoul",
       "quest:fox",
       "quest:warden",
       "quest:furnace",
@@ -96,6 +129,9 @@
       "quest:shard-harvest",
       "quest:frost-elites",
       "quest:barrow-rites",
+      "quest:s1-sanctum",
+      "quest:s2-gravewind",
+      "quest:ember-silent-roads",
       "brew:brew-qi",
       "shop"
     ]
@@ -168,6 +204,7 @@
     "sources": [
       "elite@marsh",
       "elite@grove",
+      "elite@s1-pearlgrotto",
       "shop"
     ]
   },
@@ -188,7 +225,9 @@
     "sources": [
       "swordshade",
       "elite@ruins",
-      "elite@cliffs"
+      "elite@cliffs",
+      "elite@swordsanctum",
+      "elite@s1-stormroost"
     ]
   },
   {
@@ -225,6 +264,7 @@
     "sources": [
       "elite@marsh",
       "elite@grove",
+      "elite@wolfden",
       "shop"
     ]
   },
@@ -246,6 +286,7 @@
       "ninetail",
       "elite@grove",
       "elite@lake",
+      "elite@s1-pearlgrotto",
       "shop"
     ]
   },
@@ -266,6 +307,8 @@
     "sources": [
       "elite@ruins",
       "elite@cliffs",
+      "elite@swordsanctum",
+      "elite@s1-stormroost",
       "quest:champions"
     ]
   },
@@ -360,6 +403,7 @@
       "elite@marsh",
       "elite@ruins",
       "elite@cliffs",
+      "elite@wolfden",
       "quest:fox",
       "shop"
     ]
@@ -417,11 +461,35 @@
       "bloodjiangshi",
       "ashguard",
       "corpseking",
+      "s2-bonewarden",
+      "s2-glacierwolf",
+      "s2-glacierbrute",
+      "s2-glasspuppet",
+      "s2-rimesentinel",
+      "sandviper",
+      "dunejackal",
+      "glassscorpion",
+      "reedtoad",
+      "duneraider",
+      "brinecrawler",
+      "saltsoldier",
+      "slagtoad",
+      "cinderhound",
       "elite@frostpass",
+      "elite@tundra",
+      "elite@s2-rimeheart",
+      "elite@dunes",
       "quest:rift-scouts",
       "quest:barrow-rites",
       "quest:hollow-heart",
-      "quest:sundered-sovereign"
+      "quest:sundered-sovereign",
+      "quest:s1-stormroost",
+      "quest:s2-trapper",
+      "quest:s2-gravewind",
+      "quest:s2-survey",
+      "quest:ember-silent-roads",
+      "quest:ember-viper-fangs",
+      "quest:ember-oasis-herbs"
     ]
   },
   {
@@ -442,10 +510,24 @@
       "prismghost",
       "shardbird",
       "crystalcolossus",
+      "s2-howlwraith",
+      "s2-blizzardhawk",
+      "s2-aurorawisp",
+      "s2-tombwraith",
+      "s2-mirrorspirit",
+      "dustwisp",
+      "drownedcaravaneer",
+      "oasisnymph",
+      "ashroc",
+      "mirageghost",
+      "magmasprite",
       "quest:shard-harvest",
       "quest:frost-elites",
       "quest:hollow-heart",
-      "quest:sundered-sovereign"
+      "quest:sundered-sovereign",
+      "quest:s2-trapper",
+      "quest:s2-mirror",
+      "quest:ember-roc-hunt"
     ]
   },
   {
@@ -464,7 +546,10 @@
     "sources": [
       "elite@frostpass",
       "elite@crystal",
-      "elite@barrow"
+      "elite@barrow",
+      "elite@glaciermaw",
+      "elite@tundra",
+      "elite@s2-rimeheart"
     ]
   },
   {
@@ -518,7 +603,11 @@
     "sources": [
       "elite@frostpass",
       "elite@crystal",
-      "elite@barrow"
+      "elite@barrow",
+      "elite@glaciermaw",
+      "elite@tundra",
+      "elite@s2-gravewind",
+      "elite@s2-wyrmden"
     ]
   },
   {
@@ -556,7 +645,10 @@
     "sources": [
       "corpseking",
       "elite@crystal",
-      "elite@barrow"
+      "elite@barrow",
+      "elite@glaciermaw",
+      "elite@s2-gravewind",
+      "elite@s2-mirrorvault"
     ]
   },
   {
@@ -576,6 +668,1405 @@
     "sellValue": 1440,
     "sources": [
       "sovereign"
+    ]
+  },
+  {
+    "id": "ember-blade",
+    "name": "Cinderforged Blade",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+36 attack. Still warm from the dunes.",
+    "value": 3000,
+    "rarity": "rare",
+    "weaponAtk": 36,
+    "image": "items/ember-blade.png",
+    "shopPrice": null,
+    "sellValue": 1200,
+    "sources": [
+      "elite@dunes",
+      "elite@canyon"
+    ]
+  },
+  {
+    "id": "ember-mail",
+    "name": "Dune-Wrapped Mail",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+32 defence, +160 HP. Sand-glass plates over desert silk.",
+    "value": 2800,
+    "rarity": "rare",
+    "defBonus": 32,
+    "hpBonus": 160,
+    "image": "items/ember-mail.png",
+    "shopPrice": null,
+    "sellValue": 1120,
+    "sources": [
+      "elite@oasis",
+      "elite@canyon",
+      "elite@saltflats"
+    ]
+  },
+  {
+    "id": "furnace-saber",
+    "name": "Saber of the Heavenly Furnace",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+46 attack. Quenched in the immortals' forge.",
+    "value": 6400,
+    "rarity": "epic",
+    "weaponAtk": 46,
+    "image": "items/furnace-saber.png",
+    "shopPrice": null,
+    "sellValue": 2560,
+    "sources": [
+      "furnacewarden"
+    ]
+  },
+  {
+    "id": "furnace-robe",
+    "name": "Furnace-Warden Vestments",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+40 defence, +230 HP. Woven from cooled slag-silk.",
+    "value": 6000,
+    "rarity": "epic",
+    "defBonus": 40,
+    "hpBonus": 230,
+    "image": "items/furnace-robe.png",
+    "shopPrice": null,
+    "sellValue": 2400,
+    "sources": [
+      "mirageempress"
+    ]
+  },
+  {
+    "id": "furnace-seal",
+    "name": "Seal of the Furnace",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+12 attack, +7% critical chance. It hums like a kettle.",
+    "value": 6200,
+    "rarity": "epic",
+    "atkBonus": 12,
+    "critBonus": 0.07,
+    "image": "items/furnace-seal.png",
+    "shopPrice": null,
+    "sellValue": 2480,
+    "sources": [
+      "furnacewarden",
+      "elite@orchard"
+    ]
+  },
+  {
+    "id": "jade-blade",
+    "name": "Terrace Jade Blade",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+52 attack. Light as a falling petal.",
+    "value": 5000,
+    "rarity": "rare",
+    "weaponAtk": 52,
+    "image": "items/jade-blade.png",
+    "shopPrice": null,
+    "sellValue": 2000,
+    "sources": [
+      "elite@orchard",
+      "elite@mirror",
+      "elite@stair"
+    ]
+  },
+  {
+    "id": "jade-mail",
+    "name": "Cloudscale Armor",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+46 defence, +220 HP. Scales shed by a celestial carp.",
+    "value": 4600,
+    "rarity": "rare",
+    "defBonus": 46,
+    "hpBonus": 220,
+    "image": "items/jade-mail.png",
+    "shopPrice": null,
+    "sellValue": 1840,
+    "sources": [
+      "elite@orchard",
+      "elite@mirror",
+      "elite@stair",
+      "elite@storm"
+    ]
+  },
+  {
+    "id": "heaven-sword",
+    "name": "Sword of the Nine Clouds",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+62 attack. It cuts the wind itself.",
+    "value": 10400,
+    "rarity": "epic",
+    "weaponAtk": 62,
+    "image": "items/heaven-sword.png",
+    "shopPrice": null,
+    "sellValue": 4160,
+    "sources": [
+      "magistrate"
+    ]
+  },
+  {
+    "id": "heaven-robe",
+    "name": "Robe of the Celestial Court",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+56 defence, +320 HP. The hem never touches the ground.",
+    "value": 9800,
+    "rarity": "epic",
+    "defBonus": 56,
+    "hpBonus": 320,
+    "image": "items/heaven-robe.png",
+    "shopPrice": null,
+    "sellValue": 3920,
+    "sources": [
+      "archivekeeper"
+    ]
+  },
+  {
+    "id": "jade-seal",
+    "name": "Seal of the Jade Magistrate",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+18 attack, +8% critical chance, +80 mana. Cold and exact.",
+    "value": 10000,
+    "rarity": "epic",
+    "atkBonus": 18,
+    "critBonus": 0.08,
+    "manaBonus": 80,
+    "image": "items/jade-seal.png",
+    "shopPrice": null,
+    "sellValue": 4000,
+    "sources": [
+      "magistrate"
+    ]
+  },
+  {
+    "id": "abyss-blade",
+    "name": "Bloodtempered Blade",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+70 attack. It remembers every hand that held it.",
+    "value": 8200,
+    "rarity": "rare",
+    "weaponAtk": 70,
+    "image": "items/abyss-blade.png",
+    "shopPrice": null,
+    "sellValue": 3280,
+    "sources": [
+      "elite@abyss-blades",
+      "elite@abyss-basin",
+      "elite@abyss-mirror"
+    ]
+  },
+  {
+    "id": "abyss-mail",
+    "name": "Ashen Penitent Plate",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+64 defence, +330 HP. Heavy with other people's regret.",
+    "value": 7600,
+    "rarity": "rare",
+    "defBonus": 64,
+    "hpBonus": 330,
+    "image": "items/abyss-mail.png",
+    "shopPrice": null,
+    "sellValue": 3040,
+    "sources": [
+      "elite@abyss-blades",
+      "elite@abyss-basin",
+      "elite@abyss-mirror",
+      "elite@abyss-bonewood"
+    ]
+  },
+  {
+    "id": "tribulation-sword",
+    "name": "Blade of the Third Tribulation",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+82 attack. Lightning sleeps in the edge.",
+    "value": 17000,
+    "rarity": "epic",
+    "weaponAtk": 82,
+    "image": "items/tribulation-sword.png",
+    "shopPrice": null,
+    "sellValue": 6800,
+    "sources": [
+      "abyss-daodemon"
+    ]
+  },
+  {
+    "id": "tribulation-robe",
+    "name": "Robe of Nine Tribulations",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+76 defence, +450 HP. Scorched, and stronger for it.",
+    "value": 16000,
+    "rarity": "epic",
+    "defBonus": 76,
+    "hpBonus": 450,
+    "image": "items/tribulation-robe.png",
+    "shopPrice": null,
+    "sellValue": 6400,
+    "sources": [
+      "abyss-tyrant"
+    ]
+  },
+  {
+    "id": "abyss-seal",
+    "name": "Seal of the Dao Demon",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+26 attack, +10% critical chance, +14 defence. It watches back.",
+    "value": 16500,
+    "rarity": "epic",
+    "atkBonus": 26,
+    "critBonus": 0.1,
+    "defBonus": 14,
+    "image": "items/abyss-seal.png",
+    "shopPrice": null,
+    "sellValue": 6600,
+    "sources": [
+      "abyss-daodemon"
+    ]
+  },
+  {
+    "id": "s1-lotus-draught",
+    "name": "Lotus Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 70 HP.",
+    "value": 20,
+    "rarity": "uncommon",
+    "heal": 70,
+    "image": "items/s1-lotus-draught.png",
+    "shopPrice": null,
+    "sellValue": 8,
+    "sources": [
+      "s1-tidecaller",
+      "s1-tidemaiden",
+      "quest:s1-grotto"
+    ]
+  },
+  {
+    "id": "s1-mist-tonic",
+    "name": "Mist Tonic",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 55 mana.",
+    "value": 20,
+    "rarity": "uncommon",
+    "mana": 55,
+    "image": "items/s1-mist-tonic.png",
+    "shopPrice": null,
+    "sellValue": 8,
+    "sources": [
+      "s1-pearlwisp",
+      "quest:s1-ferry",
+      "quest:s1-sanctum"
+    ]
+  },
+  {
+    "id": "s1-storm-pill",
+    "name": "Stormcharged Pill",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Adds 100 qi.",
+    "value": 50,
+    "rarity": "uncommon",
+    "qi": 100,
+    "image": "items/s1-storm-pill.png",
+    "shopPrice": null,
+    "sellValue": 20,
+    "sources": [
+      "s1-stormmatriarch",
+      "s1-thunderimp",
+      "quest:s1-hawks"
+    ]
+  },
+  {
+    "id": "s1-moonfang-cloak",
+    "name": "Moonfang Pelt Cloak",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+10 defence, +48 HP.",
+    "value": 420,
+    "rarity": "rare",
+    "defBonus": 10,
+    "hpBonus": 48,
+    "image": "items/s1-moonfang-cloak.png",
+    "shopPrice": null,
+    "sellValue": 168,
+    "sources": [
+      "alphawolf",
+      "elite@wolfden",
+      "quest:s1-denhunt"
+    ]
+  },
+  {
+    "id": "s1-tidepearl",
+    "name": "Tidepearl Pendant",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+35 mana, +2 mana regeneration, +4 defence.",
+    "value": 500,
+    "rarity": "rare",
+    "manaBonus": 35,
+    "regenBonus": 2,
+    "defBonus": 4,
+    "image": "items/s1-tidepearl.png",
+    "shopPrice": null,
+    "sellValue": 200,
+    "sources": [
+      "s1-tidecaller",
+      "elite@lake",
+      "elite@s1-pearlgrotto",
+      "quest:s1-grotto"
+    ]
+  },
+  {
+    "id": "s1-stormcaller-saber",
+    "name": "Stormcaller Saber",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+13 attack. It hums before rain.",
+    "value": 900,
+    "rarity": "rare",
+    "weaponAtk": 13,
+    "image": "items/s1-stormcaller-saber.png",
+    "shopPrice": null,
+    "sellValue": 360,
+    "sources": [
+      "s1-stormmatriarch",
+      "elite@cliffs",
+      "elite@s1-stormroost",
+      "quest:s1-stormroost"
+    ]
+  },
+  {
+    "id": "s1-discipline-seal",
+    "name": "Disciple's Sword Seal",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+4 attack, +5% critical chance.",
+    "value": 650,
+    "rarity": "rare",
+    "atkBonus": 4,
+    "critBonus": 0.05,
+    "image": "items/s1-discipline-seal.png",
+    "shopPrice": null,
+    "sellValue": 260,
+    "sources": [
+      "swordshade",
+      "elite@swordsanctum",
+      "quest:s1-sanctum"
+    ]
+  },
+  {
+    "id": "s2-rime-elixir",
+    "name": "Rime Elixir",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 200 HP.",
+    "value": 70,
+    "rarity": "rare",
+    "heal": 200,
+    "image": "items/s2-rime-elixir.png",
+    "shopPrice": null,
+    "sellValue": 28,
+    "sources": [
+      "s2-rimematriarch",
+      "s2-glacierwyrm",
+      "quest:s2-rimeheart"
+    ]
+  },
+  {
+    "id": "s2-aurora-draught",
+    "name": "Aurora Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 140 mana.",
+    "value": 70,
+    "rarity": "rare",
+    "mana": 140,
+    "image": "items/s2-aurora-draught.png",
+    "shopPrice": null,
+    "sellValue": 28,
+    "sources": [
+      "s2-prismsage",
+      "s2-aurorawisp",
+      "quest:s2-survey",
+      "quest:s2-wyrm",
+      "quest:s2-mirror"
+    ]
+  },
+  {
+    "id": "s2-frostlotus-pill",
+    "name": "Frostlotus Pill",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Adds 150 qi.",
+    "value": 80,
+    "rarity": "rare",
+    "qi": 150,
+    "image": "items/s2-frostlotus-pill.png",
+    "shopPrice": null,
+    "sellValue": 32,
+    "sources": [
+      "s2-bonewarden",
+      "s2-frozencorpse",
+      "quest:s2-bonewarden"
+    ]
+  },
+  {
+    "id": "s2-glacier-saber",
+    "name": "Glacier Wyrm Saber",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+22 attack. The edge never thaws.",
+    "value": 1900,
+    "rarity": "rare",
+    "weaponAtk": 22,
+    "image": "items/s2-glacier-saber.png",
+    "shopPrice": null,
+    "sellValue": 760,
+    "sources": [
+      "s2-glacierwyrm",
+      "elite@glaciermaw",
+      "elite@s2-mirrorvault",
+      "elite@s2-wyrmden",
+      "quest:s2-wyrm"
+    ]
+  },
+  {
+    "id": "s2-mirror-blade",
+    "name": "Mirrorvault Blade",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+26 attack. It shows you what you will do next.",
+    "value": 3000,
+    "rarity": "epic",
+    "weaponAtk": 26,
+    "image": "items/s2-mirror-blade.png",
+    "shopPrice": null,
+    "sellValue": 1200,
+    "sources": [
+      "s2-prismsage"
+    ]
+  },
+  {
+    "id": "s2-rime-cloak",
+    "name": "Rime Matriarch Cloak",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+25 defence, +140 HP.",
+    "value": 2000,
+    "rarity": "rare",
+    "defBonus": 25,
+    "hpBonus": 140,
+    "image": "items/s2-rime-cloak.png",
+    "shopPrice": null,
+    "sellValue": 800,
+    "sources": [
+      "s2-rimematriarch",
+      "elite@tundra",
+      "elite@s2-rimeheart",
+      "quest:s2-rimeheart"
+    ]
+  },
+  {
+    "id": "s2-warden-signet",
+    "name": "Bone Warden Signet",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+6 attack, +5% critical chance, +4 defence.",
+    "value": 1500,
+    "rarity": "rare",
+    "atkBonus": 6,
+    "critBonus": 0.05,
+    "defBonus": 4,
+    "image": "items/s2-warden-signet.png",
+    "shopPrice": null,
+    "sellValue": 600,
+    "sources": [
+      "s2-bonewarden",
+      "elite@s2-gravewind",
+      "quest:s2-bonewarden"
+    ]
+  },
+  {
+    "id": "s2-wyrm-pearl",
+    "name": "Glacier Wyrm Pearl",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+50 mana, +3 mana regeneration, +8 defence.",
+    "value": 2800,
+    "rarity": "epic",
+    "manaBonus": 50,
+    "regenBonus": 3,
+    "defBonus": 8,
+    "image": "items/s2-wyrm-pearl.png",
+    "shopPrice": null,
+    "sellValue": 1120,
+    "sources": [
+      "s2-glacierwyrm",
+      "elite@s2-mirrorvault",
+      "elite@s2-wyrmden"
+    ]
+  },
+  {
+    "id": "ember-hp-potion",
+    "name": "Sunfire Elixir",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 300 HP.",
+    "value": 90,
+    "rarity": "rare",
+    "heal": 300,
+    "image": "items/ember-hp-potion.png",
+    "shopPrice": null,
+    "sellValue": 36,
+    "sources": [
+      "cactuswarden",
+      "claygolem",
+      "duneraider",
+      "saltghoul",
+      "saltsoldier",
+      "slagtoad",
+      "cinderhound",
+      "mummy",
+      "templeguard",
+      "homunculus",
+      "sandwyrm",
+      "glasswormqueen",
+      "vaultwarden",
+      "elite@dunes",
+      "elite@oasis",
+      "quest:ember-wyrm",
+      "quest:ember-champions",
+      "quest:ember-rift-survey",
+      "quest:ember-mirage",
+      "quest:ember-furnace",
+      "quest:ember-worm-queen",
+      "quest:ember-roc-hunt",
+      "quest:ember-obsidian",
+      "quest:ember-mine-heart",
+      "quest:ember-sun-scrolls"
+    ]
+  },
+  {
+    "id": "ember-mana-potion",
+    "name": "Moonwell Elixir",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 160 mana.",
+    "value": 90,
+    "rarity": "rare",
+    "mana": 160,
+    "image": "items/ember-mana-potion.png",
+    "shopPrice": null,
+    "sellValue": 36,
+    "sources": [
+      "mirageghost",
+      "magmasprite",
+      "vaultwisp",
+      "mirageempress",
+      "obsidiancolossus",
+      "elite@oasis",
+      "quest:ember-wyrm",
+      "quest:ember-rift-survey",
+      "quest:ember-furnace",
+      "quest:ember-oasis-herbs",
+      "quest:ember-salt-road",
+      "quest:ember-vault-seal",
+      "quest:ember-sun-scrolls"
+    ]
+  },
+  {
+    "id": "ember-qi-pill",
+    "name": "Cinder Qi Pill",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Adds 180 qi.",
+    "value": 100,
+    "rarity": "rare",
+    "qi": 180,
+    "image": "items/ember-qi-pill.png",
+    "shopPrice": null,
+    "sellValue": 40,
+    "sources": [
+      "obsidiangolem",
+      "sunhusk",
+      "sunblade",
+      "vaultblade",
+      "bronzeguardian",
+      "sandwyrm",
+      "mirageempress",
+      "furnacewarden",
+      "vaultwarden",
+      "quest:ember-champions",
+      "quest:ember-mirage",
+      "quest:ember-furnace",
+      "quest:ember-worm-queen",
+      "quest:ember-obsidian",
+      "quest:ember-salt-road",
+      "quest:ember-vault-seal"
+    ]
+  },
+  {
+    "id": "ember-viper-fang",
+    "name": "Sand Viper Fang",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "A hooked yellow fang. Caravan guards pay for these.",
+    "value": 20,
+    "rarity": "uncommon",
+    "image": "items/ember-viper-fang.png",
+    "shopPrice": null,
+    "sellValue": 8,
+    "sources": [
+      "sandviper"
+    ]
+  },
+  {
+    "id": "ember-roc-feather",
+    "name": "Ash Roc Feather",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "Grey as cold ash, and stiff as wire.",
+    "value": 24,
+    "rarity": "uncommon",
+    "image": "items/ember-roc-feather.png",
+    "shopPrice": null,
+    "sellValue": 9,
+    "sources": [
+      "ashroc"
+    ]
+  },
+  {
+    "id": "ember-obsidian-shard",
+    "name": "Obsidian Shard",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "Black glass that stays warm in the hand.",
+    "value": 26,
+    "rarity": "uncommon",
+    "image": "items/ember-obsidian-shard.png",
+    "shopPrice": null,
+    "sellValue": 10,
+    "sources": [
+      "obsidiangolem",
+      "bronzeguardian",
+      "obsidiancolossus"
+    ]
+  },
+  {
+    "id": "ember-sun-tablet",
+    "name": "Sun Tablet Fragment",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "A gilded scrap of the temple's record.",
+    "value": 30,
+    "rarity": "uncommon",
+    "image": "items/ember-sun-tablet.png",
+    "shopPrice": null,
+    "sellValue": 12,
+    "sources": [
+      "mummy",
+      "sunhusk",
+      "templeguard"
+    ]
+  },
+  {
+    "id": "ember-glass-shard",
+    "name": "Dune-Glass Shard",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "Green glass fused from sand. It rings when struck.",
+    "value": 22,
+    "rarity": "uncommon",
+    "image": "items/ember-glass-shard.png",
+    "shopPrice": null,
+    "sellValue": 8,
+    "sources": [
+      "glassscorpion",
+      "drownedcaravaneer",
+      "glasswormling",
+      "glasswormqueen"
+    ]
+  },
+  {
+    "id": "ember-glassblade",
+    "name": "Glass-Worm Fang Blade",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+41 attack. Cut from the Queen's own fang.",
+    "value": 4200,
+    "rarity": "epic",
+    "weaponAtk": 41,
+    "image": "items/ember-glassblade.png",
+    "shopPrice": null,
+    "sellValue": 1680,
+    "sources": [
+      "elite@saltflats",
+      "elite@magmarift",
+      "elite@suntemple"
+    ]
+  },
+  {
+    "id": "ember-obsidian-plate",
+    "name": "Obsidian Miner's Plate",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+36 defence, +190 HP.",
+    "value": 4400,
+    "rarity": "epic",
+    "defBonus": 36,
+    "hpBonus": 190,
+    "image": "items/ember-obsidian-plate.png",
+    "shopPrice": null,
+    "sellValue": 1760,
+    "sources": [
+      "elite@magmarift",
+      "elite@suntemple",
+      "quest:ember-mine-heart"
+    ]
+  },
+  {
+    "id": "ember-wyrm-scale",
+    "name": "Sand Wyrm Scale",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+7 attack, +5% critical chance, +6 defence.",
+    "value": 4000,
+    "rarity": "epic",
+    "atkBonus": 7,
+    "critBonus": 0.05,
+    "defBonus": 6,
+    "image": "items/ember-wyrm-scale.png",
+    "shopPrice": null,
+    "sellValue": 1600,
+    "sources": [
+      "sandwyrm",
+      "elite@canyon",
+      "elite@magmarift"
+    ]
+  },
+  {
+    "id": "ember-vault-sigil",
+    "name": "Vault Alchemist's Sigil",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+90 mana, +5 mana regeneration, +8 defence.",
+    "value": 4300,
+    "rarity": "epic",
+    "manaBonus": 90,
+    "regenBonus": 5,
+    "defBonus": 8,
+    "image": "items/ember-vault-sigil.png",
+    "shopPrice": null,
+    "sellValue": 1720,
+    "sources": [
+      "elite@saltflats",
+      "elite@suntemple"
+    ]
+  },
+  {
+    "id": "jade-hp-potion",
+    "name": "Celestial Vitality Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 320 HP.",
+    "value": 90,
+    "rarity": "uncommon",
+    "heal": 320,
+    "image": "items/jade-hp-potion.png",
+    "shopPrice": null,
+    "sellValue": 36,
+    "sources": [
+      "jadesentinel",
+      "oregolem",
+      "stormhound",
+      "cloudhound",
+      "celestialguard",
+      "blossomtreant",
+      "mirrorknight",
+      "cloudwyrm",
+      "quest:jade-ascent",
+      "quest:jade-storm-lord",
+      "quest:jade-lake-lanterns",
+      "quest:jade-stair-toll",
+      "quest:jade-cavern-echo",
+      "quest:jade-moon-echo"
+    ]
+  },
+  {
+    "id": "jade-mana-potion",
+    "name": "Celestial Clarity Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 200 mana.",
+    "value": 90,
+    "rarity": "uncommon",
+    "mana": 200,
+    "image": "items/jade-mana-potion.png",
+    "shopPrice": null,
+    "sellValue": 36,
+    "sources": [
+      "stormcrane",
+      "scrollwraith",
+      "inkwisp",
+      "blossomsprite",
+      "mirrorwraith",
+      "moonwisp",
+      "quest:jade-ascent",
+      "quest:jade-archive-keeper",
+      "quest:jade-peach-wine",
+      "quest:jade-lost-slips",
+      "quest:jade-vault-key"
+    ]
+  },
+  {
+    "id": "jade-pill",
+    "name": "Nine-Cloud Qi Pill",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Adds 180 qi.",
+    "value": 120,
+    "rarity": "rare",
+    "qi": 180,
+    "image": "items/jade-pill.png",
+    "shopPrice": null,
+    "sellValue": 48,
+    "sources": [
+      "jadecolossus",
+      "scribe",
+      "celestialguard",
+      "skyblade",
+      "vaultcalligrapher",
+      "quest:jade-storm-lord",
+      "quest:jade-magistrate",
+      "quest:jade-lake-lanterns",
+      "quest:jade-cavern-echo",
+      "quest:jade-lost-slips",
+      "quest:jade-crane-feathers",
+      "quest:jade-mine-dust"
+    ]
+  },
+  {
+    "id": "jade-elixir",
+    "name": "Peach-Blossom Elixir",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 700 HP.",
+    "value": 260,
+    "rarity": "rare",
+    "heal": 700,
+    "image": "items/jade-elixir.png",
+    "shopPrice": null,
+    "sellValue": 104,
+    "sources": [
+      "cranelord",
+      "archivekeeper",
+      "magistrate",
+      "mirrorqueen",
+      "quest:jade-archive-keeper",
+      "quest:jade-magistrate",
+      "quest:jade-peach-wine",
+      "quest:jade-stair-toll",
+      "quest:jade-vault-key",
+      "quest:jade-crane-feathers",
+      "quest:jade-mine-dust",
+      "quest:jade-moon-echo"
+    ]
+  },
+  {
+    "id": "jade-ore",
+    "name": "Raw Jade Ore",
+    "type": "material",
+    "maxStack": 20,
+    "description": "Heavy, cold, faintly singing. The mine-masters pay well for it.",
+    "value": 60,
+    "rarity": "uncommon",
+    "image": "items/jade-ore.png",
+    "shopPrice": null,
+    "sellValue": 24,
+    "sources": [
+      "jadesentinel",
+      "jadecolossus",
+      "oregolem",
+      "veinbat",
+      "seamtyrant"
+    ]
+  },
+  {
+    "id": "jade-peach",
+    "name": "Heavenly Peach",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "A peach that ripened in the thin air. It smells of rain.",
+    "value": 40,
+    "rarity": "uncommon",
+    "image": "items/jade-peach.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "blossomsprite",
+      "blossomtreant"
+    ]
+  },
+  {
+    "id": "jade-slip-scrap",
+    "name": "Charred Jade Slip",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "A scrap of a scripture, scorched by furnace smoke.",
+    "value": 40,
+    "rarity": "uncommon",
+    "image": "items/jade-slip-scrap.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "scrollwraith",
+      "inkwisp",
+      "scribe"
+    ]
+  },
+  {
+    "id": "jade-feather",
+    "name": "Storm Crane Feather",
+    "type": "quest",
+    "maxStack": 20,
+    "description": "White, crackling with static.",
+    "value": 40,
+    "rarity": "uncommon",
+    "image": "items/jade-feather.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "stormcrane"
+    ]
+  },
+  {
+    "id": "jade-crane-saber",
+    "name": "Saber of the Crane Lord",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+56 attack. It hums before thunder.",
+    "value": 7600,
+    "rarity": "epic",
+    "weaponAtk": 56,
+    "image": "items/jade-crane-saber.png",
+    "shopPrice": null,
+    "sellValue": 3040,
+    "sources": [
+      "cranelord",
+      "elite@storm",
+      "elite@crane",
+      "elite@library"
+    ]
+  },
+  {
+    "id": "jade-miner-plate",
+    "name": "Seamdeep Miner's Plate",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+49 defence, +250 HP. Jade dust in every joint.",
+    "value": 7000,
+    "rarity": "epic",
+    "defBonus": 49,
+    "hpBonus": 250,
+    "image": "items/jade-miner-plate.png",
+    "shopPrice": null,
+    "sellValue": 2800,
+    "sources": [
+      "seamtyrant",
+      "elite@stair",
+      "elite@crane"
+    ]
+  },
+  {
+    "id": "jade-vault-robe",
+    "name": "Vault-Scribe Robe",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+51 defence, +270 HP. Sewn with sealed verses.",
+    "value": 8000,
+    "rarity": "epic",
+    "defBonus": 51,
+    "hpBonus": 270,
+    "image": "items/jade-vault-robe.png",
+    "shopPrice": null,
+    "sellValue": 3200,
+    "sources": [
+      "vaultcalligrapher",
+      "elite@library"
+    ]
+  },
+  {
+    "id": "jade-wyrm-pearl",
+    "name": "Cloudwyrm Pearl",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+60 mana, +3 mana regeneration, +12 defence.",
+    "value": 6000,
+    "rarity": "epic",
+    "manaBonus": 60,
+    "regenBonus": 3,
+    "defBonus": 12,
+    "image": "items/jade-wyrm-pearl.png",
+    "shopPrice": null,
+    "sellValue": 2400,
+    "sources": [
+      "cloudwyrm",
+      "elite@mirror",
+      "elite@crane"
+    ]
+  },
+  {
+    "id": "jade-moon-pendant",
+    "name": "Moon-Mirror Pendant",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+10 attack, +6% critical chance, +50 mana.",
+    "value": 7200,
+    "rarity": "epic",
+    "atkBonus": 10,
+    "critBonus": 0.06,
+    "manaBonus": 50,
+    "image": "items/jade-moon-pendant.png",
+    "shopPrice": null,
+    "sellValue": 2880,
+    "sources": [
+      "mirrorqueen",
+      "elite@storm",
+      "elite@library"
+    ]
+  },
+  {
+    "id": "abyss-hp-potion",
+    "name": "Crimson Lotus Draught",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 450 HP.",
+    "value": 90,
+    "rarity": "rare",
+    "heal": 450,
+    "image": "items/abyss-hp-potion.png",
+    "shopPrice": null,
+    "sellValue": 36,
+    "sources": [
+      "abyss-bladewraith",
+      "abyss-ashknight",
+      "abyss-lavatoad",
+      "abyss-hollowserpent",
+      "abyss-cindergolem",
+      "abyss-effigy",
+      "abyss-bonehound",
+      "abyss-tyrant",
+      "abyss-rootking",
+      "elite@abyss-blades",
+      "quest:abyss-first-flame",
+      "quest:abyss-blood-river",
+      "quest:abyss-ash-trial",
+      "quest:abyss-dao-demon",
+      "quest:abyss-sword-grave",
+      "quest:abyss-ferry-fire",
+      "quest:abyss-bone-ledger",
+      "quest:abyss-slag-and-ash",
+      "quest:abyss-bone-cavern-delve"
+    ]
+  },
+  {
+    "id": "abyss-mana-potion",
+    "name": "Draught of Still Water",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Restores 220 mana.",
+    "value": 90,
+    "rarity": "rare",
+    "mana": 220,
+    "image": "items/abyss-mana-potion.png",
+    "shopPrice": null,
+    "sellValue": 36,
+    "sources": [
+      "abyss-regretghost",
+      "abyss-bloodfoxfire",
+      "abyss-emberbird",
+      "abyss-mirrorshade",
+      "abyss-witheredpeach",
+      "abyss-springfox",
+      "quest:abyss-first-flame",
+      "quest:abyss-mirror-truth",
+      "quest:abyss-ash-trial",
+      "quest:abyss-ferry-fire",
+      "quest:abyss-vault-selves",
+      "quest:abyss-ash-whispers"
+    ]
+  },
+  {
+    "id": "abyss-qi-pill",
+    "name": "Tribulation Qi Pill",
+    "type": "consumable",
+    "maxStack": 10,
+    "description": "Adds 240 qi.",
+    "value": 110,
+    "rarity": "rare",
+    "qi": 240,
+    "image": "items/abyss-qi-pill.png",
+    "shopPrice": null,
+    "sellValue": 44,
+    "sources": [
+      "abyss-bloodfoxfire",
+      "abyss-emberbird",
+      "abyss-bonetreant",
+      "abyss-penitent",
+      "abyss-matron",
+      "quest:abyss-mirror-truth",
+      "quest:abyss-matron",
+      "quest:abyss-dao-demon",
+      "quest:abyss-sword-grave",
+      "quest:abyss-grotto-spring",
+      "quest:abyss-ash-whispers",
+      "quest:abyss-regret-letters",
+      "quest:abyss-reliquary-delve"
+    ]
+  },
+  {
+    "id": "abyss-heal-pill",
+    "name": "Deathless Pill",
+    "type": "consumable",
+    "maxStack": 5,
+    "description": "Restores 1000 HP. Said to have been refined from a promise.",
+    "value": 260,
+    "rarity": "epic",
+    "heal": 1000,
+    "image": "items/abyss-heal-pill.png",
+    "shopPrice": null,
+    "sellValue": 104,
+    "sources": [
+      "abyss-cindergolem",
+      "abyss-bonetreant",
+      "abyss-penitent",
+      "abyss-tyrant",
+      "abyss-matron",
+      "abyss-daodemon",
+      "abyss-vaultself",
+      "abyss-cinderwarden",
+      "quest:abyss-blood-river",
+      "quest:abyss-matron",
+      "quest:abyss-ash-trial",
+      "quest:abyss-dao-demon",
+      "quest:abyss-grotto-spring",
+      "quest:abyss-vault-selves",
+      "quest:abyss-bone-ledger",
+      "quest:abyss-regret-letters",
+      "quest:abyss-slag-and-ash",
+      "quest:abyss-bone-cavern-delve",
+      "quest:abyss-reliquary-delve"
+    ]
+  },
+  {
+    "id": "abyss-blade-shard",
+    "name": "Unburied Blade Shard",
+    "type": "material",
+    "maxStack": 20,
+    "description": "A splinter of a sword nobody came back for.",
+    "value": 40,
+    "rarity": "uncommon",
+    "image": "items/abyss-blade-shard.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "abyss-bladewraith"
+    ]
+  },
+  {
+    "id": "abyss-bone-root",
+    "name": "Bone Root",
+    "type": "material",
+    "maxStack": 20,
+    "description": "White, damp and faintly warm.",
+    "value": 40,
+    "rarity": "uncommon",
+    "image": "items/abyss-bone-root.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "abyss-bonetreant",
+      "abyss-bonehound",
+      "abyss-penitent"
+    ]
+  },
+  {
+    "id": "abyss-mirror-shard",
+    "name": "Mirror Shard",
+    "type": "material",
+    "maxStack": 20,
+    "description": "It shows you slightly younger.",
+    "value": 40,
+    "rarity": "uncommon",
+    "image": "items/abyss-mirror-shard.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "abyss-mirrorshade",
+      "abyss-effigy"
+    ]
+  },
+  {
+    "id": "abyss-regret-bloom",
+    "name": "Regret Bloom",
+    "type": "material",
+    "maxStack": 20,
+    "description": "A petal that never finished falling.",
+    "value": 40,
+    "rarity": "uncommon",
+    "image": "items/abyss-regret-bloom.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "abyss-regretghost",
+      "abyss-witheredpeach"
+    ]
+  },
+  {
+    "id": "abyss-ash-ore",
+    "name": "Reliquary Ash Ore",
+    "type": "material",
+    "maxStack": 20,
+    "description": "Ash that remembers being a name.",
+    "value": 40,
+    "rarity": "uncommon",
+    "image": "items/abyss-ash-ore.png",
+    "shopPrice": null,
+    "sellValue": 16,
+    "sources": [
+      "abyss-ashmoth",
+      "abyss-ashknight",
+      "abyss-cindergolem"
+    ]
+  },
+  {
+    "id": "abyss-bonefang",
+    "name": "Ossuary Fang",
+    "type": "equipment",
+    "slot": "weapon",
+    "maxStack": 1,
+    "description": "+76 attack. Grown, not forged.",
+    "value": 11000,
+    "rarity": "epic",
+    "weaponAtk": 76,
+    "image": "items/abyss-bonefang.png",
+    "shopPrice": null,
+    "sellValue": 4400,
+    "sources": [
+      "abyss-rootking",
+      "elite@abyss-bonewood",
+      "elite@abyss-ash",
+      "elite@abyss-regret"
+    ]
+  },
+  {
+    "id": "abyss-veil-robe",
+    "name": "Veil of Past Selves",
+    "type": "equipment",
+    "slot": "armor",
+    "maxStack": 1,
+    "description": "+70 defence, +390 HP. It fits better than it should.",
+    "value": 10400,
+    "rarity": "epic",
+    "defBonus": 70,
+    "hpBonus": 390,
+    "image": "items/abyss-veil-robe.png",
+    "shopPrice": null,
+    "sellValue": 4160,
+    "sources": [
+      "abyss-vaultself",
+      "elite@abyss-mirror",
+      "elite@abyss-ash",
+      "elite@abyss-regret"
+    ]
+  },
+  {
+    "id": "abyss-ember-ring",
+    "name": "Ring of the Blood Spring",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+14 attack, +9 defence, +4 mana regeneration.",
+    "value": 9000,
+    "rarity": "epic",
+    "atkBonus": 14,
+    "defBonus": 9,
+    "regenBonus": 4,
+    "image": "items/abyss-ember-ring.png",
+    "shopPrice": null,
+    "sellValue": 3600,
+    "sources": [
+      "abyss-springfox",
+      "elite@abyss-basin",
+      "elite@abyss-ash"
+    ]
+  },
+  {
+    "id": "abyss-bone-charm",
+    "name": "Reliquary Bone Charm",
+    "type": "equipment",
+    "slot": "charm",
+    "maxStack": 1,
+    "description": "+18 attack, +7% critical chance, +60 mana.",
+    "value": 12000,
+    "rarity": "epic",
+    "atkBonus": 18,
+    "critBonus": 0.07,
+    "manaBonus": 60,
+    "image": "items/abyss-bone-charm.png",
+    "shopPrice": null,
+    "sellValue": 4800,
+    "sources": [
+      "abyss-matron",
+      "abyss-cinderwarden",
+      "elite@abyss-bonewood",
+      "elite@abyss-regret"
     ]
   }
 ]

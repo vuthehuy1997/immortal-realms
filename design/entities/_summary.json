@@ -1,14 +1,14 @@
 {
   "generatedFrom": "src/data + src/core",
   "counts": {
-    "enemies": 27,
-    "bosses": 8,
+    "enemies": 109,
+    "bosses": 34,
     "heroes": 6,
     "skills": 4,
-    "items": 28,
-    "quests": 13,
-    "npcs": 9,
-    "zones": 15,
+    "items": 96,
+    "quests": 70,
+    "npcs": 44,
+    "zones": 58,
     "props": 30,
     "sheets": 217
   },

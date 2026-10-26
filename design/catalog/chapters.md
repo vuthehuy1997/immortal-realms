@@ -8,30 +8,80 @@ Each chapter is its own map with a hub, zones, bosses, NPCs and quest chain; the
 
 > Long ago the founder of the Azure Cloud Sect sealed the Heavenly Fissure, a wound in the sky that leaks ruin into the world.
 >
-> He bound three guardians to hold the seals: a sword immortal, a nine-tailed fox, a dragon of the mist pool.
+> He bound three guardians to hold the seals: a sword immortal, a nine-tailed fox, a dragon of the mist pool. Lesser spirits drifted in behind them, to the lake, the cliffs and the caves beneath.
 >
 > Centuries passed. The seals rotted. The guardians went feral, and the sect has called for every disciple who can hold a blade.
 >
 > You are the newest of them. Walk the realms, grow in the Way, and put the guardians to rest.
 
-- hub: village; zones: village, bamboo, marsh, grove, ruins, lair, lake, cliffs, wolfden, swordsanctum
-- bosses: Fallen Sword Immortal → Nine-Tailed Fox Spirit → Jiao Dragon of the Mist Pool → Moonfang Alpha → Shade of the Sword Disciple
-- NPCs: elder-lin, merchant-qiao, alchemist-yun, keeper-ming
-- quests: pests → fox → warden → jiaolong → toads → furnace → champions
+- hub: village; zones: village, bamboo, marsh, grove, ruins, lair, lake, cliffs, wolfden, swordsanctum, s1-pearlgrotto, s1-stormroost
+- bosses: Fallen Sword Immortal → Nine-Tailed Fox Spirit → Jiao Dragon of the Mist Pool → Moonfang Alpha → Shade of the Sword Disciple → Tidecaller Matron → Thunderroost Matriarch
+- NPCs: elder-lin, merchant-qiao, alchemist-yun, keeper-ming, ferryman-bo, hunter-tao, hermit-zhuo, sister-lan
+- quests: pests → fox → warden → jiaolong → toads → furnace → champions → s1-ferry → s1-grotto → s1-denhunt → s1-hawks → s1-stormroost → s1-sanctum
 - gate: always open
 
 ## Chapter 2: The Sundered Sky
 
 > With the three guardians gone, the Heavenly Fissure tore open, and the cold of another world poured through.
 >
-> The Skyfall Outpost, last fort on the Fissure's rim, answers to Commander Shen. Beyond it lie the Whitefrost Pass, the Crystal Hollow and the Ashen Barrow.
+> The Skyfall Outpost, last fort on the Fissure's rim, answers to Commander Shen. Beyond it lie the Whitefrost Pass, the Crystal Hollow and the Ashen Barrow, and farther out the Glacier Maw and the Howling Tundra, where trappers and surveyors still hold on.
 >
 > At the summit waits the Sundered Sovereign, the thing the guardians were bred to hold back.
 >
 > The seals can no longer be mended. They can only be ended.
 
-- hub: outpost; zones: outpost, frostpass, crystal, barrow, summit
-- bosses: Corpse King of the Ashen Barrow → Crystal Colossus → Sundered Sovereign
-- NPCs: commander-shen, quartermaster-gu, herbalist-mo, keeper-ren, hermit-wen
-- quests: rift-scouts → shard-harvest → frost-elites → barrow-rites → hollow-heart → sundered-sovereign
+- hub: outpost; zones: outpost, frostpass, crystal, barrow, summit, glaciermaw, tundra, s2-rimeheart, s2-gravewind, s2-mirrorvault, s2-wyrmden
+- bosses: Corpse King of the Ashen Barrow → Crystal Colossus → Sundered Sovereign → Rime Matriarch → Bone Warden of the Gravewind → Prism Sage of the Mirror Vault → Glacier Wyrm
+- NPCs: commander-shen, quartermaster-gu, herbalist-mo, keeper-ren, hermit-wen, trapper-hu, warden-ling, surveyor-pei, seer-lian
+- quests: rift-scouts → shard-harvest → frost-elites → barrow-rites → hollow-heart → sundered-sovereign → s2-trapper → s2-rimeheart → s2-gravewind → s2-bonewarden → s2-survey → s2-wyrm → s2-mirror
 - gate: level 10 and Fallen Sword Immortal, Nine-Tailed Fox Spirit, Jiao Dragon of the Mist Pool
+
+## Chapter 3: The Ember Wastes
+
+> The Sundered Sovereign is dead and the cold is gone. The Fissure did not close. It bled its other heat south, into the desert, and the heat woke what lay buried there.
+>
+> The Heavenly Furnace was the immortals' forge, where they refined pills and flying swords before they fled to the sky. Now it burns again. Dunes melt to green glass, a rift of magma opens in the old caravan roads.
+>
+> At the Cinder Bazaar, the last town on the trade route, caravans have stopped arriving. Caravan-Master Hui keeps the lanterns lit, in case anyone still comes.
+>
+> Cross the dunes, the canyon and the salt, and climb to the summit of the Furnace. Whatever feeds it must be stopped.
+
+- hub: bazaar; zones: bazaar, dunes, oasis, canyon, saltflats, magmarift, suntemple, furnace, ember-burrow, ember-mine, ember-vault
+- bosses: Sand Wyrm of the Scorched Canyon → Mirage Empress → Furnace Warden → Glass-Worm Queen → Obsidian Colossus → Vault Warden of the Forge
+- NPCs: caravan-master-hui, trader-sahn, alchemist-zhu, wanderer-dahl, keeper-ila, hunter-tarq, miner-borok, hermit-zaim, scholar-eun
+- quests: ember-silent-roads → ember-wyrm → ember-champions → ember-rift-survey → ember-mirage → ember-furnace → ember-viper-fangs → ember-worm-queen → ember-oasis-herbs → ember-roc-hunt → ember-obsidian → ember-mine-heart → ember-salt-road → ember-vault-seal → ember-sun-scrolls
+- gate: level 17 and Corpse King of the Ashen Barrow, Crystal Colossus, Sundered Sovereign
+
+## Chapter 4: The Jade Heavens
+
+> Above the clouds the immortals who fled the Fissure built terraces of jade and floating stone, each one a quiet island in the wind.
+>
+> For an age they watched the mortal world shrink beneath them. Then the Heavenly Furnace woke, and its smoke climbed the sky and stained the jade.
+>
+> The Celestial Magistrate judged the smoke and found the mortal world guilty. He shut the Jade Gate and sent constructs and spirit beasts down the stair.
+>
+> You have come up through the closed gate. Climb the terraces, cross the chasms, and stand before the Magistrate on his dais.
+
+- hub: terrace; zones: terrace, orchard, mirror, stair, storm, crane, library, dais, cloudhollow, jademine, scrollvault, moonpalace
+- bosses: Storm Crane Lord → Keeper of the Jade Archive → Celestial Magistrate → Cloudwyrm of the Hollow → Jade Seam Tyrant → Calligrapher of the Sealed Vault → Lady of the Moon Mirror
+- NPCs: warden-lian, trader-yue, alchemist-ning, keeper-sui, gardener-fen, boatman-ke, sentinel-zhao, scholar-mei, hermit-gu
+- quests: jade-ascent → jade-storm-lord → jade-archive-keeper → jade-magistrate → jade-peach-wine → jade-lake-lanterns → jade-stair-toll → jade-cavern-echo → jade-lost-slips → jade-vault-key → jade-crane-feathers → jade-mine-dust → jade-moon-echo
+- gate: level 25 and Sand Wyrm of the Scorched Canyon, Mirage Empress, Furnace Warden
+
+## Chapter 5: The Crimson Abyss
+
+> The Magistrate fell, and the sky did not mend. It cracked from horizon to horizon, and through the crack the heavens drained away like water from a broken bowl.
+>
+> Beneath every realm lies one more: the Crimson Abyss. It is where a cultivator's unfinished wants are sent to wait. Every vow left unkept, every rival left unforgiven, every door left unopened is down here, and none of it has stayed quiet.
+>
+> At the edge of the dark, a few survivors keep one flame alive. They call their camp the Last Lantern, and they have kept it burning through nine winters of ash.
+>
+> At the heart of the Abyss, on a mountain of old tribulation lightning, waits the Dao Demon. Every cultivator meets it at the top of the Way. Most never come back to say what it asked.
+>
+> You have climbed further than anyone. There is only one road left, and it goes down.
+
+- hub: lantern; zones: lantern, abyss-blades, abyss-basin, abyss-mirror, abyss-bonewood, abyss-ash, abyss-regret, abyss-peak, abyss-bonecavern, abyss-bloodgrotto, abyss-mirrorvault, abyss-ashmaw
+- bosses: Blood-River Tyrant → Matron of Regrets → Dao Demon of Tribulation → Ossuary Root-King → Heretic of the Blood Spring → The Self You Left Behind → Cinder Warden of the Reliquary
+- NPCs: matron-hui, smith-tang, alchemist-lian, gravetender-jun, ferryman-tu, scribe-ao, huntress-ye, drifter-dun, sister-sen
+- quests: abyss-first-flame → abyss-blood-river → abyss-mirror-truth → abyss-matron → abyss-ash-trial → abyss-dao-demon → abyss-sword-grave → abyss-ferry-fire → abyss-grotto-spring → abyss-vault-selves → abyss-bone-ledger → abyss-ash-whispers → abyss-regret-letters → abyss-slag-and-ash → abyss-bone-cavern-delve → abyss-reliquary-delve
+- gate: level 35 and Storm Crane Lord, Keeper of the Jade Archive, Celestial Magistrate

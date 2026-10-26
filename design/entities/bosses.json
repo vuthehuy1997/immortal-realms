@@ -753,9 +753,13 @@
       {
         "item": "hp-potion",
         "chance": 1
+      },
+      {
+        "item": "s1-moonfang-cloak",
+        "chance": 0.5
       }
     ],
-    "questId": null
+    "questId": "s1-denhunt"
   },
   {
     "id": "swordshade",
@@ -842,8 +846,2868 @@
       {
         "item": "qi-pill",
         "chance": 1
+      },
+      {
+        "item": "s1-discipline-seal",
+        "chance": 0.5
       }
     ],
-    "questId": null
+    "questId": "s1-sanctum"
+  },
+  {
+    "id": "s1-tidecaller",
+    "chapter": 1,
+    "dungeon": "s1-pearlgrotto",
+    "name": "Tidecaller Matron",
+    "home": "pearlgrotto",
+    "zone": "s1-pearlgrotto",
+    "xp": 460,
+    "stones": [
+      80,
+      120
+    ],
+    "sprite": "mob.waterghost",
+    "tint": 8382719,
+    "scale": 1,
+    "radius": 20,
+    "maxHp": 4800,
+    "atk": 25,
+    "def": 6,
+    "speed": 44,
+    "moves": {
+      "sweep": {
+        "range": 76,
+        "halfAngle": 1.2,
+        "windup": 0.6,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.3,
+        "triggerRange": 80
+      },
+      "rain": {
+        "count": 6,
+        "radius": 28,
+        "spread": 110,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 6,
+        "damageMult": 1.1
+      },
+      "summon": {
+        "windup": 0.7,
+        "cooldown": 12,
+        "count": 2,
+        "maxMinions": 4,
+        "minionType": "waterghost"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 7,
+        "projectiles": 10,
+        "damageMult": 0.9
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "rain"
+      ],
+      [
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "rain",
+        "ring",
+        "summon",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.3,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/s1-tidecaller.png",
+    "drops": [
+      {
+        "item": "s1-tidepearl",
+        "chance": 1
+      },
+      {
+        "item": "s1-lotus-draught",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "s1-grotto"
+  },
+  {
+    "id": "s1-stormmatriarch",
+    "chapter": 1,
+    "dungeon": "s1-stormroost",
+    "name": "Thunderroost Matriarch",
+    "home": "stormroost",
+    "zone": "s1-stormroost",
+    "xp": 560,
+    "stones": [
+      90,
+      140
+    ],
+    "sprite": "mob.thunderbird",
+    "tint": 16769136,
+    "scale": 1.05,
+    "radius": 20,
+    "maxHp": 6000,
+    "atk": 29,
+    "def": 7,
+    "speed": 52,
+    "moves": {
+      "charge": {
+        "windup": 0.65,
+        "duration": 0.5,
+        "speed": 300,
+        "width": 22,
+        "recover": 0.7,
+        "cooldown": 4.6,
+        "damageMult": 1.5,
+        "minRange": 12,
+        "maxRange": 240
+      },
+      "rain": {
+        "count": 7,
+        "radius": 28,
+        "spread": 120,
+        "windup": 0.5,
+        "delay": 0.9,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.2
+      },
+      "teleport": {
+        "windup": 0.7,
+        "recover": 0.45,
+        "cooldown": 9,
+        "behind": 42,
+        "radius": 46,
+        "damageMult": 1.4
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6.5,
+        "projectiles": 12,
+        "damageMult": 0.95
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 13,
+        "count": 2,
+        "maxMinions": 4,
+        "minionType": "s1-thunderimp"
+      }
+    },
+    "kit": [
+      [
+        "charge",
+        "rain"
+      ],
+      [
+        "charge",
+        "rain",
+        "summon"
+      ],
+      [
+        "rain",
+        "teleport",
+        "ring",
+        "charge",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/s1-stormmatriarch.png",
+    "drops": [
+      {
+        "item": "s1-stormcaller-saber",
+        "chance": 1
+      },
+      {
+        "item": "s1-storm-pill",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "s1-stormroost"
+  },
+  {
+    "id": "s2-rimematriarch",
+    "chapter": 2,
+    "dungeon": "s2-rimeheart",
+    "name": "Rime Matriarch",
+    "home": "rimeheart",
+    "zone": "s2-rimeheart",
+    "xp": 700,
+    "stones": [
+      120,
+      180
+    ],
+    "sprite": "mob.wolf",
+    "tint": 13625599,
+    "scale": 1.15,
+    "radius": 22,
+    "maxHp": 8800,
+    "atk": 38,
+    "def": 10,
+    "speed": 62,
+    "moves": {
+      "sweep": {
+        "range": 78,
+        "halfAngle": 1.15,
+        "windup": 0.55,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.35,
+        "triggerRange": 82
+      },
+      "charge": {
+        "windup": 0.6,
+        "duration": 0.5,
+        "speed": 320,
+        "width": 24,
+        "recover": 0.65,
+        "cooldown": 4,
+        "damageMult": 1.55,
+        "minRange": 12,
+        "maxRange": 250
+      },
+      "summon": {
+        "windup": 0.7,
+        "cooldown": 11,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "s2-glacierwolf"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 7,
+        "projectiles": 12,
+        "damageMult": 0.9
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "charge"
+      ],
+      [
+        "charge",
+        "summon",
+        "sweep"
+      ],
+      [
+        "charge",
+        "ring",
+        "summon",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.3,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/s2-rimematriarch.png",
+    "drops": [
+      {
+        "item": "s2-rime-cloak",
+        "chance": 0.7
+      },
+      {
+        "item": "s2-rime-elixir",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "s2-rimeheart"
+  },
+  {
+    "id": "s2-bonewarden",
+    "chapter": 2,
+    "dungeon": "s2-gravewind",
+    "name": "Bone Warden of the Gravewind",
+    "home": "gravewind",
+    "zone": "s2-gravewind",
+    "xp": 900,
+    "stones": [
+      150,
+      220
+    ],
+    "sprite": "mob.skeleton",
+    "tint": 15261904,
+    "scale": 1,
+    "radius": 22,
+    "maxHp": 11500,
+    "atk": 44,
+    "def": 14,
+    "speed": 44,
+    "moves": {
+      "slam": {
+        "radius": 60,
+        "windup": 0.85,
+        "recover": 0.5,
+        "cooldown": 4,
+        "damageMult": 1.7,
+        "triggerRange": 92
+      },
+      "sweep": {
+        "range": 92,
+        "halfAngle": 1,
+        "windup": 0.7,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.4,
+        "triggerRange": 90
+      },
+      "charge": {
+        "windup": 0.7,
+        "duration": 0.5,
+        "speed": 300,
+        "width": 26,
+        "recover": 0.7,
+        "cooldown": 4.8,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 250
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "ashskeleton"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6.5,
+        "projectiles": 12,
+        "damageMult": 0.95
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep"
+      ],
+      [
+        "slam",
+        "charge",
+        "summon",
+        "sweep"
+      ],
+      [
+        "charge",
+        "ring",
+        "summon",
+        "slam",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.3,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/s2-bonewarden.png",
+    "drops": [
+      {
+        "item": "s2-warden-signet",
+        "chance": 0.8
+      },
+      {
+        "item": "s2-frostlotus-pill",
+        "chance": 1
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 1
+      }
+    ],
+    "questId": "s2-bonewarden"
+  },
+  {
+    "id": "s2-prismsage",
+    "chapter": 2,
+    "dungeon": "s2-mirrorvault",
+    "name": "Prism Sage of the Mirror Vault",
+    "home": "mirrorvault",
+    "zone": "s2-mirrorvault",
+    "xp": 1000,
+    "stones": [
+      170,
+      250
+    ],
+    "sprite": "boss.fallenimmortal",
+    "tint": 14203135,
+    "scale": 0.55,
+    "radius": 18,
+    "maxHp": 12500,
+    "atk": 46,
+    "def": 15,
+    "speed": 40,
+    "moves": {
+      "slam": {
+        "radius": 56,
+        "windup": 0.9,
+        "recover": 0.5,
+        "cooldown": 4.2,
+        "damageMult": 1.7,
+        "triggerRange": 88
+      },
+      "sweep": {
+        "range": 86,
+        "halfAngle": 0.95,
+        "windup": 0.7,
+        "recover": 0.45,
+        "cooldown": 3.2,
+        "damageMult": 1.45,
+        "triggerRange": 84
+      },
+      "rain": {
+        "count": 7,
+        "radius": 30,
+        "spread": 130,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.15
+      },
+      "teleport": {
+        "windup": 0.75,
+        "recover": 0.45,
+        "cooldown": 8.5,
+        "behind": 44,
+        "radius": 50,
+        "damageMult": 1.6
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 13,
+        "count": 2,
+        "maxMinions": 4,
+        "minionType": "prismghost"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6.2,
+        "projectiles": 14,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep"
+      ],
+      [
+        "slam",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "rain",
+        "teleport",
+        "ring",
+        "summon",
+        "slam"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.65
+    },
+    "image": "bosses/s2-prismsage.png",
+    "drops": [
+      {
+        "item": "s2-mirror-blade",
+        "chance": 1
+      },
+      {
+        "item": "s2-aurora-draught",
+        "chance": 1
+      },
+      {
+        "item": "qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "s2-mirror"
+  },
+  {
+    "id": "s2-glacierwyrm",
+    "chapter": 2,
+    "dungeon": "s2-wyrmden",
+    "name": "Glacier Wyrm",
+    "home": "wyrmden",
+    "zone": "s2-wyrmden",
+    "xp": 1100,
+    "stones": [
+      190,
+      270
+    ],
+    "sprite": "boss.jiaolong",
+    "tint": 12575999,
+    "scale": 0.44,
+    "radius": 24,
+    "maxHp": 13500,
+    "atk": 48,
+    "def": 14,
+    "speed": 42,
+    "moves": {
+      "slam": {
+        "radius": 56,
+        "windup": 0.9,
+        "recover": 0.5,
+        "cooldown": 4.2,
+        "damageMult": 1.7,
+        "triggerRange": 90
+      },
+      "sweep": {
+        "range": 96,
+        "halfAngle": 1.1,
+        "windup": 0.65,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.4,
+        "triggerRange": 92
+      },
+      "charge": {
+        "windup": 0.75,
+        "duration": 0.55,
+        "speed": 290,
+        "width": 26,
+        "recover": 0.7,
+        "cooldown": 5,
+        "damageMult": 1.55,
+        "minRange": 14,
+        "maxRange": 250
+      },
+      "rain": {
+        "count": 8,
+        "radius": 30,
+        "spread": 120,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.15
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 13,
+        "count": 2,
+        "maxMinions": 4,
+        "minionType": "s2-mawserpent"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6.5,
+        "projectiles": 12,
+        "damageMult": 0.95
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "rain"
+      ],
+      [
+        "sweep",
+        "charge",
+        "ring",
+        "summon"
+      ],
+      [
+        "rain",
+        "ring",
+        "charge",
+        "slam",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.3,
+      "cooldownMult": 0.68
+    },
+    "image": "bosses/s2-glacierwyrm.png",
+    "drops": [
+      {
+        "item": "s2-wyrm-pearl",
+        "chance": 1
+      },
+      {
+        "item": "s2-glacier-saber",
+        "chance": 0.5
+      },
+      {
+        "item": "s2-rime-elixir",
+        "chance": 1
+      }
+    ],
+    "questId": "s2-wyrm"
+  },
+  {
+    "id": "sandwyrm",
+    "chapter": 3,
+    "name": "Sand Wyrm of the Scorched Canyon",
+    "home": "canyon",
+    "zone": "canyon",
+    "tint": 16771216,
+    "xp": 1800,
+    "stones": [
+      260,
+      360
+    ],
+    "sprite": "boss.jiaolong",
+    "scale": 0.5,
+    "radius": 26,
+    "maxHp": 22000,
+    "atk": 70,
+    "def": 20,
+    "speed": 46,
+    "moves": {
+      "slam": {
+        "radius": 62,
+        "windup": 0.9,
+        "recover": 0.5,
+        "cooldown": 4.2,
+        "damageMult": 1.7,
+        "triggerRange": 96
+      },
+      "sweep": {
+        "range": 100,
+        "halfAngle": 1.1,
+        "windup": 0.65,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.4,
+        "triggerRange": 96
+      },
+      "charge": {
+        "windup": 0.7,
+        "duration": 0.55,
+        "speed": 330,
+        "width": 28,
+        "recover": 0.7,
+        "cooldown": 4.6,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 260
+      },
+      "rain": {
+        "count": 8,
+        "radius": 30,
+        "spread": 130,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.2
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 13,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "sandviper"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6.5,
+        "projectiles": 12,
+        "damageMult": 0.95
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "charge"
+      ],
+      [
+        "charge",
+        "rain",
+        "summon",
+        "slam"
+      ],
+      [
+        "rain",
+        "ring",
+        "charge",
+        "slam",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.68
+    },
+    "image": "bosses/sandwyrm.png",
+    "drops": [
+      {
+        "item": "ember-wyrm-scale",
+        "chance": 1
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 1
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "ember-wyrm"
+  },
+  {
+    "id": "mirageempress",
+    "chapter": 3,
+    "name": "Mirage Empress",
+    "home": "suntemple",
+    "zone": "suntemple",
+    "tint": 16764808,
+    "xp": 2400,
+    "stones": [
+      320,
+      440
+    ],
+    "sprite": "boss.ninetail",
+    "scale": 0.5,
+    "radius": 24,
+    "maxHp": 30000,
+    "atk": 80,
+    "def": 22,
+    "speed": 52,
+    "moves": {
+      "sweep": {
+        "range": 92,
+        "halfAngle": 1.3,
+        "windup": 0.6,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.4,
+        "triggerRange": 90
+      },
+      "charge": {
+        "windup": 0.65,
+        "duration": 0.5,
+        "speed": 340,
+        "width": 24,
+        "recover": 0.6,
+        "cooldown": 4.8,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 250
+      },
+      "rain": {
+        "count": 9,
+        "radius": 30,
+        "spread": 140,
+        "windup": 0.5,
+        "delay": 0.9,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.2
+      },
+      "teleport": {
+        "windup": 0.7,
+        "recover": 0.4,
+        "cooldown": 7,
+        "behind": 44,
+        "radius": 50,
+        "damageMult": 1.6
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "mirageghost"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 6,
+        "projectiles": 14,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "teleport"
+      ],
+      [
+        "teleport",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "teleport",
+        "ring",
+        "rain",
+        "charge",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.65
+    },
+    "image": "bosses/mirageempress.png",
+    "drops": [
+      {
+        "item": "furnace-robe",
+        "chance": 1
+      },
+      {
+        "item": "ember-mana-potion",
+        "chance": 1
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "ember-mirage"
+  },
+  {
+    "id": "furnacewarden",
+    "chapter": 3,
+    "name": "Furnace Warden",
+    "home": "furnace",
+    "zone": "furnace",
+    "tint": 16751200,
+    "xp": 3600,
+    "stones": [
+      480,
+      640
+    ],
+    "sprite": "boss.fallenimmortal",
+    "scale": 0.8,
+    "radius": 24,
+    "maxHp": 48000,
+    "atk": 95,
+    "def": 26,
+    "speed": 46,
+    "moves": {
+      "slam": {
+        "radius": 68,
+        "windup": 0.85,
+        "recover": 0.45,
+        "cooldown": 3.8,
+        "damageMult": 1.8,
+        "triggerRange": 100
+      },
+      "sweep": {
+        "range": 104,
+        "halfAngle": 1,
+        "windup": 0.7,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.5,
+        "triggerRange": 98
+      },
+      "charge": {
+        "windup": 0.7,
+        "duration": 0.5,
+        "speed": 340,
+        "width": 26,
+        "recover": 0.6,
+        "cooldown": 5,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 270
+      },
+      "rain": {
+        "count": 10,
+        "radius": 32,
+        "spread": 140,
+        "windup": 0.5,
+        "delay": 0.9,
+        "recover": 0.4,
+        "cooldown": 5.2,
+        "damageMult": 1.25
+      },
+      "teleport": {
+        "windup": 0.75,
+        "recover": 0.45,
+        "cooldown": 8,
+        "behind": 48,
+        "radius": 54,
+        "damageMult": 1.7
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 13,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "sunblade"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 5.8,
+        "projectiles": 16,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep",
+        "charge"
+      ],
+      [
+        "slam",
+        "rain",
+        "summon",
+        "ring",
+        "sweep"
+      ],
+      [
+        "rain",
+        "teleport",
+        "ring",
+        "charge",
+        "slam",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.6
+    },
+    "image": "bosses/furnacewarden.png",
+    "drops": [
+      {
+        "item": "furnace-saber",
+        "chance": 1
+      },
+      {
+        "item": "furnace-seal",
+        "chance": 1
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "ember-furnace"
+  },
+  {
+    "id": "glasswormqueen",
+    "chapter": 3,
+    "dungeon": "ember-burrow",
+    "name": "Glass-Worm Queen",
+    "home": "burrow",
+    "zone": "ember-burrow",
+    "tint": 8380616,
+    "xp": 1400,
+    "stones": [
+      200,
+      300
+    ],
+    "sprite": "mob.snake",
+    "scale": 1.3,
+    "radius": 24,
+    "maxHp": 17000,
+    "atk": 62,
+    "def": 18,
+    "speed": 44,
+    "moves": {
+      "slam": {
+        "radius": 58,
+        "windup": 0.9,
+        "recover": 0.5,
+        "cooldown": 4.2,
+        "damageMult": 1.6,
+        "triggerRange": 90
+      },
+      "charge": {
+        "windup": 0.75,
+        "duration": 0.55,
+        "speed": 310,
+        "width": 26,
+        "recover": 0.7,
+        "cooldown": 4.8,
+        "damageMult": 1.5,
+        "minRange": 14,
+        "maxRange": 240
+      },
+      "rain": {
+        "count": 7,
+        "radius": 28,
+        "spread": 120,
+        "windup": 0.5,
+        "delay": 1,
+        "recover": 0.4,
+        "cooldown": 6,
+        "damageMult": 1.1
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "glasswormling"
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "charge"
+      ],
+      [
+        "charge",
+        "rain",
+        "summon"
+      ],
+      [
+        "rain",
+        "charge",
+        "summon",
+        "slam"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.3,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/glasswormqueen.png",
+    "drops": [
+      {
+        "item": "ember-glass-shard",
+        "chance": 1
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 1
+      }
+    ],
+    "questId": "ember-worm-queen"
+  },
+  {
+    "id": "obsidiancolossus",
+    "chapter": 3,
+    "dungeon": "ember-mine",
+    "name": "Obsidian Colossus",
+    "home": "mine",
+    "zone": "ember-mine",
+    "tint": 3814470,
+    "xp": 1800,
+    "stones": [
+      260,
+      380
+    ],
+    "sprite": "mob.golem",
+    "scale": 1.15,
+    "radius": 28,
+    "maxHp": 22000,
+    "atk": 72,
+    "def": 26,
+    "speed": 30,
+    "moves": {
+      "slam": {
+        "radius": 70,
+        "windup": 1,
+        "recover": 0.6,
+        "cooldown": 4,
+        "damageMult": 1.8,
+        "triggerRange": 104
+      },
+      "sweep": {
+        "range": 104,
+        "halfAngle": 1.1,
+        "windup": 0.8,
+        "recover": 0.5,
+        "cooldown": 3.4,
+        "damageMult": 1.5,
+        "triggerRange": 100
+      },
+      "rain": {
+        "count": 9,
+        "radius": 30,
+        "spread": 140,
+        "windup": 0.5,
+        "delay": 1,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.2
+      },
+      "ring": {
+        "windup": 0.8,
+        "cooldown": 6,
+        "projectiles": 14,
+        "damageMult": 1
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 14,
+        "count": 2,
+        "maxMinions": 3,
+        "minionType": "magmasprite"
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep"
+      ],
+      [
+        "slam",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "rain",
+        "ring",
+        "slam",
+        "sweep",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.65
+    },
+    "image": "bosses/obsidiancolossus.png",
+    "drops": [
+      {
+        "item": "ember-obsidian-shard",
+        "chance": 1
+      },
+      {
+        "item": "ember-mana-potion",
+        "chance": 1
+      }
+    ],
+    "questId": "ember-mine-heart"
+  },
+  {
+    "id": "vaultwarden",
+    "chapter": 3,
+    "dungeon": "ember-vault",
+    "name": "Vault Warden of the Forge",
+    "home": "vault",
+    "zone": "ember-vault",
+    "tint": 16748608,
+    "xp": 2200,
+    "stones": [
+      300,
+      420
+    ],
+    "sprite": "mob.swordspirit_v_gold",
+    "scale": 1.1,
+    "radius": 20,
+    "maxHp": 26000,
+    "atk": 78,
+    "def": 22,
+    "speed": 50,
+    "moves": {
+      "sweep": {
+        "range": 96,
+        "halfAngle": 1.2,
+        "windup": 0.6,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.4,
+        "triggerRange": 92
+      },
+      "charge": {
+        "windup": 0.6,
+        "duration": 0.45,
+        "speed": 350,
+        "width": 24,
+        "recover": 0.6,
+        "cooldown": 4.4,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 260
+      },
+      "rain": {
+        "count": 9,
+        "radius": 30,
+        "spread": 130,
+        "windup": 0.5,
+        "delay": 0.9,
+        "recover": 0.4,
+        "cooldown": 5.4,
+        "damageMult": 1.2
+      },
+      "teleport": {
+        "windup": 0.7,
+        "recover": 0.4,
+        "cooldown": 7.5,
+        "behind": 44,
+        "radius": 50,
+        "damageMult": 1.6
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "vaultblade"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 6,
+        "projectiles": 14,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "charge"
+      ],
+      [
+        "teleport",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "teleport",
+        "ring",
+        "rain",
+        "charge",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.62
+    },
+    "image": "bosses/vaultwarden.png",
+    "drops": [
+      {
+        "item": "ember-qi-pill",
+        "chance": 1
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 1
+      }
+    ],
+    "questId": "ember-vault-seal"
+  },
+  {
+    "id": "cranelord",
+    "chapter": 4,
+    "name": "Storm Crane Lord",
+    "home": "storm",
+    "zone": "storm",
+    "xp": 3400,
+    "stones": [
+      380,
+      520
+    ],
+    "sprite": "mob.thunderbird",
+    "tint": 16055039,
+    "scale": 0.95,
+    "radius": 24,
+    "maxHp": 52000,
+    "atk": 130,
+    "def": 20,
+    "speed": 46,
+    "moves": {
+      "sweep": {
+        "range": 96,
+        "halfAngle": 1.2,
+        "windup": 0.65,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.4,
+        "triggerRange": 92
+      },
+      "charge": {
+        "windup": 0.7,
+        "duration": 0.5,
+        "speed": 320,
+        "width": 26,
+        "recover": 0.65,
+        "cooldown": 4.6,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 260
+      },
+      "rain": {
+        "count": 8,
+        "radius": 30,
+        "spread": 130,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 5.4,
+        "damageMult": 1.2
+      },
+      "teleport": {
+        "windup": 0.7,
+        "recover": 0.4,
+        "cooldown": 8,
+        "behind": 44,
+        "radius": 50,
+        "damageMult": 1.5
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 13,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "stormcrane"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 6,
+        "projectiles": 14,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "charge"
+      ],
+      [
+        "charge",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "teleport",
+        "rain",
+        "ring",
+        "charge",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.68
+    },
+    "image": "bosses/cranelord.png",
+    "drops": [
+      {
+        "item": "jade-crane-saber",
+        "chance": 1
+      },
+      {
+        "item": "jade-elixir",
+        "chance": 1
+      }
+    ],
+    "questId": "jade-storm-lord"
+  },
+  {
+    "id": "archivekeeper",
+    "chapter": 4,
+    "name": "Keeper of the Jade Archive",
+    "home": "library",
+    "zone": "library",
+    "xp": 4200,
+    "stones": [
+      450,
+      600
+    ],
+    "sprite": "boss.ninetail",
+    "tint": 16770728,
+    "scale": 0.46,
+    "radius": 24,
+    "maxHp": 64000,
+    "atk": 145,
+    "def": 24,
+    "speed": 44,
+    "moves": {
+      "slam": {
+        "radius": 62,
+        "windup": 0.85,
+        "recover": 0.5,
+        "cooldown": 4,
+        "damageMult": 1.7,
+        "triggerRange": 94
+      },
+      "sweep": {
+        "range": 92,
+        "halfAngle": 1.2,
+        "windup": 0.65,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.4,
+        "triggerRange": 90
+      },
+      "rain": {
+        "count": 9,
+        "radius": 30,
+        "spread": 140,
+        "windup": 0.5,
+        "delay": 1,
+        "recover": 0.4,
+        "cooldown": 5.4,
+        "damageMult": 1.2
+      },
+      "teleport": {
+        "windup": 0.75,
+        "recover": 0.45,
+        "cooldown": 8,
+        "behind": 46,
+        "radius": 52,
+        "damageMult": 1.6
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 6,
+        "minionType": "scrollwraith"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6,
+        "projectiles": 14,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "rain"
+      ],
+      [
+        "slam",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "teleport",
+        "ring",
+        "rain",
+        "summon",
+        "slam",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.66
+    },
+    "image": "bosses/archivekeeper.png",
+    "drops": [
+      {
+        "item": "heaven-robe",
+        "chance": 1
+      },
+      {
+        "item": "jade-elixir",
+        "chance": 1
+      }
+    ],
+    "questId": "jade-archive-keeper"
+  },
+  {
+    "id": "magistrate",
+    "chapter": 4,
+    "name": "Celestial Magistrate",
+    "home": "dais",
+    "zone": "dais",
+    "xp": 7000,
+    "stones": [
+      800,
+      1100
+    ],
+    "sprite": "boss.fallenimmortal",
+    "tint": 14218495,
+    "scale": 0.8,
+    "radius": 24,
+    "maxHp": 118000,
+    "atk": 170,
+    "def": 28,
+    "speed": 44,
+    "moves": {
+      "slam": {
+        "radius": 68,
+        "windup": 0.85,
+        "recover": 0.45,
+        "cooldown": 3.8,
+        "damageMult": 1.8,
+        "triggerRange": 100
+      },
+      "sweep": {
+        "range": 100,
+        "halfAngle": 1,
+        "windup": 0.7,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.5,
+        "triggerRange": 96
+      },
+      "charge": {
+        "windup": 0.7,
+        "duration": 0.5,
+        "speed": 330,
+        "width": 26,
+        "recover": 0.6,
+        "cooldown": 5,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 270
+      },
+      "rain": {
+        "count": 10,
+        "radius": 30,
+        "spread": 150,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 5,
+        "damageMult": 1.25
+      },
+      "teleport": {
+        "windup": 0.7,
+        "recover": 0.4,
+        "cooldown": 7.5,
+        "behind": 48,
+        "radius": 54,
+        "damageMult": 1.75
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 13,
+        "count": 3,
+        "maxMinions": 6,
+        "minionType": "celestialguard"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 5.6,
+        "projectiles": 16,
+        "damageMult": 1.05
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep",
+        "charge"
+      ],
+      [
+        "slam",
+        "rain",
+        "summon",
+        "teleport",
+        "sweep"
+      ],
+      [
+        "rain",
+        "teleport",
+        "ring",
+        "charge",
+        "slam",
+        "sweep",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.62
+    },
+    "image": "bosses/magistrate.png",
+    "drops": [
+      {
+        "item": "heaven-sword",
+        "chance": 1
+      },
+      {
+        "item": "jade-seal",
+        "chance": 1
+      },
+      {
+        "item": "jade-elixir",
+        "chance": 1
+      }
+    ],
+    "questId": "jade-magistrate"
+  },
+  {
+    "id": "cloudwyrm",
+    "chapter": 4,
+    "dungeon": "cloudhollow",
+    "name": "Cloudwyrm of the Hollow",
+    "home": "cloudhollow",
+    "zone": "cloudhollow",
+    "xp": 2400,
+    "stones": [
+      260,
+      360
+    ],
+    "sprite": "boss.jiaolong",
+    "tint": 14677247,
+    "scale": 0.42,
+    "radius": 24,
+    "maxHp": 30000,
+    "atk": 118,
+    "def": 18,
+    "speed": 44,
+    "moves": {
+      "slam": {
+        "radius": 56,
+        "windup": 0.85,
+        "recover": 0.5,
+        "cooldown": 4.2,
+        "damageMult": 1.6,
+        "triggerRange": 90
+      },
+      "sweep": {
+        "range": 96,
+        "halfAngle": 1.1,
+        "windup": 0.65,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.4,
+        "triggerRange": 92
+      },
+      "charge": {
+        "windup": 0.75,
+        "duration": 0.55,
+        "speed": 300,
+        "width": 26,
+        "recover": 0.7,
+        "cooldown": 5,
+        "damageMult": 1.5,
+        "minRange": 14,
+        "maxRange": 250
+      },
+      "rain": {
+        "count": 7,
+        "radius": 28,
+        "spread": 120,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.1
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 13,
+        "count": 2,
+        "maxMinions": 4,
+        "minionType": "cloudserpent"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6.5,
+        "projectiles": 12,
+        "damageMult": 0.95
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "rain"
+      ],
+      [
+        "sweep",
+        "charge",
+        "ring",
+        "summon"
+      ],
+      [
+        "rain",
+        "ring",
+        "charge",
+        "slam",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.3,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/cloudwyrm.png",
+    "drops": [
+      {
+        "item": "jade-wyrm-pearl",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-hp-potion",
+        "chance": 1
+      }
+    ],
+    "questId": "jade-cavern-echo"
+  },
+  {
+    "id": "seamtyrant",
+    "chapter": 4,
+    "dungeon": "jademine",
+    "name": "Jade Seam Tyrant",
+    "home": "jademine",
+    "zone": "jademine",
+    "xp": 3000,
+    "stones": [
+      320,
+      440
+    ],
+    "sprite": "mob.golem",
+    "tint": 4249744,
+    "scale": 1.1,
+    "radius": 28,
+    "maxHp": 38000,
+    "atk": 135,
+    "def": 30,
+    "speed": 32,
+    "moves": {
+      "slam": {
+        "radius": 70,
+        "windup": 1,
+        "recover": 0.6,
+        "cooldown": 4.2,
+        "damageMult": 1.9,
+        "triggerRange": 100
+      },
+      "sweep": {
+        "range": 104,
+        "halfAngle": 1.1,
+        "windup": 0.8,
+        "recover": 0.5,
+        "cooldown": 3.4,
+        "damageMult": 1.5,
+        "triggerRange": 98
+      },
+      "charge": {
+        "windup": 0.85,
+        "duration": 0.5,
+        "speed": 280,
+        "width": 30,
+        "recover": 0.8,
+        "cooldown": 5.6,
+        "damageMult": 1.7,
+        "minRange": 16,
+        "maxRange": 240
+      },
+      "rain": {
+        "count": 9,
+        "radius": 32,
+        "spread": 140,
+        "windup": 0.55,
+        "delay": 1,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.2
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 14,
+        "count": 2,
+        "maxMinions": 4,
+        "minionType": "oregolem"
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep"
+      ],
+      [
+        "slam",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "rain",
+        "charge",
+        "slam",
+        "sweep",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.3,
+      "cooldownMult": 0.7
+    },
+    "image": "bosses/seamtyrant.png",
+    "drops": [
+      {
+        "item": "jade-miner-plate",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-ore",
+        "chance": 1
+      }
+    ],
+    "questId": "jade-mine-dust"
+  },
+  {
+    "id": "vaultcalligrapher",
+    "chapter": 4,
+    "dungeon": "scrollvault",
+    "name": "Calligrapher of the Sealed Vault",
+    "home": "scrollvault",
+    "zone": "scrollvault",
+    "xp": 3800,
+    "stones": [
+      380,
+      520
+    ],
+    "sprite": "boss.fallenimmortal",
+    "tint": 16771240,
+    "scale": 0.55,
+    "radius": 22,
+    "maxHp": 44000,
+    "atk": 150,
+    "def": 22,
+    "speed": 42,
+    "moves": {
+      "slam": {
+        "radius": 60,
+        "windup": 0.85,
+        "recover": 0.5,
+        "cooldown": 4,
+        "damageMult": 1.7,
+        "triggerRange": 92
+      },
+      "sweep": {
+        "range": 90,
+        "halfAngle": 1,
+        "windup": 0.7,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.45,
+        "triggerRange": 90
+      },
+      "rain": {
+        "count": 10,
+        "radius": 30,
+        "spread": 140,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 5,
+        "damageMult": 1.2
+      },
+      "teleport": {
+        "windup": 0.75,
+        "recover": 0.45,
+        "cooldown": 8,
+        "behind": 44,
+        "radius": 50,
+        "damageMult": 1.6
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 6,
+        "minionType": "scrollwraith"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6,
+        "projectiles": 16,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep"
+      ],
+      [
+        "rain",
+        "summon",
+        "slam",
+        "sweep"
+      ],
+      [
+        "teleport",
+        "ring",
+        "rain",
+        "summon",
+        "slam"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.68
+    },
+    "image": "bosses/vaultcalligrapher.png",
+    "drops": [
+      {
+        "item": "jade-vault-robe",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "jade-vault-key"
+  },
+  {
+    "id": "mirrorqueen",
+    "chapter": 4,
+    "dungeon": "moonpalace",
+    "name": "Lady of the Moon Mirror",
+    "home": "moonpalace",
+    "zone": "moonpalace",
+    "xp": 4000,
+    "stones": [
+      400,
+      560
+    ],
+    "sprite": "boss.ninetail",
+    "tint": 13164799,
+    "scale": 0.44,
+    "radius": 22,
+    "maxHp": 48000,
+    "atk": 155,
+    "def": 22,
+    "speed": 48,
+    "moves": {
+      "sweep": {
+        "range": 86,
+        "halfAngle": 1.3,
+        "windup": 0.6,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.35,
+        "triggerRange": 84
+      },
+      "charge": {
+        "windup": 0.7,
+        "duration": 0.5,
+        "speed": 320,
+        "width": 24,
+        "recover": 0.65,
+        "cooldown": 4.4,
+        "damageMult": 1.55,
+        "minRange": 12,
+        "maxRange": 250
+      },
+      "rain": {
+        "count": 8,
+        "radius": 30,
+        "spread": 130,
+        "windup": 0.45,
+        "delay": 0.9,
+        "recover": 0.4,
+        "cooldown": 5,
+        "damageMult": 1.2
+      },
+      "teleport": {
+        "windup": 0.65,
+        "recover": 0.4,
+        "cooldown": 7,
+        "behind": 42,
+        "radius": 50,
+        "damageMult": 1.55
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "moonwisp"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 5.6,
+        "projectiles": 16,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "charge"
+      ],
+      [
+        "charge",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "teleport",
+        "charge",
+        "ring",
+        "rain",
+        "summon",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.65
+    },
+    "image": "bosses/mirrorqueen.png",
+    "drops": [
+      {
+        "item": "jade-moon-pendant",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-elixir",
+        "chance": 1
+      }
+    ],
+    "questId": "jade-moon-echo"
+  },
+  {
+    "id": "abyss-tyrant",
+    "chapter": 5,
+    "name": "Blood-River Tyrant",
+    "home": "abyss-basin",
+    "zone": "abyss-basin",
+    "xp": 7600,
+    "stones": [
+      900,
+      1300
+    ],
+    "sprite": "boss.jiaolong",
+    "tint": 16734794,
+    "scale": 0.55,
+    "radius": 28,
+    "maxHp": 150000,
+    "atk": 250,
+    "def": 40,
+    "speed": 46,
+    "moves": {
+      "slam": {
+        "radius": 64,
+        "windup": 0.9,
+        "recover": 0.5,
+        "cooldown": 4,
+        "damageMult": 1.7,
+        "triggerRange": 100
+      },
+      "sweep": {
+        "range": 104,
+        "halfAngle": 1.1,
+        "windup": 0.68,
+        "recover": 0.45,
+        "cooldown": 3,
+        "damageMult": 1.4,
+        "triggerRange": 100
+      },
+      "charge": {
+        "windup": 0.75,
+        "duration": 0.55,
+        "speed": 300,
+        "width": 28,
+        "recover": 0.7,
+        "cooldown": 4.8,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 260
+      },
+      "rain": {
+        "count": 9,
+        "radius": 30,
+        "spread": 130,
+        "windup": 0.5,
+        "delay": 0.95,
+        "recover": 0.4,
+        "cooldown": 5.5,
+        "damageMult": 1.2
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 13,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "abyss-lavatoad"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6,
+        "projectiles": 14,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "rain",
+        "slam"
+      ],
+      [
+        "sweep",
+        "charge",
+        "ring",
+        "summon",
+        "rain"
+      ],
+      [
+        "rain",
+        "ring",
+        "charge",
+        "slam",
+        "sweep",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.62
+    },
+    "image": "bosses/abyss-tyrant.png",
+    "drops": [
+      {
+        "item": "tribulation-robe",
+        "chance": 1
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 1
+      }
+    ],
+    "questId": "abyss-blood-river"
+  },
+  {
+    "id": "abyss-matron",
+    "chapter": 5,
+    "name": "Matron of Regrets",
+    "home": "abyss-regret",
+    "zone": "abyss-regret",
+    "xp": 8800,
+    "stones": [
+      1100,
+      1600
+    ],
+    "sprite": "boss.ninetail",
+    "tint": 12089599,
+    "scale": 0.6,
+    "radius": 26,
+    "maxHp": 190000,
+    "atk": 270,
+    "def": 30,
+    "speed": 54,
+    "moves": {
+      "sweep": {
+        "range": 96,
+        "halfAngle": 1.25,
+        "windup": 0.62,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.4,
+        "triggerRange": 92
+      },
+      "charge": {
+        "windup": 0.7,
+        "duration": 0.5,
+        "speed": 330,
+        "width": 24,
+        "recover": 0.65,
+        "cooldown": 4.6,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 270
+      },
+      "rain": {
+        "count": 8,
+        "radius": 30,
+        "spread": 130,
+        "windup": 0.45,
+        "delay": 0.9,
+        "recover": 0.4,
+        "cooldown": 5.2,
+        "damageMult": 1.2
+      },
+      "teleport": {
+        "windup": 0.7,
+        "recover": 0.4,
+        "cooldown": 7.5,
+        "behind": 44,
+        "radius": 52,
+        "damageMult": 1.7
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "abyss-regretghost"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 5.8,
+        "projectiles": 16,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "charge",
+        "rain"
+      ],
+      [
+        "charge",
+        "rain",
+        "summon",
+        "teleport",
+        "sweep"
+      ],
+      [
+        "teleport",
+        "charge",
+        "ring",
+        "rain",
+        "sweep",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.6
+    },
+    "image": "bosses/abyss-matron.png",
+    "drops": [
+      {
+        "item": "abyss-bone-charm",
+        "chance": 0.5
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      },
+      {
+        "item": "abyss-qi-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "abyss-matron"
+  },
+  {
+    "id": "abyss-daodemon",
+    "chapter": 5,
+    "name": "Dao Demon of Tribulation",
+    "home": "abyss-peak",
+    "zone": "abyss-peak",
+    "xp": 18000,
+    "stones": [
+      3000,
+      4200
+    ],
+    "sprite": "boss.fallenimmortal",
+    "tint": 16729688,
+    "scale": 0.85,
+    "radius": 28,
+    "maxHp": 330000,
+    "atk": 330,
+    "def": 60,
+    "speed": 48,
+    "poise": 0.1,
+    "moves": {
+      "slam": {
+        "radius": 70,
+        "windup": 0.85,
+        "recover": 0.45,
+        "cooldown": 3.6,
+        "damageMult": 1.8,
+        "triggerRange": 104
+      },
+      "sweep": {
+        "range": 108,
+        "halfAngle": 1.05,
+        "windup": 0.66,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.5,
+        "triggerRange": 102
+      },
+      "charge": {
+        "windup": 0.68,
+        "duration": 0.5,
+        "speed": 340,
+        "width": 26,
+        "recover": 0.6,
+        "cooldown": 4.6,
+        "damageMult": 1.7,
+        "minRange": 14,
+        "maxRange": 280
+      },
+      "rain": {
+        "count": 10,
+        "radius": 32,
+        "spread": 140,
+        "windup": 0.45,
+        "delay": 0.9,
+        "recover": 0.4,
+        "cooldown": 5,
+        "damageMult": 1.25
+      },
+      "teleport": {
+        "windup": 0.7,
+        "recover": 0.4,
+        "cooldown": 7,
+        "behind": 48,
+        "radius": 56,
+        "damageMult": 1.8
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 6,
+        "minionType": "abyss-regretghost"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 5.4,
+        "projectiles": 18,
+        "damageMult": 1.05
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep",
+        "charge",
+        "ring"
+      ],
+      [
+        "slam",
+        "rain",
+        "summon",
+        "teleport",
+        "sweep",
+        "charge"
+      ],
+      [
+        "rain",
+        "teleport",
+        "ring",
+        "charge",
+        "slam",
+        "sweep",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.7,
+    "phase3At": 0.35,
+    "enrage": {
+      "speedMult": 1.45,
+      "cooldownMult": 0.56
+    },
+    "image": "bosses/abyss-daodemon.png",
+    "drops": [
+      {
+        "item": "tribulation-sword",
+        "chance": 1
+      },
+      {
+        "item": "abyss-seal",
+        "chance": 1
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "abyss-dao-demon"
+  },
+  {
+    "id": "abyss-rootking",
+    "chapter": 5,
+    "dungeon": "abyss-bonecavern",
+    "name": "Ossuary Root-King",
+    "home": "abyss-bonecavern",
+    "zone": "abyss-bonecavern",
+    "xp": 4200,
+    "stones": [
+      500,
+      760
+    ],
+    "sprite": "mob.treant",
+    "tint": 15261888,
+    "scale": 1.05,
+    "radius": 26,
+    "maxHp": 80000,
+    "atk": 210,
+    "def": 30,
+    "speed": 38,
+    "moves": {
+      "slam": {
+        "radius": 62,
+        "windup": 0.9,
+        "recover": 0.5,
+        "cooldown": 4,
+        "damageMult": 1.8,
+        "triggerRange": 96
+      },
+      "sweep": {
+        "range": 96,
+        "halfAngle": 1,
+        "windup": 0.7,
+        "recover": 0.45,
+        "cooldown": 3.2,
+        "damageMult": 1.4,
+        "triggerRange": 92
+      },
+      "charge": {
+        "windup": 0.75,
+        "duration": 0.5,
+        "speed": 300,
+        "width": 28,
+        "recover": 0.7,
+        "cooldown": 5,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 250
+      },
+      "summon": {
+        "windup": 0.8,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "abyss-bonehound"
+      },
+      "ring": {
+        "windup": 0.75,
+        "cooldown": 6.4,
+        "projectiles": 12,
+        "damageMult": 0.95
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep"
+      ],
+      [
+        "slam",
+        "charge",
+        "summon",
+        "sweep"
+      ],
+      [
+        "charge",
+        "ring",
+        "summon",
+        "slam",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.66
+    },
+    "image": "bosses/abyss-rootking.png",
+    "drops": [
+      {
+        "item": "abyss-bonefang",
+        "chance": 0.6
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 1
+      }
+    ],
+    "questId": "abyss-bone-cavern-delve"
+  },
+  {
+    "id": "abyss-springfox",
+    "chapter": 5,
+    "dungeon": "abyss-bloodgrotto",
+    "name": "Heretic of the Blood Spring",
+    "home": "abyss-bloodgrotto",
+    "zone": "abyss-bloodgrotto",
+    "xp": 3800,
+    "stones": [
+      460,
+      700
+    ],
+    "sprite": "mob.foxdemon",
+    "tint": 16730712,
+    "scale": 0.9,
+    "radius": 22,
+    "maxHp": 72000,
+    "atk": 200,
+    "def": 22,
+    "speed": 56,
+    "moves": {
+      "sweep": {
+        "range": 84,
+        "halfAngle": 1.2,
+        "windup": 0.6,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.4,
+        "triggerRange": 84
+      },
+      "charge": {
+        "windup": 0.65,
+        "duration": 0.5,
+        "speed": 320,
+        "width": 22,
+        "recover": 0.65,
+        "cooldown": 4.4,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 260
+      },
+      "rain": {
+        "count": 7,
+        "radius": 28,
+        "spread": 120,
+        "windup": 0.45,
+        "delay": 0.9,
+        "recover": 0.4,
+        "cooldown": 5.4,
+        "damageMult": 1.15
+      },
+      "teleport": {
+        "windup": 0.7,
+        "recover": 0.4,
+        "cooldown": 8,
+        "behind": 42,
+        "radius": 48,
+        "damageMult": 1.6
+      },
+      "summon": {
+        "windup": 0.7,
+        "cooldown": 12,
+        "count": 3,
+        "maxMinions": 5,
+        "minionType": "abyss-bloodfoxfire"
+      }
+    },
+    "kit": [
+      [
+        "sweep",
+        "charge"
+      ],
+      [
+        "charge",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "teleport",
+        "charge",
+        "rain",
+        "summon",
+        "sweep"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.35,
+      "cooldownMult": 0.66
+    },
+    "image": "bosses/abyss-springfox.png",
+    "drops": [
+      {
+        "item": "abyss-ember-ring",
+        "chance": 0.6
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 1
+      }
+    ],
+    "questId": "abyss-grotto-spring"
+  },
+  {
+    "id": "abyss-vaultself",
+    "chapter": 5,
+    "dungeon": "abyss-mirrorvault",
+    "name": "The Self You Left Behind",
+    "home": "abyss-mirrorvault",
+    "zone": "abyss-mirrorvault",
+    "xp": 5200,
+    "stones": [
+      620,
+      900
+    ],
+    "sprite": "boss.fallenimmortal",
+    "tint": 14217471,
+    "scale": 0.6,
+    "radius": 20,
+    "maxHp": 105000,
+    "atk": 230,
+    "def": 34,
+    "speed": 58,
+    "moves": {
+      "slam": {
+        "radius": 56,
+        "windup": 0.8,
+        "recover": 0.45,
+        "cooldown": 3.8,
+        "damageMult": 1.7,
+        "triggerRange": 88
+      },
+      "sweep": {
+        "range": 90,
+        "halfAngle": 1,
+        "windup": 0.62,
+        "recover": 0.4,
+        "cooldown": 2.8,
+        "damageMult": 1.4,
+        "triggerRange": 88
+      },
+      "charge": {
+        "windup": 0.65,
+        "duration": 0.5,
+        "speed": 330,
+        "width": 22,
+        "recover": 0.6,
+        "cooldown": 4.6,
+        "damageMult": 1.6,
+        "minRange": 14,
+        "maxRange": 260
+      },
+      "teleport": {
+        "windup": 0.65,
+        "recover": 0.4,
+        "cooldown": 7,
+        "behind": 44,
+        "radius": 50,
+        "damageMult": 1.7
+      },
+      "summon": {
+        "windup": 0.75,
+        "cooldown": 13,
+        "count": 2,
+        "maxMinions": 4,
+        "minionType": "abyss-mirrorshade"
+      },
+      "ring": {
+        "windup": 0.7,
+        "cooldown": 6,
+        "projectiles": 14,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep",
+        "charge"
+      ],
+      [
+        "sweep",
+        "teleport",
+        "summon",
+        "slam"
+      ],
+      [
+        "teleport",
+        "ring",
+        "charge",
+        "sweep",
+        "slam",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.62
+    },
+    "image": "bosses/abyss-vaultself.png",
+    "drops": [
+      {
+        "item": "abyss-veil-robe",
+        "chance": 0.6
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "abyss-vault-selves"
+  },
+  {
+    "id": "abyss-cinderwarden",
+    "chapter": 5,
+    "dungeon": "abyss-ashmaw",
+    "name": "Cinder Warden of the Reliquary",
+    "home": "abyss-ashmaw",
+    "zone": "abyss-ashmaw",
+    "xp": 5600,
+    "stones": [
+      680,
+      980
+    ],
+    "sprite": "mob.golem",
+    "tint": 13133884,
+    "scale": 1.15,
+    "radius": 28,
+    "maxHp": 118000,
+    "atk": 240,
+    "def": 48,
+    "speed": 34,
+    "moves": {
+      "slam": {
+        "radius": 72,
+        "windup": 1,
+        "recover": 0.55,
+        "cooldown": 4,
+        "damageMult": 1.9,
+        "triggerRange": 104
+      },
+      "sweep": {
+        "range": 104,
+        "halfAngle": 1.1,
+        "windup": 0.78,
+        "recover": 0.5,
+        "cooldown": 3.2,
+        "damageMult": 1.5,
+        "triggerRange": 100
+      },
+      "rain": {
+        "count": 9,
+        "radius": 32,
+        "spread": 140,
+        "windup": 0.5,
+        "delay": 1,
+        "recover": 0.4,
+        "cooldown": 5.4,
+        "damageMult": 1.2
+      },
+      "charge": {
+        "windup": 0.85,
+        "duration": 0.5,
+        "speed": 280,
+        "width": 30,
+        "recover": 0.8,
+        "cooldown": 5.4,
+        "damageMult": 1.7,
+        "minRange": 14,
+        "maxRange": 240
+      },
+      "summon": {
+        "windup": 0.85,
+        "cooldown": 14,
+        "count": 2,
+        "maxMinions": 4,
+        "minionType": "abyss-ashknight"
+      },
+      "ring": {
+        "windup": 0.8,
+        "cooldown": 6,
+        "projectiles": 16,
+        "damageMult": 1
+      }
+    },
+    "kit": [
+      [
+        "slam",
+        "sweep"
+      ],
+      [
+        "slam",
+        "rain",
+        "summon",
+        "sweep"
+      ],
+      [
+        "rain",
+        "ring",
+        "charge",
+        "slam",
+        "sweep",
+        "summon"
+      ]
+    ],
+    "phase2At": 0.66,
+    "phase3At": 0.33,
+    "enrage": {
+      "speedMult": 1.4,
+      "cooldownMult": 0.64
+    },
+    "image": "bosses/abyss-cinderwarden.png",
+    "drops": [
+      {
+        "item": "abyss-bone-charm",
+        "chance": 0.6
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 1
+      }
+    ],
+    "questId": "abyss-reliquary-delve"
   }
 ]

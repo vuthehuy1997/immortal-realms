@@ -34,8 +34,9 @@
       }
     ],
     "spawns": {
-      "wolf": 12,
-      "snake": 5,
+      "wolf": 9,
+      "s1-direwolf": 6,
+      "snake": 4,
       "bat": 6,
       "foxfire": 3
     },
@@ -64,8 +65,9 @@
     "herbs": 6,
     "bossName": "Moonfang Alpha",
     "foes": [
-      "Spirit Wolf ×12",
-      "Jade Serpent ×5",
+      "Spirit Wolf ×9",
+      "Moonfang Dire Wolf ×6",
+      "Jade Serpent ×4",
       "Cave Bat ×6",
       "Foxfire Wisp ×3"
     ]
@@ -138,6 +140,1309 @@
       "Fallen Guard ×5",
       "Paper Doll ×5",
       "Stone Golem ×2"
+    ]
+  },
+  {
+    "id": "s1-pearlgrotto",
+    "name": "Pearl Grotto",
+    "chapter": 1,
+    "kind": "cave",
+    "blurb": "a drowned cavern where the lake keeps its dead",
+    "entrance": {
+      "x": 46,
+      "y": 106,
+      "zone": "lake"
+    },
+    "minLevel": 4,
+    "level": "Lv 5-8",
+    "seed": 10396700,
+    "size": {
+      "w": 84,
+      "h": 60
+    },
+    "floor": "sand",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.018
+      },
+      {
+        "kind": "orchid",
+        "p": 0.012
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.004
+      }
+    ],
+    "spawns": {
+      "waterghost": 6,
+      "s1-pearlwisp": 6,
+      "s1-tidemaiden": 4,
+      "s1-driftwood": 3,
+      "toad": 4
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 1.7,
+      "atk": 1.7,
+      "xp": 2
+    },
+    "propTint": 10477800,
+    "boss": "s1-tidecaller",
+    "reward": {
+      "xp": 340,
+      "stones": 150,
+      "items": [
+        {
+          "id": "s1-lotus-draught",
+          "count": 3
+        },
+        {
+          "id": "qi-pill",
+          "count": 2
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Tidecaller Matron",
+    "foes": [
+      "Drowned Ghost ×6",
+      "Pearl Wisp ×6",
+      "Tide Maiden ×4",
+      "Driftwood Treant ×3",
+      "Marsh Toad ×4"
+    ]
+  },
+  {
+    "id": "s1-stormroost",
+    "name": "Thunderroost Cavern",
+    "chapter": 1,
+    "kind": "cave",
+    "blurb": "a nest of storm-birds inside the cliff, lit by lightning",
+    "entrance": {
+      "x": 98,
+      "y": 34,
+      "zone": "cliffs"
+    },
+    "minLevel": 8,
+    "level": "Lv 9-12",
+    "seed": 3856357,
+    "size": {
+      "w": 88,
+      "h": 62
+    },
+    "floor": "basalt",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.022
+      },
+      {
+        "kind": "standstone",
+        "p": 0.006
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.004
+      }
+    ],
+    "spawns": {
+      "s1-stormhawk": 6,
+      "s1-cragbat": 6,
+      "s1-thunderimp": 5,
+      "s1-basaltgolem": 3,
+      "thunderbird": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 3,
+      "atk": 2.4,
+      "xp": 3.8
+    },
+    "propTint": 14207231,
+    "boss": "s1-stormmatriarch",
+    "reward": {
+      "xp": 560,
+      "stones": 240,
+      "items": [
+        {
+          "id": "s1-storm-pill",
+          "count": 3
+        },
+        {
+          "id": "greater-hp-potion",
+          "count": 2
+        }
+      ]
+    },
+    "herbs": 5,
+    "bossName": "Thunderroost Matriarch",
+    "foes": [
+      "Storm Hawk ×6",
+      "Crag Bat ×6",
+      "Thunder Talisman ×5",
+      "Basalt Golem ×3",
+      "Thunder Bird ×3"
+    ]
+  },
+  {
+    "id": "s2-rimeheart",
+    "name": "Rimeheart Cave",
+    "chapter": 2,
+    "kind": "cave",
+    "blurb": "an ice cave where a wolf queen rules the cold",
+    "entrance": {
+      "x": 52,
+      "y": 78,
+      "zone": "frostpass"
+    },
+    "minLevel": 10,
+    "level": "Lv 11-14",
+    "seed": 69002402,
+    "size": {
+      "w": 80,
+      "h": 58
+    },
+    "floor": "ice",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.02
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.005
+      },
+      {
+        "kind": "standstone",
+        "p": 0.004
+      }
+    ],
+    "spawns": {
+      "frostwolf": 6,
+      "s2-glacierwolf": 6,
+      "icesnake": 4,
+      "rimebat": 5,
+      "frostwisp": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 4.5,
+      "atk": 3.1,
+      "xp": 4.8
+    },
+    "propTint": 13165823,
+    "boss": "s2-rimematriarch",
+    "reward": {
+      "xp": 700,
+      "stones": 320,
+      "items": [
+        {
+          "id": "s2-rime-elixir",
+          "count": 3
+        },
+        {
+          "id": "greater-hp-potion",
+          "count": 3
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Rime Matriarch",
+    "foes": [
+      "Frost Wolf ×6",
+      "Glacier Wolf ×6",
+      "Rime Serpent ×4",
+      "Rime Bat ×5",
+      "Frost Wisp ×3"
+    ]
+  },
+  {
+    "id": "s2-gravewind",
+    "name": "Gravewind Catacomb",
+    "chapter": 2,
+    "kind": "cave",
+    "blurb": "catacombs under the barrow, where a cold wind walks the halls",
+    "entrance": {
+      "x": 38,
+      "y": 46,
+      "zone": "barrow"
+    },
+    "minLevel": 13,
+    "level": "Lv 15-18",
+    "seed": 111666129,
+    "size": {
+      "w": 86,
+      "h": 62
+    },
+    "floor": "ash",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "standstone",
+        "p": 0.01
+      },
+      {
+        "kind": "rock",
+        "p": 0.016
+      },
+      {
+        "kind": "moonwall",
+        "p": 0.0015
+      }
+    ],
+    "spawns": {
+      "ashskeleton": 6,
+      "s2-frozencorpse": 4,
+      "s2-tombwraith": 4,
+      "ashguard": 4,
+      "bloodjiangshi": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 5.4,
+      "atk": 3.7,
+      "xp": 5.9
+    },
+    "propTint": 10262708,
+    "boss": "s2-bonewarden",
+    "reward": {
+      "xp": 900,
+      "stones": 400,
+      "items": [
+        {
+          "id": "s2-frostlotus-pill",
+          "count": 3
+        },
+        {
+          "id": "greater-hp-potion",
+          "count": 3
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Bone Warden of the Gravewind",
+    "foes": [
+      "Ash Soldier ×6",
+      "Frozen Corpse ×4",
+      "Tomb Wraith ×4",
+      "Barrow Guard ×4",
+      "Blood Jiangshi ×3"
+    ]
+  },
+  {
+    "id": "s2-mirrorvault",
+    "name": "Mirror Vault",
+    "chapter": 2,
+    "kind": "realm",
+    "blurb": "a hall of ice mirrors, folded out of the Fissure's light",
+    "entrance": {
+      "x": 134,
+      "y": 84,
+      "zone": "crystal"
+    },
+    "minLevel": 12,
+    "level": "Lv 14-17",
+    "seed": 45977831,
+    "size": {
+      "w": 108,
+      "h": 60
+    },
+    "floor": "ice",
+    "wall": "void",
+    "rooms": 5,
+    "scatter": [
+      {
+        "kind": "standstone",
+        "p": 0.005
+      },
+      {
+        "kind": "stonecircle",
+        "p": 0.0015
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.002
+      }
+    ],
+    "spawns": {
+      "s2-mirrorspirit": 7,
+      "s2-glasspuppet": 6,
+      "s2-rimesentinel": 4,
+      "prismghost": 4,
+      "crystalgolem": 2
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 5,
+      "atk": 3.5,
+      "xp": 5.6
+    },
+    "propTint": 12111103,
+    "boss": "s2-prismsage",
+    "reward": {
+      "xp": 1000,
+      "stones": 450,
+      "items": [
+        {
+          "id": "s2-aurora-draught",
+          "count": 3
+        },
+        {
+          "id": "greater-mana-potion",
+          "count": 3
+        }
+      ]
+    },
+    "herbs": 5,
+    "bossName": "Prism Sage of the Mirror Vault",
+    "foes": [
+      "Mirror Blade Spirit ×7",
+      "Glass Puppet ×6",
+      "Rime Sentinel ×4",
+      "Prism Ghost ×4",
+      "Crystal Golem ×2"
+    ]
+  },
+  {
+    "id": "s2-wyrmden",
+    "name": "Glacier Wyrm Den",
+    "chapter": 2,
+    "kind": "cave",
+    "blurb": "the frozen river bed where the glacier's wyrm sleeps",
+    "entrance": {
+      "x": 86,
+      "y": 60,
+      "zone": "glaciermaw"
+    },
+    "minLevel": 14,
+    "level": "Lv 16-19",
+    "seed": 133373016,
+    "size": {
+      "w": 90,
+      "h": 64
+    },
+    "floor": "ice",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "taihurocks",
+        "p": 0.008
+      },
+      {
+        "kind": "rock",
+        "p": 0.02
+      },
+      {
+        "kind": "standstone",
+        "p": 0.005
+      }
+    ],
+    "spawns": {
+      "s2-mawserpent": 6,
+      "s2-aurorawisp": 5,
+      "s2-glacierbrute": 4,
+      "icesnake": 4,
+      "prismghost": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 5.2,
+      "atk": 3.6,
+      "xp": 5.8
+    },
+    "propTint": 8960232,
+    "boss": "s2-glacierwyrm",
+    "reward": {
+      "xp": 1100,
+      "stones": 480,
+      "items": [
+        {
+          "id": "s2-glacier-saber",
+          "count": 1
+        },
+        {
+          "id": "s2-rime-elixir",
+          "count": 2
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Glacier Wyrm",
+    "foes": [
+      "Maw Serpent ×6",
+      "Aurora Wisp ×5",
+      "Glacier Brute ×4",
+      "Rime Serpent ×4",
+      "Prism Ghost ×3"
+    ]
+  },
+  {
+    "id": "ember-burrow",
+    "name": "Glass-Worm Burrow",
+    "chapter": 3,
+    "kind": "cave",
+    "blurb": "The dunes above this tunnel have fused into green glass. Something large is still turning underneath.",
+    "entrance": {
+      "x": 68,
+      "y": 88,
+      "zone": "dunes"
+    },
+    "minLevel": 18,
+    "level": "Lv 19-22",
+    "seed": 6961921,
+    "size": {
+      "w": 80,
+      "h": 60
+    },
+    "floor": "sand",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.02
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.008
+      },
+      {
+        "kind": "standstone",
+        "p": 0.006
+      }
+    ],
+    "spawns": {
+      "sandviper": 7,
+      "glassscorpion": 8,
+      "glasswormling": 8,
+      "dustwisp": 4,
+      "cactuswarden": 2
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 6.6,
+      "atk": 4.6,
+      "xp": 7.4
+    },
+    "propTint": 10479828,
+    "boss": "glasswormqueen",
+    "reward": {
+      "xp": 2600,
+      "stones": 700,
+      "items": [
+        {
+          "id": "ember-glassblade",
+          "count": 1
+        },
+        {
+          "id": "ember-hp-potion",
+          "count": 3
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Glass-Worm Queen",
+    "foes": [
+      "Sand Viper ×7",
+      "Glass Scorpion ×8",
+      "Glass Wormling ×8",
+      "Dust Wisp ×4",
+      "Cactus Warden ×2"
+    ]
+  },
+  {
+    "id": "ember-mine",
+    "name": "Obsidian Mine",
+    "chapter": 3,
+    "kind": "cave",
+    "blurb": "Miners dug for obsidian until the stone began to glow. Their lamps still burn somewhere below.",
+    "entrance": {
+      "x": 108,
+      "y": 64,
+      "zone": "magmarift"
+    },
+    "minLevel": 23,
+    "level": "Lv 24-27",
+    "seed": 6961922,
+    "size": {
+      "w": 90,
+      "h": 64
+    },
+    "floor": "basalt",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.03
+      },
+      {
+        "kind": "standstone",
+        "p": 0.01
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.008
+      }
+    ],
+    "spawns": {
+      "obsidiangolem": 5,
+      "magmasprite": 6,
+      "cindermoth": 8,
+      "slagtoad": 5,
+      "cinderhound": 5
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 8.2,
+      "atk": 5.5,
+      "xp": 9.2
+    },
+    "propTint": 16749170,
+    "boss": "obsidiancolossus",
+    "reward": {
+      "xp": 3200,
+      "stones": 900,
+      "items": [
+        {
+          "id": "ember-obsidian-plate",
+          "count": 1
+        },
+        {
+          "id": "ember-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "ember-mana-potion",
+          "count": 3
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Obsidian Colossus",
+    "foes": [
+      "Obsidian Golem ×5",
+      "Magma Sprite ×6",
+      "Cinder Moth ×8",
+      "Slag Toad ×5",
+      "Cinder Hound ×5"
+    ]
+  },
+  {
+    "id": "ember-vault",
+    "name": "Sunken Alchemy Vault",
+    "chapter": 3,
+    "kind": "realm",
+    "blurb": "A sealed laboratory of the immortals, drowned in salt. Its furnaces were never put out.",
+    "entrance": {
+      "x": 22,
+      "y": 58,
+      "zone": "saltflats"
+    },
+    "minLevel": 25,
+    "level": "Lv 25-28",
+    "seed": 6961923,
+    "size": {
+      "w": 112,
+      "h": 60
+    },
+    "floor": "stone",
+    "wall": "void",
+    "rooms": 5,
+    "scatter": [
+      {
+        "kind": "lotusbowl",
+        "p": 0.004
+      },
+      {
+        "kind": "standstone",
+        "p": 0.006
+      },
+      {
+        "kind": "dragonpillar",
+        "p": 0.004
+      }
+    ],
+    "spawns": {
+      "vaultblade": 6,
+      "homunculus": 8,
+      "vaultwisp": 6,
+      "bronzeguardian": 4
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 8.8,
+      "atk": 5.9,
+      "xp": 10
+    },
+    "propTint": 16766088,
+    "boss": "vaultwarden",
+    "reward": {
+      "xp": 3800,
+      "stones": 1100,
+      "items": [
+        {
+          "id": "ember-vault-sigil",
+          "count": 1
+        },
+        {
+          "id": "ember-qi-pill",
+          "count": 3
+        },
+        {
+          "id": "foundation-pill",
+          "count": 1
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Vault Warden of the Forge",
+    "foes": [
+      "Furnace Blade Spirit ×6",
+      "Alchemy Homunculus ×8",
+      "Vapour Wisp ×6",
+      "Bronze Guardian ×4"
+    ]
+  },
+  {
+    "id": "cloudhollow",
+    "name": "Cloudhollow Cavern",
+    "chapter": 4,
+    "kind": "cave",
+    "blurb": "a wind-bored cavern under the orchard terrace",
+    "entrance": {
+      "x": 62,
+      "y": 122,
+      "zone": "orchard"
+    },
+    "minLevel": 26,
+    "level": "Lv 27-30",
+    "seed": 12651777,
+    "size": {
+      "w": 82,
+      "h": 60
+    },
+    "floor": "cloud",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.02
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.004
+      },
+      {
+        "kind": "orchid",
+        "p": 0.012
+      },
+      {
+        "kind": "petals",
+        "p": 0.01
+      }
+    ],
+    "spawns": {
+      "cloudserpent": 6,
+      "cloudhound": 6,
+      "veinbat": 7,
+      "blossomsprite": 3,
+      "stormhound": 3
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 9.4,
+      "atk": 6.2,
+      "xp": 10
+    },
+    "propTint": 14216447,
+    "boss": "cloudwyrm",
+    "reward": {
+      "xp": 2600,
+      "stones": 900,
+      "items": [
+        {
+          "id": "jade-wyrm-pearl",
+          "count": 1
+        },
+        {
+          "id": "jade-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "jade-pill",
+          "count": 2
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Cloudwyrm of the Hollow",
+    "foes": [
+      "Cloud Serpent ×6",
+      "Cloud Hound ×6",
+      "Jadevein Bat ×7",
+      "Blossom Sprite ×3",
+      "Thunder Hound ×3"
+    ]
+  },
+  {
+    "id": "jademine",
+    "name": "Seamdeep Jade Mine",
+    "chapter": 4,
+    "kind": "cave",
+    "blurb": "the old quarry where the terraces were cut",
+    "entrance": {
+      "x": 62,
+      "y": 82,
+      "zone": "stair"
+    },
+    "minLevel": 29,
+    "level": "Lv 30-33",
+    "seed": 6203347,
+    "size": {
+      "w": 90,
+      "h": 64
+    },
+    "floor": "basalt",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.03
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.008
+      },
+      {
+        "kind": "standstone",
+        "p": 0.006
+      },
+      {
+        "kind": "dragonpillar",
+        "p": 0.002
+      }
+    ],
+    "spawns": {
+      "jadesentinel": 7,
+      "oregolem": 4,
+      "veinbat": 8,
+      "jadecolossus": 3,
+      "skyblade": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 10.8,
+      "atk": 7,
+      "xp": 12
+    },
+    "propTint": 11069640,
+    "boss": "seamtyrant",
+    "reward": {
+      "xp": 3200,
+      "stones": 1200,
+      "items": [
+        {
+          "id": "jade-miner-plate",
+          "count": 1
+        },
+        {
+          "id": "jade-elixir",
+          "count": 2
+        },
+        {
+          "id": "jade-ore",
+          "count": 6
+        }
+      ]
+    },
+    "herbs": 5,
+    "bossName": "Jade Seam Tyrant",
+    "foes": [
+      "Jade Sentinel ×7",
+      "Ore Golem ×4",
+      "Jadevein Bat ×8",
+      "Jade Colossus ×3",
+      "Heavenly Sword Spirit ×3"
+    ]
+  },
+  {
+    "id": "scrollvault",
+    "name": "Sealed Scripture Vault",
+    "chapter": 4,
+    "kind": "realm",
+    "blurb": "a vault of forbidden scrolls, folded out of the library",
+    "entrance": {
+      "x": 14,
+      "y": 34,
+      "zone": "library"
+    },
+    "minLevel": 32,
+    "level": "Lv 34-37",
+    "seed": 6058010,
+    "size": {
+      "w": 100,
+      "h": 56
+    },
+    "floor": "jade",
+    "wall": "void",
+    "rooms": 5,
+    "scatter": [
+      {
+        "kind": "bamboo",
+        "p": 0.006
+      },
+      {
+        "kind": "standstone",
+        "p": 0.005
+      },
+      {
+        "kind": "pavilion",
+        "p": 0.0006
+      },
+      {
+        "kind": "orchid",
+        "p": 0.01
+      }
+    ],
+    "spawns": {
+      "scrollwraith": 8,
+      "inkwisp": 6,
+      "scribe": 6,
+      "celestialguard": 4,
+      "jadecolossus": 2
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 12.2,
+      "atk": 8,
+      "xp": 14
+    },
+    "propTint": 15788224,
+    "boss": "vaultcalligrapher",
+    "reward": {
+      "xp": 3800,
+      "stones": 1600,
+      "items": [
+        {
+          "id": "jade-vault-robe",
+          "count": 1
+        },
+        {
+          "id": "jade-elixir",
+          "count": 3
+        },
+        {
+          "id": "jade-pill",
+          "count": 3
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Calligrapher of the Sealed Vault",
+    "foes": [
+      "Scroll Wraith ×8",
+      "Ink Wisp ×6",
+      "Archive Scribe ×6",
+      "Celestial Guard ×4",
+      "Jade Colossus ×2"
+    ]
+  },
+  {
+    "id": "moonpalace",
+    "name": "Palace Beneath the Moon Mirror",
+    "chapter": 4,
+    "kind": "realm",
+    "blurb": "a palace that exists only in the reflection of the lake",
+    "entrance": {
+      "x": 118,
+      "y": 111,
+      "zone": "mirror"
+    },
+    "minLevel": 33,
+    "level": "Lv 35-38",
+    "seed": 3148318,
+    "size": {
+      "w": 104,
+      "h": 56
+    },
+    "floor": "stone",
+    "wall": "void",
+    "rooms": 5,
+    "scatter": [
+      {
+        "kind": "lotusbowl",
+        "p": 0.002
+      },
+      {
+        "kind": "stonecircle",
+        "p": 0.0012
+      },
+      {
+        "kind": "willow",
+        "p": 0.003
+      },
+      {
+        "kind": "petals",
+        "p": 0.012
+      }
+    ],
+    "spawns": {
+      "mirrorknight": 7,
+      "mirrorwraith": 6,
+      "moonwisp": 6,
+      "echobat": 6,
+      "celestialguard": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 13,
+      "atk": 8.4,
+      "xp": 15
+    },
+    "propTint": 13162751,
+    "boss": "mirrorqueen",
+    "reward": {
+      "xp": 4200,
+      "stones": 1800,
+      "items": [
+        {
+          "id": "jade-moon-pendant",
+          "count": 1
+        },
+        {
+          "id": "jade-elixir",
+          "count": 3
+        },
+        {
+          "id": "jade-pill",
+          "count": 3
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Lady of the Moon Mirror",
+    "foes": [
+      "Mirror Knight ×7",
+      "Mirror Wraith ×6",
+      "Moon Wisp ×6",
+      "Echo Bat ×6",
+      "Celestial Guard ×3"
+    ]
+  },
+  {
+    "id": "abyss-bonecavern",
+    "name": "Bone-Root Cavern",
+    "chapter": 5,
+    "kind": "cave",
+    "blurb": "the forest's roots grow through the dead, and the dead have started to answer",
+    "entrance": {
+      "x": 30,
+      "y": 32,
+      "zone": "abyss-bonewood"
+    },
+    "minLevel": 38,
+    "level": "Lv 40-44",
+    "seed": 185516199,
+    "size": {
+      "w": 84,
+      "h": 60
+    },
+    "floor": "clay",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.02
+      },
+      {
+        "kind": "bambooshoot",
+        "p": 0.016
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.005
+      },
+      {
+        "kind": "pine",
+        "p": 0.006
+      }
+    ],
+    "spawns": {
+      "abyss-bonehound": 8,
+      "abyss-bonetreant": 4,
+      "abyss-ashmoth": 6,
+      "abyss-penitent": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 17,
+      "atk": 8.5,
+      "xp": 16.8
+    },
+    "propTint": 14471862,
+    "boss": "abyss-rootking",
+    "reward": {
+      "xp": 5200,
+      "stones": 700,
+      "items": [
+        {
+          "id": "abyss-bonefang",
+          "count": 1
+        },
+        {
+          "id": "abyss-hp-potion",
+          "count": 4
+        },
+        {
+          "id": "abyss-heal-pill",
+          "count": 1
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Ossuary Root-King",
+    "foes": [
+      "Bone Hound ×8",
+      "Bone Treant ×4",
+      "Ash Moth ×6",
+      "Penitent Corpse ×3"
+    ]
+  },
+  {
+    "id": "abyss-bloodgrotto",
+    "name": "Blood-Spring Grotto",
+    "chapter": 5,
+    "kind": "cave",
+    "blurb": "a warm spring that runs red, and something that bathes in it",
+    "entrance": {
+      "x": 124,
+      "y": 134,
+      "zone": "abyss-basin"
+    },
+    "minLevel": 36,
+    "level": "Lv 38-42",
+    "seed": 185601367,
+    "size": {
+      "w": 80,
+      "h": 58
+    },
+    "floor": "crimson",
+    "wall": "wall",
+    "scatter": [
+      {
+        "kind": "rock",
+        "p": 0.022
+      },
+      {
+        "kind": "taihurocks",
+        "p": 0.006
+      },
+      {
+        "kind": "petals",
+        "p": 0.01
+      },
+      {
+        "kind": "dragonpillar",
+        "p": 0.002
+      }
+    ],
+    "spawns": {
+      "abyss-lavatoad": 7,
+      "abyss-bloodfoxfire": 6,
+      "abyss-hollowserpent": 6,
+      "abyss-emberbird": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 15.5,
+      "atk": 7.5,
+      "xp": 15.4
+    },
+    "propTint": 16747120,
+    "boss": "abyss-springfox",
+    "reward": {
+      "xp": 4800,
+      "stones": 640,
+      "items": [
+        {
+          "id": "abyss-ember-ring",
+          "count": 1
+        },
+        {
+          "id": "abyss-mana-potion",
+          "count": 4
+        },
+        {
+          "id": "abyss-qi-pill",
+          "count": 2
+        }
+      ]
+    },
+    "herbs": 6,
+    "bossName": "Heretic of the Blood Spring",
+    "foes": [
+      "Magma Toad ×7",
+      "Blood Foxfire ×6",
+      "Hollow Serpent ×6",
+      "Ember Shrike ×3"
+    ]
+  },
+  {
+    "id": "abyss-mirrorvault",
+    "name": "Vault of Past Selves",
+    "chapter": 5,
+    "kind": "realm",
+    "blurb": "a hall of mirrors, each one showing who you chose not to be",
+    "entrance": {
+      "x": 70,
+      "y": 40,
+      "zone": "abyss-mirror"
+    },
+    "minLevel": 41,
+    "level": "Lv 43-47",
+    "seed": 51867809,
+    "size": {
+      "w": 112,
+      "h": 62
+    },
+    "floor": "jade",
+    "wall": "void",
+    "rooms": 5,
+    "scatter": [
+      {
+        "kind": "moonwall",
+        "p": 0.002
+      },
+      {
+        "kind": "standstone",
+        "p": 0.006
+      },
+      {
+        "kind": "stonecircle",
+        "p": 0.0015
+      }
+    ],
+    "spawns": {
+      "abyss-mirrorshade": 8,
+      "abyss-effigy": 6,
+      "abyss-regretghost": 5,
+      "abyss-bladewraith": 4
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 19,
+      "atk": 9,
+      "xp": 19.2
+    },
+    "propTint": 12902655,
+    "boss": "abyss-vaultself",
+    "reward": {
+      "xp": 6200,
+      "stones": 860,
+      "items": [
+        {
+          "id": "abyss-veil-robe",
+          "count": 1
+        },
+        {
+          "id": "abyss-heal-pill",
+          "count": 2
+        },
+        {
+          "id": "abyss-mana-potion",
+          "count": 4
+        }
+      ]
+    },
+    "herbs": 5,
+    "bossName": "The Self You Left Behind",
+    "foes": [
+      "Mirror Shade ×8",
+      "Burial Effigy ×6",
+      "Regret-Ghost ×5",
+      "Blade-Wraith ×4"
+    ]
+  },
+  {
+    "id": "abyss-ashmaw",
+    "name": "Cinder Reliquary",
+    "chapter": 5,
+    "kind": "realm",
+    "blurb": "a burnt-out shrine where the Abyss keeps what cultivators wished to be remembered for",
+    "entrance": {
+      "x": 116,
+      "y": 88,
+      "zone": "abyss-ash"
+    },
+    "minLevel": 42,
+    "level": "Lv 44-48",
+    "seed": 173673079,
+    "size": {
+      "w": 116,
+      "h": 60
+    },
+    "floor": "ash",
+    "wall": "void",
+    "rooms": 5,
+    "scatter": [
+      {
+        "kind": "standstone",
+        "p": 0.007
+      },
+      {
+        "kind": "stonecircle",
+        "p": 0.002
+      },
+      {
+        "kind": "dragonpillar",
+        "p": 0.002
+      }
+    ],
+    "spawns": {
+      "abyss-ashknight": 7,
+      "abyss-cindergolem": 4,
+      "abyss-emberbird": 4,
+      "abyss-witheredpeach": 4,
+      "abyss-penitent": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 20,
+      "atk": 9.5,
+      "xp": 20.2
+    },
+    "propTint": 11838640,
+    "boss": "abyss-cinderwarden",
+    "reward": {
+      "xp": 6800,
+      "stones": 920,
+      "items": [
+        {
+          "id": "abyss-bone-charm",
+          "count": 1
+        },
+        {
+          "id": "abyss-hp-potion",
+          "count": 5
+        },
+        {
+          "id": "abyss-heal-pill",
+          "count": 2
+        }
+      ]
+    },
+    "herbs": 5,
+    "bossName": "Cinder Warden of the Reliquary",
+    "foes": [
+      "Ash Knight ×7",
+      "Cinder Golem ×4",
+      "Ember Shrike ×4",
+      "Withered Peach Spirit ×4",
+      "Penitent Corpse ×3"
     ]
   }
 ]

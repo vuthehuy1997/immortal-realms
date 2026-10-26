@@ -389,7 +389,8 @@
     ],
     "zones": [
       "marsh",
-      "lake"
+      "lake",
+      "s1-pearlgrotto"
     ],
     "drops": [
       {
@@ -441,6 +442,28 @@
             17
           ]
         }
+      },
+      "s1-pearlgrotto": {
+        "normal": {
+          "maxHp": 435,
+          "atk": 15,
+          "def": 4,
+          "xp": 36,
+          "stones": [
+            4,
+            8
+          ]
+        },
+        "elite": {
+          "maxHp": 1219,
+          "atk": 21,
+          "def": 4,
+          "xp": 108,
+          "stones": [
+            12,
+            24
+          ]
+        }
       }
     },
     "image": "enemies/toad.png"
@@ -467,7 +490,8 @@
     ],
     "zones": [
       "marsh",
-      "lake"
+      "lake",
+      "s1-pearlgrotto"
     ],
     "drops": [
       {
@@ -517,6 +541,28 @@
           "stones": [
             8,
             17
+          ]
+        }
+      },
+      "s1-pearlgrotto": {
+        "normal": {
+          "maxHp": 231,
+          "atk": 15,
+          "def": 0,
+          "xp": 34,
+          "stones": [
+            4,
+            8
+          ]
+        },
+        "elite": {
+          "maxHp": 647,
+          "atk": 21,
+          "def": 0,
+          "xp": 102,
+          "stones": [
+            12,
+            24
           ]
         }
       }
@@ -669,7 +715,6 @@
     ],
     "zones": [
       "grove",
-      "cliffs",
       "wolfden"
     ],
     "drops": [],
@@ -693,28 +738,6 @@
           "stones": [
             8,
             17
-          ]
-        }
-      },
-      "cliffs": {
-        "normal": {
-          "maxHp": 281,
-          "atk": 13,
-          "def": 0,
-          "xp": 27,
-          "stones": [
-            3,
-            7
-          ]
-        },
-        "elite": {
-          "maxHp": 786,
-          "atk": 18,
-          "def": 0,
-          "xp": 82,
-          "stones": [
-            10,
-            20
           ]
         }
       },
@@ -951,7 +974,8 @@
     ],
     "zones": [
       "grove",
-      "cliffs"
+      "cliffs",
+      "s1-stormroost"
     ],
     "drops": [
       {
@@ -1005,6 +1029,28 @@
           "stones": [
             41,
             82
+          ]
+        }
+      },
+      "s1-stormroost": {
+        "normal": {
+          "maxHp": 480,
+          "atk": 31,
+          "def": 2,
+          "xp": 129,
+          "stones": [
+            15,
+            30
+          ]
+        },
+        "elite": {
+          "maxHp": 1344,
+          "atk": 44,
+          "def": 2,
+          "xp": 388,
+          "stones": [
+            46,
+            91
           ]
         }
       }
@@ -1275,7 +1321,6 @@
     ],
     "zones": [
       "ruins",
-      "cliffs",
       "swordsanctum"
     ],
     "drops": [
@@ -1308,28 +1353,6 @@
           "stones": [
             72,
             144
-          ]
-        }
-      },
-      "cliffs": {
-        "normal": {
-          "maxHp": 1188,
-          "atk": 35,
-          "def": 15,
-          "xp": 163,
-          "stones": [
-            20,
-            41
-          ]
-        },
-        "elite": {
-          "maxHp": 3326,
-          "atk": 49,
-          "def": 15,
-          "xp": 490,
-          "stones": [
-            61,
-            122
           ]
         }
       },
@@ -1380,7 +1403,9 @@
       6
     ],
     "zones": [
-      "frostpass"
+      "frostpass",
+      "tundra",
+      "s2-rimeheart"
     ],
     "drops": [
       {
@@ -1414,6 +1439,50 @@
             76
           ]
         }
+      },
+      "tundra": {
+        "normal": {
+          "maxHp": 957,
+          "atk": 35,
+          "def": 6,
+          "xp": 96,
+          "stones": [
+            14,
+            29
+          ]
+        },
+        "elite": {
+          "maxHp": 2679,
+          "atk": 49,
+          "def": 6,
+          "xp": 288,
+          "stones": [
+            43,
+            86
+          ]
+        }
+      },
+      "s2-rimeheart": {
+        "normal": {
+          "maxHp": 936,
+          "atk": 34,
+          "def": 6,
+          "xp": 96,
+          "stones": [
+            14,
+            29
+          ]
+        },
+        "elite": {
+          "maxHp": 2621,
+          "atk": 48,
+          "def": 6,
+          "xp": 288,
+          "stones": [
+            43,
+            86
+          ]
+        }
       }
     },
     "image": "enemies/frostwolf.png"
@@ -1440,7 +1509,10 @@
       5
     ],
     "zones": [
-      "frostpass"
+      "frostpass",
+      "glaciermaw",
+      "s2-rimeheart",
+      "s2-wyrmden"
     ],
     "drops": [
       {
@@ -1468,6 +1540,72 @@
           "stones": [
             25,
             63
+          ]
+        }
+      },
+      "glaciermaw": {
+        "normal": {
+          "maxHp": 760,
+          "atk": 37,
+          "def": 3,
+          "xp": 86,
+          "stones": [
+            11,
+            27
+          ]
+        },
+        "elite": {
+          "maxHp": 2128,
+          "atk": 52,
+          "def": 3,
+          "xp": 259,
+          "stones": [
+            32,
+            81
+          ]
+        }
+      },
+      "s2-rimeheart": {
+        "normal": {
+          "maxHp": 684,
+          "atk": 34,
+          "def": 3,
+          "xp": 77,
+          "stones": [
+            10,
+            24
+          ]
+        },
+        "elite": {
+          "maxHp": 1915,
+          "atk": 48,
+          "def": 3,
+          "xp": 230,
+          "stones": [
+            29,
+            72
+          ]
+        }
+      },
+      "s2-wyrmden": {
+        "normal": {
+          "maxHp": 790,
+          "atk": 40,
+          "def": 3,
+          "xp": 93,
+          "stones": [
+            12,
+            29
+          ]
+        },
+        "elite": {
+          "maxHp": 2213,
+          "atk": 55,
+          "def": 3,
+          "xp": 278,
+          "stones": [
+            35,
+            87
           ]
         }
       }
@@ -1498,7 +1636,8 @@
     ],
     "zones": [
       "frostpass",
-      "crystal"
+      "crystal",
+      "s2-rimeheart"
     ],
     "drops": [
       {
@@ -1554,6 +1693,28 @@
             90
           ]
         }
+      },
+      "s2-rimeheart": {
+        "normal": {
+          "maxHp": 864,
+          "atk": 43,
+          "def": 0,
+          "xp": 115,
+          "stones": [
+            14,
+            29
+          ]
+        },
+        "elite": {
+          "maxHp": 2419,
+          "atk": 61,
+          "def": 0,
+          "xp": 346,
+          "stones": [
+            43,
+            86
+          ]
+        }
       }
     },
     "image": "enemies/frostwisp.png"
@@ -1581,7 +1742,10 @@
     ],
     "zones": [
       "frostpass",
-      "crystal"
+      "crystal",
+      "glaciermaw",
+      "tundra",
+      "s2-rimeheart"
     ],
     "drops": [],
     "scaled": {
@@ -1628,6 +1792,72 @@
             60
           ]
         }
+      },
+      "glaciermaw": {
+        "normal": {
+          "maxHp": 680,
+          "atk": 31,
+          "def": 0,
+          "xp": 76,
+          "stones": [
+            11,
+            22
+          ]
+        },
+        "elite": {
+          "maxHp": 1904,
+          "atk": 43,
+          "def": 0,
+          "xp": 227,
+          "stones": [
+            32,
+            65
+          ]
+        }
+      },
+      "tundra": {
+        "normal": {
+          "maxHp": 626,
+          "atk": 29,
+          "def": 0,
+          "xp": 67,
+          "stones": [
+            10,
+            19
+          ]
+        },
+        "elite": {
+          "maxHp": 1752,
+          "atk": 40,
+          "def": 0,
+          "xp": 202,
+          "stones": [
+            29,
+            58
+          ]
+        }
+      },
+      "s2-rimeheart": {
+        "normal": {
+          "maxHp": 612,
+          "atk": 28,
+          "def": 0,
+          "xp": 67,
+          "stones": [
+            10,
+            19
+          ]
+        },
+        "elite": {
+          "maxHp": 1714,
+          "atk": 39,
+          "def": 0,
+          "xp": 202,
+          "stones": [
+            29,
+            58
+          ]
+        }
       }
     },
     "image": "enemies/rimebat.png"
@@ -1656,7 +1886,8 @@
       14
     ],
     "zones": [
-      "frostpass"
+      "frostpass",
+      "tundra"
     ],
     "drops": [
       {
@@ -1690,6 +1921,28 @@
             176
           ]
         }
+      },
+      "tundra": {
+        "normal": {
+          "maxHp": 2760,
+          "atk": 58,
+          "def": 20,
+          "xp": 264,
+          "stones": [
+            38,
+            67
+          ]
+        },
+        "elite": {
+          "maxHp": 7728,
+          "atk": 81,
+          "def": 20,
+          "xp": 792,
+          "stones": [
+            115,
+            202
+          ]
+        }
       }
     },
     "image": "enemies/snowtreant.png"
@@ -1718,7 +1971,8 @@
       18
     ],
     "zones": [
-      "crystal"
+      "crystal",
+      "s2-mirrorvault"
     ],
     "drops": [
       {
@@ -1752,6 +2006,28 @@
             270
           ]
         }
+      },
+      "s2-mirrorvault": {
+        "normal": {
+          "maxHp": 2400,
+          "atk": 60,
+          "def": 33,
+          "xp": 392,
+          "stones": [
+            56,
+            101
+          ]
+        },
+        "elite": {
+          "maxHp": 6720,
+          "atk": 83,
+          "def": 33,
+          "xp": 1176,
+          "stones": [
+            168,
+            302
+          ]
+        }
       }
     },
     "image": "enemies/crystalgolem.png"
@@ -1779,7 +2055,10 @@
     ],
     "zones": [
       "crystal",
-      "barrow"
+      "barrow",
+      "glaciermaw",
+      "s2-mirrorvault",
+      "s2-wyrmden"
     ],
     "drops": [
       {
@@ -1827,6 +2106,72 @@
         },
         "elite": {
           "maxHp": 2493,
+          "atk": 81,
+          "def": 0,
+          "xp": 522,
+          "stones": [
+            70,
+            139
+          ]
+        }
+      },
+      "glaciermaw": {
+        "normal": {
+          "maxHp": 840,
+          "atk": 54,
+          "def": 0,
+          "xp": 162,
+          "stones": [
+            22,
+            43
+          ]
+        },
+        "elite": {
+          "maxHp": 2352,
+          "atk": 76,
+          "def": 0,
+          "xp": 486,
+          "stones": [
+            65,
+            130
+          ]
+        }
+      },
+      "s2-mirrorvault": {
+        "normal": {
+          "maxHp": 840,
+          "atk": 56,
+          "def": 0,
+          "xp": 168,
+          "stones": [
+            22,
+            45
+          ]
+        },
+        "elite": {
+          "maxHp": 2352,
+          "atk": 78,
+          "def": 0,
+          "xp": 504,
+          "stones": [
+            67,
+            134
+          ]
+        }
+      },
+      "s2-wyrmden": {
+        "normal": {
+          "maxHp": 874,
+          "atk": 58,
+          "def": 0,
+          "xp": 174,
+          "stones": [
+            23,
+            46
+          ]
+        },
+        "elite": {
+          "maxHp": 2446,
           "atk": 81,
           "def": 0,
           "xp": 522,
@@ -1922,7 +2267,8 @@
       8
     ],
     "zones": [
-      "barrow"
+      "barrow",
+      "s2-gravewind"
     ],
     "drops": [
       {
@@ -1956,6 +2302,28 @@
             139
           ]
         }
+      },
+      "s2-gravewind": {
+        "normal": {
+          "maxHp": 1426,
+          "atk": 56,
+          "def": 13,
+          "xp": 177,
+          "stones": [
+            24,
+            47
+          ]
+        },
+        "elite": {
+          "maxHp": 3992,
+          "atk": 78,
+          "def": 13,
+          "xp": 531,
+          "stones": [
+            71,
+            142
+          ]
+        }
       }
     },
     "image": "enemies/ashskeleton.png"
@@ -1983,7 +2351,8 @@
       12
     ],
     "zones": [
-      "barrow"
+      "barrow",
+      "s2-gravewind"
     ],
     "drops": [
       {
@@ -2017,6 +2386,28 @@
             209
           ]
         }
+      },
+      "s2-gravewind": {
+        "normal": {
+          "maxHp": 2074,
+          "atk": 74,
+          "def": 16,
+          "xp": 271,
+          "stones": [
+            35,
+            71
+          ]
+        },
+        "elite": {
+          "maxHp": 5806,
+          "atk": 104,
+          "def": 16,
+          "xp": 814,
+          "stones": [
+            106,
+            212
+          ]
+        }
       }
     },
     "image": "enemies/bloodjiangshi.png"
@@ -2043,7 +2434,8 @@
       10
     ],
     "zones": [
-      "barrow"
+      "barrow",
+      "s2-gravewind"
     ],
     "drops": [
       {
@@ -2077,8 +2469,6976 @@
             174
           ]
         }
+      },
+      "s2-gravewind": {
+        "normal": {
+          "maxHp": 1814,
+          "atk": 52,
+          "def": 19,
+          "xp": 212,
+          "stones": [
+            30,
+            59
+          ]
+        },
+        "elite": {
+          "maxHp": 5080,
+          "atk": 73,
+          "def": 19,
+          "xp": 637,
+          "stones": [
+            89,
+            177
+          ]
+        }
       }
     },
     "image": "enemies/ashguard.png"
+  },
+  {
+    "id": "s1-pearlwisp",
+    "name": "Pearl Wisp",
+    "behavior": "caster",
+    "maxHp": 26,
+    "atk": 11,
+    "def": 0,
+    "speed": 40,
+    "aggroRange": 130,
+    "attackRange": 110,
+    "attackCooldown": 1.7,
+    "preferredRange": 80,
+    "volley": 2,
+    "xp": 18,
+    "sprite": "mob.foxfire",
+    "tint": 10481888,
+    "scale": 0.36,
+    "radius": 7,
+    "stones": [
+      2,
+      4
+    ],
+    "zones": [
+      "lake",
+      "s1-pearlgrotto"
+    ],
+    "drops": [
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      },
+      {
+        "item": "s1-mist-tonic",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "lake": {
+        "normal": {
+          "maxHp": 130,
+          "atk": 15,
+          "def": 0,
+          "xp": 25,
+          "stones": [
+            3,
+            6
+          ]
+        },
+        "elite": {
+          "maxHp": 364,
+          "atk": 21,
+          "def": 0,
+          "xp": 76,
+          "stones": [
+            8,
+            17
+          ]
+        }
+      },
+      "s1-pearlgrotto": {
+        "normal": {
+          "maxHp": 177,
+          "atk": 19,
+          "def": 0,
+          "xp": 36,
+          "stones": [
+            4,
+            8
+          ]
+        },
+        "elite": {
+          "maxHp": 495,
+          "atk": 26,
+          "def": 0,
+          "xp": 108,
+          "stones": [
+            12,
+            24
+          ]
+        }
+      }
+    },
+    "image": "enemies/s1-pearlwisp.png"
+  },
+  {
+    "id": "s1-driftwood",
+    "name": "Driftwood Treant",
+    "behavior": "charger",
+    "maxHp": 90,
+    "atk": 12,
+    "def": 4,
+    "speed": 26,
+    "aggroRange": 100,
+    "attackRange": 66,
+    "attackCooldown": 3,
+    "windup": 0.7,
+    "dashTime": 0.45,
+    "dashSpeedMult": 4,
+    "xp": 30,
+    "sprite": "mob.treant",
+    "tint": 9416864,
+    "scale": 0.4,
+    "radius": 10,
+    "stones": [
+      3,
+      7
+    ],
+    "zones": [
+      "lake",
+      "s1-pearlgrotto"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.35
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "lake": {
+        "normal": {
+          "maxHp": 450,
+          "atk": 16,
+          "def": 5,
+          "xp": 42,
+          "stones": [
+            4,
+            10
+          ]
+        },
+        "elite": {
+          "maxHp": 1260,
+          "atk": 23,
+          "def": 5,
+          "xp": 126,
+          "stones": [
+            13,
+            29
+          ]
+        }
+      },
+      "s1-pearlgrotto": {
+        "normal": {
+          "maxHp": 612,
+          "atk": 20,
+          "def": 5,
+          "xp": 60,
+          "stones": [
+            6,
+            14
+          ]
+        },
+        "elite": {
+          "maxHp": 1714,
+          "atk": 29,
+          "def": 5,
+          "xp": 180,
+          "stones": [
+            18,
+            42
+          ]
+        }
+      }
+    },
+    "image": "enemies/s1-driftwood.png"
+  },
+  {
+    "id": "s1-tidemaiden",
+    "name": "Tide Maiden",
+    "behavior": "caster",
+    "maxHp": 30,
+    "atk": 12,
+    "def": 0,
+    "speed": 38,
+    "aggroRange": 130,
+    "attackRange": 110,
+    "attackCooldown": 1.8,
+    "preferredRange": 85,
+    "volley": 2,
+    "xp": 22,
+    "sprite": "mob.ghost",
+    "tint": 9429247,
+    "scale": 0.37,
+    "radius": 7,
+    "stones": [
+      2,
+      5
+    ],
+    "zones": [
+      "lake",
+      "s1-pearlgrotto"
+    ],
+    "drops": [
+      {
+        "item": "mana-potion",
+        "chance": 0.3
+      },
+      {
+        "item": "s1-lotus-draught",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "lake": {
+        "normal": {
+          "maxHp": 150,
+          "atk": 16,
+          "def": 0,
+          "xp": 31,
+          "stones": [
+            3,
+            7
+          ]
+        },
+        "elite": {
+          "maxHp": 420,
+          "atk": 23,
+          "def": 0,
+          "xp": 92,
+          "stones": [
+            8,
+            21
+          ]
+        }
+      },
+      "s1-pearlgrotto": {
+        "normal": {
+          "maxHp": 204,
+          "atk": 20,
+          "def": 0,
+          "xp": 44,
+          "stones": [
+            4,
+            10
+          ]
+        },
+        "elite": {
+          "maxHp": 571,
+          "atk": 29,
+          "def": 0,
+          "xp": 132,
+          "stones": [
+            12,
+            30
+          ]
+        }
+      }
+    },
+    "image": "enemies/s1-tidemaiden.png"
+  },
+  {
+    "id": "s1-stormhawk",
+    "name": "Storm Hawk",
+    "behavior": "caster",
+    "maxHp": 42,
+    "atk": 14,
+    "def": 1,
+    "speed": 46,
+    "aggroRange": 150,
+    "attackRange": 130,
+    "attackCooldown": 1.5,
+    "preferredRange": 95,
+    "volley": 3,
+    "xp": 36,
+    "sprite": "mob.thunderbird",
+    "tint": 16771216,
+    "scale": 0.42,
+    "radius": 8,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "cliffs",
+      "s1-stormroost"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "cliffs": {
+        "normal": {
+          "maxHp": 454,
+          "atk": 31,
+          "def": 2,
+          "xp": 122,
+          "stones": [
+            14,
+            27
+          ]
+        },
+        "elite": {
+          "maxHp": 1270,
+          "atk": 43,
+          "def": 2,
+          "xp": 367,
+          "stones": [
+            41,
+            82
+          ]
+        }
+      },
+      "s1-stormroost": {
+        "normal": {
+          "maxHp": 504,
+          "atk": 34,
+          "def": 2,
+          "xp": 137,
+          "stones": [
+            15,
+            30
+          ]
+        },
+        "elite": {
+          "maxHp": 1411,
+          "atk": 47,
+          "def": 2,
+          "xp": 410,
+          "stones": [
+            46,
+            91
+          ]
+        }
+      }
+    },
+    "image": "enemies/s1-stormhawk.png"
+  },
+  {
+    "id": "s1-basaltgolem",
+    "name": "Basalt Golem",
+    "behavior": "charger",
+    "maxHp": 120,
+    "atk": 17,
+    "def": 9,
+    "speed": 24,
+    "aggroRange": 100,
+    "attackRange": 70,
+    "attackCooldown": 3,
+    "windup": 0.8,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 52,
+    "sprite": "mob.golem",
+    "tint": 10128002,
+    "scale": 0.44,
+    "radius": 11,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "cliffs",
+      "s1-stormroost"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.35
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.4
+      }
+    ],
+    "scaled": {
+      "cliffs": {
+        "normal": {
+          "maxHp": 1296,
+          "atk": 37,
+          "def": 17,
+          "xp": 177,
+          "stones": [
+            20,
+            41
+          ]
+        },
+        "elite": {
+          "maxHp": 3629,
+          "atk": 52,
+          "def": 17,
+          "xp": 530,
+          "stones": [
+            61,
+            122
+          ]
+        }
+      },
+      "s1-stormroost": {
+        "normal": {
+          "maxHp": 1440,
+          "atk": 41,
+          "def": 18,
+          "xp": 198,
+          "stones": [
+            23,
+            46
+          ]
+        },
+        "elite": {
+          "maxHp": 4032,
+          "atk": 57,
+          "def": 18,
+          "xp": 593,
+          "stones": [
+            68,
+            137
+          ]
+        }
+      }
+    },
+    "image": "enemies/s1-basaltgolem.png"
+  },
+  {
+    "id": "s1-cragbat",
+    "name": "Crag Bat",
+    "behavior": "rusher",
+    "maxHp": 28,
+    "atk": 7,
+    "def": 0,
+    "speed": 84,
+    "aggroRange": 130,
+    "attackRange": 14,
+    "attackCooldown": 0.7,
+    "strikeWindup": 0.24,
+    "xp": 10,
+    "sprite": "mob.bat",
+    "tint": 14723240,
+    "scale": 0.32,
+    "radius": 6,
+    "stones": [
+      1,
+      3
+    ],
+    "zones": [
+      "cliffs",
+      "s1-stormroost"
+    ],
+    "drops": [],
+    "scaled": {
+      "cliffs": {
+        "normal": {
+          "maxHp": 302,
+          "atk": 15,
+          "def": 0,
+          "xp": 34,
+          "stones": [
+            3,
+            10
+          ]
+        },
+        "elite": {
+          "maxHp": 847,
+          "atk": 22,
+          "def": 0,
+          "xp": 102,
+          "stones": [
+            10,
+            31
+          ]
+        }
+      },
+      "s1-stormroost": {
+        "normal": {
+          "maxHp": 336,
+          "atk": 17,
+          "def": 0,
+          "xp": 38,
+          "stones": [
+            4,
+            11
+          ]
+        },
+        "elite": {
+          "maxHp": 941,
+          "atk": 24,
+          "def": 0,
+          "xp": 114,
+          "stones": [
+            11,
+            34
+          ]
+        }
+      }
+    },
+    "image": "enemies/s1-cragbat.png"
+  },
+  {
+    "id": "s1-thunderimp",
+    "name": "Thunder Talisman",
+    "behavior": "charger",
+    "maxHp": 30,
+    "atk": 12,
+    "def": 0,
+    "speed": 52,
+    "aggroRange": 110,
+    "attackRange": 84,
+    "attackCooldown": 2.2,
+    "windup": 0.4,
+    "dashTime": 0.3,
+    "dashSpeedMult": 6,
+    "xp": 20,
+    "sprite": "mob.paperdoll",
+    "tint": 16773232,
+    "scale": 0.36,
+    "radius": 7,
+    "stones": [
+      2,
+      5
+    ],
+    "zones": [
+      "cliffs",
+      "s1-stormroost"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.15
+      },
+      {
+        "item": "s1-storm-pill",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "cliffs": {
+        "normal": {
+          "maxHp": 324,
+          "atk": 26,
+          "def": 0,
+          "xp": 68,
+          "stones": [
+            7,
+            17
+          ]
+        },
+        "elite": {
+          "maxHp": 907,
+          "atk": 37,
+          "def": 0,
+          "xp": 204,
+          "stones": [
+            20,
+            51
+          ]
+        }
+      },
+      "s1-stormroost": {
+        "normal": {
+          "maxHp": 360,
+          "atk": 29,
+          "def": 0,
+          "xp": 76,
+          "stones": [
+            8,
+            19
+          ]
+        },
+        "elite": {
+          "maxHp": 1008,
+          "atk": 40,
+          "def": 0,
+          "xp": 228,
+          "stones": [
+            23,
+            57
+          ]
+        }
+      }
+    },
+    "image": "enemies/s1-thunderimp.png"
+  },
+  {
+    "id": "s1-direwolf",
+    "name": "Moonfang Dire Wolf",
+    "behavior": "rusher",
+    "maxHp": 52,
+    "atk": 9,
+    "def": 2,
+    "speed": 62,
+    "aggroRange": 120,
+    "attackRange": 18,
+    "attackCooldown": 1,
+    "strikeWindup": 0.3,
+    "xp": 16,
+    "sprite": "mob.wolf",
+    "tint": 9079464,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      2,
+      4
+    ],
+    "zones": [
+      "wolfden"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "wolfden": {
+        "normal": {
+          "maxHp": 312,
+          "atk": 14,
+          "def": 3,
+          "xp": 27,
+          "stones": [
+            3,
+            7
+          ]
+        },
+        "elite": {
+          "maxHp": 874,
+          "atk": 20,
+          "def": 3,
+          "xp": 82,
+          "stones": [
+            10,
+            20
+          ]
+        }
+      }
+    },
+    "image": "enemies/s1-direwolf.png"
+  },
+  {
+    "id": "s2-glacierwolf",
+    "name": "Glacier Wolf",
+    "behavior": "rusher",
+    "maxHp": 56,
+    "atk": 11,
+    "def": 2,
+    "speed": 68,
+    "aggroRange": 120,
+    "attackRange": 18,
+    "attackCooldown": 0.9,
+    "strikeWindup": 0.28,
+    "xp": 22,
+    "sprite": "mob.wolf",
+    "tint": 14676223,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      3,
+      6
+    ],
+    "zones": [
+      "tundra",
+      "s2-rimeheart"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.08
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "tundra": {
+        "normal": {
+          "maxHp": 1030,
+          "atk": 35,
+          "def": 6,
+          "xp": 106,
+          "stones": [
+            14,
+            29
+          ]
+        },
+        "elite": {
+          "maxHp": 2885,
+          "atk": 49,
+          "def": 6,
+          "xp": 317,
+          "stones": [
+            43,
+            86
+          ]
+        }
+      },
+      "s2-rimeheart": {
+        "normal": {
+          "maxHp": 1008,
+          "atk": 34,
+          "def": 6,
+          "xp": 106,
+          "stones": [
+            14,
+            29
+          ]
+        },
+        "elite": {
+          "maxHp": 2822,
+          "atk": 48,
+          "def": 6,
+          "xp": 317,
+          "stones": [
+            43,
+            86
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-glacierwolf.png"
+  },
+  {
+    "id": "s2-howlwraith",
+    "name": "Howling Wraith",
+    "behavior": "caster",
+    "maxHp": 44,
+    "atk": 14,
+    "def": 0,
+    "speed": 40,
+    "aggroRange": 140,
+    "attackRange": 120,
+    "attackCooldown": 1.6,
+    "preferredRange": 90,
+    "volley": 2,
+    "xp": 28,
+    "sprite": "mob.ghost",
+    "tint": 12574975,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "tundra"
+    ],
+    "drops": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "mana-potion",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "tundra": {
+        "normal": {
+          "maxHp": 810,
+          "atk": 45,
+          "def": 0,
+          "xp": 134,
+          "stones": [
+            19,
+            38
+          ]
+        },
+        "elite": {
+          "maxHp": 2267,
+          "atk": 63,
+          "def": 0,
+          "xp": 403,
+          "stones": [
+            58,
+            115
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-howlwraith.png"
+  },
+  {
+    "id": "s2-blizzardhawk",
+    "name": "Blizzard Hawk",
+    "behavior": "caster",
+    "maxHp": 54,
+    "atk": 16,
+    "def": 1,
+    "speed": 50,
+    "aggroRange": 160,
+    "attackRange": 140,
+    "attackCooldown": 1.4,
+    "preferredRange": 100,
+    "volley": 3,
+    "xp": 38,
+    "sprite": "mob.thunderbird",
+    "tint": 15792383,
+    "scale": 0.44,
+    "radius": 8,
+    "stones": [
+      6,
+      11
+    ],
+    "zones": [
+      "tundra"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "tundra": {
+        "normal": {
+          "maxHp": 994,
+          "atk": 51,
+          "def": 3,
+          "xp": 182,
+          "stones": [
+            29,
+            53
+          ]
+        },
+        "elite": {
+          "maxHp": 2782,
+          "atk": 72,
+          "def": 3,
+          "xp": 547,
+          "stones": [
+            86,
+            158
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-blizzardhawk.png"
+  },
+  {
+    "id": "s2-mawserpent",
+    "name": "Maw Serpent",
+    "behavior": "rusher",
+    "maxHp": 48,
+    "atk": 12,
+    "def": 2,
+    "speed": 52,
+    "aggroRange": 110,
+    "attackRange": 16,
+    "attackCooldown": 0.85,
+    "strikeWindup": 0.26,
+    "xp": 22,
+    "sprite": "mob.snake",
+    "tint": 8374527,
+    "scale": 0.46,
+    "radius": 8,
+    "stones": [
+      3,
+      6
+    ],
+    "zones": [
+      "glaciermaw",
+      "s2-wyrmden"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "glaciermaw": {
+        "normal": {
+          "maxHp": 960,
+          "atk": 41,
+          "def": 6,
+          "xp": 119,
+          "stones": [
+            16,
+            32
+          ]
+        },
+        "elite": {
+          "maxHp": 2688,
+          "atk": 57,
+          "def": 6,
+          "xp": 356,
+          "stones": [
+            49,
+            97
+          ]
+        }
+      },
+      "s2-wyrmden": {
+        "normal": {
+          "maxHp": 998,
+          "atk": 43,
+          "def": 6,
+          "xp": 128,
+          "stones": [
+            17,
+            35
+          ]
+        },
+        "elite": {
+          "maxHp": 2796,
+          "atk": 60,
+          "def": 6,
+          "xp": 383,
+          "stones": [
+            52,
+            104
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-mawserpent.png"
+  },
+  {
+    "id": "s2-aurorawisp",
+    "name": "Aurora Wisp",
+    "behavior": "caster",
+    "maxHp": 46,
+    "atk": 15,
+    "def": 0,
+    "speed": 42,
+    "aggroRange": 140,
+    "attackRange": 120,
+    "attackCooldown": 1.5,
+    "preferredRange": 90,
+    "volley": 2,
+    "xp": 26,
+    "sprite": "mob.foxfire",
+    "tint": 10485712,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      3,
+      7
+    ],
+    "zones": [
+      "glaciermaw",
+      "s2-wyrmden"
+    ],
+    "drops": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "s2-aurora-draught",
+        "chance": 0.04
+      }
+    ],
+    "scaled": {
+      "glaciermaw": {
+        "normal": {
+          "maxHp": 920,
+          "atk": 51,
+          "def": 0,
+          "xp": 140,
+          "stones": [
+            16,
+            38
+          ]
+        },
+        "elite": {
+          "maxHp": 2576,
+          "atk": 71,
+          "def": 0,
+          "xp": 421,
+          "stones": [
+            49,
+            113
+          ]
+        }
+      },
+      "s2-wyrmden": {
+        "normal": {
+          "maxHp": 957,
+          "atk": 54,
+          "def": 0,
+          "xp": 151,
+          "stones": [
+            17,
+            41
+          ]
+        },
+        "elite": {
+          "maxHp": 2679,
+          "atk": 76,
+          "def": 0,
+          "xp": 452,
+          "stones": [
+            52,
+            122
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-aurorawisp.png"
+  },
+  {
+    "id": "s2-glacierbrute",
+    "name": "Glacier Brute",
+    "behavior": "charger",
+    "maxHp": 135,
+    "atk": 18,
+    "def": 10,
+    "speed": 26,
+    "aggroRange": 110,
+    "attackRange": 76,
+    "attackCooldown": 2.8,
+    "windup": 0.8,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 62,
+    "sprite": "mob.golem",
+    "tint": 11589872,
+    "scale": 0.5,
+    "radius": 12,
+    "stones": [
+      9,
+      16
+    ],
+    "zones": [
+      "glaciermaw",
+      "s2-wyrmden"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.4
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "glaciermaw": {
+        "normal": {
+          "maxHp": 2700,
+          "atk": 61,
+          "def": 30,
+          "xp": 335,
+          "stones": [
+            49,
+            86
+          ]
+        },
+        "elite": {
+          "maxHp": 7560,
+          "atk": 86,
+          "def": 30,
+          "xp": 1004,
+          "stones": [
+            146,
+            259
+          ]
+        }
+      },
+      "s2-wyrmden": {
+        "normal": {
+          "maxHp": 2808,
+          "atk": 65,
+          "def": 31,
+          "xp": 360,
+          "stones": [
+            52,
+            93
+          ]
+        },
+        "elite": {
+          "maxHp": 7862,
+          "atk": 91,
+          "def": 31,
+          "xp": 1079,
+          "stones": [
+            157,
+            278
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-glacierbrute.png"
+  },
+  {
+    "id": "s2-frozencorpse",
+    "name": "Frozen Corpse",
+    "behavior": "charger",
+    "maxHp": 100,
+    "atk": 20,
+    "def": 6,
+    "speed": 36,
+    "aggroRange": 120,
+    "attackRange": 84,
+    "attackCooldown": 2.4,
+    "windup": 0.55,
+    "dashTime": 0.4,
+    "dashSpeedMult": 5,
+    "xp": 48,
+    "sprite": "mob.jiangshi",
+    "tint": 12570879,
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "s2-gravewind"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "s2-frostlotus-pill",
+        "chance": 0.05
+      }
+    ],
+    "scaled": {
+      "s2-gravewind": {
+        "normal": {
+          "maxHp": 2160,
+          "atk": 74,
+          "def": 19,
+          "xp": 283,
+          "stones": [
+            35,
+            71
+          ]
+        },
+        "elite": {
+          "maxHp": 6048,
+          "atk": 104,
+          "def": 19,
+          "xp": 850,
+          "stones": [
+            106,
+            212
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-frozencorpse.png"
+  },
+  {
+    "id": "s2-tombwraith",
+    "name": "Tomb Wraith",
+    "behavior": "caster",
+    "maxHp": 46,
+    "atk": 17,
+    "def": 0,
+    "speed": 40,
+    "aggroRange": 140,
+    "attackRange": 120,
+    "attackCooldown": 1.6,
+    "preferredRange": 90,
+    "volley": 2,
+    "xp": 32,
+    "sprite": "mob.ghost_v_crimson",
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "s2-gravewind"
+    ],
+    "drops": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "s2-gravewind": {
+        "normal": {
+          "maxHp": 994,
+          "atk": 63,
+          "def": 0,
+          "xp": 189,
+          "stones": [
+            24,
+            47
+          ]
+        },
+        "elite": {
+          "maxHp": 2782,
+          "atk": 88,
+          "def": 0,
+          "xp": 566,
+          "stones": [
+            71,
+            142
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-tombwraith.png"
+  },
+  {
+    "id": "s2-mirrorspirit",
+    "name": "Mirror Blade Spirit",
+    "behavior": "charger",
+    "maxHp": 50,
+    "atk": 16,
+    "def": 2,
+    "speed": 44,
+    "aggroRange": 140,
+    "attackRange": 96,
+    "attackCooldown": 2,
+    "windup": 0.4,
+    "dashTime": 0.35,
+    "dashSpeedMult": 6,
+    "xp": 34,
+    "sprite": "mob.swordspirit",
+    "tint": 12644607,
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      4,
+      9
+    ],
+    "zones": [
+      "s2-mirrorvault"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.2
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "s2-mirrorvault": {
+        "normal": {
+          "maxHp": 1000,
+          "atk": 56,
+          "def": 6,
+          "xp": 190,
+          "stones": [
+            22,
+            50
+          ]
+        },
+        "elite": {
+          "maxHp": 2800,
+          "atk": 78,
+          "def": 6,
+          "xp": 571,
+          "stones": [
+            67,
+            151
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-mirrorspirit.png"
+  },
+  {
+    "id": "s2-glasspuppet",
+    "name": "Glass Puppet",
+    "behavior": "rusher",
+    "maxHp": 44,
+    "atk": 13,
+    "def": 1,
+    "speed": 56,
+    "aggroRange": 110,
+    "attackRange": 16,
+    "attackCooldown": 0.9,
+    "strikeWindup": 0.28,
+    "xp": 22,
+    "sprite": "mob.paperdoll",
+    "tint": 13692159,
+    "scale": 0.38,
+    "radius": 7,
+    "stones": [
+      3,
+      6
+    ],
+    "zones": [
+      "s2-mirrorvault"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "s2-mirrorvault": {
+        "normal": {
+          "maxHp": 880,
+          "atk": 46,
+          "def": 3,
+          "xp": 123,
+          "stones": [
+            17,
+            34
+          ]
+        },
+        "elite": {
+          "maxHp": 2464,
+          "atk": 64,
+          "def": 3,
+          "xp": 370,
+          "stones": [
+            50,
+            101
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-glasspuppet.png"
+  },
+  {
+    "id": "s2-rimesentinel",
+    "name": "Rime Sentinel",
+    "behavior": "rusher",
+    "maxHp": 90,
+    "atk": 15,
+    "def": 7,
+    "speed": 40,
+    "aggroRange": 120,
+    "attackRange": 22,
+    "attackCooldown": 1.3,
+    "strikeWindup": 0.34,
+    "xp": 38,
+    "sprite": "mob.soldier",
+    "tint": 10535128,
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "s2-mirrorvault"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.25
+      }
+    ],
+    "scaled": {
+      "s2-mirrorvault": {
+        "normal": {
+          "maxHp": 1800,
+          "atk": 53,
+          "def": 21,
+          "xp": 213,
+          "stones": [
+            28,
+            56
+          ]
+        },
+        "elite": {
+          "maxHp": 5040,
+          "atk": 74,
+          "def": 21,
+          "xp": 638,
+          "stones": [
+            84,
+            168
+          ]
+        }
+      }
+    },
+    "image": "enemies/s2-rimesentinel.png"
+  },
+  {
+    "id": "sandviper",
+    "name": "Sand Viper",
+    "behavior": "rusher",
+    "maxHp": 47,
+    "atk": 12,
+    "def": 1,
+    "speed": 58,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 0.8,
+    "strikeWindup": 0.26,
+    "xp": 22,
+    "sprite": "mob.snake",
+    "tint": 15121508,
+    "scale": 0.38,
+    "radius": 7,
+    "stones": [
+      3,
+      6
+    ],
+    "zones": [
+      "dunes",
+      "oasis",
+      "ember-burrow"
+    ],
+    "drops": [
+      {
+        "item": "ember-viper-fang",
+        "chance": 0.4
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "dunes": {
+        "normal": {
+          "maxHp": 1128,
+          "atk": 50,
+          "def": 4,
+          "xp": 141,
+          "stones": [
+            19,
+            38
+          ]
+        },
+        "elite": {
+          "maxHp": 3158,
+          "atk": 71,
+          "def": 4,
+          "xp": 422,
+          "stones": [
+            58,
+            115
+          ]
+        }
+      },
+      "oasis": {
+        "normal": {
+          "maxHp": 1203,
+          "atk": 54,
+          "def": 4,
+          "xp": 152,
+          "stones": [
+            21,
+            41
+          ]
+        },
+        "elite": {
+          "maxHp": 3369,
+          "atk": 76,
+          "def": 4,
+          "xp": 455,
+          "stones": [
+            62,
+            124
+          ]
+        }
+      },
+      "ember-burrow": {
+        "normal": {
+          "maxHp": 1241,
+          "atk": 55,
+          "def": 4,
+          "xp": 163,
+          "stones": [
+            22,
+            44
+          ]
+        },
+        "elite": {
+          "maxHp": 3474,
+          "atk": 77,
+          "def": 4,
+          "xp": 488,
+          "stones": [
+            67,
+            133
+          ]
+        }
+      }
+    },
+    "image": "enemies/sandviper.png"
+  },
+  {
+    "id": "dunejackal",
+    "name": "Dune Jackal",
+    "behavior": "rusher",
+    "maxHp": 56,
+    "atk": 13,
+    "def": 2,
+    "speed": 72,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 0.9,
+    "strikeWindup": 0.28,
+    "xp": 26,
+    "sprite": "mob.wolf",
+    "tint": 14263388,
+    "scale": 0.38,
+    "radius": 8,
+    "stones": [
+      3,
+      7
+    ],
+    "zones": [
+      "dunes",
+      "oasis"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "dunes": {
+        "normal": {
+          "maxHp": 1344,
+          "atk": 55,
+          "def": 7,
+          "xp": 166,
+          "stones": [
+            19,
+            45
+          ]
+        },
+        "elite": {
+          "maxHp": 3763,
+          "atk": 76,
+          "def": 7,
+          "xp": 499,
+          "stones": [
+            58,
+            134
+          ]
+        }
+      },
+      "oasis": {
+        "normal": {
+          "maxHp": 1434,
+          "atk": 59,
+          "def": 7,
+          "xp": 179,
+          "stones": [
+            21,
+            48
+          ]
+        },
+        "elite": {
+          "maxHp": 4014,
+          "atk": 82,
+          "def": 7,
+          "xp": 538,
+          "stones": [
+            62,
+            145
+          ]
+        }
+      }
+    },
+    "image": "enemies/dunejackal.png"
+  },
+  {
+    "id": "glassscorpion",
+    "name": "Glass Scorpion",
+    "behavior": "rusher",
+    "maxHp": 74,
+    "atk": 14,
+    "def": 6,
+    "speed": 40,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 1.2,
+    "strikeWindup": 0.4,
+    "xp": 34,
+    "sprite": "mob.snake",
+    "tint": 9431256,
+    "scale": 0.46,
+    "radius": 9,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "dunes",
+      "canyon",
+      "ember-burrow"
+    ],
+    "drops": [
+      {
+        "item": "ember-glass-shard",
+        "chance": 0.35
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "dunes": {
+        "normal": {
+          "maxHp": 1776,
+          "atk": 59,
+          "def": 21,
+          "xp": 218,
+          "stones": [
+            32,
+            64
+          ]
+        },
+        "elite": {
+          "maxHp": 4973,
+          "atk": 82,
+          "def": 21,
+          "xp": 653,
+          "stones": [
+            96,
+            192
+          ]
+        }
+      },
+      "canyon": {
+        "normal": {
+          "maxHp": 2042,
+          "atk": 67,
+          "def": 24,
+          "xp": 252,
+          "stones": [
+            37,
+            74
+          ]
+        },
+        "elite": {
+          "maxHp": 5719,
+          "atk": 94,
+          "def": 24,
+          "xp": 755,
+          "stones": [
+            111,
+            222
+          ]
+        }
+      },
+      "ember-burrow": {
+        "normal": {
+          "maxHp": 1954,
+          "atk": 64,
+          "def": 23,
+          "xp": 252,
+          "stones": [
+            37,
+            74
+          ]
+        },
+        "elite": {
+          "maxHp": 5470,
+          "atk": 90,
+          "def": 23,
+          "xp": 755,
+          "stones": [
+            111,
+            222
+          ]
+        }
+      }
+    },
+    "image": "enemies/glassscorpion.png"
+  },
+  {
+    "id": "dustwisp",
+    "name": "Dust Wisp",
+    "behavior": "caster",
+    "maxHp": 44,
+    "atk": 15,
+    "def": 0,
+    "speed": 42,
+    "aggroRange": 145,
+    "attackRange": 120,
+    "attackCooldown": 1.6,
+    "preferredRange": 88,
+    "volley": 2,
+    "xp": 28,
+    "sprite": "mob.foxfire",
+    "tint": 16767120,
+    "scale": 0.38,
+    "radius": 7,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "dunes",
+      "ember-burrow"
+    ],
+    "drops": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "dunes": {
+        "normal": {
+          "maxHp": 1056,
+          "atk": 63,
+          "def": 0,
+          "xp": 179,
+          "stones": [
+            26,
+            51
+          ]
+        },
+        "elite": {
+          "maxHp": 2957,
+          "atk": 88,
+          "def": 0,
+          "xp": 538,
+          "stones": [
+            77,
+            154
+          ]
+        }
+      },
+      "ember-burrow": {
+        "normal": {
+          "maxHp": 1162,
+          "atk": 69,
+          "def": 0,
+          "xp": 207,
+          "stones": [
+            30,
+            59
+          ]
+        },
+        "elite": {
+          "maxHp": 3252,
+          "atk": 97,
+          "def": 0,
+          "xp": 622,
+          "stones": [
+            89,
+            178
+          ]
+        }
+      }
+    },
+    "image": "enemies/dustwisp.png"
+  },
+  {
+    "id": "cactuswarden",
+    "name": "Cactus Warden",
+    "behavior": "charger",
+    "maxHp": 120,
+    "atk": 18,
+    "def": 6,
+    "speed": 28,
+    "aggroRange": 115,
+    "attackRange": 76,
+    "attackCooldown": 2.8,
+    "windup": 0.7,
+    "dashTime": 0.45,
+    "dashSpeedMult": 4,
+    "xp": 56,
+    "sprite": "mob.treant",
+    "tint": 12114024,
+    "scale": 0.44,
+    "radius": 10,
+    "stones": [
+      8,
+      14
+    ],
+    "zones": [
+      "dunes",
+      "oasis",
+      "ember-burrow"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.35
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "dunes": {
+        "normal": {
+          "maxHp": 2880,
+          "atk": 76,
+          "def": 21,
+          "xp": 358,
+          "stones": [
+            51,
+            90
+          ]
+        },
+        "elite": {
+          "maxHp": 8064,
+          "atk": 106,
+          "def": 21,
+          "xp": 1075,
+          "stones": [
+            154,
+            269
+          ]
+        }
+      },
+      "oasis": {
+        "normal": {
+          "maxHp": 3072,
+          "atk": 81,
+          "def": 22,
+          "xp": 386,
+          "stones": [
+            55,
+            97
+          ]
+        },
+        "elite": {
+          "maxHp": 8602,
+          "atk": 113,
+          "def": 22,
+          "xp": 1159,
+          "stones": [
+            166,
+            290
+          ]
+        }
+      },
+      "ember-burrow": {
+        "normal": {
+          "maxHp": 3168,
+          "atk": 83,
+          "def": 23,
+          "xp": 414,
+          "stones": [
+            59,
+            104
+          ]
+        },
+        "elite": {
+          "maxHp": 8870,
+          "atk": 116,
+          "def": 23,
+          "xp": 1243,
+          "stones": [
+            178,
+            311
+          ]
+        }
+      }
+    },
+    "image": "enemies/cactuswarden.png"
+  },
+  {
+    "id": "reedtoad",
+    "name": "Reed Toad",
+    "behavior": "rusher",
+    "maxHp": 84,
+    "atk": 14,
+    "def": 4,
+    "speed": 32,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 1.3,
+    "strikeWindup": 0.4,
+    "xp": 32,
+    "sprite": "mob.toad",
+    "tint": 13160560,
+    "scale": 0.38,
+    "radius": 9,
+    "stones": [
+      4,
+      9
+    ],
+    "zones": [
+      "oasis"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.14
+      }
+    ],
+    "scaled": {
+      "oasis": {
+        "normal": {
+          "maxHp": 2150,
+          "atk": 63,
+          "def": 15,
+          "xp": 221,
+          "stones": [
+            28,
+            62
+          ]
+        },
+        "elite": {
+          "maxHp": 6021,
+          "atk": 88,
+          "def": 15,
+          "xp": 662,
+          "stones": [
+            83,
+            186
+          ]
+        }
+      }
+    },
+    "image": "enemies/reedtoad.png"
+  },
+  {
+    "id": "drownedcaravaneer",
+    "name": "Drowned Caravaneer",
+    "behavior": "rusher",
+    "maxHp": 56,
+    "atk": 14,
+    "def": 1,
+    "speed": 38,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 1.1,
+    "strikeWindup": 0.3,
+    "xp": 30,
+    "sprite": "mob.waterghost",
+    "tint": 14733472,
+    "scale": 0.38,
+    "radius": 7,
+    "stones": [
+      4,
+      8
+    ],
+    "zones": [
+      "oasis"
+    ],
+    "drops": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.14
+      },
+      {
+        "item": "ember-glass-shard",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "oasis": {
+        "normal": {
+          "maxHp": 1434,
+          "atk": 63,
+          "def": 4,
+          "xp": 207,
+          "stones": [
+            28,
+            55
+          ]
+        },
+        "elite": {
+          "maxHp": 4014,
+          "atk": 88,
+          "def": 4,
+          "xp": 621,
+          "stones": [
+            83,
+            166
+          ]
+        }
+      }
+    },
+    "image": "enemies/drownedcaravaneer.png"
+  },
+  {
+    "id": "oasisnymph",
+    "name": "Oasis Nymph",
+    "behavior": "caster",
+    "maxHp": 52,
+    "atk": 15,
+    "def": 0,
+    "speed": 38,
+    "aggroRange": 140,
+    "attackRange": 115,
+    "attackCooldown": 1.5,
+    "preferredRange": 80,
+    "volley": 2,
+    "xp": 32,
+    "sprite": "mob.peachspirit",
+    "tint": 10485716,
+    "scale": 0.36,
+    "radius": 7,
+    "stones": [
+      4,
+      9
+    ],
+    "zones": [
+      "oasis"
+    ],
+    "drops": [
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.18
+      },
+      {
+        "item": "qi-pill",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "oasis": {
+        "normal": {
+          "maxHp": 1331,
+          "atk": 68,
+          "def": 0,
+          "xp": 221,
+          "stones": [
+            28,
+            62
+          ]
+        },
+        "elite": {
+          "maxHp": 3727,
+          "atk": 95,
+          "def": 0,
+          "xp": 662,
+          "stones": [
+            83,
+            186
+          ]
+        }
+      }
+    },
+    "image": "enemies/oasisnymph.png"
+  },
+  {
+    "id": "claygolem",
+    "name": "Clay Golem",
+    "behavior": "charger",
+    "maxHp": 130,
+    "atk": 18,
+    "def": 9,
+    "speed": 26,
+    "aggroRange": 115,
+    "attackRange": 80,
+    "attackCooldown": 2.8,
+    "windup": 0.8,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 70,
+    "sprite": "mob.golem",
+    "tint": 13142608,
+    "scale": 0.46,
+    "radius": 11,
+    "stones": [
+      10,
+      18
+    ],
+    "zones": [
+      "canyon"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.4
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "canyon": {
+        "normal": {
+          "maxHp": 3588,
+          "atk": 86,
+          "def": 36,
+          "xp": 518,
+          "stones": [
+            74,
+            133
+          ]
+        },
+        "elite": {
+          "maxHp": 10046,
+          "atk": 121,
+          "def": 36,
+          "xp": 1554,
+          "stones": [
+            222,
+            400
+          ]
+        }
+      }
+    },
+    "image": "enemies/claygolem.png"
+  },
+  {
+    "id": "ashroc",
+    "name": "Ash Roc",
+    "behavior": "caster",
+    "maxHp": 58,
+    "atk": 17,
+    "def": 0,
+    "speed": 48,
+    "aggroRange": 165,
+    "attackRange": 140,
+    "attackCooldown": 1.4,
+    "preferredRange": 100,
+    "volley": 3,
+    "xp": 42,
+    "sprite": "mob.thunderbird",
+    "tint": 10129288,
+    "scale": 0.44,
+    "radius": 7,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "canyon",
+      "saltflats"
+    ],
+    "drops": [
+      {
+        "item": "ember-roc-feather",
+        "chance": 0.45
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "canyon": {
+        "normal": {
+          "maxHp": 1601,
+          "atk": 82,
+          "def": 0,
+          "xp": 311,
+          "stones": [
+            44,
+            89
+          ]
+        },
+        "elite": {
+          "maxHp": 4482,
+          "atk": 114,
+          "def": 0,
+          "xp": 932,
+          "stones": [
+            133,
+            266
+          ]
+        }
+      },
+      "saltflats": {
+        "normal": {
+          "maxHp": 1717,
+          "atk": 87,
+          "def": 0,
+          "xp": 336,
+          "stones": [
+            48,
+            96
+          ]
+        },
+        "elite": {
+          "maxHp": 4807,
+          "atk": 121,
+          "def": 0,
+          "xp": 1008,
+          "stones": [
+            144,
+            288
+          ]
+        }
+      }
+    },
+    "image": "enemies/ashroc.png"
+  },
+  {
+    "id": "duneraider",
+    "name": "Dune Raider",
+    "behavior": "rusher",
+    "maxHp": 84,
+    "atk": 15,
+    "def": 6,
+    "speed": 44,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 1.2,
+    "strikeWindup": 0.34,
+    "xp": 38,
+    "sprite": "mob.soldier",
+    "tint": 13144160,
+    "scale": 0.38,
+    "radius": 8,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "canyon"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.16
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.05
+      }
+    ],
+    "scaled": {
+      "canyon": {
+        "normal": {
+          "maxHp": 2318,
+          "atk": 72,
+          "def": 24,
+          "xp": 281,
+          "stones": [
+            44,
+            89
+          ]
+        },
+        "elite": {
+          "maxHp": 6492,
+          "atk": 101,
+          "def": 24,
+          "xp": 844,
+          "stones": [
+            133,
+            266
+          ]
+        }
+      }
+    },
+    "image": "enemies/duneraider.png"
+  },
+  {
+    "id": "cindermoth",
+    "name": "Cinder Moth",
+    "behavior": "rusher",
+    "maxHp": 46,
+    "atk": 11,
+    "def": 0,
+    "speed": 88,
+    "aggroRange": 140,
+    "attackRange": 18,
+    "attackCooldown": 0.7,
+    "strikeWindup": 0.22,
+    "xp": 20,
+    "sprite": "mob.bat",
+    "tint": 16751200,
+    "scale": 0.34,
+    "radius": 6,
+    "stones": [
+      3,
+      6
+    ],
+    "zones": [
+      "canyon",
+      "magmarift",
+      "ember-mine"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "canyon": {
+        "normal": {
+          "maxHp": 1270,
+          "atk": 53,
+          "def": 0,
+          "xp": 148,
+          "stones": [
+            22,
+            44
+          ]
+        },
+        "elite": {
+          "maxHp": 3555,
+          "atk": 74,
+          "def": 0,
+          "xp": 444,
+          "stones": [
+            67,
+            133
+          ]
+        }
+      },
+      "magmarift": {
+        "normal": {
+          "maxHp": 1472,
+          "atk": 61,
+          "def": 0,
+          "xp": 176,
+          "stones": [
+            26,
+            53
+          ]
+        },
+        "elite": {
+          "maxHp": 4122,
+          "atk": 85,
+          "def": 0,
+          "xp": 528,
+          "stones": [
+            79,
+            158
+          ]
+        }
+      },
+      "ember-mine": {
+        "normal": {
+          "maxHp": 1509,
+          "atk": 61,
+          "def": 0,
+          "xp": 184,
+          "stones": [
+            28,
+            55
+          ]
+        },
+        "elite": {
+          "maxHp": 4225,
+          "atk": 85,
+          "def": 0,
+          "xp": 552,
+          "stones": [
+            83,
+            166
+          ]
+        }
+      }
+    },
+    "image": "enemies/cindermoth.png"
+  },
+  {
+    "id": "saltghoul",
+    "name": "Salt Ghoul",
+    "behavior": "charger",
+    "maxHp": 100,
+    "atk": 20,
+    "def": 5,
+    "speed": 36,
+    "aggroRange": 115,
+    "attackRange": 86,
+    "attackCooldown": 2.4,
+    "windup": 0.55,
+    "dashTime": 0.4,
+    "dashSpeedMult": 5,
+    "xp": 52,
+    "sprite": "mob.jiangshi",
+    "tint": 15266032,
+    "scale": 0.4,
+    "radius": 9,
+    "stones": [
+      7,
+      14
+    ],
+    "zones": [
+      "saltflats"
+    ],
+    "drops": [
+      {
+        "item": "qi-pill",
+        "chance": 0.3
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "saltflats": {
+        "normal": {
+          "maxHp": 2960,
+          "atk": 102,
+          "def": 21,
+          "xp": 416,
+          "stones": [
+            56,
+            112
+          ]
+        },
+        "elite": {
+          "maxHp": 8288,
+          "atk": 143,
+          "def": 21,
+          "xp": 1248,
+          "stones": [
+            168,
+            336
+          ]
+        }
+      }
+    },
+    "image": "enemies/saltghoul.png"
+  },
+  {
+    "id": "mirageghost",
+    "name": "Mirage Ghost",
+    "behavior": "caster",
+    "maxHp": 50,
+    "atk": 17,
+    "def": 0,
+    "speed": 40,
+    "aggroRange": 150,
+    "attackRange": 125,
+    "attackCooldown": 1.6,
+    "preferredRange": 92,
+    "volley": 2,
+    "xp": 36,
+    "sprite": "mob.ghost",
+    "tint": 16773296,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "saltflats",
+      "suntemple"
+    ],
+    "drops": [
+      {
+        "item": "ember-mana-potion",
+        "chance": 0.07
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.18
+      }
+    ],
+    "scaled": {
+      "saltflats": {
+        "normal": {
+          "maxHp": 1480,
+          "atk": 87,
+          "def": 0,
+          "xp": 288,
+          "stones": [
+            40,
+            80
+          ]
+        },
+        "elite": {
+          "maxHp": 4144,
+          "atk": 121,
+          "def": 0,
+          "xp": 864,
+          "stones": [
+            120,
+            240
+          ]
+        }
+      },
+      "suntemple": {
+        "normal": {
+          "maxHp": 1700,
+          "atk": 99,
+          "def": 0,
+          "xp": 338,
+          "stones": [
+            47,
+            94
+          ]
+        },
+        "elite": {
+          "maxHp": 4760,
+          "atk": 138,
+          "def": 0,
+          "xp": 1015,
+          "stones": [
+            141,
+            282
+          ]
+        }
+      }
+    },
+    "image": "enemies/mirageghost.png"
+  },
+  {
+    "id": "brinecrawler",
+    "name": "Brine Crawler",
+    "behavior": "rusher",
+    "maxHp": 66,
+    "atk": 16,
+    "def": 3,
+    "speed": 50,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 0.9,
+    "strikeWindup": 0.28,
+    "xp": 34,
+    "sprite": "mob.snake",
+    "tint": 13624575,
+    "scale": 0.44,
+    "radius": 8,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "saltflats"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "saltflats": {
+        "normal": {
+          "maxHp": 1954,
+          "atk": 82,
+          "def": 13,
+          "xp": 272,
+          "stones": [
+            40,
+            80
+          ]
+        },
+        "elite": {
+          "maxHp": 5470,
+          "atk": 114,
+          "def": 13,
+          "xp": 816,
+          "stones": [
+            120,
+            240
+          ]
+        }
+      }
+    },
+    "image": "enemies/brinecrawler.png"
+  },
+  {
+    "id": "saltsoldier",
+    "name": "Salt-Preserved Soldier",
+    "behavior": "rusher",
+    "maxHp": 88,
+    "atk": 16,
+    "def": 6,
+    "speed": 46,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 1,
+    "strikeWindup": 0.3,
+    "xp": 40,
+    "sprite": "mob.skeleton",
+    "tint": 15659775,
+    "scale": 0.38,
+    "radius": 8,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "saltflats"
+    ],
+    "drops": [
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.14
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.05
+      }
+    ],
+    "scaled": {
+      "saltflats": {
+        "normal": {
+          "maxHp": 2605,
+          "atk": 82,
+          "def": 25,
+          "xp": 320,
+          "stones": [
+            48,
+            96
+          ]
+        },
+        "elite": {
+          "maxHp": 7293,
+          "atk": 114,
+          "def": 25,
+          "xp": 960,
+          "stones": [
+            144,
+            288
+          ]
+        }
+      }
+    },
+    "image": "enemies/saltsoldier.png"
+  },
+  {
+    "id": "magmasprite",
+    "name": "Magma Sprite",
+    "behavior": "caster",
+    "maxHp": 54,
+    "atk": 19,
+    "def": 0,
+    "speed": 44,
+    "aggroRange": 150,
+    "attackRange": 125,
+    "attackCooldown": 1.5,
+    "preferredRange": 90,
+    "volley": 2,
+    "xp": 40,
+    "sprite": "mob.foxfire",
+    "tint": 16738848,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "magmarift",
+      "ember-mine"
+    ],
+    "drops": [
+      {
+        "item": "ember-mana-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "greater-mana-potion",
+        "chance": 0.18
+      }
+    ],
+    "scaled": {
+      "magmarift": {
+        "normal": {
+          "maxHp": 1728,
+          "atk": 105,
+          "def": 0,
+          "xp": 352,
+          "stones": [
+            53,
+            106
+          ]
+        },
+        "elite": {
+          "maxHp": 4838,
+          "atk": 146,
+          "def": 0,
+          "xp": 1056,
+          "stones": [
+            158,
+            317
+          ]
+        }
+      },
+      "ember-mine": {
+        "normal": {
+          "maxHp": 1771,
+          "atk": 105,
+          "def": 0,
+          "xp": 368,
+          "stones": [
+            55,
+            110
+          ]
+        },
+        "elite": {
+          "maxHp": 4959,
+          "atk": 146,
+          "def": 0,
+          "xp": 1104,
+          "stones": [
+            166,
+            331
+          ]
+        }
+      }
+    },
+    "image": "enemies/magmasprite.png"
+  },
+  {
+    "id": "obsidiangolem",
+    "name": "Obsidian Golem",
+    "behavior": "charger",
+    "maxHp": 150,
+    "atk": 20,
+    "def": 12,
+    "speed": 26,
+    "aggroRange": 115,
+    "attackRange": 80,
+    "attackCooldown": 2.8,
+    "windup": 0.8,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 84,
+    "sprite": "mob.golem",
+    "tint": 4867160,
+    "scale": 0.5,
+    "radius": 12,
+    "stones": [
+      12,
+      22
+    ],
+    "zones": [
+      "magmarift",
+      "ember-mine"
+    ],
+    "drops": [
+      {
+        "item": "ember-obsidian-shard",
+        "chance": 0.5
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "magmarift": {
+        "normal": {
+          "maxHp": 4800,
+          "atk": 110,
+          "def": 54,
+          "xp": 739,
+          "stones": [
+            106,
+            194
+          ]
+        },
+        "elite": {
+          "maxHp": 13440,
+          "atk": 154,
+          "def": 54,
+          "xp": 2218,
+          "stones": [
+            317,
+            581
+          ]
+        }
+      },
+      "ember-mine": {
+        "normal": {
+          "maxHp": 4920,
+          "atk": 110,
+          "def": 55,
+          "xp": 773,
+          "stones": [
+            110,
+            202
+          ]
+        },
+        "elite": {
+          "maxHp": 13776,
+          "atk": 154,
+          "def": 55,
+          "xp": 2318,
+          "stones": [
+            331,
+            607
+          ]
+        }
+      }
+    },
+    "image": "enemies/obsidiangolem.png"
+  },
+  {
+    "id": "slagtoad",
+    "name": "Slag Toad",
+    "behavior": "rusher",
+    "maxHp": 100,
+    "atk": 17,
+    "def": 6,
+    "speed": 34,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 1.3,
+    "strikeWindup": 0.4,
+    "xp": 44,
+    "sprite": "mob.toad",
+    "tint": 16747072,
+    "scale": 0.4,
+    "radius": 9,
+    "stones": [
+      7,
+      14
+    ],
+    "zones": [
+      "magmarift",
+      "ember-mine"
+    ],
+    "drops": [
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "magmarift": {
+        "normal": {
+          "maxHp": 3200,
+          "atk": 94,
+          "def": 27,
+          "xp": 387,
+          "stones": [
+            62,
+            123
+          ]
+        },
+        "elite": {
+          "maxHp": 8960,
+          "atk": 131,
+          "def": 27,
+          "xp": 1162,
+          "stones": [
+            185,
+            370
+          ]
+        }
+      },
+      "ember-mine": {
+        "normal": {
+          "maxHp": 3280,
+          "atk": 94,
+          "def": 28,
+          "xp": 405,
+          "stones": [
+            64,
+            129
+          ]
+        },
+        "elite": {
+          "maxHp": 9184,
+          "atk": 131,
+          "def": 28,
+          "xp": 1214,
+          "stones": [
+            193,
+            386
+          ]
+        }
+      }
+    },
+    "image": "enemies/slagtoad.png"
+  },
+  {
+    "id": "cinderhound",
+    "name": "Cinder Hound",
+    "behavior": "rusher",
+    "maxHp": 72,
+    "atk": 15,
+    "def": 3,
+    "speed": 76,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 0.85,
+    "strikeWindup": 0.26,
+    "xp": 42,
+    "sprite": "mob.wolf",
+    "tint": 16734768,
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "magmarift",
+      "ember-mine"
+    ],
+    "drops": [
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.08
+      },
+      {
+        "item": "greater-hp-potion",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "magmarift": {
+        "normal": {
+          "maxHp": 2304,
+          "atk": 83,
+          "def": 14,
+          "xp": 370,
+          "stones": [
+            53,
+            106
+          ]
+        },
+        "elite": {
+          "maxHp": 6451,
+          "atk": 115,
+          "def": 14,
+          "xp": 1109,
+          "stones": [
+            158,
+            317
+          ]
+        }
+      },
+      "ember-mine": {
+        "normal": {
+          "maxHp": 2362,
+          "atk": 83,
+          "def": 14,
+          "xp": 386,
+          "stones": [
+            55,
+            110
+          ]
+        },
+        "elite": {
+          "maxHp": 6612,
+          "atk": 115,
+          "def": 14,
+          "xp": 1159,
+          "stones": [
+            166,
+            331
+          ]
+        }
+      }
+    },
+    "image": "enemies/cinderhound.png"
+  },
+  {
+    "id": "mummy",
+    "name": "Gilded Mummy",
+    "behavior": "rusher",
+    "maxHp": 104,
+    "atk": 14,
+    "def": 8,
+    "speed": 40,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 1.2,
+    "strikeWindup": 0.34,
+    "xp": 52,
+    "sprite": "mob.skeleton",
+    "tint": 14207120,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      8,
+      16
+    ],
+    "zones": [
+      "suntemple"
+    ],
+    "drops": [
+      {
+        "item": "ember-sun-tablet",
+        "chance": 0.3
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "suntemple": {
+        "normal": {
+          "maxHp": 3536,
+          "atk": 81,
+          "def": 38,
+          "xp": 489,
+          "stones": [
+            75,
+            150
+          ]
+        },
+        "elite": {
+          "maxHp": 9901,
+          "atk": 114,
+          "def": 38,
+          "xp": 1466,
+          "stones": [
+            226,
+            451
+          ]
+        }
+      }
+    },
+    "image": "enemies/mummy.png"
+  },
+  {
+    "id": "sunhusk",
+    "name": "Sun-Cursed Husk",
+    "behavior": "charger",
+    "maxHp": 116,
+    "atk": 18,
+    "def": 7,
+    "speed": 38,
+    "aggroRange": 115,
+    "attackRange": 88,
+    "attackCooldown": 2.4,
+    "windup": 0.55,
+    "dashTime": 0.4,
+    "dashSpeedMult": 5,
+    "xp": 62,
+    "sprite": "mob.jiangshi",
+    "tint": 16765024,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      9,
+      17
+    ],
+    "zones": [
+      "suntemple"
+    ],
+    "drops": [
+      {
+        "item": "ember-sun-tablet",
+        "chance": 0.25
+      },
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "suntemple": {
+        "normal": {
+          "maxHp": 3944,
+          "atk": 104,
+          "def": 33,
+          "xp": 583,
+          "stones": [
+            85,
+            160
+          ]
+        },
+        "elite": {
+          "maxHp": 11043,
+          "atk": 146,
+          "def": 33,
+          "xp": 1748,
+          "stones": [
+            254,
+            479
+          ]
+        }
+      }
+    },
+    "image": "enemies/sunhusk.png"
+  },
+  {
+    "id": "templeguard",
+    "name": "Temple Sentinel",
+    "behavior": "rusher",
+    "maxHp": 108,
+    "atk": 13,
+    "def": 11,
+    "speed": 42,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 1.3,
+    "strikeWindup": 0.36,
+    "xp": 58,
+    "sprite": "mob.soldier",
+    "tint": 15251504,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      8,
+      16
+    ],
+    "zones": [
+      "suntemple"
+    ],
+    "drops": [
+      {
+        "item": "ember-sun-tablet",
+        "chance": 0.25
+      },
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "suntemple": {
+        "normal": {
+          "maxHp": 3672,
+          "atk": 75,
+          "def": 52,
+          "xp": 545,
+          "stones": [
+            75,
+            150
+          ]
+        },
+        "elite": {
+          "maxHp": 10282,
+          "atk": 106,
+          "def": 52,
+          "xp": 1636,
+          "stones": [
+            226,
+            451
+          ]
+        }
+      }
+    },
+    "image": "enemies/templeguard.png"
+  },
+  {
+    "id": "sunblade",
+    "name": "Sun Blade Spirit",
+    "behavior": "charger",
+    "maxHp": 62,
+    "atk": 20,
+    "def": 3,
+    "speed": 42,
+    "aggroRange": 115,
+    "attackRange": 96,
+    "attackCooldown": 2,
+    "windup": 0.45,
+    "dashTime": 0.35,
+    "dashSpeedMult": 6,
+    "xp": 50,
+    "sprite": "mob.swordspirit",
+    "tint": 16769168,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      7,
+      14
+    ],
+    "zones": [
+      "suntemple"
+    ],
+    "drops": [
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "suntemple": {
+        "normal": {
+          "maxHp": 2108,
+          "atk": 116,
+          "def": 14,
+          "xp": 470,
+          "stones": [
+            66,
+            132
+          ]
+        },
+        "elite": {
+          "maxHp": 5902,
+          "atk": 162,
+          "def": 14,
+          "xp": 1410,
+          "stones": [
+            197,
+            395
+          ]
+        }
+      }
+    },
+    "image": "enemies/sunblade.png"
+  },
+  {
+    "id": "vaultblade",
+    "name": "Furnace Blade Spirit",
+    "behavior": "charger",
+    "maxHp": 70,
+    "atk": 22,
+    "def": 4,
+    "speed": 44,
+    "aggroRange": 115,
+    "attackRange": 98,
+    "attackCooldown": 1.9,
+    "windup": 0.42,
+    "dashTime": 0.35,
+    "dashSpeedMult": 6,
+    "xp": 54,
+    "sprite": "mob.swordspirit_v_blood",
+    "tint": 16748608,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      8,
+      15
+    ],
+    "zones": [
+      "ember-vault"
+    ],
+    "drops": [
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.15
+      }
+    ],
+    "scaled": {
+      "ember-vault": {
+        "normal": {
+          "maxHp": 2464,
+          "atk": 130,
+          "def": 20,
+          "xp": 540,
+          "stones": [
+            80,
+            150
+          ]
+        },
+        "elite": {
+          "maxHp": 6899,
+          "atk": 182,
+          "def": 20,
+          "xp": 1620,
+          "stones": [
+            240,
+            450
+          ]
+        }
+      }
+    },
+    "image": "enemies/vaultblade.png"
+  },
+  {
+    "id": "homunculus",
+    "name": "Alchemy Homunculus",
+    "behavior": "rusher",
+    "maxHp": 76,
+    "atk": 15,
+    "def": 4,
+    "speed": 54,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 0.95,
+    "strikeWindup": 0.28,
+    "xp": 44,
+    "sprite": "mob.paperdoll",
+    "tint": 16760960,
+    "scale": 0.42,
+    "radius": 8,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "ember-vault"
+    ],
+    "drops": [
+      {
+        "item": "ember-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "ember-vault": {
+        "normal": {
+          "maxHp": 2675,
+          "atk": 89,
+          "def": 20,
+          "xp": 440,
+          "stones": [
+            60,
+            120
+          ]
+        },
+        "elite": {
+          "maxHp": 7491,
+          "atk": 124,
+          "def": 20,
+          "xp": 1320,
+          "stones": [
+            180,
+            360
+          ]
+        }
+      }
+    },
+    "image": "enemies/homunculus.png"
+  },
+  {
+    "id": "vaultwisp",
+    "name": "Vapour Wisp",
+    "behavior": "caster",
+    "maxHp": 56,
+    "atk": 20,
+    "def": 0,
+    "speed": 44,
+    "aggroRange": 150,
+    "attackRange": 125,
+    "attackCooldown": 1.5,
+    "preferredRange": 90,
+    "volley": 3,
+    "xp": 46,
+    "sprite": "mob.foxfire_v_green",
+    "tint": 16773280,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      7,
+      13
+    ],
+    "zones": [
+      "ember-vault"
+    ],
+    "drops": [
+      {
+        "item": "ember-mana-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "ember-vault": {
+        "normal": {
+          "maxHp": 1971,
+          "atk": 118,
+          "def": 0,
+          "xp": 460,
+          "stones": [
+            70,
+            130
+          ]
+        },
+        "elite": {
+          "maxHp": 5519,
+          "atk": 165,
+          "def": 0,
+          "xp": 1380,
+          "stones": [
+            210,
+            390
+          ]
+        }
+      }
+    },
+    "image": "enemies/vaultwisp.png"
+  },
+  {
+    "id": "bronzeguardian",
+    "name": "Bronze Guardian",
+    "behavior": "charger",
+    "maxHp": 150,
+    "atk": 17,
+    "def": 13,
+    "speed": 26,
+    "aggroRange": 115,
+    "attackRange": 82,
+    "attackCooldown": 2.8,
+    "windup": 0.8,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 90,
+    "sprite": "mob.golem",
+    "tint": 13146168,
+    "scale": 0.5,
+    "radius": 12,
+    "stones": [
+      13,
+      24
+    ],
+    "zones": [
+      "ember-vault"
+    ],
+    "drops": [
+      {
+        "item": "ember-qi-pill",
+        "chance": 0.2
+      },
+      {
+        "item": "ember-obsidian-shard",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "ember-vault": {
+        "normal": {
+          "maxHp": 5280,
+          "atk": 100,
+          "def": 64,
+          "xp": 900,
+          "stones": [
+            130,
+            240
+          ]
+        },
+        "elite": {
+          "maxHp": 14784,
+          "atk": 140,
+          "def": 64,
+          "xp": 2700,
+          "stones": [
+            390,
+            720
+          ]
+        }
+      }
+    },
+    "image": "enemies/bronzeguardian.png"
+  },
+  {
+    "id": "glasswormling",
+    "name": "Glass Wormling",
+    "behavior": "rusher",
+    "maxHp": 70,
+    "atk": 15,
+    "def": 3,
+    "speed": 50,
+    "aggroRange": 115,
+    "attackRange": 18,
+    "attackCooldown": 0.9,
+    "strikeWindup": 0.3,
+    "xp": 34,
+    "sprite": "mob.snake",
+    "tint": 8380616,
+    "scale": 0.5,
+    "radius": 9,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "ember-burrow"
+    ],
+    "drops": [
+      {
+        "item": "ember-glass-shard",
+        "chance": 0.3
+      }
+    ],
+    "scaled": {
+      "ember-burrow": {
+        "normal": {
+          "maxHp": 1848,
+          "atk": 69,
+          "def": 11,
+          "xp": 252,
+          "stones": [
+            37,
+            74
+          ]
+        },
+        "elite": {
+          "maxHp": 5174,
+          "atk": 97,
+          "def": 11,
+          "xp": 755,
+          "stones": [
+            111,
+            222
+          ]
+        }
+      }
+    },
+    "image": "enemies/glasswormling.png"
+  },
+  {
+    "id": "jadesentinel",
+    "name": "Jade Sentinel",
+    "behavior": "rusher",
+    "maxHp": 62,
+    "atk": 21,
+    "def": 8,
+    "speed": 42,
+    "aggroRange": 120,
+    "attackRange": 22,
+    "attackCooldown": 1.2,
+    "strikeWindup": 0.34,
+    "xp": 40,
+    "sprite": "mob.soldier",
+    "tint": 10479816,
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "orchard",
+      "mirror",
+      "stair",
+      "storm",
+      "jademine"
+    ],
+    "drops": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.08
+      },
+      {
+        "item": "jade-ore",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "orchard": {
+        "normal": {
+          "maxHp": 1885,
+          "atk": 109,
+          "def": 34,
+          "xp": 296,
+          "stones": [
+            44,
+            89
+          ]
+        },
+        "elite": {
+          "maxHp": 5277,
+          "atk": 153,
+          "def": 34,
+          "xp": 888,
+          "stones": [
+            133,
+            266
+          ]
+        }
+      },
+      "mirror": {
+        "normal": {
+          "maxHp": 2133,
+          "atk": 122,
+          "def": 38,
+          "xp": 344,
+          "stones": [
+            52,
+            103
+          ]
+        },
+        "elite": {
+          "maxHp": 5972,
+          "atk": 171,
+          "def": 38,
+          "xp": 1032,
+          "stones": [
+            155,
+            310
+          ]
+        }
+      },
+      "stair": {
+        "normal": {
+          "maxHp": 2207,
+          "atk": 126,
+          "def": 40,
+          "xp": 352,
+          "stones": [
+            53,
+            106
+          ]
+        },
+        "elite": {
+          "maxHp": 6180,
+          "atk": 176,
+          "def": 40,
+          "xp": 1056,
+          "stones": [
+            158,
+            317
+          ]
+        }
+      },
+      "storm": {
+        "normal": {
+          "maxHp": 2430,
+          "atk": 137,
+          "def": 43,
+          "xp": 392,
+          "stones": [
+            59,
+            118
+          ]
+        },
+        "elite": {
+          "maxHp": 6805,
+          "atk": 191,
+          "def": 43,
+          "xp": 1176,
+          "stones": [
+            176,
+            353
+          ]
+        }
+      },
+      "jademine": {
+        "normal": {
+          "maxHp": 2678,
+          "atk": 147,
+          "def": 47,
+          "xp": 480,
+          "stones": [
+            72,
+            144
+          ]
+        },
+        "elite": {
+          "maxHp": 7500,
+          "atk": 206,
+          "def": 47,
+          "xp": 1440,
+          "stones": [
+            216,
+            432
+          ]
+        }
+      }
+    },
+    "image": "enemies/jadesentinel.png"
+  },
+  {
+    "id": "jadecolossus",
+    "name": "Jade Colossus",
+    "behavior": "charger",
+    "maxHp": 120,
+    "atk": 28,
+    "def": 16,
+    "speed": 26,
+    "aggroRange": 110,
+    "attackRange": 80,
+    "attackCooldown": 2.8,
+    "windup": 0.8,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 90,
+    "sprite": "mob.golem",
+    "tint": 7332016,
+    "scale": 0.48,
+    "radius": 11,
+    "stones": [
+      14,
+      26
+    ],
+    "zones": [
+      "stair",
+      "library",
+      "jademine",
+      "scrollvault"
+    ],
+    "drops": [
+      {
+        "item": "jade-ore",
+        "chance": 0.4
+      },
+      {
+        "item": "jade-pill",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "stair": {
+        "normal": {
+          "maxHp": 4272,
+          "atk": 168,
+          "def": 79,
+          "xp": 792,
+          "stones": [
+            123,
+            229
+          ]
+        },
+        "elite": {
+          "maxHp": 11962,
+          "atk": 235,
+          "def": 79,
+          "xp": 2376,
+          "stones": [
+            370,
+            686
+          ]
+        }
+      },
+      "library": {
+        "normal": {
+          "maxHp": 5568,
+          "atk": 213,
+          "def": 101,
+          "xp": 1044,
+          "stones": [
+            162,
+            302
+          ]
+        },
+        "elite": {
+          "maxHp": 15590,
+          "atk": 298,
+          "def": 101,
+          "xp": 3132,
+          "stones": [
+            487,
+            905
+          ]
+        }
+      },
+      "jademine": {
+        "normal": {
+          "maxHp": 5184,
+          "atk": 196,
+          "def": 94,
+          "xp": 1080,
+          "stones": [
+            168,
+            312
+          ]
+        },
+        "elite": {
+          "maxHp": 14515,
+          "atk": 274,
+          "def": 94,
+          "xp": 3240,
+          "stones": [
+            504,
+            936
+          ]
+        }
+      },
+      "scrollvault": {
+        "normal": {
+          "maxHp": 5856,
+          "atk": 224,
+          "def": 106,
+          "xp": 1260,
+          "stones": [
+            196,
+            364
+          ]
+        },
+        "elite": {
+          "maxHp": 16397,
+          "atk": 314,
+          "def": 106,
+          "xp": 3780,
+          "stones": [
+            588,
+            1092
+          ]
+        }
+      }
+    },
+    "image": "enemies/jadecolossus.png"
+  },
+  {
+    "id": "stormcrane",
+    "name": "Storm Crane",
+    "behavior": "caster",
+    "maxHp": 52,
+    "atk": 22,
+    "def": 2,
+    "speed": 46,
+    "aggroRange": 160,
+    "attackRange": 140,
+    "attackCooldown": 1.4,
+    "volley": 3,
+    "preferredRange": 100,
+    "xp": 60,
+    "sprite": "mob.thunderbird",
+    "tint": 15266047,
+    "scale": 0.44,
+    "radius": 8,
+    "stones": [
+      10,
+      18
+    ],
+    "zones": [
+      "storm",
+      "crane"
+    ],
+    "drops": [
+      {
+        "item": "jade-feather",
+        "chance": 0.35
+      },
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "storm": {
+        "normal": {
+          "maxHp": 2038,
+          "atk": 143,
+          "def": 11,
+          "xp": 588,
+          "stones": [
+            98,
+            176
+          ]
+        },
+        "elite": {
+          "maxHp": 5708,
+          "atk": 200,
+          "def": 11,
+          "xp": 1764,
+          "stones": [
+            294,
+            529
+          ]
+        }
+      },
+      "crane": {
+        "normal": {
+          "maxHp": 2205,
+          "atk": 154,
+          "def": 12,
+          "xp": 636,
+          "stones": [
+            106,
+            191
+          ]
+        },
+        "elite": {
+          "maxHp": 6173,
+          "atk": 216,
+          "def": 12,
+          "xp": 1908,
+          "stones": [
+            318,
+            572
+          ]
+        }
+      }
+    },
+    "image": "enemies/stormcrane.png"
+  },
+  {
+    "id": "cloudserpent",
+    "name": "Cloud Serpent",
+    "behavior": "rusher",
+    "maxHp": 64,
+    "atk": 16,
+    "def": 2,
+    "speed": 54,
+    "aggroRange": 110,
+    "attackRange": 16,
+    "attackCooldown": 0.85,
+    "strikeWindup": 0.26,
+    "xp": 32,
+    "sprite": "mob.snake",
+    "tint": 14742783,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      4,
+      9
+    ],
+    "zones": [
+      "orchard",
+      "mirror",
+      "storm",
+      "cloudhollow"
+    ],
+    "drops": [
+      {
+        "item": "hp-potion",
+        "chance": 0.2
+      }
+    ],
+    "scaled": {
+      "orchard": {
+        "normal": {
+          "maxHp": 1946,
+          "atk": 83,
+          "def": 9,
+          "xp": 237,
+          "stones": [
+            30,
+            67
+          ]
+        },
+        "elite": {
+          "maxHp": 5448,
+          "atk": 116,
+          "def": 9,
+          "xp": 710,
+          "stones": [
+            89,
+            200
+          ]
+        }
+      },
+      "mirror": {
+        "normal": {
+          "maxHp": 2202,
+          "atk": 93,
+          "def": 10,
+          "xp": 275,
+          "stones": [
+            34,
+            77
+          ]
+        },
+        "elite": {
+          "maxHp": 6164,
+          "atk": 130,
+          "def": 10,
+          "xp": 826,
+          "stones": [
+            103,
+            232
+          ]
+        }
+      },
+      "storm": {
+        "normal": {
+          "maxHp": 2509,
+          "atk": 104,
+          "def": 11,
+          "xp": 314,
+          "stones": [
+            39,
+            88
+          ]
+        },
+        "elite": {
+          "maxHp": 7025,
+          "atk": 146,
+          "def": 11,
+          "xp": 941,
+          "stones": [
+            118,
+            265
+          ]
+        }
+      },
+      "cloudhollow": {
+        "normal": {
+          "maxHp": 2406,
+          "atk": 99,
+          "def": 10,
+          "xp": 320,
+          "stones": [
+            40,
+            90
+          ]
+        },
+        "elite": {
+          "maxHp": 6738,
+          "atk": 139,
+          "def": 10,
+          "xp": 960,
+          "stones": [
+            120,
+            270
+          ]
+        }
+      }
+    },
+    "image": "enemies/cloudserpent.png"
+  },
+  {
+    "id": "scrollwraith",
+    "name": "Scroll Wraith",
+    "behavior": "rusher",
+    "maxHp": 46,
+    "atk": 19,
+    "def": 1,
+    "speed": 56,
+    "aggroRange": 110,
+    "attackRange": 16,
+    "attackCooldown": 0.95,
+    "strikeWindup": 0.28,
+    "xp": 38,
+    "sprite": "mob.paperdoll",
+    "tint": 16771232,
+    "scale": 0.38,
+    "radius": 7,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "library",
+      "scrollvault"
+    ],
+    "drops": [
+      {
+        "item": "jade-slip-scrap",
+        "chance": 0.4
+      },
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "library": {
+        "normal": {
+          "maxHp": 2134,
+          "atk": 144,
+          "def": 6,
+          "xp": 441,
+          "stones": [
+            58,
+            116
+          ]
+        },
+        "elite": {
+          "maxHp": 5976,
+          "atk": 202,
+          "def": 6,
+          "xp": 1322,
+          "stones": [
+            174,
+            348
+          ]
+        }
+      },
+      "scrollvault": {
+        "normal": {
+          "maxHp": 2245,
+          "atk": 152,
+          "def": 7,
+          "xp": 532,
+          "stones": [
+            70,
+            140
+          ]
+        },
+        "elite": {
+          "maxHp": 6285,
+          "atk": 213,
+          "def": 7,
+          "xp": 1596,
+          "stones": [
+            210,
+            420
+          ]
+        }
+      }
+    },
+    "image": "enemies/scrollwraith.png"
+  },
+  {
+    "id": "inkwisp",
+    "name": "Ink Wisp",
+    "behavior": "caster",
+    "maxHp": 58,
+    "atk": 24,
+    "def": 0,
+    "speed": 42,
+    "aggroRange": 150,
+    "attackRange": 125,
+    "attackCooldown": 1.6,
+    "volley": 2,
+    "preferredRange": 95,
+    "xp": 55,
+    "sprite": "mob.ghost",
+    "tint": 7895232,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      8,
+      15
+    ],
+    "zones": [
+      "library",
+      "scrollvault"
+    ],
+    "drops": [
+      {
+        "item": "jade-slip-scrap",
+        "chance": 0.3
+      },
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.14
+      }
+    ],
+    "scaled": {
+      "library": {
+        "normal": {
+          "maxHp": 2691,
+          "atk": 182,
+          "def": 0,
+          "xp": 638,
+          "stones": [
+            93,
+            174
+          ]
+        },
+        "elite": {
+          "maxHp": 7535,
+          "atk": 255,
+          "def": 0,
+          "xp": 1914,
+          "stones": [
+            278,
+            522
+          ]
+        }
+      },
+      "scrollvault": {
+        "normal": {
+          "maxHp": 2830,
+          "atk": 192,
+          "def": 0,
+          "xp": 770,
+          "stones": [
+            112,
+            210
+          ]
+        },
+        "elite": {
+          "maxHp": 7925,
+          "atk": 269,
+          "def": 0,
+          "xp": 2310,
+          "stones": [
+            336,
+            630
+          ]
+        }
+      }
+    },
+    "image": "enemies/inkwisp.png"
+  },
+  {
+    "id": "celestialguard",
+    "name": "Celestial Guard",
+    "behavior": "rusher",
+    "maxHp": 92,
+    "atk": 20,
+    "def": 14,
+    "speed": 40,
+    "aggroRange": 120,
+    "attackRange": 24,
+    "attackCooldown": 1.3,
+    "strikeWindup": 0.38,
+    "xp": 70,
+    "sprite": "mob.soldier",
+    "tint": 16767096,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      10,
+      20
+    ],
+    "zones": [
+      "stair",
+      "crane",
+      "library",
+      "scrollvault",
+      "moonpalace"
+    ],
+    "drops": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "jade-pill",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "stair": {
+        "normal": {
+          "maxHp": 3275,
+          "atk": 120,
+          "def": 69,
+          "xp": 616,
+          "stones": [
+            88,
+            176
+          ]
+        },
+        "elite": {
+          "maxHp": 9171,
+          "atk": 168,
+          "def": 69,
+          "xp": 1848,
+          "stones": [
+            264,
+            528
+          ]
+        }
+      },
+      "crane": {
+        "normal": {
+          "maxHp": 3901,
+          "atk": 140,
+          "def": 81,
+          "xp": 742,
+          "stones": [
+            106,
+            212
+          ]
+        },
+        "elite": {
+          "maxHp": 10922,
+          "atk": 196,
+          "def": 81,
+          "xp": 2226,
+          "stones": [
+            318,
+            636
+          ]
+        }
+      },
+      "library": {
+        "normal": {
+          "maxHp": 4269,
+          "atk": 152,
+          "def": 88,
+          "xp": 812,
+          "stones": [
+            116,
+            232
+          ]
+        },
+        "elite": {
+          "maxHp": 11953,
+          "atk": 213,
+          "def": 88,
+          "xp": 2436,
+          "stones": [
+            348,
+            696
+          ]
+        }
+      },
+      "scrollvault": {
+        "normal": {
+          "maxHp": 4490,
+          "atk": 160,
+          "def": 92,
+          "xp": 980,
+          "stones": [
+            140,
+            280
+          ]
+        },
+        "elite": {
+          "maxHp": 12571,
+          "atk": 224,
+          "def": 92,
+          "xp": 2940,
+          "stones": [
+            420,
+            840
+          ]
+        }
+      },
+      "moonpalace": {
+        "normal": {
+          "maxHp": 4784,
+          "atk": 168,
+          "def": 98,
+          "xp": 1050,
+          "stones": [
+            150,
+            300
+          ]
+        },
+        "elite": {
+          "maxHp": 13395,
+          "atk": 235,
+          "def": 98,
+          "xp": 3150,
+          "stones": [
+            450,
+            900
+          ]
+        }
+      }
+    },
+    "image": "enemies/celestialguard.png"
+  },
+  {
+    "id": "skyblade",
+    "name": "Heavenly Sword Spirit",
+    "behavior": "charger",
+    "maxHp": 56,
+    "atk": 24,
+    "def": 4,
+    "speed": 44,
+    "aggroRange": 140,
+    "attackRange": 100,
+    "attackCooldown": 2,
+    "windup": 0.42,
+    "dashTime": 0.35,
+    "dashSpeedMult": 6,
+    "xp": 52,
+    "sprite": "mob.swordspirit_v_gold",
+    "scale": 0.42,
+    "radius": 8,
+    "stones": [
+      8,
+      14
+    ],
+    "zones": [
+      "stair",
+      "storm",
+      "crane",
+      "jademine"
+    ],
+    "drops": [
+      {
+        "item": "jade-pill",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "stair": {
+        "normal": {
+          "maxHp": 1994,
+          "atk": 144,
+          "def": 20,
+          "xp": 458,
+          "stones": [
+            70,
+            123
+          ]
+        },
+        "elite": {
+          "maxHp": 5582,
+          "atk": 202,
+          "def": 20,
+          "xp": 1373,
+          "stones": [
+            211,
+            370
+          ]
+        }
+      },
+      "storm": {
+        "normal": {
+          "maxHp": 2195,
+          "atk": 156,
+          "def": 22,
+          "xp": 510,
+          "stones": [
+            78,
+            137
+          ]
+        },
+        "elite": {
+          "maxHp": 6147,
+          "atk": 218,
+          "def": 22,
+          "xp": 1529,
+          "stones": [
+            235,
+            412
+          ]
+        }
+      },
+      "crane": {
+        "normal": {
+          "maxHp": 2374,
+          "atk": 168,
+          "def": 23,
+          "xp": 551,
+          "stones": [
+            85,
+            148
+          ]
+        },
+        "elite": {
+          "maxHp": 6648,
+          "atk": 235,
+          "def": 23,
+          "xp": 1654,
+          "stones": [
+            254,
+            445
+          ]
+        }
+      },
+      "jademine": {
+        "normal": {
+          "maxHp": 2419,
+          "atk": 168,
+          "def": 24,
+          "xp": 624,
+          "stones": [
+            96,
+            168
+          ]
+        },
+        "elite": {
+          "maxHp": 6774,
+          "atk": 235,
+          "def": 24,
+          "xp": 1872,
+          "stones": [
+            288,
+            504
+          ]
+        }
+      }
+    },
+    "image": "enemies/skyblade.png"
+  },
+  {
+    "id": "blossomsprite",
+    "name": "Blossom Sprite",
+    "behavior": "caster",
+    "maxHp": 46,
+    "atk": 20,
+    "def": 0,
+    "speed": 38,
+    "aggroRange": 140,
+    "attackRange": 110,
+    "attackCooldown": 1.5,
+    "volley": 2,
+    "preferredRange": 75,
+    "xp": 42,
+    "sprite": "mob.peachspirit",
+    "tint": 16763104,
+    "scale": 0.38,
+    "radius": 7,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "orchard",
+      "mirror",
+      "cloudhollow"
+    ],
+    "drops": [
+      {
+        "item": "jade-peach",
+        "chance": 0.3
+      },
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "orchard": {
+        "normal": {
+          "maxHp": 1398,
+          "atk": 104,
+          "def": 0,
+          "xp": 311,
+          "stones": [
+            37,
+            74
+          ]
+        },
+        "elite": {
+          "maxHp": 3916,
+          "atk": 146,
+          "def": 0,
+          "xp": 932,
+          "stones": [
+            111,
+            222
+          ]
+        }
+      },
+      "mirror": {
+        "normal": {
+          "maxHp": 1582,
+          "atk": 116,
+          "def": 0,
+          "xp": 361,
+          "stones": [
+            43,
+            86
+          ]
+        },
+        "elite": {
+          "maxHp": 4431,
+          "atk": 162,
+          "def": 0,
+          "xp": 1084,
+          "stones": [
+            129,
+            258
+          ]
+        }
+      },
+      "cloudhollow": {
+        "normal": {
+          "maxHp": 1730,
+          "atk": 124,
+          "def": 0,
+          "xp": 420,
+          "stones": [
+            50,
+            100
+          ]
+        },
+        "elite": {
+          "maxHp": 4843,
+          "atk": 174,
+          "def": 0,
+          "xp": 1260,
+          "stones": [
+            150,
+            300
+          ]
+        }
+      }
+    },
+    "image": "enemies/blossomsprite.png"
+  },
+  {
+    "id": "blossomtreant",
+    "name": "Blossom Treant",
+    "behavior": "charger",
+    "maxHp": 130,
+    "atk": 27,
+    "def": 9,
+    "speed": 28,
+    "aggroRange": 110,
+    "attackRange": 76,
+    "attackCooldown": 2.8,
+    "windup": 0.7,
+    "dashTime": 0.45,
+    "dashSpeedMult": 4,
+    "xp": 78,
+    "sprite": "mob.treant",
+    "tint": 16759000,
+    "scale": 0.5,
+    "radius": 10,
+    "stones": [
+      12,
+      22
+    ],
+    "zones": [
+      "orchard"
+    ],
+    "drops": [
+      {
+        "item": "jade-peach",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.14
+      }
+    ],
+    "scaled": {
+      "orchard": {
+        "normal": {
+          "maxHp": 3952,
+          "atk": 140,
+          "def": 39,
+          "xp": 577,
+          "stones": [
+            89,
+            163
+          ]
+        },
+        "elite": {
+          "maxHp": 11066,
+          "atk": 197,
+          "def": 39,
+          "xp": 1732,
+          "stones": [
+            266,
+            488
+          ]
+        }
+      }
+    },
+    "image": "enemies/blossomtreant.png"
+  },
+  {
+    "id": "mirrorwraith",
+    "name": "Mirror Wraith",
+    "behavior": "caster",
+    "maxHp": 50,
+    "atk": 21,
+    "def": 0,
+    "speed": 40,
+    "aggroRange": 150,
+    "attackRange": 120,
+    "attackCooldown": 1.5,
+    "volley": 2,
+    "preferredRange": 90,
+    "xp": 46,
+    "sprite": "mob.ghost_v_violet",
+    "tint": 12644607,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "mirror",
+      "crane",
+      "moonpalace"
+    ],
+    "drops": [
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "mirror": {
+        "normal": {
+          "maxHp": 1720,
+          "atk": 122,
+          "def": 0,
+          "xp": 396,
+          "stones": [
+            52,
+            103
+          ]
+        },
+        "elite": {
+          "maxHp": 4816,
+          "atk": 171,
+          "def": 0,
+          "xp": 1187,
+          "stones": [
+            155,
+            310
+          ]
+        }
+      },
+      "crane": {
+        "normal": {
+          "maxHp": 2120,
+          "atk": 147,
+          "def": 0,
+          "xp": 488,
+          "stones": [
+            64,
+            127
+          ]
+        },
+        "elite": {
+          "maxHp": 5936,
+          "atk": 206,
+          "def": 0,
+          "xp": 1463,
+          "stones": [
+            191,
+            382
+          ]
+        }
+      },
+      "moonpalace": {
+        "normal": {
+          "maxHp": 2600,
+          "atk": 176,
+          "def": 0,
+          "xp": 690,
+          "stones": [
+            90,
+            180
+          ]
+        },
+        "elite": {
+          "maxHp": 7280,
+          "atk": 247,
+          "def": 0,
+          "xp": 2070,
+          "stones": [
+            270,
+            540
+          ]
+        }
+      }
+    },
+    "image": "enemies/mirrorwraith.png"
+  },
+  {
+    "id": "cloudhound",
+    "name": "Cloud Hound",
+    "behavior": "rusher",
+    "maxHp": 76,
+    "atk": 17,
+    "def": 3,
+    "speed": 72,
+    "aggroRange": 130,
+    "attackRange": 18,
+    "attackCooldown": 0.85,
+    "strikeWindup": 0.26,
+    "xp": 36,
+    "sprite": "mob.wolf",
+    "tint": 16053503,
+    "scale": 0.42,
+    "radius": 8,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "orchard",
+      "mirror",
+      "stair",
+      "crane",
+      "cloudhollow"
+    ],
+    "drops": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.06
+      }
+    ],
+    "scaled": {
+      "orchard": {
+        "normal": {
+          "maxHp": 2310,
+          "atk": 88,
+          "def": 13,
+          "xp": 266,
+          "stones": [
+            37,
+            74
+          ]
+        },
+        "elite": {
+          "maxHp": 6469,
+          "atk": 124,
+          "def": 13,
+          "xp": 799,
+          "stones": [
+            111,
+            222
+          ]
+        }
+      },
+      "mirror": {
+        "normal": {
+          "maxHp": 2614,
+          "atk": 99,
+          "def": 14,
+          "xp": 310,
+          "stones": [
+            43,
+            86
+          ]
+        },
+        "elite": {
+          "maxHp": 7320,
+          "atk": 138,
+          "def": 14,
+          "xp": 929,
+          "stones": [
+            129,
+            258
+          ]
+        }
+      },
+      "stair": {
+        "normal": {
+          "maxHp": 2706,
+          "atk": 102,
+          "def": 15,
+          "xp": 317,
+          "stones": [
+            44,
+            88
+          ]
+        },
+        "elite": {
+          "maxHp": 7576,
+          "atk": 143,
+          "def": 15,
+          "xp": 950,
+          "stones": [
+            132,
+            264
+          ]
+        }
+      },
+      "crane": {
+        "normal": {
+          "maxHp": 3222,
+          "atk": 119,
+          "def": 17,
+          "xp": 382,
+          "stones": [
+            53,
+            106
+          ]
+        },
+        "elite": {
+          "maxHp": 9023,
+          "atk": 167,
+          "def": 17,
+          "xp": 1145,
+          "stones": [
+            159,
+            318
+          ]
+        }
+      },
+      "cloudhollow": {
+        "normal": {
+          "maxHp": 2858,
+          "atk": 105,
+          "def": 16,
+          "xp": 360,
+          "stones": [
+            50,
+            100
+          ]
+        },
+        "elite": {
+          "maxHp": 8001,
+          "atk": 148,
+          "def": 16,
+          "xp": 1080,
+          "stones": [
+            150,
+            300
+          ]
+        }
+      }
+    },
+    "image": "enemies/cloudhound.png"
+  },
+  {
+    "id": "stormhound",
+    "name": "Thunder Hound",
+    "behavior": "charger",
+    "maxHp": 70,
+    "atk": 25,
+    "def": 4,
+    "speed": 52,
+    "aggroRange": 140,
+    "attackRange": 110,
+    "attackCooldown": 2.2,
+    "windup": 0.5,
+    "dashTime": 0.4,
+    "dashSpeedMult": 5,
+    "xp": 58,
+    "sprite": "mob.wolf",
+    "tint": 11055359,
+    "scale": 0.46,
+    "radius": 8,
+    "stones": [
+      8,
+      15
+    ],
+    "zones": [
+      "storm",
+      "cloudhollow"
+    ],
+    "drops": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "storm": {
+        "normal": {
+          "maxHp": 2744,
+          "atk": 163,
+          "def": 22,
+          "xp": 568,
+          "stones": [
+            78,
+            147
+          ]
+        },
+        "elite": {
+          "maxHp": 7683,
+          "atk": 227,
+          "def": 22,
+          "xp": 1705,
+          "stones": [
+            235,
+            441
+          ]
+        }
+      },
+      "cloudhollow": {
+        "normal": {
+          "maxHp": 2632,
+          "atk": 155,
+          "def": 21,
+          "xp": 580,
+          "stones": [
+            80,
+            150
+          ]
+        },
+        "elite": {
+          "maxHp": 7370,
+          "atk": 217,
+          "def": 21,
+          "xp": 1740,
+          "stones": [
+            240,
+            450
+          ]
+        }
+      }
+    },
+    "image": "enemies/stormhound.png"
+  },
+  {
+    "id": "veinbat",
+    "name": "Jadevein Bat",
+    "behavior": "rusher",
+    "maxHp": 62,
+    "atk": 13,
+    "def": 0,
+    "speed": 90,
+    "aggroRange": 140,
+    "attackRange": 14,
+    "attackCooldown": 0.65,
+    "strikeWindup": 0.22,
+    "xp": 26,
+    "sprite": "mob.bat",
+    "tint": 7405504,
+    "scale": 0.34,
+    "radius": 6,
+    "stones": [
+      3,
+      7
+    ],
+    "zones": [
+      "cloudhollow",
+      "jademine"
+    ],
+    "drops": [
+      {
+        "item": "jade-ore",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "cloudhollow": {
+        "normal": {
+          "maxHp": 2331,
+          "atk": 81,
+          "def": 0,
+          "xp": 260,
+          "stones": [
+            30,
+            70
+          ]
+        },
+        "elite": {
+          "maxHp": 6527,
+          "atk": 113,
+          "def": 0,
+          "xp": 780,
+          "stones": [
+            90,
+            210
+          ]
+        }
+      },
+      "jademine": {
+        "normal": {
+          "maxHp": 2678,
+          "atk": 91,
+          "def": 0,
+          "xp": 312,
+          "stones": [
+            36,
+            84
+          ]
+        },
+        "elite": {
+          "maxHp": 7500,
+          "atk": 127,
+          "def": 0,
+          "xp": 936,
+          "stones": [
+            108,
+            252
+          ]
+        }
+      }
+    },
+    "image": "enemies/veinbat.png"
+  },
+  {
+    "id": "oregolem",
+    "name": "Ore Golem",
+    "behavior": "charger",
+    "maxHp": 140,
+    "atk": 29,
+    "def": 18,
+    "speed": 24,
+    "aggroRange": 110,
+    "attackRange": 80,
+    "attackCooldown": 3,
+    "windup": 0.85,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 100,
+    "sprite": "mob.golem",
+    "tint": 15257712,
+    "scale": 0.5,
+    "radius": 12,
+    "stones": [
+      16,
+      28
+    ],
+    "zones": [
+      "jademine"
+    ],
+    "drops": [
+      {
+        "item": "jade-ore",
+        "chance": 0.5
+      },
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "jademine": {
+        "normal": {
+          "maxHp": 6048,
+          "atk": 203,
+          "def": 106,
+          "xp": 1200,
+          "stones": [
+            192,
+            336
+          ]
+        },
+        "elite": {
+          "maxHp": 16934,
+          "atk": 284,
+          "def": 106,
+          "xp": 3600,
+          "stones": [
+            576,
+            1008
+          ]
+        }
+      }
+    },
+    "image": "enemies/oregolem.png"
+  },
+  {
+    "id": "scribe",
+    "name": "Archive Scribe",
+    "behavior": "caster",
+    "maxHp": 54,
+    "atk": 25,
+    "def": 2,
+    "speed": 40,
+    "aggroRange": 150,
+    "attackRange": 130,
+    "attackCooldown": 1.5,
+    "volley": 3,
+    "preferredRange": 100,
+    "xp": 58,
+    "sprite": "mob.skeleton",
+    "tint": 15786168,
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      9,
+      16
+    ],
+    "zones": [
+      "library",
+      "scrollvault"
+    ],
+    "drops": [
+      {
+        "item": "jade-slip-scrap",
+        "chance": 0.3
+      },
+      {
+        "item": "jade-pill",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "library": {
+        "normal": {
+          "maxHp": 2506,
+          "atk": 190,
+          "def": 13,
+          "xp": 673,
+          "stones": [
+            104,
+            186
+          ]
+        },
+        "elite": {
+          "maxHp": 7016,
+          "atk": 266,
+          "def": 13,
+          "xp": 2018,
+          "stones": [
+            313,
+            557
+          ]
+        }
+      },
+      "scrollvault": {
+        "normal": {
+          "maxHp": 2635,
+          "atk": 200,
+          "def": 13,
+          "xp": 812,
+          "stones": [
+            126,
+            224
+          ]
+        },
+        "elite": {
+          "maxHp": 7379,
+          "atk": 280,
+          "def": 13,
+          "xp": 2436,
+          "stones": [
+            378,
+            672
+          ]
+        }
+      }
+    },
+    "image": "enemies/scribe.png"
+  },
+  {
+    "id": "mirrorknight",
+    "name": "Mirror Knight",
+    "behavior": "rusher",
+    "maxHp": 88,
+    "atk": 18,
+    "def": 13,
+    "speed": 44,
+    "aggroRange": 120,
+    "attackRange": 24,
+    "attackCooldown": 1.25,
+    "strikeWindup": 0.36,
+    "xp": 68,
+    "sprite": "mob.soldier",
+    "tint": 13161704,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      10,
+      19
+    ],
+    "zones": [
+      "moonpalace"
+    ],
+    "drops": [
+      {
+        "item": "jade-hp-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "moonpalace": {
+        "normal": {
+          "maxHp": 4576,
+          "atk": 151,
+          "def": 91,
+          "xp": 1020,
+          "stones": [
+            150,
+            285
+          ]
+        },
+        "elite": {
+          "maxHp": 12813,
+          "atk": 212,
+          "def": 91,
+          "xp": 3060,
+          "stones": [
+            450,
+            855
+          ]
+        }
+      }
+    },
+    "image": "enemies/mirrorknight.png"
+  },
+  {
+    "id": "moonwisp",
+    "name": "Moon Wisp",
+    "behavior": "caster",
+    "maxHp": 52,
+    "atk": 24,
+    "def": 0,
+    "speed": 42,
+    "aggroRange": 150,
+    "attackRange": 125,
+    "attackCooldown": 1.5,
+    "volley": 2,
+    "preferredRange": 90,
+    "xp": 52,
+    "sprite": "mob.foxfire",
+    "tint": 12112127,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      7,
+      13
+    ],
+    "zones": [
+      "moonpalace"
+    ],
+    "drops": [
+      {
+        "item": "jade-mana-potion",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "moonpalace": {
+        "normal": {
+          "maxHp": 2704,
+          "atk": 202,
+          "def": 0,
+          "xp": 780,
+          "stones": [
+            105,
+            195
+          ]
+        },
+        "elite": {
+          "maxHp": 7571,
+          "atk": 282,
+          "def": 0,
+          "xp": 2340,
+          "stones": [
+            315,
+            585
+          ]
+        }
+      }
+    },
+    "image": "enemies/moonwisp.png"
+  },
+  {
+    "id": "echobat",
+    "name": "Echo Bat",
+    "behavior": "rusher",
+    "maxHp": 66,
+    "atk": 12,
+    "def": 0,
+    "speed": 92,
+    "aggroRange": 140,
+    "attackRange": 14,
+    "attackCooldown": 0.65,
+    "strikeWindup": 0.22,
+    "xp": 28,
+    "sprite": "mob.bat",
+    "tint": 11583743,
+    "scale": 0.34,
+    "radius": 6,
+    "stones": [
+      3,
+      7
+    ],
+    "zones": [
+      "moonpalace"
+    ],
+    "drops": [],
+    "scaled": {
+      "moonpalace": {
+        "normal": {
+          "maxHp": 3432,
+          "atk": 101,
+          "def": 0,
+          "xp": 420,
+          "stones": [
+            45,
+            105
+          ]
+        },
+        "elite": {
+          "maxHp": 9610,
+          "atk": 141,
+          "def": 0,
+          "xp": 1260,
+          "stones": [
+            135,
+            315
+          ]
+        }
+      }
+    },
+    "image": "enemies/echobat.png"
+  },
+  {
+    "id": "abyss-bladewraith",
+    "name": "Blade-Wraith",
+    "behavior": "charger",
+    "maxHp": 150,
+    "atk": 26,
+    "def": 4,
+    "speed": 52,
+    "aggroRange": 150,
+    "attackRange": 100,
+    "attackCooldown": 2,
+    "windup": 0.5,
+    "dashTime": 0.36,
+    "dashSpeedMult": 6,
+    "xp": 50,
+    "sprite": "mob.swordspirit_v_blood",
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      8,
+      15
+    ],
+    "eliteSprites": [
+      "mob.swordspirit_v_gold"
+    ],
+    "zones": [
+      "abyss-blades",
+      "abyss-mirror",
+      "abyss-mirrorvault"
+    ],
+    "drops": [
+      {
+        "item": "abyss-blade-shard",
+        "chance": 0.42
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.06
+      }
+    ],
+    "scaled": {
+      "abyss-blades": {
+        "normal": {
+          "maxHp": 7200,
+          "atk": 169,
+          "def": 26,
+          "xp": 540,
+          "stones": [
+            86,
+            162
+          ]
+        },
+        "elite": {
+          "maxHp": 20160,
+          "atk": 237,
+          "def": 26,
+          "xp": 1620,
+          "stones": [
+            259,
+            486
+          ]
+        }
+      },
+      "abyss-mirror": {
+        "normal": {
+          "maxHp": 8100,
+          "atk": 187,
+          "def": 29,
+          "xp": 625,
+          "stones": [
+            100,
+            188
+          ]
+        },
+        "elite": {
+          "maxHp": 22680,
+          "atk": 262,
+          "def": 29,
+          "xp": 1875,
+          "stones": [
+            300,
+            563
+          ]
+        }
+      },
+      "abyss-mirrorvault": {
+        "normal": {
+          "maxHp": 11400,
+          "atk": 234,
+          "def": 40,
+          "xp": 960,
+          "stones": [
+            154,
+            288
+          ]
+        },
+        "elite": {
+          "maxHp": 31920,
+          "atk": 328,
+          "def": 40,
+          "xp": 2880,
+          "stones": [
+            461,
+            864
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-bladewraith.png"
+  },
+  {
+    "id": "abyss-ashmoth",
+    "name": "Ash Moth",
+    "behavior": "rusher",
+    "maxHp": 100,
+    "atk": 18,
+    "def": 1,
+    "speed": 90,
+    "aggroRange": 150,
+    "attackRange": 14,
+    "attackCooldown": 0.7,
+    "strikeWindup": 0.22,
+    "xp": 30,
+    "sprite": "mob.bat",
+    "tint": 10129042,
+    "scale": 0.34,
+    "radius": 6,
+    "stones": [
+      5,
+      10
+    ],
+    "zones": [
+      "abyss-blades",
+      "abyss-bonewood",
+      "abyss-ash",
+      "abyss-bonecavern"
+    ],
+    "drops": [
+      {
+        "item": "abyss-ash-ore",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "abyss-blades": {
+        "normal": {
+          "maxHp": 4800,
+          "atk": 117,
+          "def": 7,
+          "xp": 324,
+          "stones": [
+            54,
+            108
+          ]
+        },
+        "elite": {
+          "maxHp": 13440,
+          "atk": 164,
+          "def": 7,
+          "xp": 972,
+          "stones": [
+            162,
+            324
+          ]
+        }
+      },
+      "abyss-bonewood": {
+        "normal": {
+          "maxHp": 5800,
+          "atk": 140,
+          "def": 8,
+          "xp": 402,
+          "stones": [
+            67,
+            134
+          ]
+        },
+        "elite": {
+          "maxHp": 16240,
+          "atk": 197,
+          "def": 8,
+          "xp": 1206,
+          "stones": [
+            201,
+            402
+          ]
+        }
+      },
+      "abyss-ash": {
+        "normal": {
+          "maxHp": 6000,
+          "atk": 144,
+          "def": 8,
+          "xp": 426,
+          "stones": [
+            71,
+            142
+          ]
+        },
+        "elite": {
+          "maxHp": 16800,
+          "atk": 202,
+          "def": 8,
+          "xp": 1278,
+          "stones": [
+            213,
+            426
+          ]
+        }
+      },
+      "abyss-bonecavern": {
+        "normal": {
+          "maxHp": 6800,
+          "atk": 153,
+          "def": 9,
+          "xp": 504,
+          "stones": [
+            84,
+            168
+          ]
+        },
+        "elite": {
+          "maxHp": 19040,
+          "atk": 214,
+          "def": 9,
+          "xp": 1512,
+          "stones": [
+            252,
+            504
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-ashmoth.png"
+  },
+  {
+    "id": "abyss-regretghost",
+    "name": "Regret-Ghost",
+    "behavior": "caster",
+    "maxHp": 90,
+    "atk": 26,
+    "def": 0,
+    "speed": 42,
+    "aggroRange": 160,
+    "attackRange": 125,
+    "attackCooldown": 1.6,
+    "preferredRange": 90,
+    "volley": 2,
+    "xp": 46,
+    "sprite": "mob.ghost_v_crimson",
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      8,
+      15
+    ],
+    "eliteSprites": [
+      "mob.ghost_v_gold",
+      "mob.ghost_v_violet"
+    ],
+    "zones": [
+      "abyss-blades",
+      "abyss-mirror",
+      "abyss-regret",
+      "abyss-mirrorvault"
+    ],
+    "drops": [
+      {
+        "item": "abyss-regret-bloom",
+        "chance": 0.4
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "abyss-blades": {
+        "normal": {
+          "maxHp": 4320,
+          "atk": 169,
+          "def": 0,
+          "xp": 497,
+          "stones": [
+            86,
+            162
+          ]
+        },
+        "elite": {
+          "maxHp": 12096,
+          "atk": 237,
+          "def": 0,
+          "xp": 1490,
+          "stones": [
+            259,
+            486
+          ]
+        }
+      },
+      "abyss-mirror": {
+        "normal": {
+          "maxHp": 4860,
+          "atk": 187,
+          "def": 0,
+          "xp": 575,
+          "stones": [
+            100,
+            188
+          ]
+        },
+        "elite": {
+          "maxHp": 13608,
+          "atk": 262,
+          "def": 0,
+          "xp": 1725,
+          "stones": [
+            300,
+            563
+          ]
+        }
+      },
+      "abyss-regret": {
+        "normal": {
+          "maxHp": 5940,
+          "atk": 234,
+          "def": 0,
+          "xp": 708,
+          "stones": [
+            123,
+            231
+          ]
+        },
+        "elite": {
+          "maxHp": 16632,
+          "atk": 328,
+          "def": 0,
+          "xp": 2125,
+          "stones": [
+            370,
+            693
+          ]
+        }
+      },
+      "abyss-mirrorvault": {
+        "normal": {
+          "maxHp": 6840,
+          "atk": 234,
+          "def": 0,
+          "xp": 883,
+          "stones": [
+            154,
+            288
+          ]
+        },
+        "elite": {
+          "maxHp": 19152,
+          "atk": 328,
+          "def": 0,
+          "xp": 2650,
+          "stones": [
+            461,
+            864
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-regretghost.png"
+  },
+  {
+    "id": "abyss-ashknight",
+    "name": "Ash Knight",
+    "behavior": "rusher",
+    "maxHp": 190,
+    "atk": 22,
+    "def": 8,
+    "speed": 44,
+    "aggroRange": 130,
+    "attackRange": 24,
+    "attackCooldown": 1.3,
+    "strikeWindup": 0.38,
+    "xp": 54,
+    "sprite": "mob.soldier",
+    "tint": 7232094,
+    "scale": 0.42,
+    "radius": 9,
+    "stones": [
+      9,
+      17
+    ],
+    "zones": [
+      "abyss-blades",
+      "abyss-mirror",
+      "abyss-ash",
+      "abyss-ashmaw"
+    ],
+    "drops": [
+      {
+        "item": "abyss-ash-ore",
+        "chance": 0.4
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "abyss-blades": {
+        "normal": {
+          "maxHp": 9120,
+          "atk": 143,
+          "def": 52,
+          "xp": 583,
+          "stones": [
+            97,
+            184
+          ]
+        },
+        "elite": {
+          "maxHp": 25536,
+          "atk": 200,
+          "def": 52,
+          "xp": 1750,
+          "stones": [
+            292,
+            551
+          ]
+        }
+      },
+      "abyss-mirror": {
+        "normal": {
+          "maxHp": 10260,
+          "atk": 158,
+          "def": 58,
+          "xp": 675,
+          "stones": [
+            113,
+            213
+          ]
+        },
+        "elite": {
+          "maxHp": 28728,
+          "atk": 222,
+          "def": 58,
+          "xp": 2025,
+          "stones": [
+            338,
+            638
+          ]
+        }
+      },
+      "abyss-ash": {
+        "normal": {
+          "maxHp": 11400,
+          "atk": 176,
+          "def": 64,
+          "xp": 767,
+          "stones": [
+            128,
+            241
+          ]
+        },
+        "elite": {
+          "maxHp": 31920,
+          "atk": 246,
+          "def": 64,
+          "xp": 2300,
+          "stones": [
+            383,
+            724
+          ]
+        }
+      },
+      "abyss-ashmaw": {
+        "normal": {
+          "maxHp": 15200,
+          "atk": 209,
+          "def": 84,
+          "xp": 1091,
+          "stones": [
+            182,
+            343
+          ]
+        },
+        "elite": {
+          "maxHp": 42560,
+          "atk": 293,
+          "def": 84,
+          "xp": 3272,
+          "stones": [
+            545,
+            1030
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-ashknight.png"
+  },
+  {
+    "id": "abyss-lavatoad",
+    "name": "Magma Toad",
+    "behavior": "rusher",
+    "maxHp": 210,
+    "atk": 23,
+    "def": 5,
+    "speed": 36,
+    "aggroRange": 110,
+    "attackRange": 20,
+    "attackCooldown": 1.4,
+    "strikeWindup": 0.44,
+    "xp": 50,
+    "sprite": "mob.toad",
+    "tint": 16742970,
+    "scale": 0.42,
+    "radius": 10,
+    "stones": [
+      9,
+      16
+    ],
+    "zones": [
+      "abyss-basin",
+      "abyss-bloodgrotto"
+    ],
+    "drops": [
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "abyss-basin": {
+        "normal": {
+          "maxHp": 10920,
+          "atk": 161,
+          "def": 35,
+          "xp": 600,
+          "stones": [
+            108,
+            192
+          ]
+        },
+        "elite": {
+          "maxHp": 30576,
+          "atk": 225,
+          "def": 35,
+          "xp": 1800,
+          "stones": [
+            324,
+            576
+          ]
+        }
+      },
+      "abyss-bloodgrotto": {
+        "normal": {
+          "maxHp": 13020,
+          "atk": 173,
+          "def": 41,
+          "xp": 770,
+          "stones": [
+            139,
+            246
+          ]
+        },
+        "elite": {
+          "maxHp": 36456,
+          "atk": 241,
+          "def": 41,
+          "xp": 2310,
+          "stones": [
+            416,
+            739
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-lavatoad.png"
+  },
+  {
+    "id": "abyss-bloodfoxfire",
+    "name": "Blood Foxfire",
+    "behavior": "caster",
+    "maxHp": 100,
+    "atk": 28,
+    "def": 0,
+    "speed": 46,
+    "aggroRange": 160,
+    "attackRange": 125,
+    "attackCooldown": 1.5,
+    "preferredRange": 95,
+    "volley": 2,
+    "xp": 50,
+    "sprite": "mob.foxfire_v_red",
+    "scale": 0.42,
+    "radius": 7,
+    "stones": [
+      9,
+      16
+    ],
+    "eliteSprites": [
+      "mob.foxfire_v_green"
+    ],
+    "zones": [
+      "abyss-basin",
+      "abyss-bonewood",
+      "abyss-bloodgrotto"
+    ],
+    "drops": [
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.12
+      },
+      {
+        "item": "abyss-qi-pill",
+        "chance": 0.06
+      }
+    ],
+    "scaled": {
+      "abyss-basin": {
+        "normal": {
+          "maxHp": 5200,
+          "atk": 196,
+          "def": 0,
+          "xp": 600,
+          "stones": [
+            108,
+            192
+          ]
+        },
+        "elite": {
+          "maxHp": 14560,
+          "atk": 274,
+          "def": 0,
+          "xp": 1800,
+          "stones": [
+            324,
+            576
+          ]
+        }
+      },
+      "abyss-bonewood": {
+        "normal": {
+          "maxHp": 5800,
+          "atk": 218,
+          "def": 0,
+          "xp": 670,
+          "stones": [
+            121,
+            214
+          ]
+        },
+        "elite": {
+          "maxHp": 16240,
+          "atk": 306,
+          "def": 0,
+          "xp": 2010,
+          "stones": [
+            362,
+            643
+          ]
+        }
+      },
+      "abyss-bloodgrotto": {
+        "normal": {
+          "maxHp": 6200,
+          "atk": 210,
+          "def": 0,
+          "xp": 770,
+          "stones": [
+            139,
+            246
+          ]
+        },
+        "elite": {
+          "maxHp": 17360,
+          "atk": 294,
+          "def": 0,
+          "xp": 2310,
+          "stones": [
+            416,
+            739
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-bloodfoxfire.png"
+  },
+  {
+    "id": "abyss-emberbird",
+    "name": "Ember Shrike",
+    "behavior": "caster",
+    "maxHp": 120,
+    "atk": 28,
+    "def": 2,
+    "speed": 50,
+    "aggroRange": 170,
+    "attackRange": 145,
+    "attackCooldown": 1.5,
+    "preferredRange": 105,
+    "volley": 3,
+    "xp": 58,
+    "sprite": "mob.thunderbird",
+    "tint": 16738890,
+    "scale": 0.46,
+    "radius": 8,
+    "stones": [
+      10,
+      18
+    ],
+    "zones": [
+      "abyss-basin",
+      "abyss-ash",
+      "abyss-bloodgrotto",
+      "abyss-ashmaw"
+    ],
+    "drops": [
+      {
+        "item": "abyss-qi-pill",
+        "chance": 0.12
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "abyss-basin": {
+        "normal": {
+          "maxHp": 6240,
+          "atk": 196,
+          "def": 14,
+          "xp": 696,
+          "stones": [
+            120,
+            216
+          ]
+        },
+        "elite": {
+          "maxHp": 17472,
+          "atk": 274,
+          "def": 14,
+          "xp": 2088,
+          "stones": [
+            360,
+            648
+          ]
+        }
+      },
+      "abyss-ash": {
+        "normal": {
+          "maxHp": 7200,
+          "atk": 224,
+          "def": 16,
+          "xp": 824,
+          "stones": [
+            142,
+            256
+          ]
+        },
+        "elite": {
+          "maxHp": 20160,
+          "atk": 314,
+          "def": 16,
+          "xp": 2471,
+          "stones": [
+            426,
+            767
+          ]
+        }
+      },
+      "abyss-bloodgrotto": {
+        "normal": {
+          "maxHp": 7440,
+          "atk": 210,
+          "def": 17,
+          "xp": 893,
+          "stones": [
+            154,
+            277
+          ]
+        },
+        "elite": {
+          "maxHp": 20832,
+          "atk": 294,
+          "def": 17,
+          "xp": 2680,
+          "stones": [
+            462,
+            832
+          ]
+        }
+      },
+      "abyss-ashmaw": {
+        "normal": {
+          "maxHp": 9600,
+          "atk": 266,
+          "def": 21,
+          "xp": 1172,
+          "stones": [
+            202,
+            364
+          ]
+        },
+        "elite": {
+          "maxHp": 26880,
+          "atk": 372,
+          "def": 21,
+          "xp": 3515,
+          "stones": [
+            606,
+            1091
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-emberbird.png"
+  },
+  {
+    "id": "abyss-hollowserpent",
+    "name": "Hollow Serpent",
+    "behavior": "rusher",
+    "maxHp": 150,
+    "atk": 21,
+    "def": 3,
+    "speed": 58,
+    "aggroRange": 120,
+    "attackRange": 18,
+    "attackCooldown": 0.9,
+    "strikeWindup": 0.26,
+    "xp": 42,
+    "sprite": "mob.snake",
+    "tint": 11545160,
+    "scale": 0.4,
+    "radius": 8,
+    "stones": [
+      7,
+      13
+    ],
+    "zones": [
+      "abyss-basin",
+      "abyss-bloodgrotto"
+    ],
+    "drops": [
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "abyss-basin": {
+        "normal": {
+          "maxHp": 7800,
+          "atk": 147,
+          "def": 21,
+          "xp": 504,
+          "stones": [
+            84,
+            156
+          ]
+        },
+        "elite": {
+          "maxHp": 21840,
+          "atk": 206,
+          "def": 21,
+          "xp": 1512,
+          "stones": [
+            252,
+            468
+          ]
+        }
+      },
+      "abyss-bloodgrotto": {
+        "normal": {
+          "maxHp": 9300,
+          "atk": 158,
+          "def": 25,
+          "xp": 647,
+          "stones": [
+            108,
+            200
+          ]
+        },
+        "elite": {
+          "maxHp": 26040,
+          "atk": 221,
+          "def": 25,
+          "xp": 1940,
+          "stones": [
+            323,
+            601
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-hollowserpent.png"
+  },
+  {
+    "id": "abyss-cindergolem",
+    "name": "Cinder Golem",
+    "behavior": "charger",
+    "maxHp": 260,
+    "atk": 28,
+    "def": 12,
+    "speed": 28,
+    "aggroRange": 120,
+    "attackRange": 80,
+    "attackCooldown": 2.8,
+    "windup": 0.85,
+    "dashTime": 0.5,
+    "dashSpeedMult": 4,
+    "xp": 78,
+    "sprite": "mob.golem",
+    "tint": 9067080,
+    "scale": 0.5,
+    "radius": 12,
+    "stones": [
+      14,
+      24
+    ],
+    "zones": [
+      "abyss-basin",
+      "abyss-ash",
+      "abyss-ashmaw"
+    ],
+    "drops": [
+      {
+        "item": "abyss-ash-ore",
+        "chance": 0.45
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 0.04
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.14
+      }
+    ],
+    "scaled": {
+      "abyss-basin": {
+        "normal": {
+          "maxHp": 13520,
+          "atk": 196,
+          "def": 84,
+          "xp": 936,
+          "stones": [
+            168,
+            288
+          ]
+        },
+        "elite": {
+          "maxHp": 37856,
+          "atk": 274,
+          "def": 84,
+          "xp": 2808,
+          "stones": [
+            504,
+            864
+          ]
+        }
+      },
+      "abyss-ash": {
+        "normal": {
+          "maxHp": 15600,
+          "atk": 224,
+          "def": 96,
+          "xp": 1108,
+          "stones": [
+            199,
+            341
+          ]
+        },
+        "elite": {
+          "maxHp": 43680,
+          "atk": 314,
+          "def": 96,
+          "xp": 3323,
+          "stones": [
+            596,
+            1022
+          ]
+        }
+      },
+      "abyss-ashmaw": {
+        "normal": {
+          "maxHp": 20800,
+          "atk": 266,
+          "def": 126,
+          "xp": 1576,
+          "stones": [
+            283,
+            485
+          ]
+        },
+        "elite": {
+          "maxHp": 58240,
+          "atk": 372,
+          "def": 126,
+          "xp": 4727,
+          "stones": [
+            848,
+            1454
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-cindergolem.png"
+  },
+  {
+    "id": "abyss-mirrorshade",
+    "name": "Mirror Shade",
+    "behavior": "caster",
+    "maxHp": 95,
+    "atk": 27,
+    "def": 0,
+    "speed": 44,
+    "aggroRange": 160,
+    "attackRange": 125,
+    "attackCooldown": 1.6,
+    "preferredRange": 90,
+    "volley": 2,
+    "xp": 48,
+    "sprite": "mob.ghost_v_violet",
+    "tint": 14677247,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      8,
+      15
+    ],
+    "zones": [
+      "abyss-mirror",
+      "abyss-regret",
+      "abyss-mirrorvault"
+    ],
+    "drops": [
+      {
+        "item": "abyss-mirror-shard",
+        "chance": 0.5
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.08
+      }
+    ],
+    "scaled": {
+      "abyss-mirror": {
+        "normal": {
+          "maxHp": 5130,
+          "atk": 194,
+          "def": 0,
+          "xp": 600,
+          "stones": [
+            100,
+            188
+          ]
+        },
+        "elite": {
+          "maxHp": 14364,
+          "atk": 272,
+          "def": 0,
+          "xp": 1800,
+          "stones": [
+            300,
+            563
+          ]
+        }
+      },
+      "abyss-regret": {
+        "normal": {
+          "maxHp": 6270,
+          "atk": 243,
+          "def": 0,
+          "xp": 739,
+          "stones": [
+            123,
+            231
+          ]
+        },
+        "elite": {
+          "maxHp": 17556,
+          "atk": 340,
+          "def": 0,
+          "xp": 2218,
+          "stones": [
+            370,
+            693
+          ]
+        }
+      },
+      "abyss-mirrorvault": {
+        "normal": {
+          "maxHp": 7220,
+          "atk": 243,
+          "def": 0,
+          "xp": 922,
+          "stones": [
+            154,
+            288
+          ]
+        },
+        "elite": {
+          "maxHp": 20216,
+          "atk": 340,
+          "def": 0,
+          "xp": 2765,
+          "stones": [
+            461,
+            864
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-mirrorshade.png"
+  },
+  {
+    "id": "abyss-effigy",
+    "name": "Burial Effigy",
+    "behavior": "rusher",
+    "maxHp": 130,
+    "atk": 20,
+    "def": 2,
+    "speed": 62,
+    "aggroRange": 120,
+    "attackRange": 18,
+    "attackCooldown": 0.95,
+    "strikeWindup": 0.28,
+    "xp": 38,
+    "sprite": "mob.paperdoll",
+    "tint": 16751258,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      6,
+      12
+    ],
+    "zones": [
+      "abyss-mirror",
+      "abyss-mirrorvault"
+    ],
+    "drops": [
+      {
+        "item": "abyss-mirror-shard",
+        "chance": 0.15
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.06
+      }
+    ],
+    "scaled": {
+      "abyss-mirror": {
+        "normal": {
+          "maxHp": 7020,
+          "atk": 144,
+          "def": 15,
+          "xp": 475,
+          "stones": [
+            75,
+            150
+          ]
+        },
+        "elite": {
+          "maxHp": 19656,
+          "atk": 202,
+          "def": 15,
+          "xp": 1425,
+          "stones": [
+            225,
+            450
+          ]
+        }
+      },
+      "abyss-mirrorvault": {
+        "normal": {
+          "maxHp": 9880,
+          "atk": 180,
+          "def": 20,
+          "xp": 730,
+          "stones": [
+            115,
+            230
+          ]
+        },
+        "elite": {
+          "maxHp": 27664,
+          "atk": 252,
+          "def": 20,
+          "xp": 2189,
+          "stones": [
+            346,
+            691
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-effigy.png"
+  },
+  {
+    "id": "abyss-bonetreant",
+    "name": "Bone Treant",
+    "behavior": "charger",
+    "maxHp": 250,
+    "atk": 27,
+    "def": 10,
+    "speed": 30,
+    "aggroRange": 120,
+    "attackRange": 80,
+    "attackCooldown": 2.8,
+    "windup": 0.75,
+    "dashTime": 0.45,
+    "dashSpeedMult": 4.2,
+    "xp": 72,
+    "sprite": "mob.treant",
+    "tint": 14998720,
+    "scale": 0.52,
+    "radius": 11,
+    "stones": [
+      13,
+      22
+    ],
+    "zones": [
+      "abyss-bonewood",
+      "abyss-regret",
+      "abyss-bonecavern"
+    ],
+    "drops": [
+      {
+        "item": "abyss-bone-root",
+        "chance": 0.5
+      },
+      {
+        "item": "abyss-qi-pill",
+        "chance": 0.12
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 0.04
+      }
+    ],
+    "scaled": {
+      "abyss-bonewood": {
+        "normal": {
+          "maxHp": 14500,
+          "atk": 211,
+          "def": 78,
+          "xp": 965,
+          "stones": [
+            174,
+            295
+          ]
+        },
+        "elite": {
+          "maxHp": 40600,
+          "atk": 295,
+          "def": 78,
+          "xp": 2894,
+          "stones": [
+            523,
+            884
+          ]
+        }
+      },
+      "abyss-regret": {
+        "normal": {
+          "maxHp": 16500,
+          "atk": 243,
+          "def": 88,
+          "xp": 1109,
+          "stones": [
+            200,
+            339
+          ]
+        },
+        "elite": {
+          "maxHp": 46200,
+          "atk": 340,
+          "def": 88,
+          "xp": 3326,
+          "stones": [
+            601,
+            1016
+          ]
+        }
+      },
+      "abyss-bonecavern": {
+        "normal": {
+          "maxHp": 17000,
+          "atk": 230,
+          "def": 90,
+          "xp": 1210,
+          "stones": [
+            218,
+            370
+          ]
+        },
+        "elite": {
+          "maxHp": 47600,
+          "atk": 321,
+          "def": 90,
+          "xp": 3629,
+          "stones": [
+            655,
+            1109
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-bonetreant.png"
+  },
+  {
+    "id": "abyss-bonehound",
+    "name": "Bone Hound",
+    "behavior": "rusher",
+    "maxHp": 150,
+    "atk": 20,
+    "def": 3,
+    "speed": 76,
+    "aggroRange": 150,
+    "attackRange": 18,
+    "attackCooldown": 0.85,
+    "strikeWindup": 0.26,
+    "xp": 42,
+    "sprite": "mob.wolf",
+    "tint": 15656656,
+    "scale": 0.42,
+    "radius": 8,
+    "stones": [
+      7,
+      13
+    ],
+    "zones": [
+      "abyss-bonewood",
+      "abyss-bonecavern"
+    ],
+    "drops": [
+      {
+        "item": "abyss-bone-root",
+        "chance": 0.25
+      },
+      {
+        "item": "abyss-hp-potion",
+        "chance": 0.06
+      }
+    ],
+    "scaled": {
+      "abyss-bonewood": {
+        "normal": {
+          "maxHp": 8700,
+          "atk": 156,
+          "def": 23,
+          "xp": 563,
+          "stones": [
+            94,
+            174
+          ]
+        },
+        "elite": {
+          "maxHp": 24360,
+          "atk": 218,
+          "def": 23,
+          "xp": 1688,
+          "stones": [
+            281,
+            523
+          ]
+        }
+      },
+      "abyss-bonecavern": {
+        "normal": {
+          "maxHp": 10200,
+          "atk": 170,
+          "def": 27,
+          "xp": 706,
+          "stones": [
+            118,
+            218
+          ]
+        },
+        "elite": {
+          "maxHp": 28560,
+          "atk": 238,
+          "def": 27,
+          "xp": 2117,
+          "stones": [
+            353,
+            655
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-bonehound.png"
+  },
+  {
+    "id": "abyss-penitent",
+    "name": "Penitent Corpse",
+    "behavior": "charger",
+    "maxHp": 230,
+    "atk": 28,
+    "def": 7,
+    "speed": 38,
+    "aggroRange": 130,
+    "attackRange": 90,
+    "attackCooldown": 2.4,
+    "windup": 0.6,
+    "dashTime": 0.42,
+    "dashSpeedMult": 5,
+    "xp": 66,
+    "sprite": "mob.jiangshi_v_purple",
+    "scale": 0.44,
+    "radius": 9,
+    "stones": [
+      12,
+      20
+    ],
+    "eliteSprites": [
+      "mob.jiangshi_v_red"
+    ],
+    "zones": [
+      "abyss-bonewood",
+      "abyss-ash",
+      "abyss-regret",
+      "abyss-bonecavern",
+      "abyss-ashmaw"
+    ],
+    "drops": [
+      {
+        "item": "abyss-bone-root",
+        "chance": 0.15
+      },
+      {
+        "item": "abyss-heal-pill",
+        "chance": 0.05
+      },
+      {
+        "item": "abyss-qi-pill",
+        "chance": 0.12
+      }
+    ],
+    "scaled": {
+      "abyss-bonewood": {
+        "normal": {
+          "maxHp": 13340,
+          "atk": 218,
+          "def": 54,
+          "xp": 884,
+          "stones": [
+            161,
+            268
+          ]
+        },
+        "elite": {
+          "maxHp": 37352,
+          "atk": 306,
+          "def": 54,
+          "xp": 2653,
+          "stones": [
+            482,
+            804
+          ]
+        }
+      },
+      "abyss-ash": {
+        "normal": {
+          "maxHp": 13800,
+          "atk": 224,
+          "def": 56,
+          "xp": 937,
+          "stones": [
+            170,
+            284
+          ]
+        },
+        "elite": {
+          "maxHp": 38640,
+          "atk": 314,
+          "def": 56,
+          "xp": 2812,
+          "stones": [
+            511,
+            852
+          ]
+        }
+      },
+      "abyss-regret": {
+        "normal": {
+          "maxHp": 15180,
+          "atk": 252,
+          "def": 61,
+          "xp": 1016,
+          "stones": [
+            185,
+            308
+          ]
+        },
+        "elite": {
+          "maxHp": 42504,
+          "atk": 353,
+          "def": 61,
+          "xp": 3049,
+          "stones": [
+            554,
+            924
+          ]
+        }
+      },
+      "abyss-bonecavern": {
+        "normal": {
+          "maxHp": 15640,
+          "atk": 238,
+          "def": 63,
+          "xp": 1109,
+          "stones": [
+            202,
+            336
+          ]
+        },
+        "elite": {
+          "maxHp": 43792,
+          "atk": 333,
+          "def": 63,
+          "xp": 3326,
+          "stones": [
+            605,
+            1008
+          ]
+        }
+      },
+      "abyss-ashmaw": {
+        "normal": {
+          "maxHp": 18400,
+          "atk": 266,
+          "def": 74,
+          "xp": 1333,
+          "stones": [
+            242,
+            404
+          ]
+        },
+        "elite": {
+          "maxHp": 51520,
+          "atk": 372,
+          "def": 74,
+          "xp": 4000,
+          "stones": [
+            727,
+            1212
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-penitent.png"
+  },
+  {
+    "id": "abyss-witheredpeach",
+    "name": "Withered Peach Spirit",
+    "behavior": "caster",
+    "maxHp": 105,
+    "atk": 27,
+    "def": 1,
+    "speed": 40,
+    "aggroRange": 160,
+    "attackRange": 120,
+    "attackCooldown": 1.5,
+    "preferredRange": 85,
+    "volley": 3,
+    "xp": 52,
+    "sprite": "mob.peachspirit",
+    "tint": 10111608,
+    "scale": 0.4,
+    "radius": 7,
+    "stones": [
+      9,
+      16
+    ],
+    "zones": [
+      "abyss-regret",
+      "abyss-ashmaw"
+    ],
+    "drops": [
+      {
+        "item": "abyss-regret-bloom",
+        "chance": 0.45
+      },
+      {
+        "item": "abyss-mana-potion",
+        "chance": 0.1
+      }
+    ],
+    "scaled": {
+      "abyss-regret": {
+        "normal": {
+          "maxHp": 6930,
+          "atk": 243,
+          "def": 9,
+          "xp": 801,
+          "stones": [
+            139,
+            246
+          ]
+        },
+        "elite": {
+          "maxHp": 19404,
+          "atk": 340,
+          "def": 9,
+          "xp": 2402,
+          "stones": [
+            416,
+            739
+          ]
+        }
+      },
+      "abyss-ashmaw": {
+        "normal": {
+          "maxHp": 8400,
+          "atk": 257,
+          "def": 11,
+          "xp": 1050,
+          "stones": [
+            182,
+            323
+          ]
+        },
+        "elite": {
+          "maxHp": 23520,
+          "atk": 359,
+          "def": 11,
+          "xp": 3151,
+          "stones": [
+            545,
+            970
+          ]
+        }
+      }
+    },
+    "image": "enemies/abyss-witheredpeach.png"
   }
 ]

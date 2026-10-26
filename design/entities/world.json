@@ -76,8 +76,24 @@
     "keeper-ming": {
       "x": 1224,
       "y": 1144
+    },
+    "ferryman-bo": {
+      "x": 664,
+      "y": 1528
+    },
+    "hunter-tao": {
+      "x": 248,
+      "y": 856
+    },
+    "hermit-zhuo": {
+      "x": 1688,
+      "y": 712
+    },
+    "sister-lan": {
+      "x": 1944,
+      "y": 1288
     }
   },
   "herbs": 50,
-  "propCount": 1093
+  "propCount": 1054
 }

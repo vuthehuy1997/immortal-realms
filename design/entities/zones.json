@@ -167,8 +167,8 @@
     "chapter": 2,
     "name": "Skyfall Outpost",
     "anchor": {
-      "x": 18,
-      "y": 80
+      "x": 20,
+      "y": 102
     },
     "level": "Safe",
     "spawns": {},
@@ -187,16 +187,16 @@
     "chapter": 2,
     "name": "Whitefrost Pass",
     "anchor": {
-      "x": 52,
-      "y": 68
+      "x": 62,
+      "y": 90
     },
     "level": "Lv 10-14",
     "spawns": {
-      "frostwolf": 6,
-      "icesnake": 3,
-      "frostwisp": 3,
-      "rimebat": 4,
-      "snowtreant": 1
+      "frostwolf": 9,
+      "icesnake": 4,
+      "frostwisp": 4,
+      "rimebat": 5,
+      "snowtreant": 2
     },
     "mood": "frost",
     "tier": {
@@ -219,16 +219,16 @@
     "chapter": 2,
     "name": "Crystal Hollow",
     "anchor": {
-      "x": 90,
-      "y": 62
+      "x": 120,
+      "y": 72
     },
     "level": "Lv 12-16",
     "spawns": {
-      "crystalgolem": 3,
-      "prismghost": 3,
-      "shardbird": 2,
-      "frostwisp": 2,
-      "rimebat": 3
+      "crystalgolem": 4,
+      "prismghost": 4,
+      "shardbird": 3,
+      "frostwisp": 3,
+      "rimebat": 4
     },
     "mood": "frost",
     "tier": {
@@ -253,15 +253,15 @@
     "chapter": 2,
     "name": "Ashen Barrow",
     "anchor": {
-      "x": 26,
+      "x": 28,
       "y": 36
     },
     "level": "Lv 13-18",
     "spawns": {
-      "ashskeleton": 5,
-      "bloodjiangshi": 3,
-      "ashguard": 4,
-      "prismghost": 2
+      "ashskeleton": 7,
+      "bloodjiangshi": 4,
+      "ashguard": 5,
+      "prismghost": 3
     },
     "mood": "night",
     "tier": {
@@ -285,8 +285,8 @@
     "chapter": 2,
     "name": "Sundered Sky Summit",
     "anchor": {
-      "x": 84,
-      "y": 16
+      "x": 112,
+      "y": 18
     },
     "level": "Boss",
     "spawns": {},
@@ -311,10 +311,13 @@
     },
     "level": "Lv 2-6",
     "spawns": {
-      "snake": 6,
-      "waterghost": 5,
-      "foxfire": 5,
-      "toad": 3
+      "snake": 5,
+      "waterghost": 4,
+      "foxfire": 3,
+      "toad": 3,
+      "s1-pearlwisp": 4,
+      "s1-driftwood": 2,
+      "s1-tidemaiden": 3
     },
     "mood": "dusk",
     "tier": {
@@ -326,7 +329,10 @@
       "snake",
       "waterghost",
       "foxfire",
-      "toad"
+      "toad",
+      "s1-pearlwisp",
+      "s1-driftwood",
+      "s1-tidemaiden"
     ],
     "bosses": []
   },
@@ -340,11 +346,13 @@
     },
     "level": "Lv 8-12",
     "spawns": {
-      "thunderbird": 4,
-      "swordspirit": 5,
-      "bat": 6,
-      "golem": 3,
-      "jiangshi": 3
+      "thunderbird": 3,
+      "s1-stormhawk": 4,
+      "swordspirit": 3,
+      "s1-cragbat": 6,
+      "s1-basaltgolem": 3,
+      "s1-thunderimp": 4,
+      "jiangshi": 2
     },
     "mood": "dusk",
     "tier": {
@@ -354,12 +362,796 @@
     },
     "enemyTypes": [
       "thunderbird",
+      "s1-stormhawk",
       "swordspirit",
-      "bat",
-      "golem",
+      "s1-cragbat",
+      "s1-basaltgolem",
+      "s1-thunderimp",
       "jiangshi"
     ],
     "bosses": []
+  },
+  {
+    "id": "glaciermaw",
+    "chapter": 2,
+    "name": "Glacier Maw",
+    "anchor": {
+      "x": 72,
+      "y": 50
+    },
+    "level": "Lv 14-18",
+    "spawns": {
+      "s2-mawserpent": 6,
+      "s2-aurorawisp": 5,
+      "s2-glacierbrute": 4,
+      "icesnake": 3,
+      "prismghost": 3,
+      "rimebat": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 5,
+      "atk": 3.4,
+      "xp": 5.4
+    },
+    "propTint": 10146032,
+    "enemyTypes": [
+      "s2-mawserpent",
+      "s2-aurorawisp",
+      "s2-glacierbrute",
+      "icesnake",
+      "prismghost",
+      "rimebat"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "tundra",
+    "chapter": 2,
+    "name": "Howling Tundra",
+    "anchor": {
+      "x": 108,
+      "y": 108
+    },
+    "level": "Lv 12-16",
+    "spawns": {
+      "s2-glacierwolf": 7,
+      "s2-howlwraith": 4,
+      "s2-blizzardhawk": 4,
+      "frostwolf": 4,
+      "rimebat": 4,
+      "snowtreant": 2
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 4.6,
+      "atk": 3.2,
+      "xp": 4.8
+    },
+    "propTint": 13690104,
+    "enemyTypes": [
+      "s2-glacierwolf",
+      "s2-howlwraith",
+      "s2-blizzardhawk",
+      "frostwolf",
+      "rimebat",
+      "snowtreant"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "bazaar",
+    "chapter": 3,
+    "name": "Cinder Bazaar",
+    "anchor": {
+      "x": 24,
+      "y": 104
+    },
+    "level": "Safe",
+    "spawns": {},
+    "mood": "day",
+    "tier": {
+      "hp": 1,
+      "atk": 1,
+      "xp": 1
+    },
+    "propTint": 15917762,
+    "enemyTypes": [],
+    "bosses": []
+  },
+  {
+    "id": "dunes",
+    "chapter": 3,
+    "name": "Sunscour Dunes",
+    "anchor": {
+      "x": 58,
+      "y": 96
+    },
+    "level": "Lv 18-21",
+    "spawns": {
+      "sandviper": 8,
+      "dunejackal": 7,
+      "glassscorpion": 5,
+      "dustwisp": 4,
+      "cactuswarden": 3
+    },
+    "mood": "day",
+    "tier": {
+      "hp": 6,
+      "atk": 4.2,
+      "xp": 6.4
+    },
+    "propTint": 15911052,
+    "enemyTypes": [
+      "sandviper",
+      "dunejackal",
+      "glassscorpion",
+      "dustwisp",
+      "cactuswarden"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "oasis",
+    "chapter": 3,
+    "name": "Mirage Oasis",
+    "anchor": {
+      "x": 56,
+      "y": 72
+    },
+    "level": "Lv 19-22",
+    "spawns": {
+      "reedtoad": 6,
+      "drownedcaravaneer": 6,
+      "oasisnymph": 6,
+      "dunejackal": 4,
+      "sandviper": 4,
+      "cactuswarden": 2
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 6.4,
+      "atk": 4.5,
+      "xp": 6.9
+    },
+    "propTint": 14086328,
+    "enemyTypes": [
+      "reedtoad",
+      "drownedcaravaneer",
+      "oasisnymph",
+      "dunejackal",
+      "sandviper",
+      "cactuswarden"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "canyon",
+    "chapter": 3,
+    "name": "Scorched Canyon",
+    "anchor": {
+      "x": 100,
+      "y": 108
+    },
+    "level": "Lv 21-24",
+    "spawns": {
+      "claygolem": 5,
+      "ashroc": 4,
+      "glassscorpion": 6,
+      "duneraider": 7,
+      "cindermoth": 6
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 6.9,
+      "atk": 4.8,
+      "xp": 7.4
+    },
+    "propTint": 14192752,
+    "enemyTypes": [
+      "claygolem",
+      "ashroc",
+      "glassscorpion",
+      "duneraider",
+      "cindermoth"
+    ],
+    "bosses": [
+      "sandwyrm"
+    ]
+  },
+  {
+    "id": "saltflats",
+    "chapter": 3,
+    "name": "Whitesalt Flats",
+    "anchor": {
+      "x": 28,
+      "y": 44
+    },
+    "level": "Lv 22-25",
+    "spawns": {
+      "saltghoul": 4,
+      "mirageghost": 6,
+      "brinecrawler": 6,
+      "saltsoldier": 7,
+      "ashroc": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 7.4,
+      "atk": 5.1,
+      "xp": 8
+    },
+    "propTint": 15134463,
+    "enemyTypes": [
+      "saltghoul",
+      "mirageghost",
+      "brinecrawler",
+      "saltsoldier",
+      "ashroc"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "magmarift",
+    "chapter": 3,
+    "name": "Magma Rift",
+    "anchor": {
+      "x": 118,
+      "y": 66
+    },
+    "level": "Lv 24-27",
+    "spawns": {
+      "magmasprite": 7,
+      "cindermoth": 7,
+      "obsidiangolem": 4,
+      "slagtoad": 6,
+      "cinderhound": 6
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 8,
+      "atk": 5.5,
+      "xp": 8.8
+    },
+    "propTint": 16748140,
+    "enemyTypes": [
+      "magmasprite",
+      "cindermoth",
+      "obsidiangolem",
+      "slagtoad",
+      "cinderhound"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "suntemple",
+    "chapter": 3,
+    "name": "Buried Sun Temple",
+    "anchor": {
+      "x": 90,
+      "y": 36
+    },
+    "level": "Lv 26-28",
+    "spawns": {
+      "mummy": 7,
+      "sunhusk": 4,
+      "templeguard": 6,
+      "mirageghost": 5,
+      "sunblade": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 8.5,
+      "atk": 5.8,
+      "xp": 9.4
+    },
+    "propTint": 15518840,
+    "enemyTypes": [
+      "mummy",
+      "sunhusk",
+      "templeguard",
+      "mirageghost",
+      "sunblade"
+    ],
+    "bosses": [
+      "mirageempress"
+    ]
+  },
+  {
+    "id": "furnace",
+    "chapter": 3,
+    "name": "Furnace Summit",
+    "anchor": {
+      "x": 140,
+      "y": 20
+    },
+    "level": "Boss",
+    "spawns": {},
+    "mood": "night",
+    "tier": {
+      "hp": 9,
+      "atk": 6.1,
+      "xp": 10
+    },
+    "propTint": 16752236,
+    "enemyTypes": [],
+    "bosses": [
+      "furnacewarden"
+    ]
+  },
+  {
+    "id": "terrace",
+    "chapter": 4,
+    "name": "Nine-Cloud Terrace",
+    "anchor": {
+      "x": 28,
+      "y": 110
+    },
+    "level": "Safe",
+    "spawns": {},
+    "mood": "day",
+    "tier": {
+      "hp": 1,
+      "atk": 1,
+      "xp": 1
+    },
+    "propTint": 15922943,
+    "enemyTypes": [],
+    "bosses": []
+  },
+  {
+    "id": "orchard",
+    "chapter": 4,
+    "name": "Peach Blossom Orchard",
+    "anchor": {
+      "x": 64,
+      "y": 108
+    },
+    "level": "Lv 26-28",
+    "spawns": {
+      "blossomsprite": 6,
+      "blossomtreant": 3,
+      "cloudhound": 6,
+      "jadesentinel": 4,
+      "cloudserpent": 4
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 7.6,
+      "atk": 5.2,
+      "xp": 7.4
+    },
+    "propTint": 16770800,
+    "enemyTypes": [
+      "blossomsprite",
+      "blossomtreant",
+      "cloudhound",
+      "jadesentinel",
+      "cloudserpent"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "mirror",
+    "chapter": 4,
+    "name": "Mirror Lake of Heaven",
+    "anchor": {
+      "x": 104,
+      "y": 114
+    },
+    "level": "Lv 28-31",
+    "spawns": {
+      "mirrorwraith": 8,
+      "cloudserpent": 6,
+      "jadesentinel": 4,
+      "blossomsprite": 3,
+      "cloudhound": 3
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 8.6,
+      "atk": 5.8,
+      "xp": 8.6
+    },
+    "propTint": 13692159,
+    "enemyTypes": [
+      "mirrorwraith",
+      "cloudserpent",
+      "jadesentinel",
+      "blossomsprite",
+      "cloudhound"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "stair",
+    "chapter": 4,
+    "name": "Thousand-Step Stair",
+    "anchor": {
+      "x": 50,
+      "y": 74
+    },
+    "level": "Lv 28-31",
+    "spawns": {
+      "jadesentinel": 7,
+      "jadecolossus": 3,
+      "skyblade": 6,
+      "celestialguard": 4,
+      "cloudhound": 3
+    },
+    "mood": "day",
+    "tier": {
+      "hp": 8.9,
+      "atk": 6,
+      "xp": 8.8
+    },
+    "propTint": 14674152,
+    "enemyTypes": [
+      "jadesentinel",
+      "jadecolossus",
+      "skyblade",
+      "celestialguard",
+      "cloudhound"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "storm",
+    "chapter": 4,
+    "name": "Court of Storms",
+    "anchor": {
+      "x": 90,
+      "y": 66
+    },
+    "level": "Lv 30-33",
+    "spawns": {
+      "stormcrane": 7,
+      "stormhound": 6,
+      "skyblade": 4,
+      "jadesentinel": 3,
+      "cloudserpent": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 9.8,
+      "atk": 6.5,
+      "xp": 9.8
+    },
+    "propTint": 11056344,
+    "enemyTypes": [
+      "stormcrane",
+      "stormhound",
+      "skyblade",
+      "jadesentinel",
+      "cloudserpent"
+    ],
+    "bosses": [
+      "cranelord"
+    ]
+  },
+  {
+    "id": "crane",
+    "chapter": 4,
+    "name": "Crane Pavilions",
+    "anchor": {
+      "x": 136,
+      "y": 86
+    },
+    "level": "Lv 32-35",
+    "spawns": {
+      "stormcrane": 6,
+      "celestialguard": 7,
+      "skyblade": 5,
+      "mirrorwraith": 3,
+      "cloudhound": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 10.6,
+      "atk": 7,
+      "xp": 10.6
+    },
+    "propTint": 16773336,
+    "enemyTypes": [
+      "stormcrane",
+      "celestialguard",
+      "skyblade",
+      "mirrorwraith",
+      "cloudhound"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "library",
+    "chapter": 4,
+    "name": "Library of Jade Slips",
+    "anchor": {
+      "x": 30,
+      "y": 32
+    },
+    "level": "Lv 33-36",
+    "spawns": {
+      "scrollwraith": 9,
+      "inkwisp": 7,
+      "jadecolossus": 3,
+      "celestialguard": 5,
+      "scribe": 3
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 11.6,
+      "atk": 7.6,
+      "xp": 11.6
+    },
+    "propTint": 15002832,
+    "enemyTypes": [
+      "scrollwraith",
+      "inkwisp",
+      "jadecolossus",
+      "celestialguard",
+      "scribe"
+    ],
+    "bosses": [
+      "archivekeeper"
+    ]
+  },
+  {
+    "id": "dais",
+    "chapter": 4,
+    "name": "Magistrate's Dais",
+    "anchor": {
+      "x": 130,
+      "y": 24
+    },
+    "level": "Boss",
+    "spawns": {},
+    "mood": "night",
+    "tier": {
+      "hp": 12.4,
+      "atk": 8,
+      "xp": 12.4
+    },
+    "propTint": 13165808,
+    "enemyTypes": [],
+    "bosses": [
+      "magistrate"
+    ]
+  },
+  {
+    "id": "lantern",
+    "chapter": 5,
+    "name": "Last Lantern Camp",
+    "anchor": {
+      "x": 26,
+      "y": 118
+    },
+    "level": "Safe",
+    "spawns": {},
+    "mood": "dusk",
+    "tier": {
+      "hp": 1,
+      "atk": 1,
+      "xp": 1
+    },
+    "propTint": 16767144,
+    "enemyTypes": [],
+    "bosses": []
+  },
+  {
+    "id": "abyss-blades",
+    "chapter": 5,
+    "name": "Field of Unburied Blades",
+    "anchor": {
+      "x": 64,
+      "y": 104
+    },
+    "level": "Lv 36-40",
+    "spawns": {
+      "abyss-bladewraith": 9,
+      "abyss-ashmoth": 6,
+      "abyss-regretghost": 4,
+      "abyss-ashknight": 4
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 12,
+      "atk": 6.5,
+      "xp": 10.8
+    },
+    "propTint": 13609382,
+    "enemyTypes": [
+      "abyss-bladewraith",
+      "abyss-ashmoth",
+      "abyss-regretghost",
+      "abyss-ashknight"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "abyss-basin",
+    "chapter": 5,
+    "name": "Bloodfire Basin",
+    "anchor": {
+      "x": 106,
+      "y": 118
+    },
+    "level": "Lv 38-42",
+    "spawns": {
+      "abyss-lavatoad": 8,
+      "abyss-bloodfoxfire": 6,
+      "abyss-emberbird": 4,
+      "abyss-hollowserpent": 5,
+      "abyss-cindergolem": 2
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 13,
+      "atk": 7,
+      "xp": 12
+    },
+    "propTint": 16751224,
+    "enemyTypes": [
+      "abyss-lavatoad",
+      "abyss-bloodfoxfire",
+      "abyss-emberbird",
+      "abyss-hollowserpent",
+      "abyss-cindergolem"
+    ],
+    "bosses": [
+      "abyss-tyrant"
+    ]
+  },
+  {
+    "id": "abyss-mirror",
+    "chapter": 5,
+    "name": "Ruined Mirror City",
+    "anchor": {
+      "x": 58,
+      "y": 68
+    },
+    "level": "Lv 39-43",
+    "spawns": {
+      "abyss-mirrorshade": 7,
+      "abyss-effigy": 7,
+      "abyss-bladewraith": 3,
+      "abyss-regretghost": 4,
+      "abyss-ashknight": 3
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 13.5,
+      "atk": 7.2,
+      "xp": 12.5
+    },
+    "propTint": 12113134,
+    "enemyTypes": [
+      "abyss-mirrorshade",
+      "abyss-effigy",
+      "abyss-bladewraith",
+      "abyss-regretghost",
+      "abyss-ashknight"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "abyss-bonewood",
+    "chapter": 5,
+    "name": "Bone Forest",
+    "anchor": {
+      "x": 28,
+      "y": 62
+    },
+    "level": "Lv 40-44",
+    "spawns": {
+      "abyss-bonetreant": 5,
+      "abyss-bonehound": 9,
+      "abyss-penitent": 3,
+      "abyss-ashmoth": 5,
+      "abyss-bloodfoxfire": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 14.5,
+      "atk": 7.8,
+      "xp": 13.4
+    },
+    "propTint": 15129792,
+    "enemyTypes": [
+      "abyss-bonetreant",
+      "abyss-bonehound",
+      "abyss-penitent",
+      "abyss-ashmoth",
+      "abyss-bloodfoxfire"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "abyss-ash",
+    "chapter": 5,
+    "name": "Ash Plains",
+    "anchor": {
+      "x": 102,
+      "y": 76
+    },
+    "level": "Lv 41-45",
+    "spawns": {
+      "abyss-ashknight": 8,
+      "abyss-cindergolem": 4,
+      "abyss-emberbird": 4,
+      "abyss-ashmoth": 5,
+      "abyss-penitent": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 15,
+      "atk": 8,
+      "xp": 14.2
+    },
+    "propTint": 11051176,
+    "enemyTypes": [
+      "abyss-ashknight",
+      "abyss-cindergolem",
+      "abyss-emberbird",
+      "abyss-ashmoth",
+      "abyss-penitent"
+    ],
+    "bosses": []
+  },
+  {
+    "id": "abyss-regret",
+    "chapter": 5,
+    "name": "Gardens of Regret",
+    "anchor": {
+      "x": 136,
+      "y": 54
+    },
+    "level": "Lv 43-47",
+    "spawns": {
+      "abyss-regretghost": 7,
+      "abyss-witheredpeach": 7,
+      "abyss-penitent": 4,
+      "abyss-mirrorshade": 3,
+      "abyss-bonetreant": 3
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 16.5,
+      "atk": 9,
+      "xp": 15.4
+    },
+    "propTint": 13802710,
+    "enemyTypes": [
+      "abyss-regretghost",
+      "abyss-witheredpeach",
+      "abyss-penitent",
+      "abyss-mirrorshade",
+      "abyss-bonetreant"
+    ],
+    "bosses": [
+      "abyss-matron"
+    ]
+  },
+  {
+    "id": "abyss-peak",
+    "chapter": 5,
+    "name": "Tribulation Peak",
+    "anchor": {
+      "x": 150,
+      "y": 16
+    },
+    "level": "Boss",
+    "spawns": {},
+    "mood": "night",
+    "tier": {
+      "hp": 17,
+      "atk": 9.5,
+      "xp": 16.8
+    },
+    "propTint": 11565192,
+    "enemyTypes": [],
+    "bosses": [
+      "abyss-daodemon"
+    ]
   },
   {
     "id": "wolfden",
@@ -371,8 +1163,9 @@
     },
     "level": "Lv 4-6",
     "spawns": {
-      "wolf": 12,
-      "snake": 5,
+      "wolf": 9,
+      "s1-direwolf": 6,
+      "snake": 4,
       "bat": 6,
       "foxfire": 3
     },
@@ -386,6 +1179,7 @@
     "dungeon": "wolfden",
     "enemyTypes": [
       "wolf",
+      "s1-direwolf",
       "snake",
       "bat",
       "foxfire"
@@ -427,6 +1221,593 @@
     ],
     "bosses": [
       "swordshade"
+    ]
+  },
+  {
+    "id": "s1-pearlgrotto",
+    "chapter": 1,
+    "name": "Pearl Grotto",
+    "anchor": {
+      "x": 42,
+      "y": 30
+    },
+    "level": "Lv 5-8",
+    "spawns": {
+      "waterghost": 6,
+      "s1-pearlwisp": 6,
+      "s1-tidemaiden": 4,
+      "s1-driftwood": 3,
+      "toad": 4
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 1.7,
+      "atk": 1.7,
+      "xp": 2
+    },
+    "propTint": 10477800,
+    "dungeon": "s1-pearlgrotto",
+    "enemyTypes": [
+      "waterghost",
+      "s1-pearlwisp",
+      "s1-tidemaiden",
+      "s1-driftwood",
+      "toad"
+    ],
+    "bosses": [
+      "s1-tidecaller"
+    ]
+  },
+  {
+    "id": "s1-stormroost",
+    "chapter": 1,
+    "name": "Thunderroost Cavern",
+    "anchor": {
+      "x": 44,
+      "y": 31
+    },
+    "level": "Lv 9-12",
+    "spawns": {
+      "s1-stormhawk": 6,
+      "s1-cragbat": 6,
+      "s1-thunderimp": 5,
+      "s1-basaltgolem": 3,
+      "thunderbird": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 3,
+      "atk": 2.4,
+      "xp": 3.8
+    },
+    "propTint": 14207231,
+    "dungeon": "s1-stormroost",
+    "enemyTypes": [
+      "s1-stormhawk",
+      "s1-cragbat",
+      "s1-thunderimp",
+      "s1-basaltgolem",
+      "thunderbird"
+    ],
+    "bosses": [
+      "s1-stormmatriarch"
+    ]
+  },
+  {
+    "id": "s2-rimeheart",
+    "chapter": 2,
+    "name": "Rimeheart Cave",
+    "anchor": {
+      "x": 40,
+      "y": 29
+    },
+    "level": "Lv 11-14",
+    "spawns": {
+      "frostwolf": 6,
+      "s2-glacierwolf": 6,
+      "icesnake": 4,
+      "rimebat": 5,
+      "frostwisp": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 4.5,
+      "atk": 3.1,
+      "xp": 4.8
+    },
+    "propTint": 13165823,
+    "dungeon": "s2-rimeheart",
+    "enemyTypes": [
+      "frostwolf",
+      "s2-glacierwolf",
+      "icesnake",
+      "rimebat",
+      "frostwisp"
+    ],
+    "bosses": [
+      "s2-rimematriarch"
+    ]
+  },
+  {
+    "id": "s2-gravewind",
+    "chapter": 2,
+    "name": "Gravewind Catacomb",
+    "anchor": {
+      "x": 43,
+      "y": 31
+    },
+    "level": "Lv 15-18",
+    "spawns": {
+      "ashskeleton": 6,
+      "s2-frozencorpse": 4,
+      "s2-tombwraith": 4,
+      "ashguard": 4,
+      "bloodjiangshi": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 5.4,
+      "atk": 3.7,
+      "xp": 5.9
+    },
+    "propTint": 10262708,
+    "dungeon": "s2-gravewind",
+    "enemyTypes": [
+      "ashskeleton",
+      "s2-frozencorpse",
+      "s2-tombwraith",
+      "ashguard",
+      "bloodjiangshi"
+    ],
+    "bosses": [
+      "s2-bonewarden"
+    ]
+  },
+  {
+    "id": "s2-mirrorvault",
+    "chapter": 2,
+    "name": "Mirror Vault",
+    "anchor": {
+      "x": 54,
+      "y": 30
+    },
+    "level": "Lv 14-17",
+    "spawns": {
+      "s2-mirrorspirit": 7,
+      "s2-glasspuppet": 6,
+      "s2-rimesentinel": 4,
+      "prismghost": 4,
+      "crystalgolem": 2
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 5,
+      "atk": 3.5,
+      "xp": 5.6
+    },
+    "propTint": 12111103,
+    "dungeon": "s2-mirrorvault",
+    "enemyTypes": [
+      "s2-mirrorspirit",
+      "s2-glasspuppet",
+      "s2-rimesentinel",
+      "prismghost",
+      "crystalgolem"
+    ],
+    "bosses": [
+      "s2-prismsage"
+    ]
+  },
+  {
+    "id": "s2-wyrmden",
+    "chapter": 2,
+    "name": "Glacier Wyrm Den",
+    "anchor": {
+      "x": 45,
+      "y": 32
+    },
+    "level": "Lv 16-19",
+    "spawns": {
+      "s2-mawserpent": 6,
+      "s2-aurorawisp": 5,
+      "s2-glacierbrute": 4,
+      "icesnake": 4,
+      "prismghost": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 5.2,
+      "atk": 3.6,
+      "xp": 5.8
+    },
+    "propTint": 8960232,
+    "dungeon": "s2-wyrmden",
+    "enemyTypes": [
+      "s2-mawserpent",
+      "s2-aurorawisp",
+      "s2-glacierbrute",
+      "icesnake",
+      "prismghost"
+    ],
+    "bosses": [
+      "s2-glacierwyrm"
+    ]
+  },
+  {
+    "id": "ember-burrow",
+    "chapter": 3,
+    "name": "Glass-Worm Burrow",
+    "anchor": {
+      "x": 40,
+      "y": 30
+    },
+    "level": "Lv 19-22",
+    "spawns": {
+      "sandviper": 7,
+      "glassscorpion": 8,
+      "glasswormling": 8,
+      "dustwisp": 4,
+      "cactuswarden": 2
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 6.6,
+      "atk": 4.6,
+      "xp": 7.4
+    },
+    "propTint": 10479828,
+    "dungeon": "ember-burrow",
+    "enemyTypes": [
+      "sandviper",
+      "glassscorpion",
+      "glasswormling",
+      "dustwisp",
+      "cactuswarden"
+    ],
+    "bosses": [
+      "glasswormqueen"
+    ]
+  },
+  {
+    "id": "ember-mine",
+    "chapter": 3,
+    "name": "Obsidian Mine",
+    "anchor": {
+      "x": 45,
+      "y": 32
+    },
+    "level": "Lv 24-27",
+    "spawns": {
+      "obsidiangolem": 5,
+      "magmasprite": 6,
+      "cindermoth": 8,
+      "slagtoad": 5,
+      "cinderhound": 5
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 8.2,
+      "atk": 5.5,
+      "xp": 9.2
+    },
+    "propTint": 16749170,
+    "dungeon": "ember-mine",
+    "enemyTypes": [
+      "obsidiangolem",
+      "magmasprite",
+      "cindermoth",
+      "slagtoad",
+      "cinderhound"
+    ],
+    "bosses": [
+      "obsidiancolossus"
+    ]
+  },
+  {
+    "id": "ember-vault",
+    "chapter": 3,
+    "name": "Sunken Alchemy Vault",
+    "anchor": {
+      "x": 56,
+      "y": 30
+    },
+    "level": "Lv 25-28",
+    "spawns": {
+      "vaultblade": 6,
+      "homunculus": 8,
+      "vaultwisp": 6,
+      "bronzeguardian": 4
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 8.8,
+      "atk": 5.9,
+      "xp": 10
+    },
+    "propTint": 16766088,
+    "dungeon": "ember-vault",
+    "enemyTypes": [
+      "vaultblade",
+      "homunculus",
+      "vaultwisp",
+      "bronzeguardian"
+    ],
+    "bosses": [
+      "vaultwarden"
+    ]
+  },
+  {
+    "id": "cloudhollow",
+    "chapter": 4,
+    "name": "Cloudhollow Cavern",
+    "anchor": {
+      "x": 41,
+      "y": 30
+    },
+    "level": "Lv 27-30",
+    "spawns": {
+      "cloudserpent": 6,
+      "cloudhound": 6,
+      "veinbat": 7,
+      "blossomsprite": 3,
+      "stormhound": 3
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 9.4,
+      "atk": 6.2,
+      "xp": 10
+    },
+    "propTint": 14216447,
+    "dungeon": "cloudhollow",
+    "enemyTypes": [
+      "cloudserpent",
+      "cloudhound",
+      "veinbat",
+      "blossomsprite",
+      "stormhound"
+    ],
+    "bosses": [
+      "cloudwyrm"
+    ]
+  },
+  {
+    "id": "jademine",
+    "chapter": 4,
+    "name": "Seamdeep Jade Mine",
+    "anchor": {
+      "x": 45,
+      "y": 32
+    },
+    "level": "Lv 30-33",
+    "spawns": {
+      "jadesentinel": 7,
+      "oregolem": 4,
+      "veinbat": 8,
+      "jadecolossus": 3,
+      "skyblade": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 10.8,
+      "atk": 7,
+      "xp": 12
+    },
+    "propTint": 11069640,
+    "dungeon": "jademine",
+    "enemyTypes": [
+      "jadesentinel",
+      "oregolem",
+      "veinbat",
+      "jadecolossus",
+      "skyblade"
+    ],
+    "bosses": [
+      "seamtyrant"
+    ]
+  },
+  {
+    "id": "scrollvault",
+    "chapter": 4,
+    "name": "Sealed Scripture Vault",
+    "anchor": {
+      "x": 50,
+      "y": 28
+    },
+    "level": "Lv 34-37",
+    "spawns": {
+      "scrollwraith": 8,
+      "inkwisp": 6,
+      "scribe": 6,
+      "celestialguard": 4,
+      "jadecolossus": 2
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 12.2,
+      "atk": 8,
+      "xp": 14
+    },
+    "propTint": 15788224,
+    "dungeon": "scrollvault",
+    "enemyTypes": [
+      "scrollwraith",
+      "inkwisp",
+      "scribe",
+      "celestialguard",
+      "jadecolossus"
+    ],
+    "bosses": [
+      "vaultcalligrapher"
+    ]
+  },
+  {
+    "id": "moonpalace",
+    "chapter": 4,
+    "name": "Palace Beneath the Moon Mirror",
+    "anchor": {
+      "x": 52,
+      "y": 28
+    },
+    "level": "Lv 35-38",
+    "spawns": {
+      "mirrorknight": 7,
+      "mirrorwraith": 6,
+      "moonwisp": 6,
+      "echobat": 6,
+      "celestialguard": 3
+    },
+    "mood": "frost",
+    "tier": {
+      "hp": 13,
+      "atk": 8.4,
+      "xp": 15
+    },
+    "propTint": 13162751,
+    "dungeon": "moonpalace",
+    "enemyTypes": [
+      "mirrorknight",
+      "mirrorwraith",
+      "moonwisp",
+      "echobat",
+      "celestialguard"
+    ],
+    "bosses": [
+      "mirrorqueen"
+    ]
+  },
+  {
+    "id": "abyss-bonecavern",
+    "chapter": 5,
+    "name": "Bone-Root Cavern",
+    "anchor": {
+      "x": 42,
+      "y": 30
+    },
+    "level": "Lv 40-44",
+    "spawns": {
+      "abyss-bonehound": 8,
+      "abyss-bonetreant": 4,
+      "abyss-ashmoth": 6,
+      "abyss-penitent": 3
+    },
+    "mood": "night",
+    "tier": {
+      "hp": 17,
+      "atk": 8.5,
+      "xp": 16.8
+    },
+    "propTint": 14471862,
+    "dungeon": "abyss-bonecavern",
+    "enemyTypes": [
+      "abyss-bonehound",
+      "abyss-bonetreant",
+      "abyss-ashmoth",
+      "abyss-penitent"
+    ],
+    "bosses": [
+      "abyss-rootking"
+    ]
+  },
+  {
+    "id": "abyss-bloodgrotto",
+    "chapter": 5,
+    "name": "Blood-Spring Grotto",
+    "anchor": {
+      "x": 40,
+      "y": 29
+    },
+    "level": "Lv 38-42",
+    "spawns": {
+      "abyss-lavatoad": 7,
+      "abyss-bloodfoxfire": 6,
+      "abyss-hollowserpent": 6,
+      "abyss-emberbird": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 15.5,
+      "atk": 7.5,
+      "xp": 15.4
+    },
+    "propTint": 16747120,
+    "dungeon": "abyss-bloodgrotto",
+    "enemyTypes": [
+      "abyss-lavatoad",
+      "abyss-bloodfoxfire",
+      "abyss-hollowserpent",
+      "abyss-emberbird"
+    ],
+    "bosses": [
+      "abyss-springfox"
+    ]
+  },
+  {
+    "id": "abyss-mirrorvault",
+    "chapter": 5,
+    "name": "Vault of Past Selves",
+    "anchor": {
+      "x": 56,
+      "y": 31
+    },
+    "level": "Lv 43-47",
+    "spawns": {
+      "abyss-mirrorshade": 8,
+      "abyss-effigy": 6,
+      "abyss-regretghost": 5,
+      "abyss-bladewraith": 4
+    },
+    "mood": "mist",
+    "tier": {
+      "hp": 19,
+      "atk": 9,
+      "xp": 19.2
+    },
+    "propTint": 12902655,
+    "dungeon": "abyss-mirrorvault",
+    "enemyTypes": [
+      "abyss-mirrorshade",
+      "abyss-effigy",
+      "abyss-regretghost",
+      "abyss-bladewraith"
+    ],
+    "bosses": [
+      "abyss-vaultself"
+    ]
+  },
+  {
+    "id": "abyss-ashmaw",
+    "chapter": 5,
+    "name": "Cinder Reliquary",
+    "anchor": {
+      "x": 58,
+      "y": 30
+    },
+    "level": "Lv 44-48",
+    "spawns": {
+      "abyss-ashknight": 7,
+      "abyss-cindergolem": 4,
+      "abyss-emberbird": 4,
+      "abyss-witheredpeach": 4,
+      "abyss-penitent": 3
+    },
+    "mood": "dusk",
+    "tier": {
+      "hp": 20,
+      "atk": 9.5,
+      "xp": 20.2
+    },
+    "propTint": 11838640,
+    "dungeon": "abyss-ashmaw",
+    "enemyTypes": [
+      "abyss-ashknight",
+      "abyss-cindergolem",
+      "abyss-emberbird",
+      "abyss-witheredpeach",
+      "abyss-penitent"
+    ],
+    "bosses": [
+      "abyss-cinderwarden"
     ]
   }
 ]

@@ -5,9 +5,17 @@
     "subtitle": "Chapter 1",
     "hub": "village",
     "gateName": "Sky Gate",
+    "gear": {
+      "arrive": {},
+      "shop": {
+        "weapon": "steel-blade",
+        "armor": "sect-robe",
+        "charm": "jade-pendant"
+      }
+    },
     "story": [
       "Long ago the founder of the Azure Cloud Sect sealed the Heavenly Fissure, a wound in the sky that leaks ruin into the world.",
-      "He bound three guardians to hold the seals: a sword immortal, a nine-tailed fox, a dragon of the mist pool.",
+      "He bound three guardians to hold the seals: a sword immortal, a nine-tailed fox, a dragon of the mist pool. Lesser spirits drifted in behind them, to the lake, the cliffs and the caves beneath.",
       "Centuries passed. The seals rotted. The guardians went feral, and the sect has called for every disciple who can hold a blade.",
       "You are the newest of them. Walk the realms, grow in the Way, and put the guardians to rest."
     ],
@@ -21,20 +29,28 @@
       "lake",
       "cliffs",
       "wolfden",
-      "swordsanctum"
+      "swordsanctum",
+      "s1-pearlgrotto",
+      "s1-stormroost"
     ],
     "bosses": [
       "warden",
       "ninetail",
       "jiaolong",
       "alphawolf",
-      "swordshade"
+      "swordshade",
+      "s1-tidecaller",
+      "s1-stormmatriarch"
     ],
     "npcs": [
       "elder-lin",
       "merchant-qiao",
       "alchemist-yun",
-      "keeper-ming"
+      "keeper-ming",
+      "ferryman-bo",
+      "hunter-tao",
+      "hermit-zhuo",
+      "sister-lan"
     ],
     "quests": [
       "pests",
@@ -43,7 +59,13 @@
       "jiaolong",
       "toads",
       "furnace",
-      "champions"
+      "champions",
+      "s1-ferry",
+      "s1-grotto",
+      "s1-denhunt",
+      "s1-hawks",
+      "s1-stormroost",
+      "s1-sanctum"
     ]
   },
   {
@@ -51,9 +73,21 @@
     "name": "The Sundered Sky",
     "subtitle": "Chapter 2",
     "hub": "outpost",
+    "gear": {
+      "arrive": {
+        "weapon": "jade-sword",
+        "armor": "immortal-mantle",
+        "charm": "dragon-pearl"
+      },
+      "shop": {
+        "weapon": "froststeel-blade",
+        "armor": "frost-mail",
+        "charm": "dragon-pearl"
+      }
+    },
     "story": [
       "With the three guardians gone, the Heavenly Fissure tore open, and the cold of another world poured through.",
-      "The Skyfall Outpost, last fort on the Fissure's rim, answers to Commander Shen. Beyond it lie the Whitefrost Pass, the Crystal Hollow and the Ashen Barrow.",
+      "The Skyfall Outpost, last fort on the Fissure's rim, answers to Commander Shen. Beyond it lie the Whitefrost Pass, the Crystal Hollow and the Ashen Barrow, and farther out the Glacier Maw and the Howling Tundra, where trappers and surveyors still hold on.",
       "At the summit waits the Sundered Sovereign, the thing the guardians were bred to hold back.",
       "The seals can no longer be mended. They can only be ended."
     ],
@@ -71,19 +105,33 @@
       "frostpass",
       "crystal",
       "barrow",
-      "summit"
+      "summit",
+      "glaciermaw",
+      "tundra",
+      "s2-rimeheart",
+      "s2-gravewind",
+      "s2-mirrorvault",
+      "s2-wyrmden"
     ],
     "bosses": [
       "corpseking",
       "crystalcolossus",
-      "sovereign"
+      "sovereign",
+      "s2-rimematriarch",
+      "s2-bonewarden",
+      "s2-prismsage",
+      "s2-glacierwyrm"
     ],
     "npcs": [
       "commander-shen",
       "quartermaster-gu",
       "herbalist-mo",
       "keeper-ren",
-      "hermit-wen"
+      "hermit-wen",
+      "trapper-hu",
+      "warden-ling",
+      "surveyor-pei",
+      "seer-lian"
     ],
     "quests": [
       "rift-scouts",
@@ -91,7 +139,257 @@
       "frost-elites",
       "barrow-rites",
       "hollow-heart",
-      "sundered-sovereign"
+      "sundered-sovereign",
+      "s2-trapper",
+      "s2-rimeheart",
+      "s2-gravewind",
+      "s2-bonewarden",
+      "s2-survey",
+      "s2-wyrm",
+      "s2-mirror"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "The Ember Wastes",
+    "subtitle": "Chapter 3",
+    "hub": "bazaar",
+    "gateName": "Ember Gate",
+    "gear": {
+      "arrive": {
+        "weapon": "sovereign-blade",
+        "armor": "crystal-robe",
+        "charm": "sky-seal"
+      },
+      "shop": {
+        "weapon": "ember-blade",
+        "armor": "ember-mail",
+        "charm": "sky-seal"
+      }
+    },
+    "gate": {
+      "level": 17,
+      "bosses": [
+        "corpseking",
+        "crystalcolossus",
+        "sovereign"
+      ],
+      "hint": "Defeat the Corpse King, the Crystal Colossus and the Sundered Sovereign, and reach level 17."
+    },
+    "story": [
+      "The Sundered Sovereign is dead and the cold is gone. The Fissure did not close. It bled its other heat south, into the desert, and the heat woke what lay buried there.",
+      "The Heavenly Furnace was the immortals' forge, where they refined pills and flying swords before they fled to the sky. Now it burns again. Dunes melt to green glass, a rift of magma opens in the old caravan roads.",
+      "At the Cinder Bazaar, the last town on the trade route, caravans have stopped arriving. Caravan-Master Hui keeps the lanterns lit, in case anyone still comes.",
+      "Cross the dunes, the canyon and the salt, and climb to the summit of the Furnace. Whatever feeds it must be stopped."
+    ],
+    "zones": [
+      "bazaar",
+      "dunes",
+      "oasis",
+      "canyon",
+      "saltflats",
+      "magmarift",
+      "suntemple",
+      "furnace",
+      "ember-burrow",
+      "ember-mine",
+      "ember-vault"
+    ],
+    "bosses": [
+      "sandwyrm",
+      "mirageempress",
+      "furnacewarden",
+      "glasswormqueen",
+      "obsidiancolossus",
+      "vaultwarden"
+    ],
+    "npcs": [
+      "caravan-master-hui",
+      "trader-sahn",
+      "alchemist-zhu",
+      "wanderer-dahl",
+      "keeper-ila",
+      "hunter-tarq",
+      "miner-borok",
+      "hermit-zaim",
+      "scholar-eun"
+    ],
+    "quests": [
+      "ember-silent-roads",
+      "ember-wyrm",
+      "ember-champions",
+      "ember-rift-survey",
+      "ember-mirage",
+      "ember-furnace",
+      "ember-viper-fangs",
+      "ember-worm-queen",
+      "ember-oasis-herbs",
+      "ember-roc-hunt",
+      "ember-obsidian",
+      "ember-mine-heart",
+      "ember-salt-road",
+      "ember-vault-seal",
+      "ember-sun-scrolls"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "The Jade Heavens",
+    "subtitle": "Chapter 4",
+    "hub": "terrace",
+    "gateName": "Jade Gate",
+    "gear": {
+      "arrive": {
+        "weapon": "furnace-saber",
+        "armor": "furnace-robe",
+        "charm": "furnace-seal"
+      },
+      "shop": {
+        "weapon": "jade-blade",
+        "armor": "jade-mail",
+        "charm": "furnace-seal"
+      }
+    },
+    "story": [
+      "Above the clouds the immortals who fled the Fissure built terraces of jade and floating stone, each one a quiet island in the wind.",
+      "For an age they watched the mortal world shrink beneath them. Then the Heavenly Furnace woke, and its smoke climbed the sky and stained the jade.",
+      "The Celestial Magistrate judged the smoke and found the mortal world guilty. He shut the Jade Gate and sent constructs and spirit beasts down the stair.",
+      "You have come up through the closed gate. Climb the terraces, cross the chasms, and stand before the Magistrate on his dais."
+    ],
+    "gate": {
+      "level": 25,
+      "hint": "Defeat the guardians of the Ember Wastes and reach level 25 to climb the Jade Gate."
+    },
+    "zones": [
+      "terrace",
+      "orchard",
+      "mirror",
+      "stair",
+      "storm",
+      "crane",
+      "library",
+      "dais",
+      "cloudhollow",
+      "jademine",
+      "scrollvault",
+      "moonpalace"
+    ],
+    "bosses": [
+      "cranelord",
+      "archivekeeper",
+      "magistrate",
+      "cloudwyrm",
+      "seamtyrant",
+      "vaultcalligrapher",
+      "mirrorqueen"
+    ],
+    "npcs": [
+      "warden-lian",
+      "trader-yue",
+      "alchemist-ning",
+      "keeper-sui",
+      "gardener-fen",
+      "boatman-ke",
+      "sentinel-zhao",
+      "scholar-mei",
+      "hermit-gu"
+    ],
+    "quests": [
+      "jade-ascent",
+      "jade-storm-lord",
+      "jade-archive-keeper",
+      "jade-magistrate",
+      "jade-peach-wine",
+      "jade-lake-lanterns",
+      "jade-stair-toll",
+      "jade-cavern-echo",
+      "jade-lost-slips",
+      "jade-vault-key",
+      "jade-crane-feathers",
+      "jade-mine-dust",
+      "jade-moon-echo"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "The Crimson Abyss",
+    "subtitle": "Chapter 5",
+    "hub": "lantern",
+    "gateName": "Abyss Gate",
+    "gear": {
+      "arrive": {
+        "weapon": "heaven-sword",
+        "armor": "heaven-robe",
+        "charm": "jade-seal"
+      },
+      "shop": {
+        "weapon": "abyss-blade",
+        "armor": "abyss-mail",
+        "charm": "jade-seal"
+      }
+    },
+    "gate": {
+      "level": 35,
+      "hint": "Bring down every lord of the Jade Heavens, ending with the Jade Magistrate, and reach level 35."
+    },
+    "story": [
+      "The Magistrate fell, and the sky did not mend. It cracked from horizon to horizon, and through the crack the heavens drained away like water from a broken bowl.",
+      "Beneath every realm lies one more: the Crimson Abyss. It is where a cultivator's unfinished wants are sent to wait. Every vow left unkept, every rival left unforgiven, every door left unopened is down here, and none of it has stayed quiet.",
+      "At the edge of the dark, a few survivors keep one flame alive. They call their camp the Last Lantern, and they have kept it burning through nine winters of ash.",
+      "At the heart of the Abyss, on a mountain of old tribulation lightning, waits the Dao Demon. Every cultivator meets it at the top of the Way. Most never come back to say what it asked.",
+      "You have climbed further than anyone. There is only one road left, and it goes down."
+    ],
+    "zones": [
+      "lantern",
+      "abyss-blades",
+      "abyss-basin",
+      "abyss-mirror",
+      "abyss-bonewood",
+      "abyss-ash",
+      "abyss-regret",
+      "abyss-peak",
+      "abyss-bonecavern",
+      "abyss-bloodgrotto",
+      "abyss-mirrorvault",
+      "abyss-ashmaw"
+    ],
+    "bosses": [
+      "abyss-tyrant",
+      "abyss-matron",
+      "abyss-daodemon",
+      "abyss-rootking",
+      "abyss-springfox",
+      "abyss-vaultself",
+      "abyss-cinderwarden"
+    ],
+    "npcs": [
+      "matron-hui",
+      "smith-tang",
+      "alchemist-lian",
+      "gravetender-jun",
+      "ferryman-tu",
+      "scribe-ao",
+      "huntress-ye",
+      "drifter-dun",
+      "sister-sen"
+    ],
+    "quests": [
+      "abyss-first-flame",
+      "abyss-blood-river",
+      "abyss-mirror-truth",
+      "abyss-matron",
+      "abyss-ash-trial",
+      "abyss-dao-demon",
+      "abyss-sword-grave",
+      "abyss-ferry-fire",
+      "abyss-grotto-spring",
+      "abyss-vault-selves",
+      "abyss-bone-ledger",
+      "abyss-ash-whispers",
+      "abyss-regret-letters",
+      "abyss-slag-and-ash",
+      "abyss-bone-cavern-delve",
+      "abyss-reliquary-delve"
     ]
   }
 ]

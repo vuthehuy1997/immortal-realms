@@ -17,6 +17,41 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 | <img src="../images/npcs/keeper-ming.png" height="72"> | keeper-ming | Keeper Ming | tower | – |
 | <img src="../images/npcs/keeper-ren.png" height="72"> | keeper-ren | Keeper Ren | tower | – |
 | <img src="../images/npcs/hermit-wen.png" height="72"> | hermit-wen | Hermit Wen | – | hollow-heart |
+| <img src="../images/npcs/ferryman-bo.png" height="72"> | ferryman-bo | Ferryman Bo | – | s1-ferry → s1-grotto |
+| <img src="../images/npcs/hunter-tao.png" height="72"> | hunter-tao | Hunter Tao | – | s1-denhunt |
+| <img src="../images/npcs/hermit-zhuo.png" height="72"> | hermit-zhuo | Hermit Zhuo | – | s1-hawks → s1-stormroost |
+| <img src="../images/npcs/sister-lan.png" height="72"> | sister-lan | Sister Lan | – | s1-sanctum |
+| <img src="../images/npcs/trapper-hu.png" height="72"> | trapper-hu | Trapper Hu | – | s2-trapper → s2-rimeheart |
+| <img src="../images/npcs/warden-ling.png" height="72"> | warden-ling | Warden Ling | – | s2-gravewind → s2-bonewarden |
+| <img src="../images/npcs/surveyor-pei.png" height="72"> | surveyor-pei | Surveyor Pei | – | s2-survey → s2-wyrm |
+| <img src="../images/npcs/seer-lian.png" height="72"> | seer-lian | Seer Lian | – | s2-mirror |
+| <img src="../images/npcs/caravan-master-hui.png" height="72"> | caravan-master-hui | Caravan-Master Hui | – | ember-silent-roads → ember-wyrm → ember-champions → ember-rift-survey → ember-mirage → ember-furnace |
+| <img src="../images/npcs/trader-sahn.png" height="72"> | trader-sahn | Trader Sahn | shop | – |
+| <img src="../images/npcs/alchemist-zhu.png" height="72"> | alchemist-zhu | Alchemist Zhu | alchemy | – |
+| <img src="../images/npcs/wanderer-dahl.png" height="72"> | wanderer-dahl | Wanderer Dahl | – | ember-viper-fangs → ember-worm-queen |
+| <img src="../images/npcs/keeper-ila.png" height="72"> | keeper-ila | Keeper Ila | – | ember-oasis-herbs |
+| <img src="../images/npcs/hunter-tarq.png" height="72"> | hunter-tarq | Hunter Tarq | – | ember-roc-hunt |
+| <img src="../images/npcs/miner-borok.png" height="72"> | miner-borok | Miner Borok | – | ember-obsidian → ember-mine-heart |
+| <img src="../images/npcs/hermit-zaim.png" height="72"> | hermit-zaim | Hermit Zaim | – | ember-salt-road → ember-vault-seal |
+| <img src="../images/npcs/scholar-eun.png" height="72"> | scholar-eun | Scholar Eun | – | ember-sun-scrolls |
+| <img src="../images/npcs/warden-lian.png" height="72"> | warden-lian | Warden Lian | – | jade-ascent → jade-storm-lord → jade-magistrate |
+| <img src="../images/npcs/trader-yue.png" height="72"> | trader-yue | Trader Yue | shop | – |
+| <img src="../images/npcs/alchemist-ning.png" height="72"> | alchemist-ning | Alchemist Ning | alchemy | jade-mine-dust |
+| <img src="../images/npcs/keeper-sui.png" height="72"> | keeper-sui | Keeper Sui | tower | – |
+| <img src="../images/npcs/gardener-fen.png" height="72"> | gardener-fen | Gardener Fen | – | jade-peach-wine |
+| <img src="../images/npcs/boatman-ke.png" height="72"> | boatman-ke | Boatman Ke | – | jade-lake-lanterns → jade-moon-echo |
+| <img src="../images/npcs/sentinel-zhao.png" height="72"> | sentinel-zhao | Sentinel Zhao | – | jade-stair-toll → jade-cavern-echo |
+| <img src="../images/npcs/scholar-mei.png" height="72"> | scholar-mei | Scholar Mei | – | jade-archive-keeper → jade-lost-slips → jade-vault-key |
+| <img src="../images/npcs/hermit-gu.png" height="72"> | hermit-gu | Hermit Gu | – | jade-crane-feathers |
+| <img src="../images/npcs/matron-hui.png" height="72"> | matron-hui | Matron Hui | – | abyss-first-flame → abyss-blood-river → abyss-ash-trial → abyss-dao-demon |
+| <img src="../images/npcs/smith-tang.png" height="72"> | smith-tang | Smith Tang | shop | abyss-slag-and-ash |
+| <img src="../images/npcs/alchemist-lian.png" height="72"> | alchemist-lian | Alchemist Lian | alchemy | – |
+| <img src="../images/npcs/gravetender-jun.png" height="72"> | gravetender-jun | Gravetender Jun | – | abyss-sword-grave |
+| <img src="../images/npcs/ferryman-tu.png" height="72"> | ferryman-tu | Ferryman Tu | – | abyss-ferry-fire → abyss-grotto-spring |
+| <img src="../images/npcs/scribe-ao.png" height="72"> | scribe-ao | Scribe Ao | – | abyss-mirror-truth → abyss-vault-selves |
+| <img src="../images/npcs/huntress-ye.png" height="72"> | huntress-ye | Huntress Ye | – | abyss-bone-ledger → abyss-bone-cavern-delve |
+| <img src="../images/npcs/drifter-dun.png" height="72"> | drifter-dun | Drifter Dun | – | abyss-ash-whispers → abyss-reliquary-delve |
+| <img src="../images/npcs/sister-sen.png" height="72"> | sister-sen | Sister Sen | – | abyss-matron → abyss-regret-letters |
 
 ## Quests
 
@@ -35,6 +70,63 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 | barrow-rites | The Barrow Rites | commander-shen | rift-scouts | kill corpseking ×1 | 900 xp, 400 stones, greater-hp-potion ×3, qi-pill ×2 |
 | hollow-heart | The Heart of the Hollow | hermit-wen | barrow-rites | kill crystalcolossus ×1 | 1100 xp, 520 stones, greater-mana-potion ×3, greater-hp-potion ×3 |
 | sundered-sovereign | The Sundered Sovereign | commander-shen | hollow-heart | kill sovereign ×1 | 1800 xp, 900 stones, greater-hp-potion ×5, greater-mana-potion ×5 |
+| s1-ferry | The Ferryman's Lantern | ferryman-bo | pests | kill s1-pearlwisp ×5; kill waterghost ×4 | 150 xp, 60 stones, hp-potion ×2, s1-mist-tonic ×2 |
+| s1-grotto | The Tidecaller | ferryman-bo | s1-ferry | kill s1-tidecaller ×1 | 340 xp, 140 stones, s1-lotus-draught ×3, s1-tidepearl ×1 |
+| s1-denhunt | The Moonfang Alpha | hunter-tao | pests | kill alphawolf ×1 | 280 xp, 100 stones, s1-moonfang-cloak ×1, hp-potion ×3 |
+| s1-hawks | Lightning Tempering | hermit-zhuo | fox | kill s1-stormhawk ×5; kill s1-thunderimp ×4 | 400 xp, 130 stones, mana-potion ×3, s1-storm-pill ×2 |
+| s1-stormroost | The Thunderroost Matriarch | hermit-zhuo | s1-hawks | kill s1-stormmatriarch ×1 | 560 xp, 200 stones, s1-stormcaller-saber ×1, greater-hp-potion ×2 |
+| s1-sanctum | Echoes of the Sword Disciple | sister-lan | warden | kill swordshade ×1 | 620 xp, 220 stones, s1-discipline-seal ×1, s1-mist-tonic ×3, qi-pill ×3 |
+| s2-trapper | The Trapper's Due | trapper-hu | rift-scouts | kill s2-glacierwolf ×6; kill s2-blizzardhawk ×4 | 520 xp, 350 stones, greater-hp-potion ×3, greater-mana-potion ×3 |
+| s2-rimeheart | The Rime Matriarch | trapper-hu | s2-trapper | kill s2-rimematriarch ×1 | 760 xp, 380 stones, s2-rime-elixir ×3, s2-rime-cloak ×1 |
+| s2-gravewind | Rest for the Barrow Dead | warden-ling | rift-scouts | kill ashskeleton ×8; kill ashguard ×4 | 640 xp, 320 stones, greater-hp-potion ×3, qi-pill ×3 |
+| s2-bonewarden | The Bone Warden | warden-ling | s2-gravewind | kill s2-bonewarden ×1 | 980 xp, 450 stones, s2-warden-signet ×1, s2-frostlotus-pill ×2 |
+| s2-survey | Charting the Maw | surveyor-pei | rift-scouts | kill s2-mawserpent ×6; kill s2-aurorawisp ×5 | 700 xp, 380 stones, s2-aurora-draught ×3, greater-hp-potion ×2 |
+| s2-wyrm | The Glacier Wyrm | surveyor-pei | s2-survey | kill s2-glacierwyrm ×1 | 1050 xp, 480 stones, s2-glacier-saber ×1, s2-aurora-draught ×3 |
+| s2-mirror | The Mirror Vault | seer-lian | hollow-heart | kill s2-prismsage ×1 | 1000 xp, 500 stones, s2-aurora-draught ×3, greater-mana-potion ×3 |
+| ember-silent-roads | The Silent Roads | caravan-master-hui | – | kill sandviper ×8; kill dunejackal ×6 | 1500 xp, 500 stones, greater-hp-potion ×4, qi-pill ×2 |
+| ember-wyrm | The Wyrm Under the Road | caravan-master-hui | ember-silent-roads | kill sandwyrm ×1 | 2300 xp, 800 stones, ember-hp-potion ×3, ember-mana-potion ×3 |
+| ember-champions | Champions of the Sands | caravan-master-hui | ember-wyrm | elite  ×4 | 2400 xp, 900 stones, ember-qi-pill ×2, ember-hp-potion ×3 |
+| ember-rift-survey | Survey of the Rift | caravan-master-hui | ember-wyrm | kill magmasprite ×8; kill cinderhound ×6 | 2500 xp, 1000 stones, ember-hp-potion ×4, ember-mana-potion ×4 |
+| ember-mirage | The Mirage Empress | caravan-master-hui | ember-rift-survey | kill mirageempress ×1 | 3000 xp, 1400 stones, ember-hp-potion ×4, ember-qi-pill ×3 |
+| ember-furnace | The Heavenly Furnace | caravan-master-hui | ember-mirage | kill furnacewarden ×1 | 4200 xp, 2400 stones, ember-hp-potion ×6, ember-mana-potion ×6, ember-qi-pill ×4 |
+| ember-viper-fangs | Fangs for the Guards | wanderer-dahl | ember-silent-roads | collect ember-viper-fang ×6 | 1000 xp, 450 stones, greater-hp-potion ×3 |
+| ember-worm-queen | The Queen Beneath the Glass | wanderer-dahl | ember-viper-fangs | kill glasswormqueen ×1 | 1800 xp, 700 stones, ember-hp-potion ×3, ember-qi-pill ×2 |
+| ember-oasis-herbs | The Spring Still Runs | keeper-ila | ember-silent-roads | collect spirit-herb ×8; kill drownedcaravaneer ×6 | 1300 xp, 550 stones, ember-mana-potion ×3, greater-hp-potion ×3 |
+| ember-roc-hunt | Rocs on the Rim | hunter-tarq | ember-silent-roads | collect ember-roc-feather ×5; kill ashroc ×6 | 1700 xp, 650 stones, ember-hp-potion ×3, greater-mana-potion ×3 |
+| ember-obsidian | Warm Stone | miner-borok | ember-wyrm | kill obsidiangolem ×6; collect ember-obsidian-shard ×5 | 2400 xp, 900 stones, ember-hp-potion ×4, ember-qi-pill ×2 |
+| ember-mine-heart | The Heart of the Mine | miner-borok | ember-obsidian | kill obsidiancolossus ×1 | 2600 xp, 1100 stones, ember-obsidian-plate ×1, ember-hp-potion ×3 |
+| ember-salt-road | Footprints in the Salt | hermit-zaim | ember-wyrm | kill saltghoul ×5; kill mirageghost ×6 | 2000 xp, 800 stones, ember-mana-potion ×3, ember-qi-pill ×2 |
+| ember-vault-seal | The Sunken Vault | hermit-zaim | ember-salt-road | kill vaultwarden ×1 | 3000 xp, 1300 stones, ember-qi-pill ×3, ember-mana-potion ×4 |
+| ember-sun-scrolls | Records of the Sun | scholar-eun | ember-rift-survey | collect ember-sun-tablet ×4 | 2600 xp, 1000 stones, ember-mana-potion ×3, ember-hp-potion ×3 |
+| jade-ascent | Up the Closed Gate | warden-lian | – | kill jadesentinel ×8; kill blossomsprite ×6 | 2800 xp, 700 stones, jade-hp-potion ×4, jade-mana-potion ×3 |
+| jade-storm-lord | The Crane That Calls Thunder | warden-lian | jade-ascent | kill cranelord ×1 | 3800 xp, 1100 stones, jade-hp-potion ×4, jade-pill ×2 |
+| jade-archive-keeper | What the Archive Remembers | scholar-mei | jade-storm-lord | kill archivekeeper ×1 | 4600 xp, 1400 stones, jade-elixir ×3, jade-mana-potion ×4 |
+| jade-magistrate | The Celestial Magistrate | warden-lian | jade-archive-keeper | kill magistrate ×1 | 7000 xp, 2500 stones, jade-elixir ×5, jade-pill ×4 |
+| jade-peach-wine | Peaches Out of Season | gardener-fen | jade-ascent | kill blossomtreant ×6; collect jade-peach ×5 | 2000 xp, 500 stones, jade-elixir ×2, jade-mana-potion ×3 |
+| jade-lake-lanterns | Lanterns for the Drowned | boatman-ke | jade-ascent | kill mirrorwraith ×8; collect spirit-herb ×4 | 2200 xp, 600 stones, jade-hp-potion ×4, jade-pill ×1 |
+| jade-stair-toll | The Thousand-Step Toll | sentinel-zhao | jade-ascent | kill jadecolossus ×6; elite  ×2 | 2600 xp, 800 stones, jade-elixir ×2, jade-hp-potion ×3 |
+| jade-cavern-echo | The Wyrm Under the Orchard | sentinel-zhao | jade-stair-toll | kill cloudwyrm ×1 | 3200 xp, 1000 stones, jade-hp-potion ×5, jade-pill ×2 |
+| jade-lost-slips | Scraps of Scripture | scholar-mei | jade-ascent | kill scrollwraith ×8; collect jade-slip-scrap ×6 | 2800 xp, 800 stones, jade-mana-potion ×4, jade-pill ×2 |
+| jade-vault-key | The Sealed Vault | scholar-mei | jade-lost-slips | kill vaultcalligrapher ×1 | 4000 xp, 1400 stones, jade-elixir ×3, jade-mana-potion ×4 |
+| jade-crane-feathers | Feathers of Thunder | hermit-gu | jade-ascent | collect jade-feather ×5; elite  ×3 | 3400 xp, 1000 stones, jade-elixir ×3, jade-pill ×2 |
+| jade-mine-dust | Jade Dust for the Furnace | alchemist-ning | jade-ascent | collect jade-ore ×6; kill seamtyrant ×1 | 3600 xp, 1200 stones, jade-elixir ×3, jade-pill ×3 |
+| jade-moon-echo | The Palace in the Water | boatman-ke | jade-lake-lanterns | kill mirrorqueen ×1 | 4200 xp, 1500 stones, jade-elixir ×3, jade-hp-potion ×5 |
+| abyss-first-flame | The Last Lantern | matron-hui | – | kill abyss-bladewraith ×8; collect spirit-herb ×4 | 4200 xp, 800 stones, abyss-hp-potion ×4, abyss-mana-potion ×3 |
+| abyss-blood-river | The Blood-River Tyrant | matron-hui | abyss-first-flame | kill abyss-tyrant ×1 | 5200 xp, 1200 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
+| abyss-mirror-truth | What the Mirrors Say | scribe-ao | abyss-blood-river | kill abyss-mirrorshade ×8; collect abyss-mirror-shard ×6 | 5000 xp, 1000 stones, abyss-mana-potion ×5, abyss-qi-pill ×3 |
+| abyss-matron | The Matron of Regrets | sister-sen | abyss-mirror-truth | kill abyss-matron ×1 | 6200 xp, 1600 stones, abyss-heal-pill ×3, abyss-qi-pill ×3 |
+| abyss-ash-trial | The Procession of Ash | matron-hui | abyss-matron | elite  ×4 | 5600 xp, 1800 stones, abyss-heal-pill ×3, abyss-hp-potion ×5, abyss-mana-potion ×5 |
+| abyss-dao-demon | The Dao Demon of Tribulation | matron-hui | abyss-ash-trial | kill abyss-daodemon ×1 | 12000 xp, 6000 stones, abyss-heal-pill ×5, abyss-hp-potion ×5, abyss-qi-pill ×5 |
+| abyss-sword-grave | Swords Without Hands | gravetender-jun | abyss-first-flame | kill abyss-bladewraith ×10; collect abyss-blade-shard ×6 | 3600 xp, 900 stones, abyss-hp-potion ×4, abyss-qi-pill ×2 |
+| abyss-ferry-fire | A Boat for the Fire | ferryman-tu | abyss-first-flame | kill abyss-lavatoad ×8; kill abyss-bloodfoxfire ×6 | 4000 xp, 1000 stones, abyss-mana-potion ×4, abyss-hp-potion ×3 |
+| abyss-grotto-spring | The Spring That Runs Red | ferryman-tu | abyss-ferry-fire | kill abyss-springfox ×1 | 4800 xp, 1200 stones, abyss-heal-pill ×2, abyss-qi-pill ×3 |
+| abyss-vault-selves | The Vault of Past Selves | scribe-ao | abyss-mirror-truth | kill abyss-vaultself ×1 | 5400 xp, 1400 stones, abyss-heal-pill ×3, abyss-mana-potion ×4 |
+| abyss-bone-ledger | The Bone Ledger | huntress-ye | abyss-first-flame | kill abyss-bonetreant ×5; collect abyss-bone-root ×5 | 4000 xp, 1100 stones, abyss-hp-potion ×4, abyss-heal-pill ×1 |
+| abyss-ash-whispers | What the Ash Remembers | drifter-dun | abyss-first-flame | kill abyss-ashknight ×8; collect abyss-ash-ore ×5 | 4400 xp, 1000 stones, abyss-qi-pill ×3, abyss-mana-potion ×4 |
+| abyss-regret-letters | Letters Never Sent | sister-sen | abyss-mirror-truth | kill abyss-witheredpeach ×6; collect abyss-regret-bloom ×5 | 5200 xp, 1200 stones, abyss-heal-pill ×2, abyss-qi-pill ×3 |
+| abyss-slag-and-ash | Slag and Ash | smith-tang | abyss-first-flame | kill abyss-cindergolem ×4; collect abyss-ash-ore ×6 | 4600 xp, 1500 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
+| abyss-bone-cavern-delve | The Ossuary Below | huntress-ye | abyss-bone-ledger | kill abyss-rootking ×1 | 5000 xp, 1300 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
+| abyss-reliquary-delve | The Cinder Reliquary | drifter-dun | abyss-ash-whispers | kill abyss-cinderwarden ×1 | 5800 xp, 1500 stones, abyss-heal-pill ×3, abyss-qi-pill ×3 |
 
 **Wolves of the Bamboo** — Spirit wolves prowl the Whispering Bamboo Forest to the west and trample the herb beds. Slay four of them and gather two Spirit Herbs (lingzhi, press E beside the glowing mushrooms). The sect will reward you.
 
@@ -61,3 +153,117 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 **The Heart of the Hollow** — Youngster. The Hollow sings because a heart of crystal beats under it: a colossus woven from the Fissure itself. While it lives, the way to the summit stays barred. Shatter the Crystal Colossus.
 
 **The Sundered Sovereign** — This is what the guardians were bred to hold back: the Sundered Sovereign, waiting at the summit. We cannot seal it again; we can only end it. Climb the north-east path and do what the founder could not.
+
+**The Ferryman's Lantern** — Eh? A sect robe at my landing. Good. Pearl wisps and drowned ghosts have been snuffing the lanterns I hang along the Moonmirror shore, and no barge will cross after dusk. Put out five Pearl Wisps and four Drowned Ghosts and I will show my gratitude.
+
+**The Tidecaller** — Under the south shore there is a cave the old boatmen called the Pearl Grotto. Something drowned in there and never left: the Tidecaller Matron. She calls the wisps and the ghosts up from the water. End her and the lake will rest.
+
+**The Moonfang Alpha** — You thinned the wolves on the road, and that was the easy part. The pack answers to a pale alpha that lives in the den under the old roots, west of here. I lost two good dogs to it. Go into the Moonfang Den and bring its head down.
+
+**Lightning Tempering** — Quiet, child. Do you hear it? The cliffs hum before every storm. The storm hawks nest here and feed on what falls from the sky, and lately their talismans have gone mad. Kill five Storm Hawks and four Thunder Talismans and I will tell you what the lightning is for.
+
+**The Thunderroost Matriarch** — The hawks have a mother, and she has made her roost in the cliff itself. The cavern is full of lightning, and she is its heart. She will not leave the nest, so you must go to her. Defeat the Thunderroost Matriarch.
+
+**Echoes of the Sword Disciple** — I tend the stones of the Broken Sword Ruins. The immortal you felled had one disciple, who would not leave his master, and sealed himself in a pocket of the sect outside time. His shade still keeps the Hidden Sword Sanctum. Free him, if you can.
+
+**The Trapper's Due** — You walk like someone who can fight. Good: the tundra is crawling. Glacier wolves hunt in packs of ten and the hawks above them pick off whatever the wolves leave. Thin out six Glacier Wolves and four Blizzard Hawks and I can run my lines again.
+
+**The Rime Matriarch** — Every pack has a queen, and this one has a cave in the Whitefrost Pass. The wolves never stop coming while she lives. Go into Rimeheart Cave and end her.
+
+**Rest for the Barrow Dead** — I keep the old rites here, or what is left of them. The soldiers in the ash were buried with honour, and now they walk. I cannot lay eight of them to rest alone. Break eight Ash Soldiers and four Barrow Guards, and I will do the rest.
+
+**The Bone Warden** — Beneath the barrow there is a catacomb the founders sealed with a single guardian, the Bone Warden. It keeps the dead in. Something has made it keep the living out, too. Descend into the Gravewind Catacomb and put him down.
+
+**Charting the Maw** — Surveyor Pei, of the old sect cartographers. The Glacier Maw moves: every winter it swallows another valley. I am mapping its edge, but serpents and wisps drive off my crew. Kill six Maw Serpents and five Aurora Wisps so I can finish the chart.
+
+**The Glacier Wyrm** — Now the thing I could not chart. The ice booms from below, and the old river bed under the Maw is not empty. A wyrm, I think, frozen into the glacier and finally waking. Whatever it is, go down into its den and stop it.
+
+**The Mirror Vault** — I see you in a hundred mirrors, and in each one you are about to ask me something. Yes: a vault of ice mirrors lies behind the Hollow, and a sage sleeps in it who tried to hold the Fissure's light. I cannot see how it ends. Go and see for both of us.
+
+**The Silent Roads** — You came through the Ember Gate, so you know the Fissure bled its heat south. This is where it landed. The dunes east of the Bazaar crawl with vipers and jackals, and not one caravan has crossed in a month. Cull eight sand vipers and six dune jackals.
+
+**The Wyrm Under the Road** — The vipers are only the smallest teeth. Something vast burrows under the canyon road, and caravans vanish where it surfaces. Scouts call it the Sand Wyrm. It guards the Scorched Canyon, south-east along the road. End it.
+
+**Champions of the Sands** — Heat twists the strongest beasts: gold-marked, cruel, clever. My guards refuse to ride while four of them walk the wastes. Slay four elite monsters.
+
+**Survey of the Rift** — Beyond the canyon the ground splits and lava flows where there was a dry riverbed. If we are to reach the temple, we must know the way. Clear eight magma sprites and six cinder hounds from the Magma Rift.
+
+**The Mirage Empress** — The Sun Temple lies buried north of the rift. Travellers who reach it speak of an empress who walks on sand without leaving a mark, and who wears a different face for each. She holds the temple key to the Furnace. Slay the Mirage Empress.
+
+**The Heavenly Furnace** — At the summit the Furnace Warden, the immortals' last servant, feeds the forge with whatever the Fissure sends it. The dunes turn to glass because it has not stopped burning. Climb the east road and put out the fire.
+
+**Fangs for the Guards** — Caravan guards pay well for sand viper fangs: they grind them into antivenom. Bring me six, and I will split what they give me.
+
+**The Queen Beneath the Glass** — South of the dunes the sand has fused into green glass, and the tunnels beneath ring when I knock. A queen lives there. I have heard her breathe. If you go in, go strong: there is a cave mouth by the standing stones.
+
+**The Spring Still Runs** — The heat is poisoning my spring-herbs. Bring me eight Spirit Herbs and put down the drowned caravaneers that haunt the reeds: they stir the water until it clouds.
+
+**Rocs on the Rim** — Ash rocs nest on the canyon rim and rain feathers like knives. I need five of their grey feathers to fletch arrows that can pierce glass-scorpion shells, and I need six of the birds gone before they get clever.
+
+**Warm Stone** — My crew dug the Obsidian Mine until the stone started to glow. Golems walk out of the rock now. Break six of them and bring me five shards from their chests: I need to know what is waking them.
+
+**The Heart of the Mine** — At the bottom of my mine stands a thing the crew named the Colossus: a pile of obsidian that remembers being a man. Enter the Obsidian Mine and put it down. My crew's lamps are still down there.
+
+**Footprints in the Salt** — The salt flats keep every footprint, even the ones that have not been made yet. Salt ghouls rise where the drowned lie, and mirage ghosts lure the living in circles. Lay five ghouls and six ghosts to rest.
+
+**The Sunken Vault** — Under the white ground lies a laboratory of the immortals, drowned in brine, its furnaces still burning. Its Warden never stopped working. Open the vault by the standing moon-gate near my hut and put the Warden out.
+
+**Records of the Sun** — The temple's records were gilded tablets, shattered when it sank. Bring me four fragments from the mummies and sentinels that guard it, and I will tell you how the Empress was made.
+
+**Up the Closed Gate** — You came through the Jade Gate? It has been shut for a season. Sentinels of jade patrol the orchard and the stair now, and blossom sprites bewitch whoever walks the petals. Cull eight Jade Sentinels and six Blossom Sprites, and the road east is yours.
+
+**The Crane That Calls Thunder** — The thunder over the Court of Storms is not weather. The Magistrate's crane lord answers his call, and the sky answers the crane. Follow the stair road north-east and bring the Storm Crane Lord down.
+
+**What the Archive Remembers** — The Archive Keeper was a gentle thing once. When the smoke stained the slips it decided that knowledge from below must be burned, and now it burns everything. It guards the way to the dais. End it, and save what slips remain.
+
+**The Celestial Magistrate** — The last judge sits on his dais at the top of the terraces. He is not cruel; he is certain, which is worse. Cross the causeway north-east of the Court of Storms and show him the mortal world is more than smoke.
+
+**Peaches Out of Season** — My treants have gone wild and the peaches ripen too fast and rot before I can reach them. Fell six Blossom Treants and bring me five Heavenly Peaches from the trees, and I will brew you something worth drinking.
+
+**Lanterns for the Drowned** — On still nights the lake shows a second sky, and things step out of it with my lost passengers' faces. Banish eight Mirror Wraiths and bring me four Spirit Herbs to light the lanterns.
+
+**The Thousand-Step Toll** — The stair's old wards now strike at anyone who climbs. Break six Jade Colossi and two of the elite guardians that lead them, and the steps will be safe again.
+
+**The Wyrm Under the Orchard** — Something old turns in the cavern under the orchard terrace, and the whole stair feels it. Go down into Cloudhollow Cavern and slay the Cloudwyrm.
+
+**Scraps of Scripture** — The scroll wraiths are made of the slips that burned. If I can piece enough of them together I might learn what the Magistrate was told. Banish eight Scroll Wraiths and bring me six Charred Jade Slips.
+
+**The Sealed Vault** — The worst slips were folded into a vault, out of reach. Its door has opened on the west edge of the Library, and its calligrapher is still writing. Put down the Calligrapher of the Sealed Vault.
+
+**Feathers of Thunder** — A crane's feather still holds a little of its sky. Bring me five from the Storm Cranes, and slay three of the gold-named elites that lead them. I mean to make a talisman against the Magistrate's judgement.
+
+**Jade Dust for the Furnace** — My finest pills need raw jade dust. Bring me six Raw Jade Ore from the stair's Colossi, and clear the Jade Seam Tyrant out of the old mine so we can dig in peace.
+
+**The Palace in the Water** — There is a palace under the lake, and a lady in it who wears my wife's face. I cannot row there. You can. Break the Lady of the Moon Mirror.
+
+**The Last Lantern** — So you are the one who came down. Good. The lantern is our only law: while it burns, nobody here is alone. The blade-wraiths in the field to the east keep trying to put it out. Cut down eight of them, and bring back four lingzhi for the furnace. Then we will talk about the rest of the Abyss.
+
+**The Blood-River Tyrant** — A river of fire runs through the south of the Abyss, and it has a king. The Tyrant was once a flood god, sworn to carry the dead across. It ferries nobody now. It is in the way of everything. Follow the road through the Bloodfire Basin to its shore, and put it to rest.
+
+**What the Mirrors Say** — You crossed the river? Then you can walk the Mirror City. The mirrors there show a person what they refused to become. Some people stay. Bring me six shards from the shades that wander its streets, and cut down eight of them; I would like the streets quiet enough to read in.
+
+**The Matron of Regrets** — Do you hear the singing? It is the Matron. She gathers every might-have-been in the Abyss and gives each one a name and a bed. She means it kindly. That is the worst part. Beyond the Ash Plains lies her bower. Please end her song, and let the petals fall.
+
+**The Procession of Ash** — Word came down from the peak: the Dao Demon has woken, and the marked ones are marching to meet it. These are gold-named elites, and stronger than anything you have met. Cut down four of them before you climb. A student who comes to the examiner unprepared has only herself to blame.
+
+**The Dao Demon of Tribulation** — This is the last road. Every cultivator meets it at the top of the Way, and every one of them thought they would be ready. The Demon wears every ambition you ever set down and says each one back to you. It is not evil. It is only complete. Climb the peak in the north-east, and give it your answer.
+
+**Swords Without Hands** — Every blade in this field was drawn by someone who never came back, and they still hum at night. Bring me six shards so I can bury what is left, and cut down ten of the wraiths that carry them. I will pay in what I have.
+
+**A Boat for the Fire** — My boat has an easy job: carry a thing from one shore of fire to the other. The toads and foxfires have made it hard. Burn out eight of the magma toads and six of the blood foxfires, and I will tell you the river's secret.
+
+**The Spring That Runs Red** — South of the river, a spring bubbles up in a cave, warm and red as a pulse. Someone bathes there, and nothing that goes in comes back quite the same. Go into the Blood-Spring Grotto and put the Heretic out of its misery.
+
+**The Vault of Past Selves** — In the north of the city there is a vault of mirrors, and in the deepest hall stands the person you used to be. I do not recommend meeting yourself. But if you are going to, someone should write down who wins.
+
+**The Bone Ledger** — The forest is growing, and what it grows from is not wood. I count what I can: five of the great treants, and bone roots enough to read the pattern. Help me with the ledger, and I will give you a share of the payment.
+
+**What the Ash Remembers** — Eight knights wander the plains in armour with nobody inside. I want to know who they were. Cut down eight of the Ash Knights and bring me five pieces of their ore; if the ash remembers, I will learn it.
+
+**Letters Never Sent** — The peach trees here bloom with every apology nobody made. I gather the petals and read them aloud to the dead. Cut down six of the withered spirits that shake them loose, and bring me five blooms.
+
+**Slag and Ash** — The cinder golems on the plains and in the basin are made of the finest slag I have ever seen, and it is just lying there inside them. Break four, and bring me six pieces of ash ore. I will make you something sharp.
+
+**The Ossuary Below** — Every root in this forest leads to one place, a cavern under the western woods where the dead have been stacked like firewood. Go in and break the Root-King. Everything else is only branches.
+
+**The Cinder Reliquary** — There is a shrine inside the plains, burnt out and hollow. The ash comes from there. The warden at its centre is made from every name left unwritten. Go inside and put it down; then we will both know if anyone was remembered.
