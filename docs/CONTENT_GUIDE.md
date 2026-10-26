@@ -101,9 +101,13 @@ write `// PLACEHOLDER art:` above it (the owner will replace art later). Never c
 `ChapterDef.gear = { arrive, shop }` lists item ids: `arrive` = the previous chapter's best gear the hero walks in with, `shop` = what this chapter's shop sells.
 Targets for a flame-root hero fighting with the sword combo at the middle of a zone's level band: a normal foe takes 3-16 s (bruisers up to 24 s), the hero dies
 in > 12 s if standing still, one fight costs 3-65 % HP, one hit < 25 % HP; bosses: 40-300 s of pure damage (dungeon bosses >= 25 s), heaviest hit < 50 % HP.
-Weapon attack must rise chapter by chapter (ch1 best +15, ch2 best +30; ch3 ~+45, ch4 ~+62, ch5 ~+80), armor defence similarly (ch2 best 28).
-Quest XP: chapter 3's chain should give roughly one level of progress per major quest; use `xpToNext` in `core/progression.ts` as the yardstick.
-Shop prices follow item `value`; `value` rises roughly 1.6x per chapter.
+**The gear ladder for chapters 3-5 is fixed** in `src/data/content/gear.ts` (items, icons) and `CHAPTER_GEAR`. Do not redefine those items; use them:
+`gear: CHAPTER_GEAR[n]` in your ChapterDef; your shop `stocks` must sell your chapter's shop weapon and armor (ember-blade/ember-mail, jade-blade/jade-mail, abyss-blade/abyss-mail)
+plus potions/pills; your final boss drops the chapter's best weapon (chance 1) and best charm, a second main boss drops the best armor (furnace-saber/furnace-robe/furnace-seal;
+heaven-sword/heaven-robe/jade-seal; tribulation-sword/tribulation-robe/abyss-seal); dungeon bosses drop other items you define (consumables, extra gear below the ladder's best, materials).
+You may add more items of your own (accessories, pills, potions), but never stronger than the chapter's best ladder item. Chapter 1 and 2 modules follow the existing gear.
+Quest XP: a chapter's chain should give roughly one level of progress per major quest; use `xpToNext` in `core/progression.ts` as the yardstick.
+Shop prices follow item `value`.
 
 ## 6. Verify before you hand over (run all, fix everything)
 

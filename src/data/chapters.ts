@@ -16,8 +16,8 @@ export interface ChapterDef {
   gateName?: string;
   /** gear ids used by the balance tests: what a hero typically carries on arrival (best of the previous chapter) and what this chapter's shop sells */
   gear: { arrive: Gear; shop: Gear };
-  /** requirements to travel here */
-  gate?: { level: number; bosses: string[]; hint: string };
+  /** requirements to travel here; `bosses` defaults to every open-map boss of the previous chapter */
+  gate?: { level: number; bosses?: string[]; hint: string };
 }
 
 export const CHAPTERS: Record<number, ChapterDef> = {
@@ -56,7 +56,7 @@ export function canEnterChapter(n: number, level: number, defeated: readonly str
   const c = CHAPTERS[n];
   if (!c) return { ok: false, reason: 'No such chapter.' };
   if (!c.gate) return { ok: true };
-  const missing = c.gate.bosses.filter((b) => !defeated.includes(b));
+  const missing = (c.gate.bosses ?? chapterBosses(n - 1)).filter((b) => !defeated.includes(b));
   if (level < c.gate.level || missing.length) return { ok: false, reason: c.gate.hint };
   return { ok: true };
 }
