@@ -26,7 +26,7 @@ export const CHAPTERS: Record<number, ChapterDef> = {
     gear: { arrive: {}, shop: { weapon: 'steel-blade', armor: 'sect-robe', charm: 'jade-pendant' } },
     story: [
       'Long ago the founder of the Azure Cloud Sect sealed the Heavenly Fissure, a wound in the sky that leaks ruin into the world.',
-      'He bound three guardians to hold the seals: a sword immortal, a nine-tailed fox, a dragon of the mist pool.',
+      'He bound three guardians to hold the seals: a sword immortal, a nine-tailed fox, a dragon of the mist pool. Lesser spirits drifted in behind them, to the lake, the cliffs and the caves beneath.',
       'Centuries passed. The seals rotted. The guardians went feral, and the sect has called for every disciple who can hold a blade.',
       'You are the newest of them. Walk the realms, grow in the Way, and put the guardians to rest.',
     ],
@@ -36,7 +36,7 @@ export const CHAPTERS: Record<number, ChapterDef> = {
     gear: { arrive: { weapon: 'jade-sword', armor: 'immortal-mantle', charm: 'dragon-pearl' }, shop: { weapon: 'froststeel-blade', armor: 'frost-mail', charm: 'dragon-pearl' } },
     story: [
       'With the three guardians gone, the Heavenly Fissure tore open, and the cold of another world poured through.',
-      'The Skyfall Outpost, last fort on the Fissure\'s rim, answers to Commander Shen. Beyond it lie the Whitefrost Pass, the Crystal Hollow and the Ashen Barrow.',
+      'The Skyfall Outpost, last fort on the Fissure\'s rim, answers to Commander Shen. Beyond it lie the Whitefrost Pass, the Crystal Hollow and the Ashen Barrow, and farther out the Glacier Maw and the Howling Tundra, where trappers and surveyors still hold on.',
       'At the summit waits the Sundered Sovereign, the thing the guardians were bred to hold back.',
       'The seals can no longer be mended. They can only be ended.',
     ],
