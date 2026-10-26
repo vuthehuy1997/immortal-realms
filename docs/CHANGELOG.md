@@ -1,4 +1,14 @@
 
+## Round 18 (world expansion: "map too small, no depth")
+- **Five chapters, 6-8 zones each** (45 open-map zones in total): ch1 144x124 (8 zones), ch2 144x124 (7), ch3 The Ember Wastes 160x132 (8), ch4 The Jade Heavens 164x136 (8, floating terraces over void chasms), ch5 The Crimson Abyss 176x144 (8, finale: Dao Demon of Tribulation, 330000 HP). Chapter maps are 2-3x larger than before.
+- **Caves and secret realms**: 19 dungeons (>= 3 per chapter, >= 2 caves and >= 1 realm each). Gate on the chapter map, level gate, own enemies/boss/tint, one-time first-clear reward (XP, stones, items), save-safe (reload inside), dying wakes you outside the gate. Caves are cellular caverns, realms are chains of chambers over the void.
+- **Content modules** (`src/data/content/*`): a chapter is one data file merged into the registries (zones, enemies, bosses, quests, NPCs, items, drops, shops, recipe books, dungeons, map). `ZoneId` is a string. Authoring spec: `docs/CONTENT_GUIDE.md`; tools: `tools/map_preview.mjs`, `tools/balance_report.mjs`.
+- Totals now: 100+ enemy types, 30+ bosses, 60+ quests, 36+ NPCs (several standing out in the wild), gear ladder for ch3-5 (`content/gear.ts`), per-chapter shops and alchemy books.
+- Level cap 30 -> 50; realms Golden Core (28), Nascent Soul (38), Spirit Severing (46); Dao Insight ranks 10 -> 15; Trial Rift bands reach the chapter 3-5 zones.
+- Engine: ground painted in lazily baked 32x32-tile chunks (no 4096px limit), occluder grid, far idle foes dormant, rivers/lava/void chasms with causeway roads, sealed-pocket removal, per-map world map cache, two gates per chapter (back / onward).
+- Tests: `tests/worldScale.test.ts` (the depth bar), `tests/balanceWorld.test.ts` (every zone/dungeon/boss of ch3+), `tests/dungeons.test.ts`, `tests/ch3-content.test.ts`, `tests/ch12-content.test.ts`, `e2e/dungeons.spec.ts`, `e2e/worldtour.spec.ts` (loads every chapter, zone and dungeon, screenshots to qc-artifacts/tour-*).
+- Old saves: positions that are now inside walls fall back to the hub spawn.
+
 ## Round 3
 - Enemy vision: 130° cone, sense radius, line of sight, turn rate, last-seen memory (3s), no attacks without sight, "!"/"?" cues, faint cone overlay; hits wake enemies.
 - Perf: vignette moved from WebGL filter to CSS; antialias off. Fx strips repacked (<=4096px).

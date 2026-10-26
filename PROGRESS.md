@@ -58,3 +58,9 @@
 - Implemented fixes in worktree branch balance-pass, merged to main. QC: lint, typecheck, build, 187 unit, 80 e2e green (software-GL Chromium).
 - Self-found bug during the loop: separation/home steering was computed but not applied (movement used the old velocity) - caught while rewriting, covered by e2e 'a pack spreads out'.
 - UNVERIFIED: real-GPU perf, audio by ear, whether the new difficulty is FUN (needs a human or QA round 2).
+
+## 2026-10-26 - Round 18 world expansion
+- Framework (me) + four parallel authoring agents (ch3, ch4, ch5, ch1+ch2) merged. QC: lint, typecheck, design:check ok, license:check, build, 913 unit tests, e2e 133 passed / 2 failed (both also fail on the pre-R18 build under the same machine load).
+- Screenshots reviewed (tour): hubs, zones, caves, realms and bosses of every chapter; fixed ground black patches (sync-bake on teleport), brick-looking cliff/cave rock (natural rock texture), gate collision in dungeons, forced set pieces being filled by scatter.
+- UNVERIFIED: human playthrough/balance, boss fight feel in new chapters, real-GPU perf, audio.
+
