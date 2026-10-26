@@ -1,0 +1,103 @@
+{
+  "chapter": 4,
+  "seed": 20261016,
+  "width": 164,
+  "height": 136,
+  "tileSize": 16,
+  "spawn": {
+    "x": 456,
+    "y": 1880
+  },
+  "portal": {
+    "x": 248,
+    "y": 1816
+  },
+  "bossHomes": {
+    "cranelord": {
+      "x": 1448,
+      "y": 1064
+    },
+    "archivekeeper": {
+      "x": 488,
+      "y": 520
+    },
+    "magistrate": {
+      "x": 2088,
+      "y": 392
+    }
+  },
+  "anchors": {
+    "terrace": {
+      "x": 456,
+      "y": 1768
+    },
+    "orchard": {
+      "x": 1032,
+      "y": 1736
+    },
+    "mirror": {
+      "x": 1672,
+      "y": 1832
+    },
+    "stair": {
+      "x": 808,
+      "y": 1192
+    },
+    "storm": {
+      "x": 1448,
+      "y": 1064
+    },
+    "crane": {
+      "x": 2184,
+      "y": 1384
+    },
+    "library": {
+      "x": 488,
+      "y": 520
+    },
+    "dais": {
+      "x": 2088,
+      "y": 392
+    }
+  },
+  "npcs": {
+    "warden-lian": {
+      "x": 488,
+      "y": 1688
+    },
+    "trader-yue": {
+      "x": 584,
+      "y": 1784
+    },
+    "alchemist-ning": {
+      "x": 344,
+      "y": 1784
+    },
+    "keeper-sui": {
+      "x": 440,
+      "y": 1848
+    },
+    "gardener-fen": {
+      "x": 984,
+      "y": 1768
+    },
+    "boatman-ke": {
+      "x": 1608,
+      "y": 1864
+    },
+    "sentinel-zhao": {
+      "x": 776,
+      "y": 1256
+    },
+    "scholar-mei": {
+      "x": 600,
+      "y": 664
+    },
+    "hermit-gu": {
+      "x": 2120,
+      "y": 1448
+    }
+  },
+  "herbs": 53,
+  "propCount": 1074
+}

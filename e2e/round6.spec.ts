@@ -12,7 +12,7 @@ test.describe('round F: QA report 5 leftovers', () => {
     await btn.click();
     await expect(page.locator('.toast', { hasText: 'Insight deepened' })).toBeVisible();
     await expect.poll(async () => (await st(page)).maxHp).toBeGreaterThan(before);
-    await expect(page.locator('#chrbody')).toContainText('Rank 1/10');
+    await expect(page.locator('#chrbody')).toContainText('Rank 1/15');
   });
 
   test('the boon picker works without a mouse: arrows move focus, E (or a pad A press) takes the card', async ({ page }) => {

@@ -6,7 +6,7 @@ test.describe('enemy vision', () => {
     await newGame(page);
     const p = await me(page);
     const id = await page.evaluate(([x, y]) => window.__rpg!.spawnUnaware('wolf', (x as number) + 70, y as number), [p.x, p.y]);
-    await waitGame(page, 3);
+    await waitGame(page, 0.6); // idle foes sway towards a heading derived from their id, so a longer wait would let some turn to face the hero by design
     let s = await st(page);
     expect(s.enemies.find((e) => e.id === id)?.ai).toBe('idle');
     expect(s.hp).toBe(s.maxHp);

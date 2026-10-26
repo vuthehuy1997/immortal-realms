@@ -109,13 +109,14 @@ md('world', 'Zones, props and world', `World seed ${WORLD_SEED}. ${worlds.map(({
   `## Zones\n\n${table(['id', 'chapter', 'name', 'level', 'mood', 'tier hp/atk/xp', 'spawns', 'bosses'], zones.map((z) => [z.id, z.chapter, z.name, z.level, z.mood, `${z.tier.hp}/${z.tier.atk}/${z.tier.xp}`, Object.entries(z.spawns).map(([k, v]) => `${k}×${v}`).join(', '), z.bosses.join(', ')]))}\n## Props\n\n${table(['', 'kind', 'scale', 'collision rects', 'flat', 'placed'], props.map((p) => [p.image ? `<img src="${img(p.image)}" height="64">` : '', p.kind, p.scale, p.blocks.length, p.flat ? 'yes' : '', p.placedInWorld]))}`);
 
 // ---------- chapters (story + progression)
+const bossesOfPrev = (n) => Object.values(BOSSES).filter((b) => b.chapter === n - 1 && !b.dungeon).map((b) => b.id); // gate default: previous chapter's open-map bosses
 const chapters = CHAPTER_IDS.map((n) => {
   const c = CHAPTERS[n];
   return { ...c, zones: Object.values(ZONES).filter((z) => z.chapter === n).map((z) => z.id), bosses: Object.values(BOSSES).filter((b) => b.chapter === n).map((b) => b.id), npcs: Object.keys(NPCS).filter((id) => (NPCS[id].chapter ?? 1) === n), quests: Object.values(QUESTS).filter((q) => (q.chapter ?? 1) === n).map((q) => q.id) };
 });
 json('chapters', chapters);
 md('chapters', 'Chapters', 'Each chapter is its own map with a hub, zones, bosses, NPCs and quest chain; the gate to the next chapter opens when `gate` is met.',
-  chapters.map((c) => `## ${c.subtitle}: ${c.name}\n\n${c.story.map((p) => `> ${p}`).join('\n>\n')}\n\n- hub: ${c.hub}; zones: ${c.zones.join(', ')}\n- bosses: ${c.bosses.map(bossName).join(' → ')}\n- NPCs: ${c.npcs.join(', ')}\n- quests: ${c.quests.join(' → ')}\n- gate: ${c.gate ? `level ${c.gate.level} and ${c.gate.bosses.map(bossName).join(', ')}` : 'always open'}\n`).join('\n'));
+  chapters.map((c) => `## ${c.subtitle}: ${c.name}\n\n${c.story.map((p) => `> ${p}`).join('\n>\n')}\n\n- hub: ${c.hub}; zones: ${c.zones.join(', ')}\n- bosses: ${c.bosses.map(bossName).join(' → ')}\n- NPCs: ${c.npcs.join(', ')}\n- quests: ${c.quests.join(' → ')}\n- gate: ${c.gate ? `level ${c.gate.level} and ${(c.gate.bosses ?? bossesOfPrev(c.id)).map(bossName).join(', ')}` : 'always open'}\n`).join('\n'));
 
 // ---------- art library (contact sheets from the manifest)
 for (const [group, keys] of [['portraits', Object.keys(manifest.portraits)], ['fx', Object.keys(manifest.fx)], ['ui', Object.keys(manifest.ui)], ['icons', Object.keys(manifest.icons)]]) job({ kind: 'contact', group, keys, out: `library/${group}.png` });

@@ -28,7 +28,7 @@ const chapterTop = (n: number): number => Math.max(...fightZones(n).map((z) => b
 
 describe('chapter 3+ layout of the level curve', () => {
   it('chapters are stacked: each starts where the last ended, up to the level cap', () => {
-    let prevTop = 12;
+    let prevTop = chapterTop(2) || 20;
     for (const n of LATE) {
       const bands = fightZones(n).map((z) => bandOf(z)!).filter(Boolean);
       expect(bands.length, `chapter ${n} has levelled zones`).toBeGreaterThan(0);

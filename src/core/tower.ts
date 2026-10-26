@@ -19,6 +19,9 @@ export const TOWER_XP = 0.35;
 export const BANDS: { from: number; zone: ZoneId }[] = [
   { from: 1, zone: 'bamboo' }, { from: 4, zone: 'marsh' }, { from: 7, zone: 'grove' }, { from: 10, zone: 'ruins' },
   { from: 13, zone: 'frostpass' }, { from: 17, zone: 'crystal' }, { from: 21, zone: 'barrow' }, { from: 26, zone: 'summit' },
+  // chapters 3-5: the rift keeps descending through the deeper realms
+  { from: 31, zone: 'dunes' }, { from: 36, zone: 'canyon' }, { from: 41, zone: 'magmarift' }, { from: 46, zone: 'stair' }, { from: 51, zone: 'storm' },
+  { from: 56, zone: 'library' }, { from: 61, zone: 'abyss-basin' }, { from: 66, zone: 'abyss-bonewood' }, { from: 71, zone: 'abyss-regret' },
 ];
 export const zoneOfFloor = (floor: number): ZoneId => [...BANDS].reverse().find((b) => floor >= b.from)!.zone;
 /** Extra scaling on top of the zone tier so deep floors keep climbing. */

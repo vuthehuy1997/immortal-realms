@@ -111,13 +111,13 @@ const MAP: MapDef = {
 // ---------------------------------------------------------------------------------------------------------------------------------
 const ZONES_DEF: ZoneDef[] = [
   { id: 'lantern', chapter: 5, name: 'Last Lantern Camp', anchor: { x: 26, y: 118 }, level: 'Safe', spawns: {}, mood: 'dusk', tier: { hp: 1, atk: 1, xp: 1 }, propTint: 0xffd8a8 },
-  { id: 'abyss-blades', chapter: 5, name: 'Field of Unburied Blades', anchor: { x: 64, y: 104 }, level: 'Lv 36-40', spawns: { 'abyss-bladewraith': 9, 'abyss-ashmoth': 6, 'abyss-regretghost': 4, 'abyss-ashknight': 4 }, mood: 'night', tier: { hp: 12, atk: 6.5, xp: 4.5 }, propTint: 0xcfa9a6 },
-  { id: 'abyss-basin', chapter: 5, name: 'Bloodfire Basin', anchor: { x: 106, y: 118 }, level: 'Lv 38-42', spawns: { 'abyss-lavatoad': 8, 'abyss-bloodfoxfire': 6, 'abyss-emberbird': 4, 'abyss-hollowserpent': 5, 'abyss-cindergolem': 2 }, mood: 'dusk', tier: { hp: 13, atk: 7, xp: 5 }, propTint: 0xff9a78 },
-  { id: 'abyss-mirror', chapter: 5, name: 'Ruined Mirror City', anchor: { x: 58, y: 68 }, level: 'Lv 39-43', spawns: { 'abyss-mirrorshade': 7, 'abyss-effigy': 7, 'abyss-bladewraith': 3, 'abyss-regretghost': 4, 'abyss-ashknight': 3 }, mood: 'mist', tier: { hp: 13.5, atk: 7.2, xp: 5.2 }, propTint: 0xb8d4ee },
-  { id: 'abyss-bonewood', chapter: 5, name: 'Bone Forest', anchor: { x: 28, y: 62 }, level: 'Lv 40-44', spawns: { 'abyss-bonetreant': 5, 'abyss-bonehound': 9, 'abyss-penitent': 3, 'abyss-ashmoth': 5, 'abyss-bloodfoxfire': 3 }, mood: 'night', tier: { hp: 14.5, atk: 7.8, xp: 5.6 }, propTint: 0xe6dcc0 },
-  { id: 'abyss-ash', chapter: 5, name: 'Ash Plains', anchor: { x: 102, y: 76 }, level: 'Lv 41-45', spawns: { 'abyss-ashknight': 8, 'abyss-cindergolem': 4, 'abyss-emberbird': 4, 'abyss-ashmoth': 5, 'abyss-penitent': 3 }, mood: 'dusk', tier: { hp: 15, atk: 8, xp: 5.9 }, propTint: 0xa8a0a8 },
-  { id: 'abyss-regret', chapter: 5, name: 'Gardens of Regret', anchor: { x: 136, y: 54 }, level: 'Lv 43-47', spawns: { 'abyss-regretghost': 7, 'abyss-witheredpeach': 7, 'abyss-penitent': 4, 'abyss-mirrorshade': 3, 'abyss-bonetreant': 3 }, mood: 'mist', tier: { hp: 16.5, atk: 9, xp: 6.4 }, propTint: 0xd29cd6 },
-  { id: 'abyss-peak', chapter: 5, name: 'Tribulation Peak', anchor: { x: 150, y: 16 }, level: 'Boss', spawns: {}, mood: 'night', tier: { hp: 17, atk: 9.5, xp: 7 }, propTint: 0xb07888 },
+  { id: 'abyss-blades', chapter: 5, name: 'Field of Unburied Blades', anchor: { x: 64, y: 104 }, level: 'Lv 36-40', spawns: { 'abyss-bladewraith': 9, 'abyss-ashmoth': 6, 'abyss-regretghost': 4, 'abyss-ashknight': 4 }, mood: 'night', tier: { hp: 12, atk: 6.5, xp: 10.8 }, propTint: 0xcfa9a6 },
+  { id: 'abyss-basin', chapter: 5, name: 'Bloodfire Basin', anchor: { x: 106, y: 118 }, level: 'Lv 38-42', spawns: { 'abyss-lavatoad': 8, 'abyss-bloodfoxfire': 6, 'abyss-emberbird': 4, 'abyss-hollowserpent': 5, 'abyss-cindergolem': 2 }, mood: 'dusk', tier: { hp: 13, atk: 7, xp: 12.0 }, propTint: 0xff9a78 },
+  { id: 'abyss-mirror', chapter: 5, name: 'Ruined Mirror City', anchor: { x: 58, y: 68 }, level: 'Lv 39-43', spawns: { 'abyss-mirrorshade': 7, 'abyss-effigy': 7, 'abyss-bladewraith': 3, 'abyss-regretghost': 4, 'abyss-ashknight': 3 }, mood: 'mist', tier: { hp: 13.5, atk: 7.2, xp: 12.5 }, propTint: 0xb8d4ee },
+  { id: 'abyss-bonewood', chapter: 5, name: 'Bone Forest', anchor: { x: 28, y: 62 }, level: 'Lv 40-44', spawns: { 'abyss-bonetreant': 5, 'abyss-bonehound': 9, 'abyss-penitent': 3, 'abyss-ashmoth': 5, 'abyss-bloodfoxfire': 3 }, mood: 'night', tier: { hp: 14.5, atk: 7.8, xp: 13.4 }, propTint: 0xe6dcc0 },
+  { id: 'abyss-ash', chapter: 5, name: 'Ash Plains', anchor: { x: 102, y: 76 }, level: 'Lv 41-45', spawns: { 'abyss-ashknight': 8, 'abyss-cindergolem': 4, 'abyss-emberbird': 4, 'abyss-ashmoth': 5, 'abyss-penitent': 3 }, mood: 'dusk', tier: { hp: 15, atk: 8, xp: 14.2 }, propTint: 0xa8a0a8 },
+  { id: 'abyss-regret', chapter: 5, name: 'Gardens of Regret', anchor: { x: 136, y: 54 }, level: 'Lv 43-47', spawns: { 'abyss-regretghost': 7, 'abyss-witheredpeach': 7, 'abyss-penitent': 4, 'abyss-mirrorshade': 3, 'abyss-bonetreant': 3 }, mood: 'mist', tier: { hp: 16.5, atk: 9, xp: 15.4 }, propTint: 0xd29cd6 },
+  { id: 'abyss-peak', chapter: 5, name: 'Tribulation Peak', anchor: { x: 150, y: 16 }, level: 'Boss', spawns: {}, mood: 'night', tier: { hp: 17, atk: 9.5, xp: 16.8 }, propTint: 0xb07888 },
 ];
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -280,7 +280,7 @@ const BONECAVERN: DungeonDef = {
   id: 'abyss-bonecavern', name: 'Bone-Root Cavern', chapter: 5, kind: 'cave', blurb: 'the forest\'s roots grow through the dead, and the dead have started to answer',
   entrance: { x: 30, y: 32, zone: 'abyss-bonewood' }, minLevel: 38, level: 'Lv 40-44', seed: 0xb0ec0a7, size: { w: 84, h: 60 }, floor: 'clay', wall: 'wall',
   scatter: [{ kind: 'rock', p: 0.02 }, { kind: 'bambooshoot', p: 0.016 }, { kind: 'taihurocks', p: 0.005 }, { kind: 'pine', p: 0.006 }],
-  spawns: { 'abyss-bonehound': 8, 'abyss-bonetreant': 4, 'abyss-ashmoth': 6, 'abyss-penitent': 3 }, mood: 'night', tier: { hp: 17, atk: 8.5, xp: 7 }, propTint: 0xdcd2b6,
+  spawns: { 'abyss-bonehound': 8, 'abyss-bonetreant': 4, 'abyss-ashmoth': 6, 'abyss-penitent': 3 }, mood: 'night', tier: { hp: 17, atk: 8.5, xp: 16.8 }, propTint: 0xdcd2b6,
   boss: 'abyss-rootking', reward: { xp: 5200, stones: 700, items: [{ id: 'abyss-bonefang', count: 1 }, { id: 'abyss-hp-potion', count: 4 }, { id: 'abyss-heal-pill', count: 1 }] }, herbs: 6,
 };
 
@@ -288,7 +288,7 @@ const BLOODGROTTO: DungeonDef = {
   id: 'abyss-bloodgrotto', name: 'Blood-Spring Grotto', chapter: 5, kind: 'cave', blurb: 'a warm spring that runs red, and something that bathes in it',
   entrance: { x: 124, y: 134, zone: 'abyss-basin' }, minLevel: 36, level: 'Lv 38-42', seed: 0xb100d57, size: { w: 80, h: 58 }, floor: 'crimson', wall: 'wall',
   scatter: [{ kind: 'rock', p: 0.022 }, { kind: 'taihurocks', p: 0.006 }, { kind: 'petals', p: 0.01 }, { kind: 'dragonpillar', p: 0.002 }],
-  spawns: { 'abyss-lavatoad': 7, 'abyss-bloodfoxfire': 6, 'abyss-hollowserpent': 6, 'abyss-emberbird': 3 }, mood: 'dusk', tier: { hp: 15.5, atk: 7.5, xp: 6.4 }, propTint: 0xff8a70,
+  spawns: { 'abyss-lavatoad': 7, 'abyss-bloodfoxfire': 6, 'abyss-hollowserpent': 6, 'abyss-emberbird': 3 }, mood: 'dusk', tier: { hp: 15.5, atk: 7.5, xp: 15.4 }, propTint: 0xff8a70,
   boss: 'abyss-springfox', reward: { xp: 4800, stones: 640, items: [{ id: 'abyss-ember-ring', count: 1 }, { id: 'abyss-mana-potion', count: 4 }, { id: 'abyss-qi-pill', count: 2 }] }, herbs: 6,
 };
 
@@ -296,7 +296,7 @@ const MIRRORVAULT: DungeonDef = {
   id: 'abyss-mirrorvault', name: 'Vault of Past Selves', chapter: 5, kind: 'realm', blurb: 'a hall of mirrors, each one showing who you chose not to be',
   entrance: { x: 70, y: 40, zone: 'abyss-mirror' }, minLevel: 41, level: 'Lv 43-47', seed: 0x31770a1, size: { w: 112, h: 62 }, floor: 'jade', wall: 'void', rooms: 5,
   scatter: [{ kind: 'moonwall', p: 0.002 }, { kind: 'standstone', p: 0.006 }, { kind: 'stonecircle', p: 0.0015 }],
-  spawns: { 'abyss-mirrorshade': 8, 'abyss-effigy': 6, 'abyss-regretghost': 5, 'abyss-bladewraith': 4 }, mood: 'mist', tier: { hp: 19, atk: 9, xp: 8 }, propTint: 0xc4e0ff,
+  spawns: { 'abyss-mirrorshade': 8, 'abyss-effigy': 6, 'abyss-regretghost': 5, 'abyss-bladewraith': 4 }, mood: 'mist', tier: { hp: 19, atk: 9, xp: 19.2 }, propTint: 0xc4e0ff,
   boss: 'abyss-vaultself', reward: { xp: 6200, stones: 860, items: [{ id: 'abyss-veil-robe', count: 1 }, { id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-mana-potion', count: 4 }] }, herbs: 5,
 };
 
@@ -304,7 +304,7 @@ const ASHMAW: DungeonDef = {
   id: 'abyss-ashmaw', name: 'Cinder Reliquary', chapter: 5, kind: 'realm', blurb: 'a burnt-out shrine where the Abyss keeps what cultivators wished to be remembered for',
   entrance: { x: 116, y: 88, zone: 'abyss-ash' }, minLevel: 42, level: 'Lv 44-48', seed: 0xa5a0a77, size: { w: 116, h: 60 }, floor: 'ash', wall: 'void', rooms: 5,
   scatter: [{ kind: 'standstone', p: 0.007 }, { kind: 'stonecircle', p: 0.002 }, { kind: 'dragonpillar', p: 0.002 }],
-  spawns: { 'abyss-ashknight': 7, 'abyss-cindergolem': 4, 'abyss-emberbird': 4, 'abyss-witheredpeach': 4, 'abyss-penitent': 3 }, mood: 'dusk', tier: { hp: 20, atk: 9.5, xp: 8.4 }, propTint: 0xb4a4b0,
+  spawns: { 'abyss-ashknight': 7, 'abyss-cindergolem': 4, 'abyss-emberbird': 4, 'abyss-witheredpeach': 4, 'abyss-penitent': 3 }, mood: 'dusk', tier: { hp: 20, atk: 9.5, xp: 20.2 }, propTint: 0xb4a4b0,
   boss: 'abyss-cinderwarden', reward: { xp: 6800, stones: 920, items: [{ id: 'abyss-bone-charm', count: 1 }, { id: 'abyss-hp-potion', count: 5 }, { id: 'abyss-heal-pill', count: 2 }] }, herbs: 5,
 };
 

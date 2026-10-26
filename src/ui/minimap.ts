@@ -1,5 +1,5 @@
 import type { WorldMap, GroundKind } from '../core/world';
-import { TILE_SIZE } from '../core/world';
+import { BLOCKING_GROUND, TILE_SIZE } from '../core/world';
 import { $ } from './dom';
 
 const COLOR: Record<GroundKind, string> = { grass: '#6a9a4a', grassDark: '#427440', moss: '#4e7c54', path: '#b69262', stone: '#989aa2', water: '#326898', sand: '#d0bc86', snow: '#e6eef6', ice: '#96c8e2', ash: '#605c62', lava: '#c8561c', cloud: '#d6d0ee', jade: '#5ca48a', crimson: '#7c323a', clay: '#c2845a', basalt: '#48445a', wall: '#1c1816', void: '#0e0c24' };
@@ -17,7 +17,7 @@ export function initMinimap(w: WorldMap, onOpen: () => void = () => undefined): 
   const b = base.getContext('2d')!;
   for (let ty = 0; ty < w.height; ty++) for (let tx = 0; tx < w.width; tx++) {
     const i = ty * w.width + tx;
-    b.fillStyle = w.blocked[i] && w.ground[i] !== 'water' ? '#26402a' : COLOR[w.ground[i]!];
+    b.fillStyle = w.blocked[i] && !BLOCKING_GROUND.has(w.ground[i]!) ? '#26402a' : COLOR[w.ground[i]!];
     b.fillRect(tx * PX, ty * PX, PX, PX);
   }
   for (const p of w.props) if (['palace', 'pagoda7', 'pavilion', 'tower', 'goldpaifang', 'goldgate'].includes(p.kind)) { b.fillStyle = '#e9d27a'; b.fillRect((p.x / TILE_SIZE) * PX - 2, (p.y / TILE_SIZE) * PX - 2, 4, 3); }
@@ -73,13 +73,15 @@ let wmBase: HTMLCanvasElement | null = null;
 export const isWorldMapOpen = (): boolean => !!document.getElementById('wmap');
 export function closeWorldMap(): void { document.getElementById('wmap')?.remove(); }
 
+let wmWorld: WorldMap | null = null;
 export function toggleWorldMap(w: WorldMap): void {
   if (isWorldMapOpen()) { closeWorldMap(); return; }
-  if (!wmBase || wmBase.width !== w.width * WM_PX) {
+  if (!wmBase || wmWorld !== w) {
+    wmWorld = w;
     wmBase = document.createElement('canvas'); wmBase.width = w.width * WM_PX; wmBase.height = w.height * WM_PX;
     const b = wmBase.getContext('2d')!;
     for (let ty = 0; ty < w.height; ty++) for (let tx = 0; tx < w.width; tx++) {
-      const i = ty * w.width + tx; b.fillStyle = w.blocked[i] && w.ground[i] !== 'water' ? '#26402a' : COLOR[w.ground[i]!]; b.fillRect(tx * WM_PX, ty * WM_PX, WM_PX, WM_PX);
+      const i = ty * w.width + tx; b.fillStyle = w.blocked[i] && !BLOCKING_GROUND.has(w.ground[i]!) ? '#26402a' : COLOR[w.ground[i]!]; b.fillRect(tx * WM_PX, ty * WM_PX, WM_PX, WM_PX);
     }
   }
   const box = document.createElement('div'); box.id = 'wmap';

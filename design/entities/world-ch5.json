@@ -1,0 +1,103 @@
+{
+  "chapter": 5,
+  "seed": 20261016,
+  "width": 176,
+  "height": 144,
+  "tileSize": 16,
+  "spawn": {
+    "x": 424,
+    "y": 2008
+  },
+  "portal": {
+    "x": 632,
+    "y": 1976
+  },
+  "bossHomes": {
+    "abyss-tyrant": {
+      "x": 2248,
+      "y": 1928
+    },
+    "abyss-matron": {
+      "x": 2568,
+      "y": 1000
+    },
+    "abyss-daodemon": {
+      "x": 2408,
+      "y": 264
+    }
+  },
+  "anchors": {
+    "lantern": {
+      "x": 424,
+      "y": 1896
+    },
+    "abyss-blades": {
+      "x": 1032,
+      "y": 1672
+    },
+    "abyss-basin": {
+      "x": 1704,
+      "y": 1896
+    },
+    "abyss-mirror": {
+      "x": 936,
+      "y": 1096
+    },
+    "abyss-bonewood": {
+      "x": 456,
+      "y": 1000
+    },
+    "abyss-ash": {
+      "x": 1640,
+      "y": 1224
+    },
+    "abyss-regret": {
+      "x": 2184,
+      "y": 872
+    },
+    "abyss-peak": {
+      "x": 2408,
+      "y": 264
+    }
+  },
+  "npcs": {
+    "matron-hui": {
+      "x": 456,
+      "y": 1816
+    },
+    "smith-tang": {
+      "x": 536,
+      "y": 1912
+    },
+    "alchemist-lian": {
+      "x": 312,
+      "y": 1912
+    },
+    "gravetender-jun": {
+      "x": 888,
+      "y": 1688
+    },
+    "ferryman-tu": {
+      "x": 1608,
+      "y": 1928
+    },
+    "scribe-ao": {
+      "x": 984,
+      "y": 1144
+    },
+    "huntress-ye": {
+      "x": 504,
+      "y": 1048
+    },
+    "drifter-dun": {
+      "x": 1688,
+      "y": 1272
+    },
+    "sister-sen": {
+      "x": 2136,
+      "y": 920
+    }
+  },
+  "herbs": 50,
+  "propCount": 1251
+}

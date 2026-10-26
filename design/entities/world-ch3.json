@@ -1,0 +1,103 @@
+{
+  "chapter": 3,
+  "seed": 20261016,
+  "width": 160,
+  "height": 132,
+  "tileSize": 16,
+  "spawn": {
+    "x": 392,
+    "y": 1784
+  },
+  "portal": {
+    "x": 392,
+    "y": 1864
+  },
+  "bossHomes": {
+    "sandwyrm": {
+      "x": 1608,
+      "y": 1736
+    },
+    "mirageempress": {
+      "x": 1448,
+      "y": 584
+    },
+    "furnacewarden": {
+      "x": 2248,
+      "y": 328
+    }
+  },
+  "anchors": {
+    "bazaar": {
+      "x": 392,
+      "y": 1672
+    },
+    "dunes": {
+      "x": 936,
+      "y": 1544
+    },
+    "oasis": {
+      "x": 904,
+      "y": 1160
+    },
+    "canyon": {
+      "x": 1608,
+      "y": 1736
+    },
+    "saltflats": {
+      "x": 456,
+      "y": 712
+    },
+    "magmarift": {
+      "x": 1896,
+      "y": 1064
+    },
+    "suntemple": {
+      "x": 1448,
+      "y": 584
+    },
+    "furnace": {
+      "x": 2248,
+      "y": 328
+    }
+  },
+  "npcs": {
+    "caravan-master-hui": {
+      "x": 424,
+      "y": 1576
+    },
+    "trader-sahn": {
+      "x": 504,
+      "y": 1688
+    },
+    "alchemist-zhu": {
+      "x": 280,
+      "y": 1688
+    },
+    "wanderer-dahl": {
+      "x": 1000,
+      "y": 1592
+    },
+    "keeper-ila": {
+      "x": 920,
+      "y": 1192
+    },
+    "hunter-tarq": {
+      "x": 1400,
+      "y": 1784
+    },
+    "miner-borok": {
+      "x": 1912,
+      "y": 1336
+    },
+    "hermit-zaim": {
+      "x": 488,
+      "y": 760
+    },
+    "scholar-eun": {
+      "x": 1560,
+      "y": 728
+    }
+  },
+  "herbs": 57,
+  "propCount": 923
+}

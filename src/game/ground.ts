@@ -84,11 +84,11 @@ export class GroundChunks {
 
   /** Bakes every chunk the camera can see right now, synchronously (call once when the scene starts). */
   prime(v: ViewRect): void {
-    for (const id of this.chunksIn(v.x, v.y, v.width, v.height, 120)) if (!this.images.has(id)) { const g = this.bake(id); while (!g.next().done); }
+    for (const id of this.chunksIn(v.x, v.y, v.width, v.height, CHUNK_WORLD * 0.6)) if (!this.images.has(id)) { const g = this.bake(id); while (!g.next().done); }
   }
 
   /** Per frame: queue chunks around the camera, bake for at most `budgetMs`, drop chunks that are far away. */
-  update(v: ViewRect, budgetMs = 6): void {
+  update(v: ViewRect, budgetMs = 4): void {
     for (const id of this.chunksIn(v.x, v.y, v.width, v.height, 0)) if (!this.images.has(id)) { if (this.job?.id === id) this.job = null; const g = this.bake(id); while (!g.next().done); } // a teleport or restart: never show bare ground
     this.wanted = this.chunksIn(v.x, v.y, v.width, v.height, CHUNK_WORLD * 0.6);
     const keep = new Set(this.chunksIn(v.x, v.y, v.width, v.height, CHUNK_WORLD * 1.6));
