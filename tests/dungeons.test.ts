@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { BOSSES, bossesOfChapter, bossesOfDungeon } from '../src/data/boss';
-import { CHAPTERS } from '../src/data/chapters';
+import { CHAPTERS, canEnterChapter } from '../src/data/chapters';
 import { DUNGEONS, DUNGEON_IDS, dungeonOfBoss, dungeonsOfChapter } from '../src/data/dungeons';
 import { ENEMIES } from '../src/data/enemies';
 import { ITEMS } from '../src/data/items';
 import { ZONES, zonesOfChapter } from '../src/data/zones';
-import { generateChapter, generateDungeonMap, isBlockedTile, TILE_SIZE, type WorldMap } from '../src/core/world';
-import { canEnterDungeon, claimDungeonReward, isDungeonCleared } from '../src/core/dungeonRun';
+import { generateChapter, generateDungeonMap, isBlockedTile, nearestFree, TILE_SIZE, type WorldMap } from '../src/core/world';
+import { canEnterDungeon, claimDungeonReward, flushPending, isDungeonCleared } from '../src/core/dungeonRun';
+import { HERO_IDS } from '../src/data/heroes';
 import { newGameState } from '../src/core/gameState';
 import { parseSave, serialize } from '../src/core/save';
 
@@ -113,5 +114,39 @@ describe('dungeon rules', () => {
     const legacy = serialize({ ...gs, dungeon: undefined as unknown as null });
     const r = parseSave(legacy); expect(r.ok).toBe(true);
     if (r.ok) expect(r.state.dungeon).toBeNull();
+  });
+});
+
+describe('QA round 18 fixes', () => {
+  it('a full bag parks the dungeon reward instead of losing it, and it arrives once there is room', () => {
+    const gs = newGameState('t', 'flame', HERO_IDS[0]!, { x: 0, y: 0 });
+    const d = DUNGEONS['wolfden']!;
+    for (let i = 0; i < gs.inventory.slots.length; i++) gs.inventory.slots[i] = { id: 'steel-blade', count: 1 };
+    const r = claimDungeonReward(gs, d);
+    expect(r.overflow.length).toBeGreaterThan(0);
+    expect(gs.pending?.length).toBe(r.overflow.length);
+    expect(flushPending(gs)).toEqual([]); // still no room
+    gs.inventory.slots[0] = null; gs.inventory.slots[1] = null; gs.inventory.slots[2] = null;
+    expect(flushPending(gs).length).toBe(r.overflow.length);
+    expect(gs.pending).toBeUndefined();
+  });
+  it('pending rewards survive a save round trip', () => {
+    const gs = newGameState('t', 'flame', HERO_IDS[0]!, { x: 0, y: 0 });
+    gs.pending = [{ id: 'steel-blade', count: 1 }];
+    const back = parseSave(serialize(gs));
+    expect(back.ok).toBe(true);
+  });
+  it('coming back through a gate never lands inside rock (all chapters)', () => {
+    for (const n of [2, 3, 4, 5]) {
+      const m = generateChapter(n - 1), g = m.portalNext ?? m.portal;
+      const p = nearestFree(m, { x: g.x, y: g.y + 34 });
+      expect(p, `ch${n - 1} gate`).not.toBeNull();
+      expect(isBlockedTile(m, Math.floor(p!.x / TILE_SIZE), Math.floor(p!.y / TILE_SIZE))).toBe(false);
+    }
+  });
+  it('a closed chapter gate names the bosses still to defeat', () => {
+    const r = canEnterChapter(4, 1, []);
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toMatch(/still to do: .*level/);
   });
 });

@@ -297,7 +297,7 @@ const MIRRORVAULT: DungeonDef = {
   entrance: { x: 70, y: 40, zone: 'abyss-mirror' }, minLevel: 41, level: 'Lv 43-47', seed: 0x31770a1, size: { w: 112, h: 62 }, floor: 'jade', wall: 'void', rooms: 5,
   scatter: [{ kind: 'moonwall', p: 0.002 }, { kind: 'standstone', p: 0.006 }, { kind: 'stonecircle', p: 0.0015 }],
   spawns: { 'abyss-mirrorshade': 8, 'abyss-effigy': 6, 'abyss-regretghost': 5, 'abyss-bladewraith': 4 }, mood: 'mist', tier: { hp: 19, atk: 9, xp: 19.2 }, propTint: 0xc4e0ff,
-  boss: 'abyss-vaultself', reward: { xp: 6200, stones: 860, items: [{ id: 'abyss-veil-robe', count: 1 }, { id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-mana-potion', count: 4 }] }, herbs: 5,
+  boss: 'abyss-vaultself', reward: { xp: 2360, stones: 860, items: [{ id: 'abyss-veil-robe', count: 1 }, { id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-mana-potion', count: 4 }] }, herbs: 5,
 };
 
 const ASHMAW: DungeonDef = {
@@ -406,7 +406,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Eight Blade-Wraiths in the Field of Unburied Blades, and four Spirit Herbs. East along the road.',
     completeText: 'The lantern did not flicker once tonight. That is the nicest thing anyone has done for this camp in a year. Sit, eat, and then I will tell you about the river.',
     objectives: [{ type: 'kill', target: 'abyss-bladewraith', count: 8, label: 'Cut down Blade-Wraiths' }, { type: 'collect', item: 'spirit-herb', count: 4, label: 'Gather Spirit Herbs' }],
-    reward: { xp: 4200, stones: 800, items: [{ id: 'abyss-hp-potion', count: 4 }, { id: 'abyss-mana-potion', count: 3 }] },
+    reward: { xp: 1600, stones: 800, items: [{ id: 'abyss-hp-potion', count: 4 }, { id: 'abyss-mana-potion', count: 3 }] },
   },
   {
     id: 'abyss-blood-river', chapter: 5, name: 'The Blood-River Tyrant', giver: 'matron-hui', requires: 'abyss-first-flame',
@@ -414,7 +414,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'The Blood-River Tyrant waits on the far shore of Bloodfire Basin, east of the blades along the southern road.',
     completeText: 'The river is quiet. I can hear it breathing, almost like water. Take this robe. It was the Tyrant\'s promise to keep the dead dry, and it never did get to use it.',
     objectives: [{ type: 'kill', target: 'abyss-tyrant', count: 1, label: 'Slay the Blood-River Tyrant' }],
-    reward: { xp: 5200, stones: 1200, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-hp-potion', count: 4 }] },
+    reward: { xp: 1980, stones: 1200, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-hp-potion', count: 4 }] },
   },
   {
     id: 'abyss-mirror-truth', chapter: 5, name: 'What the Mirrors Say', giver: 'scribe-ao', requires: 'abyss-blood-river',
@@ -422,7 +422,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Eight Mirror Shades, and six Mirror Shards from them. The Ruined Mirror City, north of the Field of Blades.',
     completeText: 'This is strange. The shard reads, "You were right to be afraid." And on the back: "That is not the same as being wrong." Thank you. It helps more than you know.',
     objectives: [{ type: 'kill', target: 'abyss-mirrorshade', count: 8, label: 'Banish Mirror Shades' }, { type: 'collect', item: 'abyss-mirror-shard', count: 6, label: 'Collect Mirror Shards' }],
-    reward: { xp: 5000, stones: 1000, items: [{ id: 'abyss-mana-potion', count: 5 }, { id: 'abyss-qi-pill', count: 3 }] },
+    reward: { xp: 1900, stones: 1000, items: [{ id: 'abyss-mana-potion', count: 5 }, { id: 'abyss-qi-pill', count: 3 }] },
   },
   {
     id: 'abyss-matron', chapter: 5, name: 'The Matron of Regrets', giver: 'sister-sen', requires: 'abyss-mirror-truth',
@@ -438,7 +438,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Four elite monsters (golden names), anywhere in the Abyss.',
     completeText: 'Four fewer between you and the mountain. I will light the lantern in the window tonight. If you do not come down again, at least you will know there was a light.',
     objectives: [{ type: 'elite', count: 4, label: 'Slay Elite Monsters' }],
-    reward: { xp: 5600, stones: 1800, items: [{ id: 'abyss-heal-pill', count: 3 }, { id: 'abyss-hp-potion', count: 5 }, { id: 'abyss-mana-potion', count: 5 }] },
+    reward: { xp: 2130, stones: 1800, items: [{ id: 'abyss-heal-pill', count: 3 }, { id: 'abyss-hp-potion', count: 5 }, { id: 'abyss-mana-potion', count: 5 }] },
   },
   {
     id: 'abyss-dao-demon', chapter: 5, name: 'The Dao Demon of Tribulation', giver: 'matron-hui', requires: 'abyss-ash-trial',
@@ -446,7 +446,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Follow the road north from the Gardens of Regret, through the gold gate, to the Tribulation Peak.',
     completeText: 'It was never the monster at the top. It was whoever you were willing to become to reach it, and you walked past that, too. The Abyss grows quiet. Somewhere above, the sky is mending: slowly, like a bone. Come back to the lantern when you are ready. There is soup, and there is time. The Way goes on, and so, for now, do you.',
     objectives: [{ type: 'kill', target: 'abyss-daodemon', count: 1, label: 'Defeat the Dao Demon of Tribulation' }],
-    reward: { xp: 12000, stones: 6000, items: [{ id: 'abyss-heal-pill', count: 5 }, { id: 'abyss-hp-potion', count: 5 }, { id: 'abyss-qi-pill', count: 5 }] },
+    reward: { xp: 4560, stones: 6000, items: [{ id: 'abyss-heal-pill', count: 5 }, { id: 'abyss-hp-potion', count: 5 }, { id: 'abyss-qi-pill', count: 5 }] },
   },
   // ---- side quests ----
   {
@@ -455,7 +455,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Ten Blade-Wraiths and six Blade Shards, Field of Unburied Blades.',
     completeText: 'That is six fewer songs in the dark. I will bury them by the lantern, where someone can hear. Take this.',
     objectives: [{ type: 'kill', target: 'abyss-bladewraith', count: 10, label: 'Cut down Blade-Wraiths' }, { type: 'collect', item: 'abyss-blade-shard', count: 6, label: 'Collect Blade Shards' }],
-    reward: { xp: 3600, stones: 900, items: [{ id: 'abyss-hp-potion', count: 4 }, { id: 'abyss-qi-pill', count: 2 }] },
+    reward: { xp: 1370, stones: 900, items: [{ id: 'abyss-hp-potion', count: 4 }, { id: 'abyss-qi-pill', count: 2 }] },
   },
   {
     id: 'abyss-ferry-fire', chapter: 5, name: 'A Boat for the Fire', giver: 'ferryman-tu', requires: 'abyss-first-flame',
@@ -463,7 +463,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Eight Magma Toads and six Blood Foxfires in Bloodfire Basin.',
     completeText: 'The river\'s secret is that it is only afraid. It flows fast so nothing can catch it. Here: for a crossing well made.',
     objectives: [{ type: 'kill', target: 'abyss-lavatoad', count: 8, label: 'Slay Magma Toads' }, { type: 'kill', target: 'abyss-bloodfoxfire', count: 6, label: 'Douse Blood Foxfires' }],
-    reward: { xp: 4000, stones: 1000, items: [{ id: 'abyss-mana-potion', count: 4 }, { id: 'abyss-hp-potion', count: 3 }] },
+    reward: { xp: 1520, stones: 1000, items: [{ id: 'abyss-mana-potion', count: 4 }, { id: 'abyss-hp-potion', count: 3 }] },
   },
   {
     id: 'abyss-grotto-spring', chapter: 5, name: 'The Spring That Runs Red', giver: 'ferryman-tu', requires: 'abyss-ferry-fire',
@@ -471,7 +471,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'The Blood-Spring Grotto lies in the south of Bloodfire Basin. Defeat the Heretic inside.',
     completeText: 'The spring is turning clear again. It looks like nothing so much as water. That is the best thing I have seen in ten years.',
     objectives: [{ type: 'kill', target: 'abyss-springfox', count: 1, label: 'Defeat the Heretic of the Blood Spring' }],
-    reward: { xp: 4800, stones: 1200, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-qi-pill', count: 3 }] },
+    reward: { xp: 1820, stones: 1200, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-qi-pill', count: 3 }] },
   },
   {
     id: 'abyss-vault-selves', chapter: 5, name: 'The Vault of Past Selves', giver: 'scribe-ao', requires: 'abyss-mirror-truth',
@@ -479,7 +479,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'The Vault of Past Selves is a gate in the north of the Mirror City. Defeat what waits at the end.',
     completeText: 'I will write that you won. Then I will write that you were gentle, because I think that is what happened. Thank you.',
     objectives: [{ type: 'kill', target: 'abyss-vaultself', count: 1, label: 'Defeat the Self You Left Behind' }],
-    reward: { xp: 5400, stones: 1400, items: [{ id: 'abyss-heal-pill', count: 3 }, { id: 'abyss-mana-potion', count: 4 }] },
+    reward: { xp: 2050, stones: 1400, items: [{ id: 'abyss-heal-pill', count: 3 }, { id: 'abyss-mana-potion', count: 4 }] },
   },
   {
     id: 'abyss-bone-ledger', chapter: 5, name: 'The Bone Ledger', giver: 'huntress-ye', requires: 'abyss-first-flame',
@@ -487,7 +487,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Five Bone Treants, five Bone Roots. The Bone Forest, north-west of the camp.',
     completeText: 'The ledger balances. The forest has taken forty from us and returned nothing. Take this, and tell no one how short the list is.',
     objectives: [{ type: 'kill', target: 'abyss-bonetreant', count: 5, label: 'Fell Bone Treants' }, { type: 'collect', item: 'abyss-bone-root', count: 5, label: 'Collect Bone Roots' }],
-    reward: { xp: 4000, stones: 1100, items: [{ id: 'abyss-hp-potion', count: 4 }, { id: 'abyss-heal-pill', count: 1 }] },
+    reward: { xp: 1520, stones: 1100, items: [{ id: 'abyss-hp-potion', count: 4 }, { id: 'abyss-heal-pill', count: 1 }] },
   },
   {
     id: 'abyss-ash-whispers', chapter: 5, name: 'What the Ash Remembers', giver: 'drifter-dun', requires: 'abyss-first-flame',
@@ -495,7 +495,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Eight Ash Knights and five Reliquary Ash Ore. The Ash Plains and the Mirror City.',
     completeText: 'The ore says only one thing, over and over: "I was going to be somebody." That will do. Thank you. Here, take what I carry.',
     objectives: [{ type: 'kill', target: 'abyss-ashknight', count: 8, label: 'Fell Ash Knights' }, { type: 'collect', item: 'abyss-ash-ore', count: 5, label: 'Collect Ash Ore' }],
-    reward: { xp: 4400, stones: 1000, items: [{ id: 'abyss-qi-pill', count: 3 }, { id: 'abyss-mana-potion', count: 4 }] },
+    reward: { xp: 1670, stones: 1000, items: [{ id: 'abyss-qi-pill', count: 3 }, { id: 'abyss-mana-potion', count: 4 }] },
   },
   {
     id: 'abyss-regret-letters', chapter: 5, name: 'Letters Never Sent', giver: 'sister-sen', requires: 'abyss-mirror-truth',
@@ -503,7 +503,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Six Withered Peach Spirits and five Regret Blooms, in the Gardens of Regret.',
     completeText: 'I will read these tonight. The dead are patient listeners. Please take this for your trouble.',
     objectives: [{ type: 'kill', target: 'abyss-witheredpeach', count: 6, label: 'Quiet Withered Peach Spirits' }, { type: 'collect', item: 'abyss-regret-bloom', count: 5, label: 'Collect Regret Blooms' }],
-    reward: { xp: 5200, stones: 1200, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-qi-pill', count: 3 }] },
+    reward: { xp: 1980, stones: 1200, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-qi-pill', count: 3 }] },
   },
   {
     id: 'abyss-slag-and-ash', chapter: 5, name: 'Slag and Ash', giver: 'smith-tang', requires: 'abyss-first-flame',
@@ -511,7 +511,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'Four Cinder Golems and six Reliquary Ash Ore. The Ash Plains and Bloodfire Basin.',
     completeText: 'Excellent slag. It rings like a bell when I strike it. Here is your payment; the sword will take a week.',
     objectives: [{ type: 'kill', target: 'abyss-cindergolem', count: 4, label: 'Break Cinder Golems' }, { type: 'collect', item: 'abyss-ash-ore', count: 6, label: 'Collect Ash Ore' }],
-    reward: { xp: 4600, stones: 1500, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-hp-potion', count: 4 }] },
+    reward: { xp: 1750, stones: 1500, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-hp-potion', count: 4 }] },
   },
   {
     id: 'abyss-bone-cavern-delve', chapter: 5, name: 'The Ossuary Below', giver: 'huntress-ye', requires: 'abyss-bone-ledger',
@@ -519,7 +519,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'The Bone-Root Cavern lies in the west of the Bone Forest. Defeat the Root-King inside.',
     completeText: 'You went all the way down and came back up. Most people only do one of those. Take this.',
     objectives: [{ type: 'kill', target: 'abyss-rootking', count: 1, label: 'Defeat the Ossuary Root-King' }],
-    reward: { xp: 5000, stones: 1300, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-hp-potion', count: 4 }] },
+    reward: { xp: 1900, stones: 1300, items: [{ id: 'abyss-heal-pill', count: 2 }, { id: 'abyss-hp-potion', count: 4 }] },
   },
   {
     id: 'abyss-reliquary-delve', chapter: 5, name: 'The Cinder Reliquary', giver: 'drifter-dun', requires: 'abyss-ash-whispers',
@@ -527,7 +527,7 @@ const QUESTS_DEF: QuestDef[] = [
     reminder: 'The Cinder Reliquary stands east of the Ash Plains. Defeat the warden within.',
     completeText: 'It said a name. One. Mine, I think. I had forgotten. Thank you. Go on, I will stay here a while.',
     objectives: [{ type: 'kill', target: 'abyss-cinderwarden', count: 1, label: 'Defeat the Cinder Warden' }],
-    reward: { xp: 5800, stones: 1500, items: [{ id: 'abyss-heal-pill', count: 3 }, { id: 'abyss-qi-pill', count: 3 }] },
+    reward: { xp: 2200, stones: 1500, items: [{ id: 'abyss-heal-pill', count: 3 }, { id: 'abyss-qi-pill', count: 3 }] },
   },
 ];
 

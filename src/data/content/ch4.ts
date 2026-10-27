@@ -353,7 +353,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Eight Jade Sentinels and six Blossom Sprites, in the Peach Blossom Orchard and on the stair beyond it.',
     completeText: 'The road holds. Take these; the Magistrate\'s beasts will not be so gentle.',
     objectives: [{ type: 'kill', target: 'jadesentinel', count: 8, label: 'Smash Jade Sentinels' }, { type: 'kill', target: 'blossomsprite', count: 6, label: 'Banish Blossom Sprites' }],
-    reward: { xp: 2800, stones: 700, items: [{ id: 'jade-hp-potion', count: 4 }, { id: 'jade-mana-potion', count: 3 }] },
+    reward: { xp: 1060, stones: 700, items: [{ id: 'jade-hp-potion', count: 4 }, { id: 'jade-mana-potion', count: 3 }] },
   },
   {
     id: 'jade-storm-lord', chapter: 4, name: 'The Crane That Calls Thunder', giver: 'warden-lian', requires: 'jade-ascent',
@@ -361,7 +361,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'The Storm Crane Lord holds the Court of Storms, north-east along the stair road.',
     completeText: 'The clouds are quiet. Its saber is yours; the Court owes it to you.',
     objectives: [{ type: 'kill', target: 'cranelord', count: 1, label: 'Slay the Storm Crane Lord' }],
-    reward: { xp: 3800, stones: 1100, items: [{ id: 'jade-hp-potion', count: 4 }, { id: 'jade-pill', count: 2 }] },
+    reward: { xp: 1440, stones: 1100, items: [{ id: 'jade-hp-potion', count: 4 }, { id: 'jade-pill', count: 2 }] },
   },
   {
     id: 'jade-archive-keeper', chapter: 4, name: 'What the Archive Remembers', giver: 'scholar-mei', requires: 'jade-storm-lord',
@@ -369,7 +369,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'The Keeper of the Jade Archive is at the heart of the Library, north-west of the stair.',
     completeText: 'The slips are quiet. The Magistrate\'s dais is open to you now. Go. Finish this.',
     objectives: [{ type: 'kill', target: 'archivekeeper', count: 1, label: 'Slay the Keeper of the Jade Archive' }],
-    reward: { xp: 4600, stones: 1400, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-mana-potion', count: 4 }] },
+    reward: { xp: 1750, stones: 1400, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-mana-potion', count: 4 }] },
   },
   {
     id: 'jade-magistrate', chapter: 4, name: 'The Celestial Magistrate', giver: 'warden-lian', requires: 'jade-archive-keeper',
@@ -377,7 +377,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Follow either causeway north to the Magistrate\'s Dais, in the far north-east.',
     completeText: 'The gate is open. For the first time in an age, the sky is willing to listen. Rest, climber. There is more below the clouds than any of us knew.',
     objectives: [{ type: 'kill', target: 'magistrate', count: 1, label: 'Defeat the Celestial Magistrate' }],
-    reward: { xp: 7000, stones: 2500, items: [{ id: 'jade-elixir', count: 5 }, { id: 'jade-pill', count: 4 }] },
+    reward: { xp: 2660, stones: 2500, items: [{ id: 'jade-elixir', count: 5 }, { id: 'jade-pill', count: 4 }] },
   },
   // ---- side quests
   {
@@ -386,7 +386,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Six Blossom Treants and five Heavenly Peaches in the orchard.',
     completeText: 'Sweet as the first spring. Drink slowly; it is stronger than it tastes.',
     objectives: [{ type: 'kill', target: 'blossomtreant', count: 6, label: 'Fell Blossom Treants' }, { type: 'collect', item: 'jade-peach', count: 5, label: 'Gather Heavenly Peaches' }],
-    reward: { xp: 2000, stones: 500, items: [{ id: 'jade-elixir', count: 2 }, { id: 'jade-mana-potion', count: 3 }] },
+    reward: { xp: 760, stones: 500, items: [{ id: 'jade-elixir', count: 2 }, { id: 'jade-mana-potion', count: 3 }] },
   },
   {
     id: 'jade-lake-lanterns', chapter: 4, name: 'Lanterns for the Drowned', giver: 'boatman-ke', requires: 'jade-ascent',
@@ -394,7 +394,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Eight Mirror Wraiths and four Spirit Herbs by the Mirror Lake.',
     completeText: 'The lanterns burn steady. Thank you. They can rest now.',
     objectives: [{ type: 'kill', target: 'mirrorwraith', count: 8, label: 'Banish Mirror Wraiths' }, { type: 'collect', item: 'spirit-herb', count: 4, label: 'Gather Spirit Herbs' }],
-    reward: { xp: 2200, stones: 600, items: [{ id: 'jade-hp-potion', count: 4 }, { id: 'jade-pill', count: 1 }] },
+    reward: { xp: 840, stones: 600, items: [{ id: 'jade-hp-potion', count: 4 }, { id: 'jade-pill', count: 1 }] },
   },
   {
     id: 'jade-stair-toll', chapter: 4, name: 'The Thousand-Step Toll', giver: 'sentinel-zhao', requires: 'jade-ascent',
@@ -402,7 +402,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Six Jade Colossi and two elites on the Thousand-Step Stair.',
     completeText: 'Quieter already. Take this. You earned it more honestly than I did mine.',
     objectives: [{ type: 'kill', target: 'jadecolossus', count: 6, label: 'Shatter Jade Colossi' }, { type: 'elite', count: 2, label: 'Slay Elite Monsters' }],
-    reward: { xp: 2600, stones: 800, items: [{ id: 'jade-elixir', count: 2 }, { id: 'jade-hp-potion', count: 3 }] },
+    reward: { xp: 990, stones: 800, items: [{ id: 'jade-elixir', count: 2 }, { id: 'jade-hp-potion', count: 3 }] },
   },
   {
     id: 'jade-cavern-echo', chapter: 4, name: 'The Wyrm Under the Orchard', giver: 'sentinel-zhao', requires: 'jade-stair-toll',
@@ -410,7 +410,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Cloudhollow Cavern lies on the south edge of the Peach Blossom Orchard.',
     completeText: 'The stair has stopped shaking. Good work, climber.',
     objectives: [{ type: 'kill', target: 'cloudwyrm', count: 1, label: 'Slay the Cloudwyrm' }],
-    reward: { xp: 3200, stones: 1000, items: [{ id: 'jade-hp-potion', count: 5 }, { id: 'jade-pill', count: 2 }] },
+    reward: { xp: 1220, stones: 1000, items: [{ id: 'jade-hp-potion', count: 5 }, { id: 'jade-pill', count: 2 }] },
   },
   {
     id: 'jade-lost-slips', chapter: 4, name: 'Scraps of Scripture', giver: 'scholar-mei', requires: 'jade-ascent',
@@ -418,7 +418,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Eight Scroll Wraiths and six Charred Jade Slips, in the Library of Jade Slips.',
     completeText: 'It is worse than I feared and better than I hoped. The smoke did not poison the Magistrate; someone told him it did.',
     objectives: [{ type: 'kill', target: 'scrollwraith', count: 8, label: 'Banish Scroll Wraiths' }, { type: 'collect', item: 'jade-slip-scrap', count: 6, label: 'Gather Charred Jade Slips' }],
-    reward: { xp: 2800, stones: 800, items: [{ id: 'jade-mana-potion', count: 4 }, { id: 'jade-pill', count: 2 }] },
+    reward: { xp: 1060, stones: 800, items: [{ id: 'jade-mana-potion', count: 4 }, { id: 'jade-pill', count: 2 }] },
   },
   {
     id: 'jade-vault-key', chapter: 4, name: 'The Sealed Vault', giver: 'scholar-mei', requires: 'jade-lost-slips',
@@ -426,7 +426,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'The vault door is on the west edge of the Library of Jade Slips.',
     completeText: 'It is finished. May we never need to write that page again.',
     objectives: [{ type: 'kill', target: 'vaultcalligrapher', count: 1, label: 'Slay the Vault Calligrapher' }],
-    reward: { xp: 4000, stones: 1400, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-mana-potion', count: 4 }] },
+    reward: { xp: 1520, stones: 1400, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-mana-potion', count: 4 }] },
   },
   {
     id: 'jade-crane-feathers', chapter: 4, name: 'Feathers of Thunder', giver: 'hermit-gu', requires: 'jade-ascent',
@@ -434,7 +434,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Five Storm Crane Feathers and three elites around the Crane Pavilions and the Court of Storms.',
     completeText: 'It will not stop a verdict. It may make him listen to the appeal.',
     objectives: [{ type: 'collect', item: 'jade-feather', count: 5, label: 'Gather Storm Crane Feathers' }, { type: 'elite', count: 3, label: 'Slay Elite Monsters' }],
-    reward: { xp: 3400, stones: 1000, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-pill', count: 2 }] },
+    reward: { xp: 1290, stones: 1000, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-pill', count: 2 }] },
   },
   {
     id: 'jade-mine-dust', chapter: 4, name: 'Jade Dust for the Furnace', giver: 'alchemist-ning', requires: 'jade-ascent',
@@ -442,7 +442,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'Six Raw Jade Ore from jade constructs, and the Jade Seam Tyrant in Seamdeep Jade Mine on the stair.',
     completeText: 'Beautiful. Heavy and pure. Here is the first batch, as promised.',
     objectives: [{ type: 'collect', item: 'jade-ore', count: 6, label: 'Gather Raw Jade Ore' }, { type: 'kill', target: 'seamtyrant', count: 1, label: 'Slay the Jade Seam Tyrant' }],
-    reward: { xp: 3600, stones: 1200, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-pill', count: 3 }] },
+    reward: { xp: 1370, stones: 1200, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-pill', count: 3 }] },
   },
   {
     id: 'jade-moon-echo', chapter: 4, name: 'The Palace in the Water', giver: 'boatman-ke', requires: 'jade-lake-lanterns',
@@ -450,7 +450,7 @@ const QUEST_LIST: QuestDef[] = [
     reminder: 'The palace gate stands on the south shore of the Mirror Lake.',
     completeText: 'The water is just water now. I think I can sleep. Thank you.',
     objectives: [{ type: 'kill', target: 'mirrorqueen', count: 1, label: 'Defeat the Lady of the Moon Mirror' }],
-    reward: { xp: 4200, stones: 1500, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-hp-potion', count: 5 }] },
+    reward: { xp: 1600, stones: 1500, items: [{ id: 'jade-elixir', count: 3 }, { id: 'jade-hp-potion', count: 5 }] },
   },
 ];
 

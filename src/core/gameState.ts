@@ -51,6 +51,8 @@ export interface GameState {
   hints: string[];
   /** Dao Insight ranks (spent skill points) */
   insight: InsightRanks;
+  /** reward items that did not fit in the bag; handed over as soon as there is room (see `flushPending`) */
+  pending?: { id: string; count: number }[];
 }
 
 export const WARDEN_ID = 'warden';

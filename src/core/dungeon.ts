@@ -127,9 +127,21 @@ export function generateDungeon(def: DungeonDef): WorldMap {
   // dressing in the rock around the floor: purely visual, never blocks anything that is open
   if (def.kind === 'realm') {
     const far: PropKind[] = ['floatisle', 'floatisle', 'petals'];
-    for (let k = 0; k < 14; k++) {
+    for (let k = 0; k < 40; k++) {
       const tx = BORDER + Math.floor(rng() * (w - 2 * BORDER)), ty = BORDER + Math.floor(rng() * (h - 2 * BORDER));
       if (ground[at(tx, ty)] === def.wall && !occ[at(tx, ty)]) props.push({ kind: far[k % far.length]!, x: (tx + 0.5) * TILE_SIZE, y: (ty + 1) * TILE_SIZE });
+    }
+  } else {
+    // a cave's rock face: boulders and stalagmite-like rocks set two tiles inside the wall so the rim reads as stone, not a flat smudge
+    const deep = (tx: number, ty: number): boolean => {
+      for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) if (ground[at(tx + dx, ty + dy)] !== def.wall) return false;
+      return true;
+    };
+    const rim: PropKind[] = ['taihurocks', 'rock', 'taihurocks'];
+    for (let k = 0, tries = 0; k < 70 && tries < 4000; tries++) {
+      const tx = BORDER + 2 + Math.floor(rng() * (w - 2 * BORDER - 4)), ty = BORDER + 2 + Math.floor(rng() * (h - 2 * BORDER - 4));
+      if (!deep(tx, ty) || occ[at(tx, ty)]) continue;
+      props.push({ kind: rim[k % rim.length]!, x: (tx + 0.5) * TILE_SIZE, y: (ty + 1) * TILE_SIZE }); k++;
     }
   }
 

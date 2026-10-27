@@ -1,4 +1,14 @@
 
+## Round 19 (independent QA of the Round 18 world)
+Two independent QA agents (world/quests/visuals; dungeons/saves) tested HEAD d3f3aa8. Reachability, spawn placement, quest completability (72 quests, static), gates, old-save migration and all 19 dungeons came back clean. Fixed:
+- **Data loss**: a first-clear dungeon reward no longer vanishes when the bag is full; it is parked in `GameState.pending` and handed over (toast) as soon as a slot frees up. Saves validate/round-trip it.
+- **Back gate** from ch4->ch3 (and any chapter) landed in rock and fell back to the hub: `nearestFree` now finds a free spot beside the gate.
+- **Quest XP overshoot**: ch3/4/5 quest XP cut to ~40% of each chapter's level span (8.9k / 17.6k / 36.2k, was 34k / 46k / 85k) so zones stay relevant after half the quests.
+- Chapter gate messages name the missing bosses and the level still needed.
+- Dungeons never open with a monster at the gate (initial spawns >= 240px away); caves get boulders set in the rock face and realms ~3x more floating islands; death text says you wake outside the cave; XP bar shows "max level" at 50.
+- Tests: 4 new unit tests (`tests/dungeons.test.ts`).
+- Known, not fixed: boss art recycled (19 of ~34 bosses reuse 3 sprites), cave walls still dark smudges, ch2 snow zones near-identical, single cave/realm generator, props on water/void unverified on screen, boss fights at minimum level not hand-played.
+
 ## Round 18 (world expansion: "map too small, no depth")
 - **Five chapters, 6-8 zones each** (45 open-map zones in total): ch1 144x124 (8 zones), ch2 144x124 (7), ch3 The Ember Wastes 160x132 (8), ch4 The Jade Heavens 164x136 (8, floating terraces over void chasms), ch5 The Crimson Abyss 176x144 (8, finale: Dao Demon of Tribulation, 330000 HP). Chapter maps are 2-3x larger than before.
 - **Caves and secret realms**: 19 dungeons (>= 3 per chapter, >= 2 caves and >= 1 realm each). Gate on the chapter map, level gate, own enemies/boss/tint, one-time first-clear reward (XP, stones, items), save-safe (reload inside), dying wakes you outside the gate. Caves are cellular caverns, realms are chains of chambers over the void.

@@ -64,3 +64,7 @@
 - Screenshots reviewed (tour): hubs, zones, caves, realms and bosses of every chapter; fixed ground black patches (sync-bake on teleport), brick-looking cliff/cave rock (natural rock texture), gate collision in dungeons, forced set pieces being filled by scatter.
 - UNVERIFIED: human playthrough/balance, boss fight feel in new chapters, real-GPU perf, audio.
 
+
+## 2026-10-27 - Round 19 QA of the new world -> fixes
+- Two independent QA agents tested d3f3aa8 (world/quests/visuals and dungeons/saves). Structure clean; fixed bag-full reward loss (`gs.pending`), back-gate landing in rock (`nearestFree`), ch3-5 quest XP overshoot, vague gate messages, monsters at dungeon gates, XP bar at max level, death text; denser cave/realm dressing. See docs/CHANGELOG.md "Round 19".
+- UNVERIFIED: hand-played boss fights and quest flow in ch3-5, real-GPU fps, audio, props on water/void on screen. Art is still placeholder (recycled boss sprites, dark cave walls).

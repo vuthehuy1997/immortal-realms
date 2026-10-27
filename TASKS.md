@@ -79,3 +79,5 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [ ] Known: e2e/boons.spec.ts:69 (real dash through a boss slam) and e2e/world.spec.ts:142 (fps) fail on the pre-R18 build too under current machine load (load average 30-60)
 - [ ] Ideas: tower arena, loot affixes, distinct hero technique kits, dungeon-specific mechanics (traps, puzzles), cave wall art, set pieces for ch3-5 hubs
 
+- [x] R19: QA round on the new world: bag-full dungeon reward kept in `pending`, back-gate landing, ch3-5 quest XP rebalanced, gate messages name bosses, no monsters at dungeon gates
+- [ ] Open from R19 QA: boss art recycled (19 of ~34 bosses use 3 sprites), cave/realm interiors sparse with a single generator each, ch2 snow zones near-identical, grey brick floor reused in many zones, 14 of 19 dungeons have 3.4-4 wide tunnels that pin big bodies (radius 9), boss winnability at minLevel not hand-played, props on water/void unchecked on screen

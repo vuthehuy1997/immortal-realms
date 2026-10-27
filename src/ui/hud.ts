@@ -1,7 +1,7 @@
 import { SKILLS } from '../data/skills';
 import { QUESTS } from '../data/quests';
 import { REALMS } from '../data/realms';
-import { xpToNext } from '../core/progression';
+import { MAX_LEVEL, xpToNext } from '../core/progression';
 import { progressOf } from '../core/quest';
 import { countOf } from '../core/inventory';
 import { scaledSkill } from '../core/skills';
@@ -64,7 +64,8 @@ export function updateHud(f: HudFrame): void {
   setFill($('hp'), (100 * gs.hp) / f.maxHp); setText($('hptxt'), `HP ${Math.ceil(gs.hp)} / ${f.maxHp}`);
   setFill($('mp'), (100 * gs.mana) / f.maxMana); setText($('mptxt'), `Mana ${Math.floor(gs.mana)} / ${f.maxMana}`);
   const need = xpToNext(gs.progress.level);
-  setWidth($('xp'), (100 * gs.progress.xp) / need); setText($('xptxt'), `XP ${gs.progress.xp} / ${need}`);
+  const maxed = gs.progress.level >= MAX_LEVEL;
+  setWidth($('xp'), maxed ? 100 : (100 * gs.progress.xp) / need); setText($('xptxt'), maxed ? 'XP · max level' : `XP ${gs.progress.xp} / ${need}`);
   const qm = REALMS[gs.cultivation.realm]!.qiMax;
   setFill($('qi'), (100 * gs.cultivation.qi) / qm); setText($('qitxt'), `Qi ${Math.floor(gs.cultivation.qi)} / ${qm}`);
   setText($('stonetxt'), String(gs.stones));

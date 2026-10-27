@@ -1,4 +1,4 @@
-import { bossesOfChapter } from './boss';
+import { BOSSES, bossesOfChapter } from './boss';
 import type { ZoneId } from './zones';
 import type { Gear } from '../core/character';
 import { CONTENT } from './content';
@@ -57,7 +57,10 @@ export function canEnterChapter(n: number, level: number, defeated: readonly str
   if (!c) return { ok: false, reason: 'No such chapter.' };
   if (!c.gate) return { ok: true };
   const missing = (c.gate.bosses ?? chapterBosses(n - 1)).filter((b) => !defeated.includes(b));
-  if (level < c.gate.level || missing.length) return { ok: false, reason: c.gate.hint };
+  if (level < c.gate.level || missing.length) {
+    const need = [level < c.gate.level ? `reach level ${c.gate.level}` : '', missing.length ? `defeat ${missing.map((b) => BOSSES[b]?.name ?? b).join(', ')}` : ''].filter(Boolean).join(' and ');
+    return { ok: false, reason: `${c.gate.hint} (still to do: ${need})` };
+  }
   return { ok: true };
 }
 

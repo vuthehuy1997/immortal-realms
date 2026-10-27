@@ -67,6 +67,19 @@ function boxBlocked(m: WorldMap, x: number, y: number, r: number): boolean {
   return false;
 }
 
+/** Nearest spot to `p` (spiralling outwards, preferring below it) where a body of half-size `r` fits, or null. */
+export function nearestFree(m: WorldMap, p: Vec2, r = 6, maxRing = 12): Vec2 | null {
+  if (!boxBlocked(m, p.x, p.y, r)) return { ...p };
+  for (let ring = 1; ring <= maxRing; ring++) {
+    for (let dy = ring; dy >= -ring; dy--) for (let dx = -ring; dx <= ring; dx++) {
+      if (Math.max(Math.abs(dx), Math.abs(dy)) !== ring) continue;
+      const q = { x: p.x + dx * TILE_SIZE, y: p.y + dy * TILE_SIZE };
+      if (!boxBlocked(m, q.x, q.y, r)) return q;
+    }
+  }
+  return null;
+}
+
 /** Axis-separated move so entities slide along walls. `r` is the half-size of the collision box in world units. */
 export function moveWithCollision(m: WorldMap, from: Vec2, to: Vec2, r: number): Vec2 {
   let { x, y } = from;

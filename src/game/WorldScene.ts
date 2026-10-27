@@ -24,10 +24,10 @@ import { impulse, stepKnockback } from '../core/knockback';
 import { step, type Vec2 } from '../core/movement';
 import { acceptQuest } from '../core/quest';
 import { createRng } from '../core/rng';
-import { generateChapter, generateDungeonMap, isBlockedTile, moveWithCollision, tileToWorld, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
+import { generateChapter, generateDungeonMap, isBlockedTile, moveWithCollision, nearestFree, tileToWorld, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
 import { BOSSES, bossesOfChapter, bossesOfDungeon, type BossDef } from '../data/boss';
 import { DUNGEONS, dungeonsOfChapter, type DungeonDef } from '../data/dungeons';
-import { canEnterDungeon, claimDungeonReward, isDungeonCleared } from '../core/dungeonRun';
+import { canEnterDungeon, claimDungeonReward, flushPending, isDungeonCleared } from '../core/dungeonRun';
 import { ENEMIES, type EnemyDef } from '../data/enemies';
 import { HEROES } from '../data/heroes';
 import { ITEMS } from '../data/items';
@@ -194,7 +194,7 @@ export class WorldScene extends Phaser.Scene {
       this.npcs.push({ id, pos: p, actor, mark, plate });
     }
 
-    for (const zid of this.zoneIds) for (const [type, n] of Object.entries(ZONES[zid]!.spawns)) for (let i = 0; i < n; i++) this.spawnInZone(zid, type);
+    for (const zid of this.zoneIds) for (const [type, n] of Object.entries(ZONES[zid]!.spawns)) for (let i = 0; i < n; i++) this.spawnInZone(zid, type, this.dungeon ? this.world.spawn : undefined); // a dungeon never opens with a monster at the gate
     for (const def of this.dungeon ? bossesOfDungeon(this.dungeon.id) : bossesOfChapter(this.chapter)) this.spawnBoss(def); // bosses always return: repeat kills pay less and drop no unique items
     this.hpBars = this.add.graphics().setDepth(1e5);
 
@@ -316,7 +316,7 @@ export class WorldScene extends Phaser.Scene {
     return null;
   }
   private spawnInZone(z: ZoneId, type: string, farFrom?: Vec2): void {
-    const p = this.spotInZone(z, farFrom, 160);
+    const p = this.spotInZone(z, farFrom, farFrom ? 240 : 160);
     if (p) this.spawnEnemy(type, p, false, z);
   }
 
@@ -501,7 +501,7 @@ export class WorldScene extends Phaser.Scene {
     this.gs.chapter = n; this.gs.dungeon = null;
     const m = generateChapter(n);
     const g = kind === 'back' ? m.portalNext ?? m.portal : null; // coming back, you step out of the gate you left by
-    this.gs.pos = g ? { x: g.x, y: g.y + 34 } : { ...m.spawn };
+    this.gs.pos = (g && nearestFree(m, { x: g.x, y: g.y + 34 })) || { ...m.spawn };
     this.gs.hp = Math.max(1, this.pc.hp);
     saveGame(this.gs);
     toast(`${CHAPTERS[n]!.subtitle}: ${CHAPTERS[n]!.name}`, 2600);
@@ -921,7 +921,7 @@ export class WorldScene extends Phaser.Scene {
     if (firstClear && this.dungeon) {
       const d = this.dungeon, r = this.mutate(() => claimDungeonReward(this.gs, d));
       toast(`${d.name} cleared: +${r.xp} XP, +${r.stones} stones${r.items.length ? `, ${r.items.map((i) => ITEMS[i.id]!.name).join(', ')}` : ''}`, 5200);
-      for (const o of r.overflow) toast(`Inventory full: lost ${ITEMS[o]!.name}`, 2600);
+      for (const o of r.overflow) toast(`Bag full: ${ITEMS[o]!.name} is kept for you until there is room`, 4200);
       if (r.levelsGained > 0) this.levelUpFx();
     }
     this.save(false);
@@ -995,7 +995,7 @@ export class WorldScene extends Phaser.Scene {
     this.dead = true; this.meditating = false; audio.sfx('death');
     const lost = inRift ? 0 : deathTax(this.gs.stones); // the rift is a challenge, not a toll
     this.gs.stones -= lost;
-    showDeath(true, lost > 0 ? `You lose ${lost} spirit stones. Nothing else is lost: gather yourself and try again.` : 'Gather yourself and try again.', { respawn: () => this.respawn(), menu: () => { this.save(false); hideScreen(); this.host.quitToMenu(); } });
+    showDeath(true, `${lost > 0 ? `You lose ${lost} spirit stones. Nothing else is lost: ` : ''}${this.dungeon ? `you wake outside ${this.dungeon.name}, ready to try again.` : 'gather yourself and try again.'}`.replace(/^./, (c) => c.toUpperCase()), { respawn: () => this.respawn(), menu: () => { this.save(false); hideScreen(); this.host.quitToMenu(); } });
     this.player.play('death', { force: true });
     this.fx.shake(300, 0.005);
     this.save(false);
@@ -1148,7 +1148,15 @@ export class WorldScene extends Phaser.Scene {
     if (alive) { this.rift.update(dt); this.tipTimer += dt; if (this.tipTimer > 1) { this.tipTimer = 0; this.checkTips(); } }
     if (this.gs.boonPicks > 0 && alive && this.now >= this.boonCheckAt && this.now - this.lastCombat > 2.5 && !this.autoBoonOff()) this.offerBoon();
     this.respawnTimer += dt;
-    if (this.respawnTimer >= RESPAWN_CHECK_SECONDS) { this.respawnTimer = 0; this.topUpEnemies(); }
+    if (this.respawnTimer >= RESPAWN_CHECK_SECONDS) { this.respawnTimer = 0; this.topUpEnemies(); this.deliverPending(); }
+  }
+
+  /** Reward items parked because the bag was full are handed over once a slot frees up. */
+  private deliverPending(): void {
+    if (!this.gs.pending?.length) return;
+    const done = this.mutate(() => flushPending(this.gs));
+    for (const id of done) { toast(`Received ${ITEMS[id]!.name}`, 2600); audio.sfx('pickup'); }
+    if (done.length) this.save(false);
   }
 
   private topUpEnemies(): void {

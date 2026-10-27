@@ -376,7 +376,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Eight Sand Vipers and six Dune Jackals in the Sunscour Dunes, east of the Bazaar.',
     completeText: 'Better. The first road is breathing again. Spend this at Trader Sahn\'s: the steel here is made for the heat.',
     objectives: [kill('sandviper', 8, 'Cull Sand Vipers'), kill('dunejackal', 6, 'Cull Dune Jackals')],
-    reward: { xp: 1500, stones: 500, items: [{ id: 'greater-hp-potion', count: 4 }, { id: 'qi-pill', count: 2 }] },
+    reward: { xp: 390, stones: 500, items: [{ id: 'greater-hp-potion', count: 4 }, { id: 'qi-pill', count: 2 }] },
   },
   {
     id: 'ember-wyrm', chapter: 3, name: 'The Wyrm Under the Road', giver: 'caravan-master-hui', requires: 'ember-silent-roads',
@@ -384,7 +384,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'The Sand Wyrm lies at the end of the canyon road, south-east of the dunes.',
     completeText: 'The road is open to the Magma Rift. Take this, you will need it.',
     objectives: [kill('sandwyrm', 1, 'Slay the Sand Wyrm')],
-    reward: { xp: 2300, stones: 800, items: [{ id: 'ember-hp-potion', count: 3 }, { id: 'ember-mana-potion', count: 3 }] },
+    reward: { xp: 600, stones: 800, items: [{ id: 'ember-hp-potion', count: 3 }, { id: 'ember-mana-potion', count: 3 }] },
   },
   {
     id: 'ember-champions', chapter: 3, name: 'Champions of the Sands', giver: 'caravan-master-hui', requires: 'ember-wyrm',
@@ -392,7 +392,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Four elite monsters (golden names), anywhere in the Ember Wastes.',
     completeText: 'Four fewer. The guards are saddling up. Here is the purse I promised.',
     objectives: [{ type: 'elite', count: 4, label: 'Slay Elite Monsters' }],
-    reward: { xp: 2400, stones: 900, items: [{ id: 'ember-qi-pill', count: 2 }, { id: 'ember-hp-potion', count: 3 }] },
+    reward: { xp: 620, stones: 900, items: [{ id: 'ember-qi-pill', count: 2 }, { id: 'ember-hp-potion', count: 3 }] },
   },
   {
     id: 'ember-rift-survey', chapter: 3, name: 'Survey of the Rift', giver: 'caravan-master-hui', requires: 'ember-wyrm',
@@ -400,7 +400,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Eight Magma Sprites and six Cinder Hounds in the Magma Rift, north of the canyon.',
     completeText: 'A map I can finally draw. The causeways hold. The temple is next, and beyond it, the Furnace.',
     objectives: [kill('magmasprite', 8, 'Douse Magma Sprites'), kill('cinderhound', 6, 'Cull Cinder Hounds')],
-    reward: { xp: 2500, stones: 1000, items: [{ id: 'ember-hp-potion', count: 4 }, { id: 'ember-mana-potion', count: 4 }] },
+    reward: { xp: 650, stones: 1000, items: [{ id: 'ember-hp-potion', count: 4 }, { id: 'ember-mana-potion', count: 4 }] },
   },
   {
     id: 'ember-mirage', chapter: 3, name: 'The Mirage Empress', giver: 'caravan-master-hui', requires: 'ember-rift-survey',
@@ -408,7 +408,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'The Mirage Empress holds the Buried Sun Temple, north of the Magma Rift.',
     completeText: 'The mirage has broken. The way to the summit stands open, and this vestment is yours.',
     objectives: [kill('mirageempress', 1, 'Slay the Mirage Empress')],
-    reward: { xp: 3000, stones: 1400, items: [{ id: 'ember-hp-potion', count: 4 }, { id: 'ember-qi-pill', count: 3 }] },
+    reward: { xp: 780, stones: 1400, items: [{ id: 'ember-hp-potion', count: 4 }, { id: 'ember-qi-pill', count: 3 }] },
   },
   {
     id: 'ember-furnace', chapter: 3, name: 'The Heavenly Furnace', giver: 'caravan-master-hui', requires: 'ember-mirage',
@@ -416,7 +416,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'The Furnace Warden waits at the Furnace Summit, at the far end of the north-east road.',
     completeText: 'The sands are cooling. Disciple, you have done what the sect could not. But the smoke still reaches the sky, and something up there has noticed.',
     objectives: [kill('furnacewarden', 1, 'Slay the Furnace Warden')],
-    reward: { xp: 4200, stones: 2400, items: [{ id: 'ember-hp-potion', count: 6 }, { id: 'ember-mana-potion', count: 6 }, { id: 'ember-qi-pill', count: 4 }] },
+    reward: { xp: 1090, stones: 2400, items: [{ id: 'ember-hp-potion', count: 6 }, { id: 'ember-mana-potion', count: 6 }, { id: 'ember-qi-pill', count: 4 }] },
   },
   // side quests
   {
@@ -425,7 +425,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Six Sand Viper Fangs. Sand vipers dwell in the dunes, and in the oasis reeds.',
     completeText: 'Clean fangs, good work. Here is your share.',
     objectives: [collect('ember-viper-fang', 6, 'Collect Sand Viper Fangs')],
-    reward: { xp: 1000, stones: 450, items: [{ id: 'greater-hp-potion', count: 3 }] },
+    reward: { xp: 260, stones: 450, items: [{ id: 'greater-hp-potion', count: 3 }] },
   },
   {
     id: 'ember-worm-queen', chapter: 3, name: 'The Queen Beneath the Glass', giver: 'wanderer-dahl', requires: 'ember-viper-fangs',
@@ -433,7 +433,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'The Glass-Worm Burrow opens by a pair of standing stones in the Sunscour Dunes. Clear it and slay the Queen.',
     completeText: 'You went down and came back up. That is rarer than you think. Keep the fang.',
     objectives: [kill('glasswormqueen', 1, 'Slay the Glass-Worm Queen')],
-    reward: { xp: 1800, stones: 700, items: [{ id: 'ember-hp-potion', count: 3 }, { id: 'ember-qi-pill', count: 2 }] },
+    reward: { xp: 470, stones: 700, items: [{ id: 'ember-hp-potion', count: 3 }, { id: 'ember-qi-pill', count: 2 }] },
   },
   {
     id: 'ember-oasis-herbs', chapter: 3, name: 'The Spring Still Runs', giver: 'keeper-ila', requires: 'ember-silent-roads',
@@ -441,7 +441,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Eight Spirit Herbs, and six Drowned Caravaneers, at the Mirage Oasis.',
     completeText: 'The water clears already. Drink, and take this with my blessing.',
     objectives: [collect('spirit-herb', 8, 'Gather Spirit Herbs'), kill('drownedcaravaneer', 6, 'Lay Drowned Caravaneers to rest')],
-    reward: { xp: 1300, stones: 550, items: [{ id: 'ember-mana-potion', count: 3 }, { id: 'greater-hp-potion', count: 3 }] },
+    reward: { xp: 340, stones: 550, items: [{ id: 'ember-mana-potion', count: 3 }, { id: 'greater-hp-potion', count: 3 }] },
   },
   {
     id: 'ember-roc-hunt', chapter: 3, name: 'Rocs on the Rim', giver: 'hunter-tarq', requires: 'ember-silent-roads',
@@ -449,7 +449,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Five Ash Roc Feathers and six Ash Rocs, in the Scorched Canyon and the Salt Flats.',
     completeText: 'Good feathers. These will fly true. Take your pay, and a few draughts.',
     objectives: [collect('ember-roc-feather', 5, 'Collect Ash Roc Feathers'), kill('ashroc', 6, 'Cull Ash Rocs')],
-    reward: { xp: 1700, stones: 650, items: [{ id: 'ember-hp-potion', count: 3 }, { id: 'greater-mana-potion', count: 3 }] },
+    reward: { xp: 440, stones: 650, items: [{ id: 'ember-hp-potion', count: 3 }, { id: 'greater-mana-potion', count: 3 }] },
   },
   {
     id: 'ember-obsidian', chapter: 3, name: 'Warm Stone', giver: 'miner-borok', requires: 'ember-wyrm',
@@ -457,7 +457,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Six Obsidian Golems and five Obsidian Shards, in the Magma Rift.',
     completeText: 'Still warm, and getting warmer. You should know: the mine goes deeper than any map I made. Be careful.',
     objectives: [kill('obsidiangolem', 6, 'Break Obsidian Golems'), collect('ember-obsidian-shard', 5, 'Collect Obsidian Shards')],
-    reward: { xp: 2400, stones: 900, items: [{ id: 'ember-hp-potion', count: 4 }, { id: 'ember-qi-pill', count: 2 }] },
+    reward: { xp: 620, stones: 900, items: [{ id: 'ember-hp-potion', count: 4 }, { id: 'ember-qi-pill', count: 2 }] },
   },
   {
     id: 'ember-mine-heart', chapter: 3, name: 'The Heart of the Mine', giver: 'miner-borok', requires: 'ember-obsidian',
@@ -465,7 +465,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'The Obsidian Mine opens in the Magma Rift. Its Colossus waits at the bottom.',
     completeText: 'The lamps went out. I could hear it from here. Rest, friend. Take this.',
     objectives: [kill('obsidiancolossus', 1, 'Slay the Obsidian Colossus')],
-    reward: { xp: 2600, stones: 1100, items: [{ id: 'ember-obsidian-plate', count: 1 }, { id: 'ember-hp-potion', count: 3 }] },
+    reward: { xp: 680, stones: 1100, items: [{ id: 'ember-obsidian-plate', count: 1 }, { id: 'ember-hp-potion', count: 3 }] },
   },
   {
     id: 'ember-salt-road', chapter: 3, name: 'Footprints in the Salt', giver: 'hermit-zaim', requires: 'ember-wyrm',
@@ -473,7 +473,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Five Salt Ghouls and six Mirage Ghosts, on the Whitesalt Flats.',
     completeText: 'My footprints are my own again. Thank you. The vault in the salt opens only to the strong; ask me when you are ready.',
     objectives: [kill('saltghoul', 5, 'Lay Salt Ghouls to rest'), kill('mirageghost', 6, 'Banish Mirage Ghosts')],
-    reward: { xp: 2000, stones: 800, items: [{ id: 'ember-mana-potion', count: 3 }, { id: 'ember-qi-pill', count: 2 }] },
+    reward: { xp: 520, stones: 800, items: [{ id: 'ember-mana-potion', count: 3 }, { id: 'ember-qi-pill', count: 2 }] },
   },
   {
     id: 'ember-vault-seal', chapter: 3, name: 'The Sunken Vault', giver: 'hermit-zaim', requires: 'ember-salt-road',
@@ -481,7 +481,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'The Sunken Alchemy Vault is a moon-gate in the Whitesalt Flats. Slay the Vault Warden within.',
     completeText: 'The furnaces beneath the salt are quiet. Perhaps the great one will quiet now too.',
     objectives: [kill('vaultwarden', 1, 'Slay the Vault Warden')],
-    reward: { xp: 3000, stones: 1300, items: [{ id: 'ember-qi-pill', count: 3 }, { id: 'ember-mana-potion', count: 4 }] },
+    reward: { xp: 780, stones: 1300, items: [{ id: 'ember-qi-pill', count: 3 }, { id: 'ember-mana-potion', count: 4 }] },
   },
   {
     id: 'ember-sun-scrolls', chapter: 3, name: 'Records of the Sun', giver: 'scholar-eun', requires: 'ember-rift-survey',
@@ -489,7 +489,7 @@ const QUESTS: QuestDef[] = [
     reminder: 'Four Sun Tablet Fragments, from mummies and temple sentinels in the Buried Sun Temple.',
     completeText: 'Yes. She was a mirror the immortals built to see the sun without being burned. The mirror cracked, and it stares back. That is what you will meet.',
     objectives: [collect('ember-sun-tablet', 4, 'Collect Sun Tablet Fragments')],
-    reward: { xp: 2600, stones: 1000, items: [{ id: 'ember-mana-potion', count: 3 }, { id: 'ember-hp-potion', count: 3 }] },
+    reward: { xp: 680, stones: 1000, items: [{ id: 'ember-mana-potion', count: 3 }, { id: 'ember-hp-potion', count: 3 }] },
   },
 ];
 
