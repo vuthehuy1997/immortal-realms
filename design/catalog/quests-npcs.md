@@ -83,50 +83,50 @@ Chain: pests → fox → warden → champions → jiaolong; side quests need `pe
 | s2-survey | Charting the Maw | surveyor-pei | rift-scouts | kill s2-mawserpent ×6; kill s2-aurorawisp ×5 | 700 xp, 380 stones, s2-aurora-draught ×3, greater-hp-potion ×2 |
 | s2-wyrm | The Glacier Wyrm | surveyor-pei | s2-survey | kill s2-glacierwyrm ×1 | 1050 xp, 480 stones, s2-glacier-saber ×1, s2-aurora-draught ×3 |
 | s2-mirror | The Mirror Vault | seer-lian | hollow-heart | kill s2-prismsage ×1 | 1000 xp, 500 stones, s2-aurora-draught ×3, greater-mana-potion ×3 |
-| ember-silent-roads | The Silent Roads | caravan-master-hui | – | kill sandviper ×8; kill dunejackal ×6 | 1500 xp, 500 stones, greater-hp-potion ×4, qi-pill ×2 |
-| ember-wyrm | The Wyrm Under the Road | caravan-master-hui | ember-silent-roads | kill sandwyrm ×1 | 2300 xp, 800 stones, ember-hp-potion ×3, ember-mana-potion ×3 |
-| ember-champions | Champions of the Sands | caravan-master-hui | ember-wyrm | elite  ×4 | 2400 xp, 900 stones, ember-qi-pill ×2, ember-hp-potion ×3 |
-| ember-rift-survey | Survey of the Rift | caravan-master-hui | ember-wyrm | kill magmasprite ×8; kill cinderhound ×6 | 2500 xp, 1000 stones, ember-hp-potion ×4, ember-mana-potion ×4 |
-| ember-mirage | The Mirage Empress | caravan-master-hui | ember-rift-survey | kill mirageempress ×1 | 3000 xp, 1400 stones, ember-hp-potion ×4, ember-qi-pill ×3 |
-| ember-furnace | The Heavenly Furnace | caravan-master-hui | ember-mirage | kill furnacewarden ×1 | 4200 xp, 2400 stones, ember-hp-potion ×6, ember-mana-potion ×6, ember-qi-pill ×4 |
-| ember-viper-fangs | Fangs for the Guards | wanderer-dahl | ember-silent-roads | collect ember-viper-fang ×6 | 1000 xp, 450 stones, greater-hp-potion ×3 |
-| ember-worm-queen | The Queen Beneath the Glass | wanderer-dahl | ember-viper-fangs | kill glasswormqueen ×1 | 1800 xp, 700 stones, ember-hp-potion ×3, ember-qi-pill ×2 |
-| ember-oasis-herbs | The Spring Still Runs | keeper-ila | ember-silent-roads | collect spirit-herb ×8; kill drownedcaravaneer ×6 | 1300 xp, 550 stones, ember-mana-potion ×3, greater-hp-potion ×3 |
-| ember-roc-hunt | Rocs on the Rim | hunter-tarq | ember-silent-roads | collect ember-roc-feather ×5; kill ashroc ×6 | 1700 xp, 650 stones, ember-hp-potion ×3, greater-mana-potion ×3 |
-| ember-obsidian | Warm Stone | miner-borok | ember-wyrm | kill obsidiangolem ×6; collect ember-obsidian-shard ×5 | 2400 xp, 900 stones, ember-hp-potion ×4, ember-qi-pill ×2 |
-| ember-mine-heart | The Heart of the Mine | miner-borok | ember-obsidian | kill obsidiancolossus ×1 | 2600 xp, 1100 stones, ember-obsidian-plate ×1, ember-hp-potion ×3 |
-| ember-salt-road | Footprints in the Salt | hermit-zaim | ember-wyrm | kill saltghoul ×5; kill mirageghost ×6 | 2000 xp, 800 stones, ember-mana-potion ×3, ember-qi-pill ×2 |
-| ember-vault-seal | The Sunken Vault | hermit-zaim | ember-salt-road | kill vaultwarden ×1 | 3000 xp, 1300 stones, ember-qi-pill ×3, ember-mana-potion ×4 |
-| ember-sun-scrolls | Records of the Sun | scholar-eun | ember-rift-survey | collect ember-sun-tablet ×4 | 2600 xp, 1000 stones, ember-mana-potion ×3, ember-hp-potion ×3 |
-| jade-ascent | Up the Closed Gate | warden-lian | – | kill jadesentinel ×8; kill blossomsprite ×6 | 2800 xp, 700 stones, jade-hp-potion ×4, jade-mana-potion ×3 |
-| jade-storm-lord | The Crane That Calls Thunder | warden-lian | jade-ascent | kill cranelord ×1 | 3800 xp, 1100 stones, jade-hp-potion ×4, jade-pill ×2 |
-| jade-archive-keeper | What the Archive Remembers | scholar-mei | jade-storm-lord | kill archivekeeper ×1 | 4600 xp, 1400 stones, jade-elixir ×3, jade-mana-potion ×4 |
-| jade-magistrate | The Celestial Magistrate | warden-lian | jade-archive-keeper | kill magistrate ×1 | 7000 xp, 2500 stones, jade-elixir ×5, jade-pill ×4 |
-| jade-peach-wine | Peaches Out of Season | gardener-fen | jade-ascent | kill blossomtreant ×6; collect jade-peach ×5 | 2000 xp, 500 stones, jade-elixir ×2, jade-mana-potion ×3 |
-| jade-lake-lanterns | Lanterns for the Drowned | boatman-ke | jade-ascent | kill mirrorwraith ×8; collect spirit-herb ×4 | 2200 xp, 600 stones, jade-hp-potion ×4, jade-pill ×1 |
-| jade-stair-toll | The Thousand-Step Toll | sentinel-zhao | jade-ascent | kill jadecolossus ×6; elite  ×2 | 2600 xp, 800 stones, jade-elixir ×2, jade-hp-potion ×3 |
-| jade-cavern-echo | The Wyrm Under the Orchard | sentinel-zhao | jade-stair-toll | kill cloudwyrm ×1 | 3200 xp, 1000 stones, jade-hp-potion ×5, jade-pill ×2 |
-| jade-lost-slips | Scraps of Scripture | scholar-mei | jade-ascent | kill scrollwraith ×8; collect jade-slip-scrap ×6 | 2800 xp, 800 stones, jade-mana-potion ×4, jade-pill ×2 |
-| jade-vault-key | The Sealed Vault | scholar-mei | jade-lost-slips | kill vaultcalligrapher ×1 | 4000 xp, 1400 stones, jade-elixir ×3, jade-mana-potion ×4 |
-| jade-crane-feathers | Feathers of Thunder | hermit-gu | jade-ascent | collect jade-feather ×5; elite  ×3 | 3400 xp, 1000 stones, jade-elixir ×3, jade-pill ×2 |
-| jade-mine-dust | Jade Dust for the Furnace | alchemist-ning | jade-ascent | collect jade-ore ×6; kill seamtyrant ×1 | 3600 xp, 1200 stones, jade-elixir ×3, jade-pill ×3 |
-| jade-moon-echo | The Palace in the Water | boatman-ke | jade-lake-lanterns | kill mirrorqueen ×1 | 4200 xp, 1500 stones, jade-elixir ×3, jade-hp-potion ×5 |
-| abyss-first-flame | The Last Lantern | matron-hui | – | kill abyss-bladewraith ×8; collect spirit-herb ×4 | 4200 xp, 800 stones, abyss-hp-potion ×4, abyss-mana-potion ×3 |
-| abyss-blood-river | The Blood-River Tyrant | matron-hui | abyss-first-flame | kill abyss-tyrant ×1 | 5200 xp, 1200 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
-| abyss-mirror-truth | What the Mirrors Say | scribe-ao | abyss-blood-river | kill abyss-mirrorshade ×8; collect abyss-mirror-shard ×6 | 5000 xp, 1000 stones, abyss-mana-potion ×5, abyss-qi-pill ×3 |
+| ember-silent-roads | The Silent Roads | caravan-master-hui | – | kill sandviper ×8; kill dunejackal ×6 | 390 xp, 500 stones, greater-hp-potion ×4, qi-pill ×2 |
+| ember-wyrm | The Wyrm Under the Road | caravan-master-hui | ember-silent-roads | kill sandwyrm ×1 | 600 xp, 800 stones, ember-hp-potion ×3, ember-mana-potion ×3 |
+| ember-champions | Champions of the Sands | caravan-master-hui | ember-wyrm | elite  ×4 | 620 xp, 900 stones, ember-qi-pill ×2, ember-hp-potion ×3 |
+| ember-rift-survey | Survey of the Rift | caravan-master-hui | ember-wyrm | kill magmasprite ×8; kill cinderhound ×6 | 650 xp, 1000 stones, ember-hp-potion ×4, ember-mana-potion ×4 |
+| ember-mirage | The Mirage Empress | caravan-master-hui | ember-rift-survey | kill mirageempress ×1 | 780 xp, 1400 stones, ember-hp-potion ×4, ember-qi-pill ×3 |
+| ember-furnace | The Heavenly Furnace | caravan-master-hui | ember-mirage | kill furnacewarden ×1 | 1090 xp, 2400 stones, ember-hp-potion ×6, ember-mana-potion ×6, ember-qi-pill ×4 |
+| ember-viper-fangs | Fangs for the Guards | wanderer-dahl | ember-silent-roads | collect ember-viper-fang ×6 | 260 xp, 450 stones, greater-hp-potion ×3 |
+| ember-worm-queen | The Queen Beneath the Glass | wanderer-dahl | ember-viper-fangs | kill glasswormqueen ×1 | 470 xp, 700 stones, ember-hp-potion ×3, ember-qi-pill ×2 |
+| ember-oasis-herbs | The Spring Still Runs | keeper-ila | ember-silent-roads | collect spirit-herb ×8; kill drownedcaravaneer ×6 | 340 xp, 550 stones, ember-mana-potion ×3, greater-hp-potion ×3 |
+| ember-roc-hunt | Rocs on the Rim | hunter-tarq | ember-silent-roads | collect ember-roc-feather ×5; kill ashroc ×6 | 440 xp, 650 stones, ember-hp-potion ×3, greater-mana-potion ×3 |
+| ember-obsidian | Warm Stone | miner-borok | ember-wyrm | kill obsidiangolem ×6; collect ember-obsidian-shard ×5 | 620 xp, 900 stones, ember-hp-potion ×4, ember-qi-pill ×2 |
+| ember-mine-heart | The Heart of the Mine | miner-borok | ember-obsidian | kill obsidiancolossus ×1 | 680 xp, 1100 stones, ember-obsidian-plate ×1, ember-hp-potion ×3 |
+| ember-salt-road | Footprints in the Salt | hermit-zaim | ember-wyrm | kill saltghoul ×5; kill mirageghost ×6 | 520 xp, 800 stones, ember-mana-potion ×3, ember-qi-pill ×2 |
+| ember-vault-seal | The Sunken Vault | hermit-zaim | ember-salt-road | kill vaultwarden ×1 | 780 xp, 1300 stones, ember-qi-pill ×3, ember-mana-potion ×4 |
+| ember-sun-scrolls | Records of the Sun | scholar-eun | ember-rift-survey | collect ember-sun-tablet ×4 | 680 xp, 1000 stones, ember-mana-potion ×3, ember-hp-potion ×3 |
+| jade-ascent | Up the Closed Gate | warden-lian | – | kill jadesentinel ×8; kill blossomsprite ×6 | 1060 xp, 700 stones, jade-hp-potion ×4, jade-mana-potion ×3 |
+| jade-storm-lord | The Crane That Calls Thunder | warden-lian | jade-ascent | kill cranelord ×1 | 1440 xp, 1100 stones, jade-hp-potion ×4, jade-pill ×2 |
+| jade-archive-keeper | What the Archive Remembers | scholar-mei | jade-storm-lord | kill archivekeeper ×1 | 1750 xp, 1400 stones, jade-elixir ×3, jade-mana-potion ×4 |
+| jade-magistrate | The Celestial Magistrate | warden-lian | jade-archive-keeper | kill magistrate ×1 | 2660 xp, 2500 stones, jade-elixir ×5, jade-pill ×4 |
+| jade-peach-wine | Peaches Out of Season | gardener-fen | jade-ascent | kill blossomtreant ×6; collect jade-peach ×5 | 760 xp, 500 stones, jade-elixir ×2, jade-mana-potion ×3 |
+| jade-lake-lanterns | Lanterns for the Drowned | boatman-ke | jade-ascent | kill mirrorwraith ×8; collect spirit-herb ×4 | 840 xp, 600 stones, jade-hp-potion ×4, jade-pill ×1 |
+| jade-stair-toll | The Thousand-Step Toll | sentinel-zhao | jade-ascent | kill jadecolossus ×6; elite  ×2 | 990 xp, 800 stones, jade-elixir ×2, jade-hp-potion ×3 |
+| jade-cavern-echo | The Wyrm Under the Orchard | sentinel-zhao | jade-stair-toll | kill cloudwyrm ×1 | 1220 xp, 1000 stones, jade-hp-potion ×5, jade-pill ×2 |
+| jade-lost-slips | Scraps of Scripture | scholar-mei | jade-ascent | kill scrollwraith ×8; collect jade-slip-scrap ×6 | 1060 xp, 800 stones, jade-mana-potion ×4, jade-pill ×2 |
+| jade-vault-key | The Sealed Vault | scholar-mei | jade-lost-slips | kill vaultcalligrapher ×1 | 1520 xp, 1400 stones, jade-elixir ×3, jade-mana-potion ×4 |
+| jade-crane-feathers | Feathers of Thunder | hermit-gu | jade-ascent | collect jade-feather ×5; elite  ×3 | 1290 xp, 1000 stones, jade-elixir ×3, jade-pill ×2 |
+| jade-mine-dust | Jade Dust for the Furnace | alchemist-ning | jade-ascent | collect jade-ore ×6; kill seamtyrant ×1 | 1370 xp, 1200 stones, jade-elixir ×3, jade-pill ×3 |
+| jade-moon-echo | The Palace in the Water | boatman-ke | jade-lake-lanterns | kill mirrorqueen ×1 | 1600 xp, 1500 stones, jade-elixir ×3, jade-hp-potion ×5 |
+| abyss-first-flame | The Last Lantern | matron-hui | – | kill abyss-bladewraith ×8; collect spirit-herb ×4 | 1600 xp, 800 stones, abyss-hp-potion ×4, abyss-mana-potion ×3 |
+| abyss-blood-river | The Blood-River Tyrant | matron-hui | abyss-first-flame | kill abyss-tyrant ×1 | 1980 xp, 1200 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
+| abyss-mirror-truth | What the Mirrors Say | scribe-ao | abyss-blood-river | kill abyss-mirrorshade ×8; collect abyss-mirror-shard ×6 | 1900 xp, 1000 stones, abyss-mana-potion ×5, abyss-qi-pill ×3 |
 | abyss-matron | The Matron of Regrets | sister-sen | abyss-mirror-truth | kill abyss-matron ×1 | 6200 xp, 1600 stones, abyss-heal-pill ×3, abyss-qi-pill ×3 |
-| abyss-ash-trial | The Procession of Ash | matron-hui | abyss-matron | elite  ×4 | 5600 xp, 1800 stones, abyss-heal-pill ×3, abyss-hp-potion ×5, abyss-mana-potion ×5 |
-| abyss-dao-demon | The Dao Demon of Tribulation | matron-hui | abyss-ash-trial | kill abyss-daodemon ×1 | 12000 xp, 6000 stones, abyss-heal-pill ×5, abyss-hp-potion ×5, abyss-qi-pill ×5 |
-| abyss-sword-grave | Swords Without Hands | gravetender-jun | abyss-first-flame | kill abyss-bladewraith ×10; collect abyss-blade-shard ×6 | 3600 xp, 900 stones, abyss-hp-potion ×4, abyss-qi-pill ×2 |
-| abyss-ferry-fire | A Boat for the Fire | ferryman-tu | abyss-first-flame | kill abyss-lavatoad ×8; kill abyss-bloodfoxfire ×6 | 4000 xp, 1000 stones, abyss-mana-potion ×4, abyss-hp-potion ×3 |
-| abyss-grotto-spring | The Spring That Runs Red | ferryman-tu | abyss-ferry-fire | kill abyss-springfox ×1 | 4800 xp, 1200 stones, abyss-heal-pill ×2, abyss-qi-pill ×3 |
-| abyss-vault-selves | The Vault of Past Selves | scribe-ao | abyss-mirror-truth | kill abyss-vaultself ×1 | 5400 xp, 1400 stones, abyss-heal-pill ×3, abyss-mana-potion ×4 |
-| abyss-bone-ledger | The Bone Ledger | huntress-ye | abyss-first-flame | kill abyss-bonetreant ×5; collect abyss-bone-root ×5 | 4000 xp, 1100 stones, abyss-hp-potion ×4, abyss-heal-pill ×1 |
-| abyss-ash-whispers | What the Ash Remembers | drifter-dun | abyss-first-flame | kill abyss-ashknight ×8; collect abyss-ash-ore ×5 | 4400 xp, 1000 stones, abyss-qi-pill ×3, abyss-mana-potion ×4 |
-| abyss-regret-letters | Letters Never Sent | sister-sen | abyss-mirror-truth | kill abyss-witheredpeach ×6; collect abyss-regret-bloom ×5 | 5200 xp, 1200 stones, abyss-heal-pill ×2, abyss-qi-pill ×3 |
-| abyss-slag-and-ash | Slag and Ash | smith-tang | abyss-first-flame | kill abyss-cindergolem ×4; collect abyss-ash-ore ×6 | 4600 xp, 1500 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
-| abyss-bone-cavern-delve | The Ossuary Below | huntress-ye | abyss-bone-ledger | kill abyss-rootking ×1 | 5000 xp, 1300 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
-| abyss-reliquary-delve | The Cinder Reliquary | drifter-dun | abyss-ash-whispers | kill abyss-cinderwarden ×1 | 5800 xp, 1500 stones, abyss-heal-pill ×3, abyss-qi-pill ×3 |
+| abyss-ash-trial | The Procession of Ash | matron-hui | abyss-matron | elite  ×4 | 2130 xp, 1800 stones, abyss-heal-pill ×3, abyss-hp-potion ×5, abyss-mana-potion ×5 |
+| abyss-dao-demon | The Dao Demon of Tribulation | matron-hui | abyss-ash-trial | kill abyss-daodemon ×1 | 4560 xp, 6000 stones, abyss-heal-pill ×5, abyss-hp-potion ×5, abyss-qi-pill ×5 |
+| abyss-sword-grave | Swords Without Hands | gravetender-jun | abyss-first-flame | kill abyss-bladewraith ×10; collect abyss-blade-shard ×6 | 1370 xp, 900 stones, abyss-hp-potion ×4, abyss-qi-pill ×2 |
+| abyss-ferry-fire | A Boat for the Fire | ferryman-tu | abyss-first-flame | kill abyss-lavatoad ×8; kill abyss-bloodfoxfire ×6 | 1520 xp, 1000 stones, abyss-mana-potion ×4, abyss-hp-potion ×3 |
+| abyss-grotto-spring | The Spring That Runs Red | ferryman-tu | abyss-ferry-fire | kill abyss-springfox ×1 | 1820 xp, 1200 stones, abyss-heal-pill ×2, abyss-qi-pill ×3 |
+| abyss-vault-selves | The Vault of Past Selves | scribe-ao | abyss-mirror-truth | kill abyss-vaultself ×1 | 2050 xp, 1400 stones, abyss-heal-pill ×3, abyss-mana-potion ×4 |
+| abyss-bone-ledger | The Bone Ledger | huntress-ye | abyss-first-flame | kill abyss-bonetreant ×5; collect abyss-bone-root ×5 | 1520 xp, 1100 stones, abyss-hp-potion ×4, abyss-heal-pill ×1 |
+| abyss-ash-whispers | What the Ash Remembers | drifter-dun | abyss-first-flame | kill abyss-ashknight ×8; collect abyss-ash-ore ×5 | 1670 xp, 1000 stones, abyss-qi-pill ×3, abyss-mana-potion ×4 |
+| abyss-regret-letters | Letters Never Sent | sister-sen | abyss-mirror-truth | kill abyss-witheredpeach ×6; collect abyss-regret-bloom ×5 | 1980 xp, 1200 stones, abyss-heal-pill ×2, abyss-qi-pill ×3 |
+| abyss-slag-and-ash | Slag and Ash | smith-tang | abyss-first-flame | kill abyss-cindergolem ×4; collect abyss-ash-ore ×6 | 1750 xp, 1500 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
+| abyss-bone-cavern-delve | The Ossuary Below | huntress-ye | abyss-bone-ledger | kill abyss-rootking ×1 | 1900 xp, 1300 stones, abyss-heal-pill ×2, abyss-hp-potion ×4 |
+| abyss-reliquary-delve | The Cinder Reliquary | drifter-dun | abyss-ash-whispers | kill abyss-cinderwarden ×1 | 2200 xp, 1500 stones, abyss-heal-pill ×3, abyss-qi-pill ×3 |
 
 **Wolves of the Bamboo** — Spirit wolves prowl the Whispering Bamboo Forest to the west and trample the herb beds. Slay four of them and gather two Spirit Herbs (lingzhi, press E beside the glowing mushrooms). The sect will reward you.
 
