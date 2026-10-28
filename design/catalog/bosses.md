@@ -564,7 +564,7 @@ Drops: jade-moon-pendant (50%), jade-elixir (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 150000 | 250 | 40 | 46 | 7600 | 900–1300 | abyss-basin | abyss-basin | abyss-blood-river | 0.66 / 0.33 |
+| 120000 | 250 | 40 | 46 | 7600 | 900–1300 | abyss-basin | abyss-basin | abyss-blood-river | 0.66 / 0.33 |
 
 Kit: **P1** sweep, rain, slam · **P2** sweep, charge, ring, summon, rain · **P3** rain, ring, charge, slam, sweep, summon
 
@@ -585,7 +585,7 @@ Drops: tribulation-robe (100%), abyss-heal-pill (100%), abyss-hp-potion (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 190000 | 270 | 30 | 54 | 8800 | 1100–1600 | abyss-regret | abyss-regret | abyss-matron | 0.66 / 0.33 |
+| 150000 | 270 | 30 | 54 | 8800 | 1100–1600 | abyss-regret | abyss-regret | abyss-matron | 0.66 / 0.33 |
 
 Kit: **P1** sweep, charge, rain · **P2** charge, rain, summon, teleport, sweep · **P3** teleport, charge, ring, rain, sweep, summon
 
@@ -606,7 +606,7 @@ Drops: abyss-bone-charm (50%), abyss-heal-pill (100%), abyss-qi-pill (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 330000 | 330 | 60 | 48 | 18000 | 3000–4200 | abyss-peak | abyss-peak | abyss-dao-demon | 0.7 / 0.35 |
+| 260000 | 330 | 60 | 48 | 18000 | 3000–4200 | abyss-peak | abyss-peak | abyss-dao-demon | 0.7 / 0.35 |
 
 Kit: **P1** slam, sweep, charge, ring · **P2** slam, rain, summon, teleport, sweep, charge · **P3** rain, teleport, ring, charge, slam, sweep, summon
 
@@ -628,7 +628,7 @@ Drops: tribulation-sword (100%), abyss-seal (100%), abyss-heal-pill (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 80000 | 210 | 30 | 38 | 4200 | 500–760 | abyss-bonecavern | abyss-bonecavern | abyss-bone-cavern-delve | 0.66 / 0.33 |
+| 64000 | 210 | 30 | 38 | 4200 | 500–760 | abyss-bonecavern | abyss-bonecavern | abyss-bone-cavern-delve | 0.66 / 0.33 |
 
 Kit: **P1** slam, sweep · **P2** slam, charge, summon, sweep · **P3** charge, ring, summon, slam, sweep
 
@@ -648,7 +648,7 @@ Drops: abyss-bonefang (60%), abyss-hp-potion (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 72000 | 200 | 22 | 56 | 3800 | 460–700 | abyss-bloodgrotto | abyss-bloodgrotto | abyss-grotto-spring | 0.66 / 0.33 |
+| 58000 | 200 | 22 | 56 | 3800 | 460–700 | abyss-bloodgrotto | abyss-bloodgrotto | abyss-grotto-spring | 0.66 / 0.33 |
 
 Kit: **P1** sweep, charge · **P2** charge, rain, summon, sweep · **P3** teleport, charge, rain, summon, sweep
 
@@ -668,7 +668,7 @@ Drops: abyss-ember-ring (60%), abyss-mana-potion (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 105000 | 230 | 34 | 58 | 5200 | 620–900 | abyss-mirrorvault | abyss-mirrorvault | abyss-vault-selves | 0.66 / 0.33 |
+| 84000 | 230 | 34 | 58 | 5200 | 620–900 | abyss-mirrorvault | abyss-mirrorvault | abyss-vault-selves | 0.66 / 0.33 |
 
 Kit: **P1** slam, sweep, charge · **P2** sweep, teleport, summon, slam · **P3** teleport, ring, charge, sweep, slam, summon
 
@@ -689,7 +689,7 @@ Drops: abyss-veil-robe (60%), abyss-heal-pill (100%)
 
 | HP | ATK | DEF | speed | XP | stones | home | minion zone | quest | phase 2 / 3 at |
 |---|---|---|---|---|---|---|---|---|---|
-| 118000 | 240 | 48 | 34 | 5600 | 680–980 | abyss-ashmaw | abyss-ashmaw | abyss-reliquary-delve | 0.66 / 0.33 |
+| 94000 | 240 | 48 | 34 | 5600 | 680–980 | abyss-ashmaw | abyss-ashmaw | abyss-reliquary-delve | 0.66 / 0.33 |
 
 Kit: **P1** slam, sweep · **P2** slam, rain, summon, sweep · **P3** rain, ring, charge, slam, sweep, summon
 
