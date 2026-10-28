@@ -18,10 +18,13 @@ export function installSkin(): void {
 }
 
 /** Inline style that draws one frame of an fx strip scaled into a square box (used for skill icons). */
-export function fxIconStyle(fxKey: string, frame: number, box: number): string {
+export function fxIconStyle(fxKey: string, frame: number, box: number, tint?: number): string {
   const f = MANIFEST.fx[fxKey]!;
   const s = box / Math.max(f.fw, f.fh);
-  return `background-image:url(&quot;${abs(f.url)}&quot;);background-size:${f.fw * f.frames * s}px ${f.fh * s}px;background-position:${-frame * f.fw * s}px ${(box - f.fh * s) / 2}px;background-repeat:no-repeat;width:${box}px;height:${box}px`;
+  const img = `url(&quot;${abs(f.url)}&quot;)`, size = `${f.fw * f.frames * s}px ${f.fh * s}px`, pos = `${-frame * f.fw * s}px ${(box - f.fh * s) / 2}px`;
+  // a tinted icon repeats its own alpha as a mask so the ::after colour layer (multiply) only paints the drawn pixels
+  const mask = tint === undefined ? '' : `;--tint:#${tint.toString(16).padStart(6, '0')};-webkit-mask:${img} ${pos} / ${size} no-repeat;mask:${img} ${pos} / ${size} no-repeat`;
+  return `background-image:${img};background-size:${size};background-position:${pos};background-repeat:no-repeat;width:${box}px;height:${box}px${mask}`;
 }
 
 /** `<div>` HTML for an item icon at `box` px. Returns '' for unknown items. */

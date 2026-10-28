@@ -7,6 +7,6 @@ export default defineConfig({
   timeout: 90_000,
   workers: 1, // software-GL browsers compete for CPU; parallel runs distort game-time and the fps smoke test
   expect: { timeout: 10_000 },
-  webServer: { command: `npm run build && npx vite preview --port ${PORT} --host 127.0.0.1`, url: `http://127.0.0.1:${PORT}`, reuseExistingServer: false, timeout: 120_000 },
+  webServer: { command: `VITE_E2E=1 npm run build && npx vite preview --port ${PORT} --host 127.0.0.1`, url: `http://127.0.0.1:${PORT}`, reuseExistingServer: false, timeout: 120_000 },
   use: { baseURL: `http://127.0.0.1:${PORT}`, launchOptions: { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] } },
 });

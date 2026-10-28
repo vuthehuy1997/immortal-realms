@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { placeFloat, type FloatSlot } from '../core/floatStack';
 import { addPoise, newBossAI, STAGGER_DAMAGE, updateBoss, type BossAI, type BossEvent } from '../core/boss';
 import { PERFECT_BUFF_TIME, PERFECT_DAMAGE, PERFECT_MANA, PERFECT_SLOWMO, perfectReady } from '../core/dodge';
 import { showBoonPicker, isBoonPickerOpen, moveBoonFocus, confirmBoonFocus } from '../ui/boons';
@@ -698,22 +699,26 @@ export class WorldScene extends Phaser.Scene {
 
   private releaseSkill(sk: SkillDef, dir: Vec2, sc: ScaledSkill, aim?: Vec2): void {
     const ox = this.pos.x + dir.x * 10, oy = this.pos.y - 12 + dir.y * 6;
-    const color = this.heroColor;
+    const color = sk.tint ?? this.heroColor, rootColor = this.heroColor;
+    const rotOf = (d: Vec2): number => (sk.upright ? 0 : Math.atan2(d.y, d.x));
+    this.fx.flare(ox, oy, color, 34, 220); // hero-coloured cast flash
     audio.sfx(sk.shape === 'projectile' ? 'sword' : sk.shape === 'wave' ? 'moon' : sk.shape === 'burst' ? 'lotus' : 'rain');
     if (sk.shape === 'projectile') {
-      for (const d of this.fan(dir, sk)) {
-        const sprite = this.fx.play(sk.fx.replace('fx.', ''), ox, oy, { scale: 0.2, rot: Math.atan2(d.y, d.x), tint: color, loop: true, depth: 1e4 });
-        this.addBolt({ kind: 'sword', pos: { x: ox, y: oy + 12 }, vel: { x: d.x * (sk.speed ?? 300), y: d.y * (sk.speed ?? 300) }, max: sk.range, damage: sc.damageMult, pierce: sk.pierce ?? 1, radius: 7, sprite, color });
+      for (const [k, d] of this.fan(dir, sk).entries()) {
+        const side = (k - ((sk.count ?? 1) - 1) / 2) * 7, sx = ox - d.y * side, sy = oy + d.x * side; // fanned bolts leave from separate points so a close group is hit by several
+        const sprite = this.fx.play(sk.fx.replace('fx.', ''), sx, sy, { scale: 0.2, rot: rotOf(d), tint: color, loop: true, depth: 1e4 });
+        this.addBolt({ kind: 'sword', pos: { x: sx, y: sy + 12 }, vel: { x: d.x * (sk.speed ?? 300), y: d.y * (sk.speed ?? 300) }, max: sk.range, damage: sc.damageMult, pierce: sk.pierce ?? 1, radius: 7, sprite, color });
       }
     } else if (sk.shape === 'wave') {
-      for (const d of this.fan(dir, sk)) {
-        const sprite = this.fx.play(sk.fx, ox, oy, { scale: 0.34, rot: Math.atan2(d.y, d.x), tint: color, loop: true, depth: 1e4, speed: 1.4 });
-        this.addBolt({ kind: 'wave', pos: { x: ox, y: oy + 12 }, vel: { x: d.x * (sk.speed ?? 220), y: d.y * (sk.speed ?? 220) }, max: sk.range, damage: sc.damageMult, pierce: 99, radius: 16, sprite, color });
+      for (const [k, d] of this.fan(dir, sk).entries()) {
+        const side = (k - ((sk.count ?? 1) - 1) / 2) * 7, sx = ox - d.y * side, sy = oy + d.x * side;
+        const sprite = this.fx.play(sk.fx, sx, sy, { scale: 0.34, rot: rotOf(d), tint: color, loop: true, depth: 1e4, speed: 1.4 });
+        this.addBolt({ kind: 'wave', pos: { x: sx, y: sy + 12 }, vel: { x: d.x * (sk.speed ?? 220), y: d.y * (sk.speed ?? 220) }, max: sk.range, damage: sc.damageMult, pierce: 99, radius: 16, sprite, color });
       }
       this.fx.shake(90, 0.002);
     } else if (sk.shape === 'burst') {
       this.fx.play(sk.fx, this.pos.x, this.pos.y + 4, { scale: 0.5, tint: color });
-      this.fx.ring(this.pos.x, this.pos.y, sk.range, color, 380);
+      this.fx.ring(this.pos.x, this.pos.y, sk.range, color, 380); if (sk.tint !== undefined) this.fx.ring(this.pos.x, this.pos.y, sk.range * 0.6, rootColor, 300);
       this.fx.shake(150, 0.0045);
       let any = false;
       for (const t of this.targets()) {
@@ -1023,8 +1028,10 @@ export class WorldScene extends Phaser.Scene {
     this.scene.restart({ state: this.gs, host: this.host });
   }
 
+  private floats: FloatSlot[] = [];
   private floatText(at: Vec2, text: string, color: string, big = false, size = 10): void {
-    const t = this.add.text(at.x + (Math.random() - 0.5) * 8, at.y - 22, text, { color, fontSize: `${big ? size + 6 : size + 1}px`, fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#14091f', strokeThickness: 3 }).setOrigin(0.5).setDepth(1e6);
+    const fx0 = at.x + (Math.random() - 0.5) * 8, fy0 = placeFloat(this.floats, fx0, at.y - 22, this.time.now); // group hits fan out instead of stacking
+    const t = this.add.text(fx0, fy0, text, { color, fontSize: `${big ? size + 6 : size + 1}px`, fontStyle: 'bold', fontFamily: 'Georgia, serif', stroke: '#14091f', strokeThickness: 3 }).setOrigin(0.5).setDepth(1e6);
     this.tweens.add({ targets: t, y: t.y - (big ? 26 : 18), alpha: 0, scale: big ? 1.25 : 1, duration: big ? 900 : 700, ease: 'cubic.out', onComplete: () => t.destroy() });
   }
 
@@ -1069,6 +1076,9 @@ export class WorldScene extends Phaser.Scene {
       const half = n.plate.displayWidth / 2 / this.cameras.main.zoom + 4; // the whole label, not just its anchor, must clear the minimap
       n.plate.setVisible(!this.underMinimap(n.pos.x - half, n.pos.y + 7) && !this.underMinimap(n.pos.x + half, n.pos.y + 7) && !this.underMinimap(n.pos.x, n.pos.y + 7));
       if (hidden) n.mark.setVisible(false);
+      // plates must not cover a fight: fade them while anything hostile is awake nearby
+      const fighting = this.enemies.some((e) => !e.minion && e.ai.state !== 'idle' && Math.hypot(e.pos.x - n.pos.x, e.pos.y - n.pos.y) < 120) || this.bosses.some((b) => b.engaged && Math.hypot(b.pos.x - n.pos.x, b.pos.y - n.pos.y) < 160);
+      n.plate.setAlpha(fighting ? 0.15 : 1);
     }
 
     if (!(this.gs.tut & 1) && Math.hypot(this.pos.x - this.world.spawn.x, this.pos.y - this.world.spawn.y) > 36) this.gs.tut |= 1;
@@ -1532,7 +1542,8 @@ export class WorldScene extends Phaser.Scene {
 
   // ---------- test hooks (used by e2e only) ----------
   private installTestHooks(): void {
-    try { if (!navigator.webdriver && new URLSearchParams(location.search).get('debug') !== '1') return; } catch { return; } // the cheat/test hooks exist only under automation or ?debug=1
+    if (!import.meta.env.DEV && import.meta.env.VITE_E2E !== '1') return; // compiled out of production bundles (e2e builds set VITE_E2E=1)
+    try { if (!navigator.webdriver && new URLSearchParams(location.search).get('debug') !== '1') return; } catch { return; } // and even then only under automation or ?debug=1
     const w = window as unknown as Record<string, unknown>;
     w.__world = () => ({ x: this.pos.x, y: this.pos.y });
     w.__rpg = {

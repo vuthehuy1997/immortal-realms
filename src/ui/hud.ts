@@ -12,7 +12,6 @@ import { abs, fxIconStyle } from './skin';
 
 let built = false;
 
-const SLOT_ICONS = [{ fx: 'xf_flying_sword', frame: 7 }, { fx: 'xf_moon_arc', frame: 4 }, { fx: 'xf_lotus', frame: 5 }, { fx: 'xf_sword_rain', frame: 3 }];
 
 export function buildHud(): void {
   if (built) return;
@@ -49,7 +48,7 @@ export function buildHud(): void {
 export function renderSkillSlots(): void {
   const slots: string[] = [];
   slots.push(`<div class="slot wide" id="slot-combo"><div class="ic combo"></div><span class="k">LMB</span><span class="nm">Sword Combo</span><div class="pips"><i></i><i></i><i></i></div></div>`);
-  activeKit.forEach((s, i) => slots.push(`<div class="slot" id="slot${i}" title="${s.name} — ${s.alt}"><div class="ic" style="${fxIconStyle(SLOT_ICONS[i]!.fx, SLOT_ICONS[i]!.frame, 44)}"></div><span class="k">${i + 1}</span><span class="nm">${s.name}</span><span class="slv" id="slv${i}"></span><div class="cd" id="cd${i}"></div><div class="lock" id="lock${i}">Lv ${s.unlockLevel}</div></div>`));
+  activeKit.forEach((s, i) => slots.push(`<div class="slot" id="slot${i}" title="${s.name} — ${s.alt}"><div class="ic${s.tint !== undefined ? ' tinted' : ''}" style="${fxIconStyle(s.icon.fx, s.icon.frame, 44, s.tint)}"></div><span class="k">${i + 1}</span><span class="nm">${s.name}</span><span class="slv" id="slv${i}"></span><div class="cd" id="cd${i}"></div><div class="lock" id="lock${i}">Lv ${s.unlockLevel}</div></div>`));
   slots.push(`<div class="slot" id="slot-dash"><div class="ic dash"></div><span class="k">Shift</span><span class="nm">Dash</span><div class="cd" id="cd-dash"></div></div>`);
   slots.push(`<div class="slot pot" id="pot-hp"><div class="ic hpp"></div><span class="k">F</span><span class="cnt" id="cnt-hp">0</span><div class="cd" id="cd-pot1"></div></div>`);
   slots.push(`<div class="slot pot" id="pot-mp"><div class="ic mpp"></div><span class="k">G</span><span class="cnt" id="cnt-mp">0</span><div class="cd" id="cd-pot2"></div></div>`);

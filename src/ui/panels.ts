@@ -104,7 +104,8 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
   const st = statsOf(gs), root = ROOTS[gs.character.root], realm = REALMS[gs.cultivation.realm]!;
   const body = $('chrbody');
   const row = (k: string, v: string | number) => `<div class="row"><span>${k}</span><span>${v}</span></div>`;
-  body.innerHTML = [
+  const left = el('div', 'chrstats'), right = el('div', 'chrtech');
+  left.innerHTML = [
     row('Name', gs.character.name), row('Style', HEROES[gs.character.hero].trait.name), `<div class="row"><small>${HEROES[gs.character.hero].trait.desc}</small></div>`, row('Root', root.name), row('Level', gs.progress.level),
     row('Realm', realm.name), row('Qi', `${Math.floor(gs.cultivation.qi)} / ${realm.qiMax}`), row('Spirit stones', gs.stones), '<hr>',
     row('HP', `${Math.ceil(gs.hp)} / ${st.maxHp}`), row('Mana', `${Math.floor(gs.mana)} / ${st.maxMana}`),
@@ -114,7 +115,7 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
   ].join('');
   const med = el('button', 'btn', meditating ? 'Stop meditating (M)' : 'Meditate (M)'); med.id = 'btn-meditate'; med.onclick = () => actions.toggleMeditate();
   const bt = el('button', 'btn', 'Breakthrough (B)'); bt.id = 'btn-breakthrough'; bt.disabled = !canBreakthrough(gs.cultivation, gs.progress.level) || countOf(gs.inventory, 'foundation-pill') < 1; bt.onclick = () => actions.breakthrough();
-  body.appendChild(med); body.appendChild(bt);
+  left.appendChild(med); left.appendChild(bt);
   const pts = freePoints(gs);
   const skills = el('div', 'skills'); skills.innerHTML = `<h4>Techniques <small>${pts} point${pts === 1 ? '' : 's'}</small></h4>`;
   for (const sk of activeKit) {
@@ -124,7 +125,7 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
     const up = el('button', 'btn', '+'); up.dataset.skill = sk.id; up.disabled = locked || lvl >= SKILL_MAX || pts < 1; up.onclick = () => actions.upgradeSkill(sk.id);
     r.appendChild(up); skills.appendChild(r);
   }
-  body.appendChild(skills);
+  right.appendChild(skills);
   const ins = el('div', 'insightbox'); ins.innerHTML = `<h4>Dao Insight <small>spend spare points · max ${INSIGHT_MAX}</small></h4>`;
   for (const id of INSIGHT_IDS) {
     const d = INSIGHTS[id], r = gs.insight[id];
@@ -133,10 +134,13 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
     const up = el('button', 'btn', '+'); up.dataset.insight = id; up.disabled = r >= INSIGHT_MAX || pts < 1; up.onclick = () => actions.upgradeInsight(id);
     row2.appendChild(up); ins.appendChild(row2);
   }
-  body.appendChild(ins);
-  body.appendChild(el('div', '', hasNextRealm(gs.cultivation)
+  right.appendChild(ins);
+  right.appendChild(el('div', 'chrnote', hasNextRealm(gs.cultivation)
     ? `Breakthrough needs full qi, level ${nextRealmLevel(gs.cultivation)} and a Foundation Pill (consumed each attempt). Success chance ${Math.round(BASE_BREAKTHROUGH_CHANCE * 100)}%; failure loses half your qi and wounds you (25% HP).`
     : 'You have reached the highest realm available in this build.'));
+  const keep = $('chr').scrollTop;
+  body.replaceChildren(left, right);
+  $('chr').scrollTop = keep;
 }
 
 export function showDialogue(d: Dialogue | null, onAction: (a: DialogueAction) => void): void {
