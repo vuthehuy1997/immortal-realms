@@ -33,7 +33,7 @@ export function buildHud(): void {
     <div id="toasts"></div>
     <div id="prompt" class="hidden"></div>
     <div id="death" class="hidden"><div class="dbox"><h2>Defeated</h2><p id="deathtxt"></p><div class="btnrow"><button class="menu-btn" id="btn-respawn">Respawn (R)</button><button class="menu-btn" id="btn-death-menu">Main menu</button></div></div></div>
-    <div id="hint">WASD move · mouse aim · click/Space sword combo · 1-4 techniques · Shift dash · F flask/potion · G mana potion · E interact · M meditate · B breakthrough · I bag · C character · Esc menu</div>
+    <div id="hint"><span><kbd>WASD</kbd>move</span><span><kbd>Click / Space</kbd>attack</span><span><kbd>Shift</kbd>dash</span><span><kbd>1-4</kbd>techniques</span><span><kbd>E</kbd>interact</span><span><kbd>F</kbd>flask</span><span><kbd>M</kbd>meditate</span><span><kbd>I</kbd>bag</span><span><kbd>C</kbd>character</span><span><kbd>Q</kbd>quests</span><span><kbd>Esc</kbd>menu</span></div>
   </div>`);
   renderSkillSlots();
   const icons = MANIFEST.ui;

@@ -53,7 +53,7 @@
     "kind": "stairs",
     "scale": 0.22,
     "blocks": [],
-    "placedInWorld": 12,
+    "placedInWorld": 13,
     "image": "props/stairs.png"
   },
   {
@@ -87,7 +87,7 @@
         "h": 1.6
       }
     ],
-    "placedInWorld": 17,
+    "placedInWorld": 16,
     "image": "props/tower.png"
   },
   {
@@ -141,7 +141,7 @@
         "h": 1.2
       }
     ],
-    "placedInWorld": 417,
+    "placedInWorld": 418,
     "image": "props/taihurocks.png"
   },
   {
@@ -155,7 +155,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 326,
+    "placedInWorld": 325,
     "image": "props/willow.png"
   },
   {
@@ -183,7 +183,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 837,
+    "placedInWorld": 838,
     "image": "props/rock.png"
   },
   {
@@ -198,7 +198,7 @@
     "scale": 0.26,
     "blocks": [],
     "flat": true,
-    "placedInWorld": 2,
+    "placedInWorld": 4,
     "image": "props/lotuspond.png"
   },
   {
@@ -206,7 +206,7 @@
     "scale": 0.22,
     "blocks": [],
     "flat": true,
-    "placedInWorld": 184,
+    "placedInWorld": 185,
     "image": "props/petals.png"
   },
   {
@@ -261,7 +261,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 311,
+    "placedInWorld": 312,
     "image": "props/dragonpillar.png"
   },
   {
@@ -310,7 +310,7 @@
       }
     ],
     "float": true,
-    "placedInWorld": 3,
+    "placedInWorld": 1,
     "image": "props/floatisle.png"
   },
   {
@@ -324,7 +324,7 @@
         "h": 1.2
       }
     ],
-    "placedInWorld": 11,
+    "placedInWorld": 5,
     "image": "props/lotusbowl.png"
   },
   {
@@ -346,7 +346,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 670,
+    "placedInWorld": 674,
     "image": "props/standstone.png"
   },
   {
@@ -360,7 +360,7 @@
         "h": 1.2
       }
     ],
-    "placedInWorld": 17,
+    "placedInWorld": 18,
     "image": "props/stonecircle.png"
   },
   {
@@ -374,7 +374,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 361,
+    "placedInWorld": 365,
     "image": "props/peachtree.png"
   },
   {
@@ -388,7 +388,7 @@
         "h": 1.5
       }
     ],
-    "placedInWorld": 8,
+    "placedInWorld": 6,
     "image": "props/pagoda7.png"
   }
 ]

@@ -1,4 +1,19 @@
 
+## Round 21 (QA report 6 -> fixes and depth)
+Source: docs/QA_REPORT_6.md (HEAD 8d43acc). Bugs first, then the top backlog items.
+- **B1 panels**: the character panel is two columns on wide screens (stats | Techniques + Dao Insight) so nothing needs scrolling at 1024x600 / 1280x720; all scrollable panels have a visible gold scrollbar; the quest journal sits above the hotbar.
+- **B2 combat text**: floating numbers fan into separate rows (`src/core/floatStack.ts`, unit tested) and NPC nameplates fade to 15% while a hostile is awake near them.
+- **B3/B4 kits**: Twin Daggers 1.0 -> 1.6 per dagger (cd 1.3), Ember Fan spread 0.5 -> 0.9 rad, damage 1.1 per bolt, bolts leave from separate points so a close group is hit by several. The sustained-damage band test still holds (hi/lo stays < 1.35).
+- **B5 hero identity**: every hero has its own strip and tint per technique (phoenix feathers for the Crimson Swordswoman, indigo ink/wind/stars for the Fan Scholar, gold palm and bell for the Monk, steel and stone spikes for the Saber, teal shards for the Twin-Blade) and its own hotbar icons (tinted by a CSS mask). Only existing licensed fx strips are used; no new assets.
+- **B7 hooks**: `__rpg` / `__world` / `__game` are compiled out of the production bundle (`import.meta.env.DEV || VITE_E2E=1`); the e2e web server builds with `VITE_E2E=1` (`npm run build:e2e`). Verified by grepping `dist/assets`.
+- **B8**: Cloudhollow floor is now pale flagstone with seams, so the walkable extent reads against the dark rock.
+- **Bosses**: boss `aura` (glow behind the body, defaults to the tint) lifts dark bosses off dark floors; Obsidian Colossus uses a lighter tint plus an ember aura. Chapter 5 boss HP cut ~20% (finale 330k -> 260k) so typical fight length stays within 2.2x of chapter 1 (`tests/bossCurve.test.ts`).
+- **Status**: enemies held by a stun/pull show three orbiting stars (`stunned` in the test state).
+- **Hubs 3-5** get their own prop compositions: market street (ch3), jade stairs with lotus ponds (ch4), standing-stone watchpost (ch5).
+- **Onboarding**: the control hint is a keycap list instead of a dense paragraph.
+- Tests: `tests/floatStack.test.ts`, `tests/bossCurve.test.ts`, extended `tests/heroKits.test.ts`, `e2e/round21.spec.ts`.
+- Not done: see the Resolution section of docs/QA_REPORT_6.md and TASKS.md (unique boss sprites, dungeon interior generators, per-hero VFX beyond recoloured strips, human playtest).
+
 ## Round 19 (independent QA of the Round 18 world)
 Two independent QA agents (world/quests/visuals; dungeons/saves) tested HEAD d3f3aa8. Reachability, spawn placement, quest completability (72 quests, static), gates, old-save migration and all 19 dungeons came back clean. Fixed:
 - **Data loss**: a first-clear dungeon reward no longer vanishes when the bag is full; it is parked in `GameState.pending` and handed over (toast) as soon as a slot frees up. Saves validate/round-trip it.

@@ -83,10 +83,10 @@ const MAP: MapDef = {
     { bossId: 'archivekeeper', tile: { x: 30, y: 32 }, radius: 8, ring: 'taihurocks', open: { x: 1, y: 1 }, ground: 'jade' },
     { bossId: 'magistrate', tile: { x: 130, y: 24 }, radius: 10, ring: 'dragonpillar', open: { x: 0, y: 1 }, ground: 'stone' },
   ],
-  hubProps: [
-    { kind: 'pagoda7', dx: 0, dy: -9 }, { kind: 'pavilion', dx: 9, dy: -5 }, { kind: 'pavilion', dx: -9, dy: -5 }, { kind: 'paifang', dx: 0, dy: 13 },
-    { kind: 'jadebridge', dx: 0, dy: 8 }, { kind: 'lotusbowl', dx: -6, dy: 4 }, { kind: 'lotusbowl', dx: 6, dy: 4 }, { kind: 'dragonpillar', dx: -4, dy: -3 }, { kind: 'dragonpillar', dx: 4, dy: -3 },
-    { kind: 'peachtree', dx: -12, dy: 5 }, { kind: 'peachtree', dx: 12, dy: 6 }, { kind: 'willow', dx: -10, dy: 11 }, { kind: 'willow', dx: 11, dy: 12 }, { kind: 'floatisle', dx: -15, dy: -9 }, { kind: 'floatisle', dx: 16, dy: -10 },
+  hubProps: [ // jade terrace: stairs climbing to a pagoda, lotus ponds either side, a bridge across the foot
+    { kind: 'pagoda7', dx: 0, dy: -11 }, { kind: 'stairs', dx: 0, dy: -6 }, { kind: 'pavilion', dx: -10, dy: -7 }, { kind: 'pavilion', dx: 10, dy: -7 }, { kind: 'paifang', dx: 0, dy: 14 },
+    { kind: 'jadebridge', dx: 0, dy: 9 }, { kind: 'lotuspond', dx: -8, dy: 3 }, { kind: 'lotuspond', dx: 8, dy: 3 }, { kind: 'dragonpillar', dx: -3, dy: -2 }, { kind: 'dragonpillar', dx: 3, dy: -2 },
+    { kind: 'peachtree', dx: -13, dy: 7 }, { kind: 'peachtree', dx: 13, dy: 8 }, { kind: 'willow', dx: -10, dy: 12 }, { kind: 'floatisle', dx: -15, dy: -9 },
   ],
   npcs: {
     'warden-lian': { x: 30, y: 105 }, 'trader-yue': { x: 36, y: 111 }, 'alchemist-ning': { x: 21, y: 111 }, 'keeper-sui': { x: 27, y: 115 },

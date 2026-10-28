@@ -12,6 +12,10 @@
     "pierce": 2,
     "unlockLevel": 1,
     "fx": "xf_flying_sword",
+    "icon": {
+      "fx": "xf_flying_sword",
+      "frame": 7
+    },
     "image": "skills/flying-sword.png"
   },
   {
@@ -27,6 +31,10 @@
     "pierce": 99,
     "unlockLevel": 2,
     "fx": "xf_moon_arc",
+    "icon": {
+      "fx": "xf_moon_arc",
+      "frame": 4
+    },
     "image": "skills/moon-arc.png"
   },
   {
@@ -41,6 +49,10 @@
     "stun": 1,
     "unlockLevel": 4,
     "fx": "xf_lotus",
+    "icon": {
+      "fx": "xf_lotus",
+      "frame": 5
+    },
     "image": "skills/lotus-burst.png"
   },
   {
@@ -55,6 +67,10 @@
     "ticks": 4,
     "unlockLevel": 7,
     "fx": "xf_sword_rain",
+    "icon": {
+      "fx": "xf_sword_rain",
+      "frame": 3
+    },
     "image": "skills/sword-rain.png"
   }
 ]

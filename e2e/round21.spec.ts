@@ -46,3 +46,14 @@ test('B5: a hero kit carries its own tinted hotbar icons', async ({ page }) => {
   await newGame(page, 'Sw', 'flame', 'swordsman');
   await expect(page.locator('#slot0 .ic.tinted')).toHaveCount(0);
 });
+
+test('Diamond Palm marks enemies it stuns (status indicator state)', async ({ page }) => {
+  await newGame(page, 'Palm', 'flame', 'monk');
+  await page.evaluate(() => window.__rpg!.giveXp(1100));
+  await waitGame(page, 0.3);
+  const p = await me(page);
+  const id = await page.evaluate(([x, y]) => window.__rpg!.spawnUnaware('golem', (x as number) + 40, y as number), [p.x, p.y]);
+  await page.evaluate(([x, y]) => window.__rpg!.cast(2, (x as number) + 40, y as number), [p.x, p.y]);
+  await waitGame(page, 0.4);
+  expect((await st(page)).enemies.find((e) => e.id === id)?.stunned).toBe(true);
+});

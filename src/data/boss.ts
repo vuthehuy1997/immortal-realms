@@ -24,6 +24,8 @@ export interface BossDef {
   zone: ZoneId;
   /** multiply-tint over the sprite (recoloured reuse) */
   tint?: number;
+  /** colour of the glow behind the body (default: the tint); set it for dark bosses so they read against the floor */
+  aura?: number;
   xp: number;
   stones: [number, number];
   /** sprite prefix in the manifest */

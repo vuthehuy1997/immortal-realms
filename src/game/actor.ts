@@ -11,6 +11,8 @@ export class Actor {
   private dir: 1 | -1 = 1;
   private flashTimer?: Phaser.Time.TimerEvent;
   private baseTint: number | null = null;
+  private aura: Phaser.GameObjects.Image | null = null;
+  private auraSize = 0;
 
   constructor(private scene: Phaser.Scene, readonly prefix: string, x: number, y: number, readonly scale: number, shadowWidth = 22) {
     const first = sheetOf(`${prefix}.idle`);
@@ -54,6 +56,14 @@ export class Actor {
   setPos(x: number, y: number): void {
     this.sprite.setPosition(x, y).setDepth(y);
     this.shadow.setPosition(x, y - 1);
+    if (this.aura) { this.aura.setPosition(x, y - this.auraSize * 0.22).setDepth(y - 1); const k = 1 + Math.sin(this.scene.time.now / 420) * 0.06; this.aura.setDisplaySize(this.auraSize * k, this.auraSize * k); }
+  }
+
+  /** Soft additive glow behind the body: lifts dark sprites off dark floors and gives recoloured reuse its own colour identity. */
+  setAura(color: number, size: number, alpha = 0.5): void {
+    this.aura?.destroy();
+    this.auraSize = size;
+    this.aura = this.scene.add.image(this.sprite.x, this.sprite.y, 'glow').setTint(color).setBlendMode(Phaser.BlendModes.ADD).setAlpha(alpha).setDisplaySize(size, size);
   }
 
   /** Permanent multiply tint (recoloured art); flashes restore it. */
@@ -71,8 +81,8 @@ export class Actor {
   tint(color: number): void { this.sprite.setTint(color).setTintMode(Phaser.TintModes.MULTIPLY); }
   untint(): void { this.restoreTint(); }
 
-  setAlpha(a: number): void { this.sprite.setAlpha(a); this.shadow.setAlpha(a * 0.9); }
-  setVisible(v: boolean): void { this.sprite.setVisible(v); this.shadow.setVisible(v); }
+  setAlpha(a: number): void { this.sprite.setAlpha(a); this.shadow.setAlpha(a * 0.9); this.aura?.setVisible(a > 0.05); }
+  setVisible(v: boolean): void { this.sprite.setVisible(v); this.shadow.setVisible(v); this.aura?.setVisible(v); }
 
-  destroy(): void { this.flashTimer?.remove(false); this.sprite.destroy(); this.shadow.destroy(); }
+  destroy(): void { this.flashTimer?.remove(false); this.sprite.destroy(); this.shadow.destroy(); this.aura?.destroy(); }
 }

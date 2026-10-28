@@ -19,21 +19,21 @@ const BASE: Record<GroundKind, RGB> = {
   grass: [104, 156, 74], grassDark: [66, 116, 62], moss: [78, 124, 84], path: [182, 146, 102],
   stone: [152, 154, 162], water: [50, 104, 152], sand: [208, 188, 134],
   snow: [226, 234, 244], ice: [150, 200, 226], ash: [96, 92, 98],
-  lava: [196, 66, 26], cloud: [214, 208, 238], jade: [92, 164, 138], crimson: [124, 50, 58], clay: [194, 132, 86], basalt: [72, 68, 82],
+  lava: [196, 66, 26], cloud: [168, 166, 206], jade: [92, 164, 138], crimson: [124, 50, 58], clay: [194, 132, 86], basalt: [72, 68, 82],
   wall: [46, 40, 42], void: [20, 18, 48],
 };
 const LIGHT: Record<GroundKind, RGB> = {
   grass: [138, 190, 92], grassDark: [92, 146, 76], moss: [102, 150, 100], path: [208, 174, 128],
   stone: [182, 184, 192], water: [96, 160, 196], sand: [230, 212, 160],
   snow: [248, 252, 255], ice: [196, 234, 250], ash: [126, 122, 128],
-  lava: [255, 160, 56], cloud: [246, 242, 255], jade: [140, 212, 178], crimson: [170, 84, 84], clay: [226, 168, 114], basalt: [104, 100, 118],
+  lava: [255, 160, 56], cloud: [206, 204, 240], jade: [140, 212, 178], crimson: [170, 84, 84], clay: [226, 168, 114], basalt: [104, 100, 118],
   wall: [70, 62, 62], void: [46, 40, 90],
 };
 const DARK: Record<GroundKind, RGB> = {
   grass: [72, 120, 56], grassDark: [44, 86, 48], moss: [56, 98, 70], path: [150, 116, 80],
   stone: [118, 120, 130], water: [34, 76, 124], sand: [180, 160, 108],
   snow: [190, 206, 226], ice: [108, 162, 204], ash: [68, 64, 72],
-  lava: [108, 26, 14], cloud: [166, 158, 204], jade: [54, 116, 98], crimson: [84, 30, 44], clay: [148, 96, 58], basalt: [46, 44, 58],
+  lava: [108, 26, 14], cloud: [118, 114, 168], jade: [54, 116, 98], crimson: [84, 30, 44], clay: [148, 96, 58], basalt: [46, 44, 58],
   wall: [26, 22, 26], void: [10, 8, 26],
 };
 const KINDS: GroundKind[] = ['grass', 'grassDark', 'moss', 'path', 'stone', 'water', 'sand', 'snow', 'ice', 'ash', 'lava', 'cloud', 'jade', 'crimson', 'clay', 'basalt', 'wall', 'void'];
@@ -173,7 +173,10 @@ export class GroundChunks {
           const vein = Math.sin((wx * 0.35 - wy * 0.5) + lf * 11) * 0.5 + Math.sin(wy * 0.6 + wx * 0.25 + lf * 8) * 0.5;
           t = vein * 0.7; if (vein > 0.72) t = 1; // bright molten seams
         } else if (kd === 'cloud') {
-          t = (lf - 0.5) * 1.5 + Math.sin(wx * 0.2 + lf * 6) * 0.15;
+          // pale flagstones under drifting mist: seams and per-slab shade mark where the floor is (it used to read as open sky)
+          const row = Math.floor(wy / 20), off = (row & 1) * 14, ssx = (wx + off) % 28, ssy = wy % 20;
+          t = (lf - 0.5) * 1.3 + Math.sin(wx * 0.2 + lf * 6) * 0.12 + (hash(Math.floor((wx + off) / 28), row) - 0.5) * 0.4;
+          if (ssx < 0.8 || ssy < 0.8) rim = -1; else if (ssx < 1.8 || ssy < 1.8) rim = 0.25;
         } else if (kd === 'wall' || kd === 'basalt') {
           // natural rock: wavy strata, blotchy lichen-dark patches and thin cracks (no masonry pattern)
           const strata = Math.sin(wy * 0.33 + lf * 9 + Math.sin(wx * 0.07) * 2) * 0.22;

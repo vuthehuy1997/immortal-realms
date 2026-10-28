@@ -27,7 +27,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .xpline .track i { display: block; height: 100%; width: 0; background: linear-gradient(#b99bff, #7a55d8); }
 #stones { display: flex; align-items: center; gap: .35em; font-weight: 700; text-shadow: 0 1px 2px #000; }
 .stone { width: 1.5em; height: 1.5em; background: var(--img-stone) center / contain no-repeat; image-rendering: pixelated; }
-#hint { position: absolute; left: 1em; bottom: .8em; font-size: .85em; line-height: 1.35; color: #fff; background: rgba(11,13,20,.7); padding: .35em .6em; border-radius: 6px; max-width: 22em; opacity: .85; }
+#hint { position: absolute; left: 1em; bottom: .8em; font-size: .85em; line-height: 1.7; color: #e8e2d0; background: rgba(11,13,20,.7); padding: .3em .6em; border-radius: 6px; width: 24em; max-width: 30vw; display: flex; flex-wrap: wrap; gap: 0 .9em; opacity: .9; }
+#hint span { white-space: nowrap; } #hint kbd { font: 700 .88em/1 inherit; font-family: inherit; color: #ffe9a8; background: #241f33; border: 1px solid #6b5a2e; border-bottom-width: 2px; border-radius: 4px; padding: .1em .4em; margin-right: .35em; }
 #quest { position: absolute; right: 1em; top: 19.3em; width: 18em; font-size: .9em; border: 14px solid transparent; border-image: var(--img-panel) 36 fill / 14px stretch; padding: .1em .4em; background-clip: padding-box; }
 #quest h4 { margin: 0 0 .25em; font-size: 1em; color: #ffe9a8; } #quest .done { color: #8fe29a; }
 #boss { position: absolute; left: 50%; top: .8em; transform: translateX(-50%); width: min(34em, 56vw); text-align: center; }
@@ -63,7 +64,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #chr::-webkit-scrollbar, #inv::-webkit-scrollbar, #qlog::-webkit-scrollbar { width: 8px; } #chr::-webkit-scrollbar-thumb, #inv::-webkit-scrollbar-thumb, #qlog::-webkit-scrollbar-thumb { background: var(--gold2); border-radius: 4px; } #chr::-webkit-scrollbar-track, #inv::-webkit-scrollbar-track, #qlog::-webkit-scrollbar-track { background: #17131f; }
 .chrnote { font-size: .8em; opacity: .85; margin-top: .4em; }
 /* wide screens: stats left, techniques + Dao Insight right, so nothing needs scrolling to be reached */
-@media (min-width: 900px) { #chr { width: 44em; max-width: calc(100vw - 2em); } #chrbody { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2em; align-items: start; } }
+@media (min-width: 900px) { #chr:not(:has(~ #dlg:not(.hidden))) { width: 44em; max-width: calc(100vw - 2em); } #chr:not(:has(~ #dlg:not(.hidden))) #chrbody { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.2em; align-items: start; } }
 #inv, #qlog { scrollbar-width: thin; scrollbar-color: var(--gold2) #17131f; }
 .panel h3 { margin: 0 0 .5em; font-size: 1.15em; letter-spacing: .05em; color: #ffe9a8; }
 .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: .3em; }

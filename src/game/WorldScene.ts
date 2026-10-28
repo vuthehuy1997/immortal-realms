@@ -92,6 +92,7 @@ interface Bolt {
 interface RainZone { pos: Vec2; left: number; every: number; timer: number; mult: number; radius: number; tele: Phaser.GameObjects.Image }
 interface Npc { id: string; pos: Vec2; actor: Actor; mark: Phaser.GameObjects.Text; plate: Phaser.GameObjects.Text }
 interface Target { pos: Vec2; radius: number; key: unknown; hit(mult: number, o?: HitOpts): void }
+const STUN_MARK_MIN = 0.35; // seconds of stun left before the marker shows
 interface HitOpts { kb?: number; stun?: number; from?: Vec2; crit?: boolean; dot?: boolean }
 
 /** Open xianxia overworld with real-time martial-arts combat. Art: CC0 Xianxia Pixel Pack (see docs/ASSET_LICENSE_AUDIT.md). */
@@ -348,6 +349,7 @@ export class WorldScene extends Phaser.Scene {
     const pos = { ...this.world.bossHomes[def.id]! };
     const actor = new Actor(this, def.sprite, pos.x, pos.y, def.scale, 56);
     if (def.tint !== undefined) actor.setBaseTint(def.tint);
+    if (def.aura !== undefined || def.tint !== undefined) actor.setAura(def.aura ?? def.tint!, def.radius * 7, def.aura !== undefined ? 0.6 : 0.3);
     actor.setPos(pos.x, pos.y);
     this.bosses.push({ burn: null, slow: 0, rainTele: null, charge: null, slams: 0, def, c, ai: newBossAI(), pos, actor, engaged: false, tele: null, lockUntil: 0, kb: { x: 0, y: 0 } });
   }
@@ -1531,6 +1533,11 @@ export class WorldScene extends Phaser.Scene {
       this.vision.fillStyle(0xffd23f, 0.17).lineStyle(1, 0xffd23f, 0.45).slice(e.pos.x, e.pos.y, r, a - FOV / 2, a + FOV / 2, false).fillPath().strokePath();
       this.vision.fillStyle(0xffd23f, 0.12).fillCircle(e.pos.x, e.pos.y, SENSE_RADIUS);
     }
+    for (const e of this.enemies) { // stun marker: three golden stars orbit the head of anything held by a technique (not the brief hit flinch)
+      if (e.stun < STUN_MARK_MIN || e.c.hp <= 0) continue;
+      const cy = e.pos.y - e.def.scale * 85 - 10;
+      for (let k = 0; k < 3; k++) { const a = this.time.now / 180 + (k * Math.PI * 2) / 3; this.hpBars.fillStyle(0xffe27a, 1).fillCircle(e.pos.x + Math.cos(a) * 8, cy + Math.sin(a) * 2.5, 1.7); }
+    }
     for (const e of this.enemies) {
       if (e.c.hp >= e.c.maxHp && e.ai.state === 'idle' && !e.elite) continue;
       const w = e.elite ? 26 : 22, x = e.pos.x - w / 2, y = e.pos.y - e.def.scale * 85 - 4;
@@ -1552,7 +1559,7 @@ export class WorldScene extends Phaser.Scene {
         realm: this.gs.cultivation.realm, qi: this.gs.cultivation.qi, weapon: this.gs.inventory.weapon, meditating: this.meditating, bossDefeated: isBossDefeated(this.gs, 'warden'), bossesDefeated: [...this.gs.bosses],
         hero: this.gs.character.hero, stones: this.gs.stones, tut: this.gs.tut, objective: this.objective().text, skills: { ...this.gs.skills }, freePoints: freePoints(this.gs), inventoryGear: { weapon: this.gs.inventory.weapon, armor: this.gs.inventory.armor, charm: this.gs.inventory.charm }, zone: this.currentZone, tower: this.rift.snapshot(), towerBest: this.gs.towerBest, boons: [...this.gs.boons], boonPicks: this.gs.boonPicks, perfectBuff: this.now < this.perfectUntil, dead: this.dead, comboStep: this.combo.step, dashing: isDashing(this.dashState, this.now), invulnerable: isInvulnerable(this.dashState, this.now),
         quests: Object.fromEntries(Object.entries(this.gs.quests).map(([k, v]) => [k, v.status])),
-        enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
+        enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, stunned: e.stun >= STUN_MARK_MIN, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
         bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams, poise: Math.round(b.ai.poise) })),
         boss: this.boss ? { hp: this.boss.c.hp, maxHp: this.boss.c.maxHp, x: this.boss.pos.x, y: this.boss.pos.y, engaged: this.boss.engaged, phase: this.boss.ai.phase, state: this.boss.ai.state === 'windup' ? `${this.boss.ai.move}-windup` : this.boss.ai.state, slams: this.boss.slams } : null,
         chapter: this.chapter, dungeon: this.dungeon?.id ?? null, entrances: this.world.entrances, portalNext: this.world.portalNext ?? null, portal: this.world.portal, bossHomes: this.world.bossHomes, story: [...this.gs.story],

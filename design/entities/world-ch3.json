@@ -9,8 +9,8 @@
     "y": 1784
   },
   "portal": {
-    "x": 392,
-    "y": 1864
+    "x": 232,
+    "y": 1544
   },
   "bossHomes": {
     "sandwyrm": {
@@ -99,5 +99,5 @@
     }
   },
   "herbs": 57,
-  "propCount": 923
+  "propCount": 922
 }

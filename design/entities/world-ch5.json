@@ -9,8 +9,8 @@
     "y": 2008
   },
   "portal": {
-    "x": 632,
-    "y": 1976
+    "x": 584,
+    "y": 1992
   },
   "bossHomes": {
     "abyss-tyrant": {
@@ -99,5 +99,5 @@
     }
   },
   "herbs": 50,
-  "propCount": 1251
+  "propCount": 1252
 }

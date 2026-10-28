@@ -65,10 +65,10 @@ const MAP: MapDef = {
     { bossId: 'mirageempress', tile: { x: 90, y: 36 }, radius: 9, ring: 'standstone', open: { x: 1, y: 1 }, ground: 'stone' },
     { bossId: 'furnacewarden', tile: { x: 140, y: 20 }, radius: 10, ring: 'dragonpillar', open: { x: -1, y: 0 }, ground: 'stone' },
   ],
-  hubProps: [
-    { kind: 'pavilion', dx: -9, dy: 10 }, { kind: 'pavilion', dx: 9, dy: 10 }, { kind: 'pavilion', dx: -10, dy: -7 }, { kind: 'tower', dx: 0, dy: -10 },
-    { kind: 'pagoda7', dx: 11, dy: -6 }, { kind: 'goldpaifang', dx: 0, dy: 14 }, { kind: 'stonecircle', dx: 12, dy: 4 }, { kind: 'lotusbowl', dx: -6, dy: 4 }, { kind: 'lotusbowl', dx: 6, dy: 4 },
-    { kind: 'pine', dx: -13, dy: 2 }, { kind: 'rock', dx: 13, dy: -2 }, { kind: 'rock', dx: -12, dy: 9 },
+  hubProps: [ // caravan bazaar: a market street of stalls either side of a central well, watchtower and gate at the ends
+    { kind: 'pavilion', dx: -9, dy: -4 }, { kind: 'pavilion', dx: -9, dy: 6 }, { kind: 'pavilion', dx: 9, dy: -4 }, { kind: 'pavilion', dx: 9, dy: 6 },
+    { kind: 'tower', dx: -15, dy: -2 }, { kind: 'pagoda7', dx: 15, dy: -1 }, { kind: 'goldpaifang', dx: 0, dy: -11 }, { kind: 'stonecircle', dx: 0, dy: -6 },
+    { kind: 'standstone', dx: -4, dy: 10 }, { kind: 'standstone', dx: 4, dy: 10 }, { kind: 'rock', dx: -14, dy: 3 }, { kind: 'rock', dx: 14, dy: 4 }, { kind: 'pine', dx: -13, dy: 11 },
   ],
   npcs: {
     'caravan-master-hui': { x: 26, y: 98 }, 'trader-sahn': { x: 31, y: 105 }, 'alchemist-zhu': { x: 17, y: 105 },
@@ -210,7 +210,7 @@ const BOSSES: BossDef[] = [
     phase2At: 0.66, phase3At: 0.33, enrage: { speedMult: 1.3, cooldownMult: 0.7 },
   },
   {
-    id: 'obsidiancolossus', chapter: 3, dungeon: 'ember-mine', name: 'Obsidian Colossus', home: 'mine', zone: 'ember-mine', tint: 0x3a3446, xp: 1800, stones: [260, 380], sprite: 'mob.golem', scale: 1.15, radius: 28,
+    id: 'obsidiancolossus', chapter: 3, dungeon: 'ember-mine', name: 'Obsidian Colossus', home: 'mine', zone: 'ember-mine', tint: 0xe6d8ff, aura: 0xff5a1f, xp: 1800, stones: [260, 380], sprite: 'mob.golem', scale: 1.15, radius: 28,
     maxHp: 22000, atk: 72, def: 26, speed: 30,
     moves: {
       slam: { radius: 70, windup: 1.0, recover: 0.6, cooldown: 4, damageMult: 1.8, triggerRange: 104 },

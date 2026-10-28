@@ -35,6 +35,11 @@
 - Dev->test loop found and fixed 7 bugs (BUGS.md), notably a Phaser 4.2.1 keyboard double-fire.
 - UNVERIFIED: human feel/balance, art quality, real-GPU perf, non-Chromium browsers.
 
+## 2026-10-29 - Round 21 (QA report 6 -> fixes and depth)
+- Acted on docs/QA_REPORT_6.md: bugs B1-B5, B7, B8 fixed with regression tests; backlog items 1-4, 7 (aura/tint slice), 8, 10 (hooks out of prod) done; 5 (HP curve test, ch5 trim) and 6 (hubs 3-5 compositions) partly; 9 (Cloudhollow floor only) partly. Details and commits in the Resolution section of the report.
+- Screenshots reviewed: character panel at 1280x720 and 1024x600, Heroine and Fan Scholar technique casts and hotbars, Cloudhollow floor, Obsidian Colossus arena, hubs of chapters 3, 4 and 5.
+- UNVERIFIED: hand feel of the kits, audio, real-GPU fps, human boss playtest.
+
 ## 2026-10-16 — Published
 - Repo: https://github.com/vuthehuy1997/immortal-realms (public). Live: https://vuthehuy1997.github.io/immortal-realms/
 - Deploy: `.github/workflows/pages.yml` (lint, typecheck, unit tests, build, then GitHub Pages) on every push to `main`. e2e (`npm run qc`) is local-only for now.

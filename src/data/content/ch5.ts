@@ -86,10 +86,10 @@ const MAP: MapDef = {
     { bossId: 'abyss-matron', tile: { x: 160, y: 62 }, radius: 9, ring: 'peachtree', open: { x: -1, y: -0.3 }, ground: 'jade' },
     { bossId: 'abyss-daodemon', tile: { x: 150, y: 16 }, radius: 11, ring: 'dragonpillar', open: { x: -0.2, y: 1 }, ground: 'crimson' },
   ],
-  hubProps: [
-    { kind: 'tower', dx: 0, dy: -9 }, { kind: 'tower', dx: -11, dy: -5 }, { kind: 'pavilion', dx: 9, dy: 8 }, { kind: 'pavilion', dx: -9, dy: 9 },
-    { kind: 'dragonpillar', dx: -5, dy: -3 }, { kind: 'dragonpillar', dx: 5, dy: -3 }, { kind: 'lotusbowl', dx: -6, dy: 4 }, { kind: 'lotusbowl', dx: 6, dy: 4 },
-    { kind: 'stonecircle', dx: 13, dy: 11 }, { kind: 'standstone', dx: 12, dy: -4 }, { kind: 'standstone', dx: -13, dy: 5 },
+  hubProps: [ // abyss watchpost: a broken ring of standing stones and towers around a bare array, no gardens
+    { kind: 'tower', dx: -10, dy: -9 }, { kind: 'tower', dx: 10, dy: -4 }, { kind: 'pavilion', dx: 8, dy: 9 }, { kind: 'dragonpillar', dx: -6, dy: -2 }, { kind: 'dragonpillar', dx: 6, dy: 6 },
+    { kind: 'standstone', dx: -12, dy: 2 }, { kind: 'standstone', dx: -4, dy: -9 }, { kind: 'standstone', dx: 13, dy: -9 }, { kind: 'standstone', dx: 3, dy: 12 }, { kind: 'standstone', dx: -9, dy: 11 },
+    { kind: 'stonecircle', dx: 13, dy: 11 }, { kind: 'stonecircle', dx: -13, dy: -4 }, { kind: 'taihurocks', dx: 12, dy: 2 },
   ],
   npcs: {
     'matron-hui': { x: 28, y: 113 }, 'smith-tang': { x: 33, y: 119 }, 'alchemist-lian': { x: 19, y: 119 },
@@ -163,7 +163,7 @@ const ENEMIES_DEF: EnemyDef[] = [
 // PLACEHOLDER art: boss.jiaolong, blood-red
 const TYRANT: BossDef = {
   id: 'abyss-tyrant', chapter: 5, name: 'Blood-River Tyrant', home: 'abyss-basin', zone: 'abyss-basin', xp: 7600, stones: [900, 1300],
-  sprite: 'boss.jiaolong', tint: 0xff5a4a, scale: 0.55, radius: 28, maxHp: 150000, atk: 250, def: 40, speed: 46,
+  sprite: 'boss.jiaolong', tint: 0xff5a4a, scale: 0.55, radius: 28, maxHp: 120000, atk: 250, def: 40, speed: 46,
   moves: {
     slam: { radius: 64, windup: 0.9, recover: 0.5, cooldown: 4, damageMult: 1.7, triggerRange: 100 },
     sweep: { range: 104, halfAngle: 1.1, windup: 0.68, recover: 0.45, cooldown: 3, damageMult: 1.4, triggerRange: 100 },
@@ -180,7 +180,7 @@ const TYRANT: BossDef = {
 // PLACEHOLDER art: boss.ninetail, violet
 const MATRON: BossDef = {
   id: 'abyss-matron', chapter: 5, name: 'Matron of Regrets', home: 'abyss-regret', zone: 'abyss-regret', xp: 8800, stones: [1100, 1600],
-  sprite: 'boss.ninetail', tint: 0xb878ff, scale: 0.6, radius: 26, maxHp: 190000, atk: 270, def: 30, speed: 54,
+  sprite: 'boss.ninetail', tint: 0xb878ff, scale: 0.6, radius: 26, maxHp: 150000, atk: 270, def: 30, speed: 54,
   moves: {
     sweep: { range: 96, halfAngle: 1.25, windup: 0.62, recover: 0.4, cooldown: 2.8, damageMult: 1.4, triggerRange: 92 },
     charge: { windup: 0.7, duration: 0.5, speed: 330, width: 24, recover: 0.65, cooldown: 4.6, damageMult: 1.6, minRange: 14, maxRange: 270 },
@@ -197,7 +197,7 @@ const MATRON: BossDef = {
 // PLACEHOLDER art: boss.fallenimmortal, crimson
 const DAODEMON: BossDef = {
   id: 'abyss-daodemon', chapter: 5, name: 'Dao Demon of Tribulation', home: 'abyss-peak', zone: 'abyss-peak', xp: 18000, stones: [3000, 4200],
-  sprite: 'boss.fallenimmortal', tint: 0xff4658, scale: 0.85, radius: 28, maxHp: 330000, atk: 330, def: 60, speed: 48, poise: 0.1,
+  sprite: 'boss.fallenimmortal', tint: 0xff4658, scale: 0.85, radius: 28, maxHp: 260000, atk: 330, def: 60, speed: 48, poise: 0.1,
   moves: {
     slam: { radius: 70, windup: 0.85, recover: 0.45, cooldown: 3.6, damageMult: 1.8, triggerRange: 104 },
     sweep: { range: 108, halfAngle: 1.05, windup: 0.66, recover: 0.4, cooldown: 2.8, damageMult: 1.5, triggerRange: 102 },
@@ -214,7 +214,7 @@ const DAODEMON: BossDef = {
 /** Bone-root cavern guardian. PLACEHOLDER art: treant, bone white. */
 const ROOTKING: BossDef = {
   id: 'abyss-rootking', chapter: 5, dungeon: 'abyss-bonecavern', name: 'Ossuary Root-King', home: 'abyss-bonecavern', zone: 'abyss-bonecavern', xp: 4200, stones: [500, 760],
-  sprite: 'mob.treant', tint: 0xe8e0c0, scale: 1.05, radius: 26, maxHp: 80000, atk: 210, def: 30, speed: 38,
+  sprite: 'mob.treant', tint: 0xe8e0c0, scale: 1.05, radius: 26, maxHp: 64000, atk: 210, def: 30, speed: 38,
   moves: {
     slam: { radius: 62, windup: 0.9, recover: 0.5, cooldown: 4, damageMult: 1.8, triggerRange: 96 },
     sweep: { range: 96, halfAngle: 1.0, windup: 0.7, recover: 0.45, cooldown: 3.2, damageMult: 1.4, triggerRange: 92 },
@@ -229,7 +229,7 @@ const ROOTKING: BossDef = {
 /** Blood-spring grotto guardian. PLACEHOLDER art: fox demon, crimson. */
 const WYRM: BossDef = {
   id: 'abyss-springfox', chapter: 5, dungeon: 'abyss-bloodgrotto', name: 'Heretic of the Blood Spring', home: 'abyss-bloodgrotto', zone: 'abyss-bloodgrotto', xp: 3800, stones: [460, 700],
-  sprite: 'mob.foxdemon', tint: 0xff4a58, scale: 0.9, radius: 22, maxHp: 72000, atk: 200, def: 22, speed: 56,
+  sprite: 'mob.foxdemon', tint: 0xff4a58, scale: 0.9, radius: 22, maxHp: 58000, atk: 200, def: 22, speed: 56,
   moves: {
     sweep: { range: 84, halfAngle: 1.2, windup: 0.6, recover: 0.4, cooldown: 2.8, damageMult: 1.4, triggerRange: 84 },
     charge: { windup: 0.65, duration: 0.5, speed: 320, width: 22, recover: 0.65, cooldown: 4.4, damageMult: 1.6, minRange: 14, maxRange: 260 },
@@ -244,7 +244,7 @@ const WYRM: BossDef = {
 /** The player's own past self, unbound. PLACEHOLDER art: fallen immortal, mirror-silver. */
 const VAULTSELF: BossDef = {
   id: 'abyss-vaultself', chapter: 5, dungeon: 'abyss-mirrorvault', name: 'The Self You Left Behind', home: 'abyss-mirrorvault', zone: 'abyss-mirrorvault', xp: 5200, stones: [620, 900],
-  sprite: 'boss.fallenimmortal', tint: 0xd8f0ff, scale: 0.6, radius: 20, maxHp: 105000, atk: 230, def: 34, speed: 58,
+  sprite: 'boss.fallenimmortal', tint: 0xd8f0ff, scale: 0.6, radius: 20, maxHp: 84000, atk: 230, def: 34, speed: 58,
   moves: {
     slam: { radius: 56, windup: 0.8, recover: 0.45, cooldown: 3.8, damageMult: 1.7, triggerRange: 88 },
     sweep: { range: 90, halfAngle: 1.0, windup: 0.62, recover: 0.4, cooldown: 2.8, damageMult: 1.4, triggerRange: 88 },
@@ -260,7 +260,7 @@ const VAULTSELF: BossDef = {
 /** The reliquary's slag warden. PLACEHOLDER art: golem, ember. */
 const CINDERLORD: BossDef = {
   id: 'abyss-cinderwarden', chapter: 5, dungeon: 'abyss-ashmaw', name: 'Cinder Warden of the Reliquary', home: 'abyss-ashmaw', zone: 'abyss-ashmaw', xp: 5600, stones: [680, 980],
-  sprite: 'mob.golem', tint: 0xc8683c, scale: 1.15, radius: 28, maxHp: 118000, atk: 240, def: 48, speed: 34,
+  sprite: 'mob.golem', tint: 0xc8683c, scale: 1.15, radius: 28, maxHp: 94000, atk: 240, def: 48, speed: 34,
   moves: {
     slam: { radius: 72, windup: 1.0, recover: 0.55, cooldown: 4, damageMult: 1.9, triggerRange: 104 },
     sweep: { range: 104, halfAngle: 1.1, windup: 0.78, recover: 0.5, cooldown: 3.2, damageMult: 1.5, triggerRange: 100 },

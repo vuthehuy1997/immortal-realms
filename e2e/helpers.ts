@@ -1,6 +1,6 @@
 import { expect, type Page } from '@playwright/test';
 
-export interface EnemyState { id: number; type: string; hp: number; x: number; y: number; ai: string; minion: boolean; elite: boolean; affix: string | null; burning: boolean; slowed: boolean; shield: number; zone: string; anim: string }
+export interface EnemyState { id: number; type: string; hp: number; x: number; y: number; ai: string; minion: boolean; elite: boolean; affix: string | null; burning: boolean; slowed: boolean; stunned: boolean; shield: number; zone: string; anim: string }
 export interface RpgState {
   now: number; hp: number; mana: number; maxHp: number; kills: number; xp: number; level: number; realm: number; qi: number;
   weapon: string | null; meditating: boolean; bossDefeated: boolean; quests: Record<string, string>; hero: string; stones: number; zone: string;
