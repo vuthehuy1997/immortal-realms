@@ -7,7 +7,7 @@ import { ITEMS, RARITY_COLOR } from '../data/items';
 import { REALMS } from '../data/realms';
 import { ROOTS } from '../data/roots';
 import { countOf, SLOT_COUNT, type EquipKey } from '../core/inventory';
-import { SKILLS } from '../data/skills';
+import { activeKit } from '../data/skills';
 import { INSIGHT_IDS, INSIGHT_MAX, INSIGHTS } from '../data/insight';
 import { freePoints, SKILL_MAX, scaledSkill, skillLevel } from '../core/skills';
 import { progressOf } from '../core/quest';
@@ -117,7 +117,7 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
   body.appendChild(med); body.appendChild(bt);
   const pts = freePoints(gs);
   const skills = el('div', 'skills'); skills.innerHTML = `<h4>Techniques <small>${pts} point${pts === 1 ? '' : 's'}</small></h4>`;
-  for (const sk of SKILLS) {
+  for (const sk of activeKit) {
     const lvl = skillLevel(gs, sk.id), locked = gs.progress.level < sk.unlockLevel, sc = scaledSkill(sk, lvl);
     const r = el('div', `skrow${locked ? ' locked' : ''}`);
     r.innerHTML = `<span class="skn"><b>${sk.name}</b><small>${locked ? `unlocks at level ${sk.unlockLevel}` : `Lv ${lvl}/${SKILL_MAX} · ×${sc.damageMult.toFixed(1)} dmg · ${sc.cooldown.toFixed(1)}s cd`}</small></span>`;

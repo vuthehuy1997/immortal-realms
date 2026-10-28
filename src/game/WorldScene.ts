@@ -33,7 +33,7 @@ import { HEROES } from '../data/heroes';
 import { ITEMS } from '../data/items';
 import { NPCS, QUESTS, questsOfChapter } from '../data/quests';
 import { REALMS } from '../data/realms';
-import { SKILLS, type SkillDef } from '../data/skills';
+import { activeKit, type SkillDef } from '../data/skills';
 import { ZONES, zonesOfChapter } from '../data/zones';
 import { CHAPTERS, LAST_CHAPTER, canEnterChapter } from '../data/chapters';
 import { showStory } from '../ui/story';
@@ -611,7 +611,7 @@ export class WorldScene extends Phaser.Scene {
 
   private levelUpFx(): void {
     toast(`Level up! You are now level ${this.gs.progress.level}.`, 3000); audio.sfx('levelup');
-    const unlocked = SKILLS.filter((s) => s.unlockLevel === this.gs.progress.level);
+    const unlocked = activeKit.filter((s) => s.unlockLevel === this.gs.progress.level);
     for (const s of unlocked) toast(`Technique learned: ${s.name} (${s.alt})`, 4200);
     this.fx.play('xf_ascend', this.pos.x, this.pos.y, { scale: 0.4, tint: COLORS.gold });
     this.fx.ring(this.pos.x, this.pos.y, 50, COLORS.gold, 500);
@@ -678,7 +678,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private castSkill(i: number, aim?: Vec2): void {
-    const sk = SKILLS[i];
+    const sk = activeKit[i];
     if (!sk || this.dead || this.uiPause) return;
     if (this.gs.progress.level < sk.unlockLevel) { toast(`${sk.name} unlocks at level ${sk.unlockLevel}.`, 1800); return; }
     if (!this.canAct() && !aim) return;
@@ -701,11 +701,15 @@ export class WorldScene extends Phaser.Scene {
     const color = this.heroColor;
     audio.sfx(sk.shape === 'projectile' ? 'sword' : sk.shape === 'wave' ? 'moon' : sk.shape === 'burst' ? 'lotus' : 'rain');
     if (sk.shape === 'projectile') {
-      const sprite = this.fx.play(sk.fx.replace('fx.', ''), ox, oy, { scale: 0.2, rot: Math.atan2(dir.y, dir.x), tint: color, loop: true, depth: 1e4 });
-      this.addBolt({ kind: 'sword', pos: { x: ox, y: oy + 12 }, vel: { x: dir.x * (sk.speed ?? 300), y: dir.y * (sk.speed ?? 300) }, max: sk.range, damage: sc.damageMult, pierce: sk.pierce ?? 1, radius: 7, sprite, color });
+      for (const d of this.fan(dir, sk)) {
+        const sprite = this.fx.play(sk.fx.replace('fx.', ''), ox, oy, { scale: 0.2, rot: Math.atan2(d.y, d.x), tint: color, loop: true, depth: 1e4 });
+        this.addBolt({ kind: 'sword', pos: { x: ox, y: oy + 12 }, vel: { x: d.x * (sk.speed ?? 300), y: d.y * (sk.speed ?? 300) }, max: sk.range, damage: sc.damageMult, pierce: sk.pierce ?? 1, radius: 7, sprite, color });
+      }
     } else if (sk.shape === 'wave') {
-      const sprite = this.fx.play(sk.fx, ox, oy, { scale: 0.34, rot: Math.atan2(dir.y, dir.x), tint: color, loop: true, depth: 1e4, speed: 1.4 });
-      this.addBolt({ kind: 'wave', pos: { x: ox, y: oy + 12 }, vel: { x: dir.x * (sk.speed ?? 220), y: dir.y * (sk.speed ?? 220) }, max: sk.range, damage: sc.damageMult, pierce: 99, radius: 16, sprite, color });
+      for (const d of this.fan(dir, sk)) {
+        const sprite = this.fx.play(sk.fx, ox, oy, { scale: 0.34, rot: Math.atan2(d.y, d.x), tint: color, loop: true, depth: 1e4, speed: 1.4 });
+        this.addBolt({ kind: 'wave', pos: { x: ox, y: oy + 12 }, vel: { x: d.x * (sk.speed ?? 220), y: d.y * (sk.speed ?? 220) }, max: sk.range, damage: sc.damageMult, pierce: 99, radius: 16, sprite, color });
+      }
       this.fx.shake(90, 0.002);
     } else if (sk.shape === 'burst') {
       this.fx.play(sk.fx, this.pos.x, this.pos.y + 4, { scale: 0.5, tint: color });
@@ -713,8 +717,9 @@ export class WorldScene extends Phaser.Scene {
       this.fx.shake(150, 0.0045);
       let any = false;
       for (const t of this.targets()) {
-        if (inCircle(this.pos, sk.range, t.pos, t.radius)) { t.hit(sc.damageMult, { kb: 130, stun: sc.stun, from: this.pos }); any = true; }
+        if (inCircle(this.pos, sk.range, t.pos, t.radius)) { t.hit(sc.damageMult, { kb: sk.pull ? -170 : 130, stun: sc.stun, from: this.pos }); any = true; }
       }
+      if (any && sk.heal) { this.pc.hp = Math.min(this.pc.maxHp, this.pc.hp + this.pc.maxHp * sk.heal); this.floatText(this.pos, `+${Math.round(this.pc.maxHp * sk.heal)}`, '#7dff9a', false, 8); }
       if (any) this.hitStop(60);
     } else {
       let target = aim ? { ...aim } : this.hasPointer ? { ...this.aimWorld } : { x: this.pos.x + dir.x * 90, y: this.pos.y + dir.y * 90 };
@@ -728,6 +733,14 @@ export class WorldScene extends Phaser.Scene {
         this.time.delayedCall(i * 70, () => this.fx.play(sk.fx, px, py + 4, { scale: 0.3, tint: color, speed: 1.1, depth: py + 3 }));
       }
     }
+  }
+
+  /** Directions for a (possibly fanned) projectile/wave cast. */
+  private fan(dir: Vec2, sk: SkillDef): Vec2[] {
+    const n = sk.count ?? 1;
+    if (n <= 1) return [dir];
+    const base = Math.atan2(dir.y, dir.x), step = (sk.spread ?? 0.4) / (n - 1);
+    return Array.from({ length: n }, (_, k) => { const a = base - (sk.spread ?? 0.4) / 2 + step * k; return { x: Math.cos(a), y: Math.sin(a) }; });
   }
 
   private addBolt(b: Omit<Bolt, 'hit' | 'traveled' | 'trail' | 'sprite'> & { sprite: Phaser.GameObjects.Sprite | Phaser.GameObjects.Image | null }): void {
@@ -1071,8 +1084,8 @@ export class WorldScene extends Phaser.Scene {
     this.pushToState();
     updateHud({
       gs: this.gs, maxHp: this.pc.maxHp, maxMana: this.pc.maxMana, meditating: this.meditating,
-      cooldowns: SKILLS.map((s) => this.cds.remaining(s.id, this.now)),
-      cooldownMax: SKILLS.map((s) => scaledSkill(s, skillLevel(this.gs, s.id)).cooldown), skillLevels: SKILLS.map((s) => skillLevel(this.gs, s.id)), freePoints: freePoints(this.gs),
+      cooldowns: activeKit.map((s) => this.cds.remaining(s.id, this.now)),
+      cooldownMax: activeKit.map((s) => scaledSkill(s, skillLevel(this.gs, s.id)).cooldown), skillLevels: activeKit.map((s) => skillLevel(this.gs, s.id)), freePoints: freePoints(this.gs),
       potionCd: Math.max(0, this.potionReadyAt - this.now), potionMax: POTION_COOLDOWN, objective: obj.text,
       comboStep: this.now - this.combo.lastAt <= COMBO_WINDOW ? this.combo.step + 1 : 0,
       dashCd: Math.max(0, this.dashState.readyAt - this.now), dashMax: DASH.cooldown, zone: ZONES[zone]!.name,

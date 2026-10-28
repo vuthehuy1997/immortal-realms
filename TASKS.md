@@ -81,3 +81,6 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 
 - [x] R19: QA round on the new world: bag-full dungeon reward kept in `pending`, back-gate landing, ch3-5 quest XP rebalanced, gate messages name bosses, no monsters at dungeon gates
 - [ ] Open from R19 QA: boss art recycled (19 of ~34 bosses use 3 sprites), cave/realm interiors sparse with a single generator each, ch2 snow zones near-identical, grey brick floor reused in many zones, 14 of 19 dungeons have 3.4-4 wide tunnels that pin big bodies (radius 9), boss winnability at minLevel not hand-played, props on water/void unchecked on screen
+
+- [x] R20 depth pass 1: lint ignores `.claude/**` (stale agent worktrees broke `npm run lint`); per-hero technique kits (`kitFor`/`setKit` in `src/data/skills.ts`): each hero re-skins the 4 slots (names, numbers) with twists: fans (heroine, twin-blade, scholar), pull + heal burst (scholar, monk)
+- [ ] R20 open: kit art/FX are the shared pack strips tinted by root (no per-hero VFX); kit balance is formula-checked (sustained-damage band test) only, not hand-played; fan/pull/heal not yet covered by an e2e that counts bolts or HP; next depth steps: unique boss sprites + mechanics for ~8 main bosses, dungeon mechanics (traps/puzzles), loot affixes (save format change)

@@ -6,7 +6,8 @@ import { BootScene } from './game/BootScene';
 import { WorldScene, type GameHost } from './game/WorldScene';
 import { hasSaveData, loadGame, loadSlotGame, saveNewGame, storage } from './game/storage';
 import { allSlots, deleteSlot, exportSlot, firstEmptySlot, activeSlot, importToSlot } from './core/slots';
-import { buildHud, showHud, toast } from './ui/hud';
+import { buildHud, renderSkillSlots, showHud, toast } from './ui/hud';
+import { setKit } from './data/skills';
 import { hideScreen, showCreation, showSlots, showLoading, showMainMenu } from './ui/menu';
 import { installSkin } from './ui/skin';
 import { audio } from './game/audio';
@@ -26,6 +27,7 @@ const host: GameHost = { quitToMenu: () => { game.scene.stop('World'); showHud(f
 
 function begin(gs: GameState): void {
   audio.startMusic();
+  setKit(gs.character.hero); renderSkillSlots();
   hideScreen();
   showHud(true);
   game.scene.start('World', { state: gs, host });

@@ -68,3 +68,9 @@
 ## 2026-10-27 - Round 19 QA of the new world -> fixes
 - Two independent QA agents tested d3f3aa8 (world/quests/visuals and dungeons/saves). Structure clean; fixed bag-full reward loss (`gs.pending`), back-gate landing in rock (`nearestFree`), ch3-5 quest XP overshoot, vague gate messages, monsters at dungeon gates, XP bar at max level, death text; denser cave/realm dressing. See docs/CHANGELOG.md "Round 19".
 - UNVERIFIED: hand-played boss fights and quest flow in ch3-5, real-GPU fps, audio, props on water/void on screen. Art is still placeholder (recycled boss sprites, dark cave walls).
+
+## 2026-10-28 - Round 20 depth pass 1 (after project review)
+- Review conclusion: breadth outran depth (ch3-5 art recycled, no human playtest, heroes differed by passive only). Decision: stop adding chapters; deepen.
+- Fixed `npm run lint` (720 errors came from ESLint scanning `.claude/worktrees`). Added per-hero technique kits.
+- QC: lint clean, tsc clean, build OK, 923 unit tests pass; e2e herokits (3) + tower (5) pass; screenshot qc-artifacts/hero-kit-fan.png reviewed (Ember Fan visible, long hotbar names shortened). Full e2e suite NOT re-run this round.
+- UNVERIFIED: hand-played feel of kits, balance, real-GPU perf, audio.

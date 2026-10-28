@@ -121,3 +121,7 @@ Source: docs/QA_REPORT_3.md (subagent play-test + benchmark against other games;
 - **Touch layout**: sound button moved on touch, portrait layout (390x844) fixed; e2e overlap test for portrait (the old overlap check missed elements outside `#hudlayer`).
 - Tests: tests/sustain.test.ts, tests/balance2.test.ts, e2e/sustain.spec.ts, portrait test in e2e/touch.spec.ts.
 - Not done (report proposals for later rounds): boons, boss poise, trial tower, per-hero kits, loot affixes, WorldScene refactor, chapter 2 art, level cap > 20.
+
+## Round 20
+- Per-hero technique kits: Crimson Swordswoman (Ember Fan 3-bolt fan, Phoenix Burst), Fan Scholar (Ink Needle, Gale Fan, Lotus Whirlpool pulls + heals), Staff Monk (Diamond Palm stun + heal), Saber Wanderer (Blade Qi Cleave, Earthsplitter, Falling Blades), Twin-Blade (Twin Daggers, Cross Crescent). Azure Swordsman keeps the base kit. Slot ids/unlock levels/saves unchanged.
+- `npm run lint` no longer scans `.claude/**`.

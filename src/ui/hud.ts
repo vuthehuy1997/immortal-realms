@@ -1,4 +1,4 @@
-import { SKILLS } from '../data/skills';
+import { activeKit } from '../data/skills';
 import { QUESTS } from '../data/quests';
 import { REALMS } from '../data/realms';
 import { MAX_LEVEL, xpToNext } from '../core/progression';
@@ -36,13 +36,7 @@ export function buildHud(): void {
     <div id="death" class="hidden"><div class="dbox"><h2>Defeated</h2><p id="deathtxt"></p><div class="btnrow"><button class="menu-btn" id="btn-respawn">Respawn (R)</button><button class="menu-btn" id="btn-death-menu">Main menu</button></div></div></div>
     <div id="hint">WASD move · mouse aim · click/Space sword combo · 1-4 techniques · Shift dash · F flask/potion · G mana potion · E interact · M meditate · B breakthrough · I bag · C character · Esc menu</div>
   </div>`);
-  const slots: string[] = [];
-  slots.push(`<div class="slot wide" id="slot-combo"><div class="ic combo"></div><span class="k">LMB</span><span class="nm">Sword Combo</span><div class="pips"><i></i><i></i><i></i></div></div>`);
-  SKILLS.forEach((s, i) => slots.push(`<div class="slot" id="slot${i}" title="${s.name} — ${s.alt}"><div class="ic" style="${fxIconStyle(SLOT_ICONS[i]!.fx, SLOT_ICONS[i]!.frame, 44)}"></div><span class="k">${i + 1}</span><span class="nm">${s.name}</span><span class="slv" id="slv${i}"></span><div class="cd" id="cd${i}"></div><div class="lock" id="lock${i}">Lv ${s.unlockLevel}</div></div>`));
-  slots.push(`<div class="slot" id="slot-dash"><div class="ic dash"></div><span class="k">Shift</span><span class="nm">Dash</span><div class="cd" id="cd-dash"></div></div>`);
-  slots.push(`<div class="slot pot" id="pot-hp"><div class="ic hpp"></div><span class="k">F</span><span class="cnt" id="cnt-hp">0</span><div class="cd" id="cd-pot1"></div></div>`);
-  slots.push(`<div class="slot pot" id="pot-mp"><div class="ic mpp"></div><span class="k">G</span><span class="cnt" id="cnt-mp">0</span><div class="cd" id="cd-pot2"></div></div>`);
-  $('skills').innerHTML = slots.join('');
+  renderSkillSlots();
   const icons = MANIFEST.ui;
   $('slot-combo').querySelector<HTMLElement>('.ic')!.style.backgroundImage = `url("${abs(MANIFEST.icons.blade_01_00!.url)}")`;
   $('slot-dash').querySelector<HTMLElement>('.ic')!.style.backgroundImage = `url("${abs(icons.status_swift!.url)}")`;
@@ -51,6 +45,16 @@ export function buildHud(): void {
   built = true;
 }
 
+/** (Re)builds the technique slots; call again when the hero (and so the kit) changes. */
+export function renderSkillSlots(): void {
+  const slots: string[] = [];
+  slots.push(`<div class="slot wide" id="slot-combo"><div class="ic combo"></div><span class="k">LMB</span><span class="nm">Sword Combo</span><div class="pips"><i></i><i></i><i></i></div></div>`);
+  activeKit.forEach((s, i) => slots.push(`<div class="slot" id="slot${i}" title="${s.name} — ${s.alt}"><div class="ic" style="${fxIconStyle(SLOT_ICONS[i]!.fx, SLOT_ICONS[i]!.frame, 44)}"></div><span class="k">${i + 1}</span><span class="nm">${s.name}</span><span class="slv" id="slv${i}"></span><div class="cd" id="cd${i}"></div><div class="lock" id="lock${i}">Lv ${s.unlockLevel}</div></div>`));
+  slots.push(`<div class="slot" id="slot-dash"><div class="ic dash"></div><span class="k">Shift</span><span class="nm">Dash</span><div class="cd" id="cd-dash"></div></div>`);
+  slots.push(`<div class="slot pot" id="pot-hp"><div class="ic hpp"></div><span class="k">F</span><span class="cnt" id="cnt-hp">0</span><div class="cd" id="cd-pot1"></div></div>`);
+  slots.push(`<div class="slot pot" id="pot-mp"><div class="ic mpp"></div><span class="k">G</span><span class="cnt" id="cnt-mp">0</span><div class="cd" id="cd-pot2"></div></div>`);
+  $('skills').innerHTML = slots.join('');
+}
 export function showHud(show: boolean): void { $('hudlayer').classList.toggle('hidden', !show); }
 
 export interface HudFrame {
@@ -69,7 +73,7 @@ export function updateHud(f: HudFrame): void {
   const qm = REALMS[gs.cultivation.realm]!.qiMax;
   setFill($('qi'), (100 * gs.cultivation.qi) / qm); setText($('qitxt'), `Qi ${Math.floor(gs.cultivation.qi)} / ${qm}`);
   setText($('stonetxt'), String(gs.stones));
-  SKILLS.forEach((sk, i) => {
+  activeKit.forEach((sk, i) => {
     const locked = gs.progress.level < sk.unlockLevel;
     const slot = $(`slot${i}`);
     slot.classList.toggle('locked', locked);
