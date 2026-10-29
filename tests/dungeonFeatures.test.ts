@@ -159,7 +159,6 @@ describe.each(DUNGEON_IDS)('dungeon %s: mechanics layout', (id) => {
   it('trap and patch tiles are open floor; no two features overlap; the boss chamber stays free of them', () => {
     const b = m.bossHomes[d.boss]!;
     for (const t of L.traps) { const c = tileOf(t.at); expect(isBlockedTile(m, c.x, c.y), `trap ${t.id} on floor`).toBe(false); expect(Math.hypot(t.at.x - b.x, t.at.y - b.y)).toBeGreaterThan(10 * TILE_SIZE); }
-    for (const p of L.patches) for (const t of p.tiles) if (t.x >= 0 && t.y >= 0) expect(m.ground[t.y * m.width + t.x], 'patch on floor').toBe(d.floor === 'stone' || true ? m.ground[t.y * m.width + t.x] : '');
     for (const p of L.patches) { const c = tileOf(p.centre); expect(isBlockedTile(m, c.x, c.y)).toBe(false); expect(p.tiles.length).toBeGreaterThanOrEqual(15); }
     const spots = [...L.traps.map((t) => t.at), ...L.patches.map((p) => p.centre), ...L.plates, ...L.braziers];
     for (let i = 0; i < spots.length; i++) for (let j = i + 1; j < spots.length; j++) expect(Math.hypot(spots[i]!.x - spots[j]!.x, spots[i]!.y - spots[j]!.y), 'features keep apart').toBeGreaterThan(TILE_SIZE * 1.5);

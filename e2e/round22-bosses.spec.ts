@@ -109,9 +109,9 @@ test.describe('round 22 boss mechanics', () => {
     await expect.poll(async () => (await boss(page, 'magistrate')).mech.pylons, { timeout: 30_000 }).toBe(3);
     await waitGame(page, 0.8); await shot(page, 'r22-magistrate');
     const dmgOf = async (): Promise<number> => {
-      const b0 = await boss(page, 'magistrate'); let dealt = 0;
+      const b0 = await boss(page, 'magistrate');
       for (let i = 0; i < 5; i++) { const b = await boss(page, 'magistrate'); await page.evaluate(([x, y]) => window.__rpg!.teleport((x as number) - 26, y as number), [b.x, b.y]); await hitAt(page, b.x, b.y); await waitGame(page, 0.3); }
-      dealt = b0.hp - (await boss(page, 'magistrate')).hp; return dealt;
+      return b0.hp - (await boss(page, 'magistrate')).hp;
     };
     const shielded = await dmgOf();
     for (let g = 0; g < 40 && (await boss(page, 'magistrate')).mech.pylons > 0; g++) {

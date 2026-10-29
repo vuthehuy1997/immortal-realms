@@ -28,6 +28,8 @@ import { createRng } from '../core/rng';
 import { generateChapter, generateDungeonMap, isBlockedTile, moveWithCollision, nearestFree, tileToWorld, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
 import { BOSSES, bossesOfChapter, bossesOfDungeon, bossSpriteKey, type BossDef } from '../data/boss';
 import { BossFight, type FightHost } from './bossFight';
+import { DungeonView } from './dungeonView';
+import { featureBlurb } from '../data/dungeonFeatures';
 import { DUNGEONS, dungeonsOfChapter, type DungeonDef } from '../data/dungeons';
 import { canEnterDungeon, claimDungeonReward, flushPending, isDungeonCleared } from '../core/dungeonRun';
 import { ENEMIES, type EnemyDef } from '../data/enemies';
@@ -77,7 +79,7 @@ interface Enemy {
   id: number; def: EnemyDef; c: Combatant; ai: EnemyAI; pos: Vec2; actor: Actor; kb: Vec2; stun: number;
   lockUntil: number; minion: boolean; elite: boolean; zone: ZoneId; vel: Vec2; home: Vec2; stuckT: number; stuckPos: Vec2; detour: { until: number; sign: number } | null; stuckCount: number; lastDetourEnd: number;
   burn: { t: number; dps: number; tick: number } | null; slow: number; shield: number; affix: Affix | null; label: Phaser.GameObjects.Text | null;
-  alertUntil: number; sees: boolean; tower?: boolean; dormant?: boolean;
+  alertUntil: number; sees: boolean; tower?: boolean; dormant?: boolean; ambush?: boolean;
 }
 type Affix = 'swift' | 'vampiric' | 'explosive' | 'shielded';
 const AFFIX_NAME: Record<Affix, string> = { swift: 'Swift', vampiric: 'Vampiric', explosive: 'Volatile', shielded: 'Warded' };
@@ -128,6 +130,8 @@ export class WorldScene extends Phaser.Scene {
   private groundChunks!: GroundChunks;
   /** the cave / secret realm the hero is in (null on the open map) */
   private dungeon: DungeonDef | null = null;
+  /** the dungeon's mechanics (traps, seal gate, collapsing floor, ambush); null on the open map */
+  private dview: DungeonView | null = null;
   /** zones whose foes populate the current map */
   private zoneIds: ZoneId[] = [];
   private npcs: Npc[] = [];
@@ -202,6 +206,13 @@ export class WorldScene extends Phaser.Scene {
     for (const zid of this.zoneIds) for (const [type, n] of Object.entries(ZONES[zid]!.spawns)) for (let i = 0; i < n; i++) this.spawnInZone(zid, type, this.dungeon ? this.world.spawn : undefined); // a dungeon never opens with a monster at the gate
     for (const def of this.dungeon ? bossesOfDungeon(this.dungeon.id) : bossesOfChapter(this.chapter)) this.spawnBoss(def); // bosses always return: repeat kills pay less and drop no unique items
     this.hpBars = this.add.graphics().setDepth(1e5);
+    this.dview = null;
+    if (this.dungeon && this.world.features) {
+      this.dview = new DungeonView(this.dungeonHost(), this.world.features);
+      if (isDungeonCleared(this.gs, this.dungeon.id)) this.dview.preOpen(); // a puzzle solved once stays solved
+      const blurb = featureBlurb(this.dungeon.id);
+      if (blurb) toast(`${this.dungeon.name}: ${blurb}`, 3600);
+    }
 
     const kb = this.kb = new KeyInput();
     kb.onPress(['Digit1', 'Numpad1'], () => this.digit(0)); kb.onPress(['Digit2', 'Numpad2'], () => this.digit(1));
@@ -345,6 +356,27 @@ export class WorldScene extends Phaser.Scene {
     }
     this.enemies.push(e);
     return e;
+  }
+
+  /** services the dungeon mechanics layer (`DungeonView`) needs from the scene */
+  private dungeonHost() {
+    return {
+      scene: this as Phaser.Scene, fx: this.fx, world: this.world, heroPos: () => this.pos,
+      setHeroPos: (p: Vec2) => { this.pos = { ...p }; this.player.setPos(p.x, p.y); },
+      hurtPct: (pct: number, from?: Vec2) => this.hurtPlayer(0, from, Math.max(1, Math.round(this.pc.maxHp * pct))),
+      toast: (t: string, ms?: number) => toast(t, ms), tip: (id: string, t: string) => this.tip(id, t), sfx: (n: 'slam' | 'roar' | 'telegraph' | 'pickup' | 'hit' | 'crit' | 'moon') => audio.sfx(n),
+      floatText: (at: Vec2, text: string, color: string, big?: boolean) => this.floatText(at, text, color, !!big),
+      addStones: (n: number) => { this.mutate(() => { this.gs.stones += n; }); },
+      spawnAmbush: (count: number, at: Vec2[]) => {
+        const types = Object.keys(this.dungeon?.spawns ?? {}).filter((t) => ENEMIES[t]);
+        for (let i = 0; i < count && types.length; i++) {
+          const r = at[i % at.length]!, type = types[Math.floor(this.rng() * types.length)]!;
+          const e = this.spawnEnemy(type, { x: r.x + (this.rng() - 0.5) * 14, y: r.y + (this.rng() - 0.5) * 14 }, false, this.dungeon!.id, false);
+          if (e) { e.ambush = true; e.alertUntil = this.now + 120; this.fx.play('xf_soul_wisp', e.pos.x, e.pos.y - 10, { scale: 0.2, tint: 0xb07bff }); }
+        }
+      },
+      ambushAlive: () => this.enemies.filter((e) => e.ambush && e.c.hp > 0).length,
+    };
   }
 
   private fightHostCache: FightHost | null = null;
@@ -976,7 +1008,7 @@ export class WorldScene extends Phaser.Scene {
     if (r.levelsGained > 0) { this.levelUpFx(); this.save(false); }
   }
 
-  private hurtPlayer(attackValue: number, from?: Vec2): void {
+  private hurtPlayer(attackValue: number, from?: Vec2, flat?: number): void {
     if (this.dead) return;
     this.lastCombat = this.now;
     if (isInvulnerable(this.dashState, this.now) || this.now < this.hurtInvulnUntil) {
@@ -984,7 +1016,7 @@ export class WorldScene extends Phaser.Scene {
       else if (isInvulnerable(this.dashState, this.now) && this.now - this.lastDodgeText > 0.4) { this.lastDodgeText = this.now; this.floatText(this.pos, 'Dodge', '#bfe9ff', false, 9); }
       return;
     }
-    const r = computeDamage({ atk: attackValue, critChance: 0, critMult: 1 }, this.pc, 1, this.rng);
+    const r = flat !== undefined ? { amount: flat } : computeDamage({ atk: attackValue, critChance: 0, critMult: 1 }, this.pc, 1, this.rng);
     applyDamage(this.pc, r.amount);
     this.meditating = false;
     this.hurtInvulnUntil = this.now + 0.55;
@@ -1131,6 +1163,12 @@ export class WorldScene extends Phaser.Scene {
     { const rt = this.rift.hud(); if (rt) return { text: rt, target: null }; }
     if (this.dungeon) {
       const d = this.dungeon, boss = BOSSES[d.boss]!;
+      const rt = this.dview?.rt, lay = this.dview?.layout;
+      if (rt && lay?.gate && !rt.gateOpen && !isDungeonCleared(gs, d.id)) {
+        const left = lay.gate.by === 'plates' ? rt.platesOn.filter((x) => !x).length : lay.braziers.length - rt.brazierLeft.filter((x) => x > 0).length;
+        const next = lay.gate.by === 'plates' ? lay.plates.find((_, i) => !rt.platesOn[i]) : lay.braziers.find((_, i) => !(rt.brazierLeft[i]! > 0));
+        return { text: lay.gate.by === 'plates' ? `A seal bars the way: step on the ${left} remaining glowing plate${left === 1 ? '' : 's'}` : `A seal bars the way: light the braziers together (${left} dark)`, target: next ?? null };
+      }
       return isDungeonCleared(gs, d.id)
         ? { text: `${d.name} is cleared. Gather what you can, then leave by the gate (E)`, target: this.world.portal }
         : { text: `${d.name}: fight through the dark to ${boss.name}`, target: this.world.bossHomes[d.boss] ?? null };
@@ -1186,6 +1224,7 @@ export class WorldScene extends Phaser.Scene {
     const target = alive ? this.pos : { x: 1e9, y: 1e9 };
     for (const e of [...this.enemies]) this.updateEnemy(e, target, alive, dt);
     for (const b of [...this.bosses]) this.updateBossEntity(b, target, alive, dt);
+    if (alive && this.dview) this.dview.update(dt);
     this.updateBolts(dt, alive);
     this.updateRains(dt);
 
@@ -1628,6 +1667,7 @@ export class WorldScene extends Phaser.Scene {
       respawnNow: () => this.respawn(),
       useSlot: (i: number) => this.useSlot(i),
       gather: () => this.interact(),
+      dungeonFx: () => this.dview?.snapshot() ?? null,
       mechNow: (id: string) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; b.fight.mech.illCd = b.fight.mech.poolCd = b.fight.mech.beamCd = b.fight.mech.leechCd = 0.05; } },
       bossForce: (id: string, move: string) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; b.ai.force = move as never; b.ai.gap = 0; } },
       setStones: (n: number) => { this.gs.stones = n; },

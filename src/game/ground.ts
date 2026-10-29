@@ -20,21 +20,21 @@ const BASE: Record<GroundKind, RGB> = {
   stone: [152, 154, 162], water: [50, 104, 152], sand: [208, 188, 134],
   snow: [226, 234, 244], ice: [150, 200, 226], ash: [96, 92, 98],
   lava: [196, 66, 26], cloud: [168, 166, 206], jade: [92, 164, 138], crimson: [124, 50, 58], clay: [194, 132, 86], basalt: [72, 68, 82],
-  wall: [46, 40, 42], void: [20, 18, 48],
+  wall: [58, 50, 52], void: [20, 18, 48],
 };
 const LIGHT: Record<GroundKind, RGB> = {
   grass: [138, 190, 92], grassDark: [92, 146, 76], moss: [102, 150, 100], path: [208, 174, 128],
   stone: [182, 184, 192], water: [96, 160, 196], sand: [230, 212, 160],
   snow: [248, 252, 255], ice: [196, 234, 250], ash: [126, 122, 128],
   lava: [255, 160, 56], cloud: [206, 204, 240], jade: [140, 212, 178], crimson: [170, 84, 84], clay: [226, 168, 114], basalt: [104, 100, 118],
-  wall: [70, 62, 62], void: [46, 40, 90],
+  wall: [92, 80, 78], void: [46, 40, 90],
 };
 const DARK: Record<GroundKind, RGB> = {
   grass: [72, 120, 56], grassDark: [44, 86, 48], moss: [56, 98, 70], path: [150, 116, 80],
   stone: [118, 120, 130], water: [34, 76, 124], sand: [180, 160, 108],
   snow: [190, 206, 226], ice: [108, 162, 204], ash: [68, 64, 72],
   lava: [108, 26, 14], cloud: [118, 114, 168], jade: [54, 116, 98], crimson: [84, 30, 44], clay: [148, 96, 58], basalt: [46, 44, 58],
-  wall: [26, 22, 26], void: [10, 8, 26],
+  wall: [30, 25, 30], void: [10, 8, 26],
 };
 const KINDS: GroundKind[] = ['grass', 'grassDark', 'moss', 'path', 'stone', 'water', 'sand', 'snow', 'ice', 'ash', 'lava', 'cloud', 'jade', 'crimson', 'clay', 'basalt', 'wall', 'void'];
 const KIND_ID = Object.fromEntries(KINDS.map((k, i) => [k, i])) as Record<GroundKind, number>;
@@ -184,6 +184,13 @@ export class GroundChunks {
           t += strata + blot * 0.35;
           const crack = hash(Math.floor((wx + wy * 0.6) / 3), Math.floor((wy - wx * 0.4) / 9));
           if (crack > 0.93) t -= 0.7;
+          if (kd === 'wall') {
+            // the rock face: a lit lip where the wall meets the floor, shading off into the depth (it used to be one flat dark smudge)
+            let wf = 0;
+            for (const [k, wt] of [[k00, w00], [k10, w10], [k01, w01], [k11, w11]] as [number, number][]) if (KINDS[k] !== 'wall' && KINDS[k] !== 'void') wf += wt;
+            if (wf > 0.1) { t += 0.35 + 0.9 * Math.min(1, (wf - 0.1) / 0.35); if (wf > 0.3) rim = 0.4; }
+            else if (wf > 0.02) t -= 0.25;
+          }
         } else if (kd === 'void') {
           t = (lf - 0.5) * 0.8; if (hf > 0.9985) t = 1.6; // distant stars
         } else if (kd === 'jade' || kd === 'crimson') {

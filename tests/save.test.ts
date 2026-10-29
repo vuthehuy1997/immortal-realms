@@ -17,6 +17,17 @@ const tamper = (mutate: (e: Env) => void, fixSum = true) => {
   return JSON.stringify(env);
 };
 
+describe('save/load: round 22 tips', () => {
+  it('a hero who has seen every boss and dungeon tip (about 40 hints) still loads', () => {
+    const hints = ['flask', 'poise', 'dodge', ...['sovereign', 'sandwyrm', 'mirageempress', 'furnacewarden', 'cranelord', 'magistrate', 'abyss-matron', 'abyss-daodemon'].map((b) => `mech-${b}`), ...['spike', 'fire', 'mist', 'plates', 'braziers', 'collapse', 'ambush'].map((k) => `dg-${k}`)];
+    const gs = sample(); gs.hints = hints;
+    const back = parseSave(serialize(gs)); expect(back.ok).toBe(true);
+    if (back.ok) expect(back.state.hints).toEqual(hints);
+    const many = sample(); many.hints = Array.from({ length: 81 }, (_, i) => `h${i}`);
+    expect(parseSave(serialize(many)).ok, 'still bounded').toBe(false);
+  });
+});
+
 describe('save/load', () => {
   it('roundtrips state exactly', () => {
     const gs = sample(); const r = parseSave(serialize(gs, 123));

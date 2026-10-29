@@ -79,7 +79,7 @@ function validate(s: unknown): string | null {
   if (!validBoons(s.boons)) return 'bad boons';
   if (!validTowerBest(s.towerBest)) return 'bad tower record';
   if (!isObj(s.insight) || INSIGHT_IDS.some((id) => !num((s.insight as Record<string, unknown>)[id], 0, INSIGHT_MAX) || !Number.isInteger((s.insight as Record<string, unknown>)[id]))) return 'bad insight';
-  if (!Array.isArray(s.hints) || s.hints.length > 40 || s.hints.some((h) => typeof h !== 'string' || h.length > 40)) return 'bad hints';
+  if (!Array.isArray(s.hints) || s.hints.length > 80 || s.hints.some((h) => typeof h !== 'string' || h.length > 40)) return 'bad hints';
   if (typeof s.boonPicks !== 'number' || !Number.isInteger(s.boonPicks) || s.boonPicks < 0 || s.boonPicks > 99) return 'bad boon picks';
   if (!Array.isArray(s.story) || s.story.some((c) => typeof c !== 'number' || !(c in CHAPTERS))) return 'bad story flags';
   return null;
