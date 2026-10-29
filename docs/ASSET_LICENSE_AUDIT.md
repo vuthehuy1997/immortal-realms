@@ -20,6 +20,8 @@ Columns: Name | Source URL | Author | Version | License | Commercial OK | Attrib
 
 How the subset is built: `tools/build_assets.py <pack dir>` selects ~217 animation strips, 36 props, 35 fx strips, UI kit, icons, portraits and palette-quantises them into `public/assets/xp/` (about 5 MB). The source zip is not committed.
 
+Round 22 (2026-10-29): no new files or dependencies. Boss palette ramps are derived in memory at boot from the strips above (`deriveBossLooks`, `src/core/palette.ts`); they are modifications of CC0 art, which the licence allows, and are never written to disk. Dungeon trap, gate, plate, brazier and pit visuals are drawn with canvas Graphics and the pack's fx strips.
+
 Superseded (removed from the repo): Kenney Tiny Dungeon / Tiny Town (CC0). Registry rows kept in git history (commit f3767ba).
 
 ### Procedural / original assets

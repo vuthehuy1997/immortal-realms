@@ -552,9 +552,8 @@
       300,
       420
     ],
-    "sprite": "boss.fallenimmortal",
-    "tint": 10473727,
-    "scale": 0.72,
+    "sprite": "mob.swordspirit",
+    "scale": 0.95,
     "radius": 22,
     "maxHp": 21000,
     "atk": 58,
@@ -649,6 +648,51 @@
       "speedMult": 1.4,
       "cooldownMult": 0.62
     },
+    "aura": 9419007,
+    "look": {
+      "silhouette": "horizontal great sword in a ring",
+      "ramp": [
+        725555,
+        7314687,
+        16055295
+      ],
+      "orbit": {
+        "fx": "xf_flying_sword",
+        "count": 4,
+        "radius": 54,
+        "scale": 0.13,
+        "tint": 12575999,
+        "speed": 1.1,
+        "lift": 26
+      },
+      "sigil": {
+        "fx": "xf_star_array",
+        "color": 10473727,
+        "size": 200
+      },
+      "phaseFx": {
+        "fx": "xf_mirror_shatter",
+        "tint": 12575999,
+        "scale": 0.7
+      },
+      "deathFx": {
+        "fx": "xf_mirror_shatter",
+        "tint": 14676223,
+        "scale": 1.2
+      }
+    },
+    "mech": {
+      "ward": {
+        "frac": 0.07,
+        "phases": [
+          2,
+          3
+        ],
+        "ttl": 16,
+        "healFrac": 0.03
+      }
+    },
+    "mechTip": "A spirit ward shields this foe. Pour damage into it to shatter it (the boss staggers); if it holds, it fades and heals the boss.",
     "image": "bosses/sovereign.png",
     "drops": [
       {
@@ -1378,7 +1422,6 @@
       270
     ],
     "sprite": "boss.jiaolong",
-    "tint": 12575999,
     "scale": 0.44,
     "radius": 24,
     "maxHp": 13500,
@@ -1463,6 +1506,15 @@
       "speedMult": 1.3,
       "cooldownMult": 0.68
     },
+    "aura": 12575999,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled dragon, glacier ramp",
+      "ramp": [
+        530986,
+        4892888,
+        15793151
+      ]
+    },
     "image": "bosses/s2-glacierwyrm.png",
     "drops": [
       {
@@ -1486,14 +1538,13 @@
     "name": "Sand Wyrm of the Scorched Canyon",
     "home": "canyon",
     "zone": "canyon",
-    "tint": 16771216,
     "xp": 1800,
     "stones": [
       260,
       360
     ],
-    "sprite": "boss.jiaolong",
-    "scale": 0.5,
+    "sprite": "mob.snake",
+    "scale": 1.55,
     "radius": 26,
     "maxHp": 22000,
     "atk": 70,
@@ -1550,20 +1601,32 @@
         "cooldown": 6.5,
         "projectiles": 12,
         "damageMult": 0.95
+      },
+      "burrow": {
+        "windup": 1.9,
+        "lockBefore": 0.65,
+        "recover": 0.9,
+        "cooldown": 11,
+        "radius": 56,
+        "damageMult": 1.8,
+        "minRange": 30
       }
     },
     "kit": [
       [
         "sweep",
-        "charge"
+        "charge",
+        "burrow"
       ],
       [
         "charge",
+        "burrow",
         "rain",
         "summon",
         "slam"
       ],
       [
+        "burrow",
         "rain",
         "ring",
         "charge",
@@ -1577,6 +1640,31 @@
       "speedMult": 1.35,
       "cooldownMult": 0.68
     },
+    "aura": 14723152,
+    "look": {
+      "silhouette": "long low serpent",
+      "ramp": [
+        2758152,
+        13208122,
+        16773040
+      ],
+      "sigil": {
+        "fx": "xf_array_seal",
+        "color": 16762976,
+        "size": 210
+      },
+      "phaseFx": {
+        "fx": "xf_gale_vortex",
+        "tint": 16767120,
+        "scale": 0.6
+      },
+      "deathFx": {
+        "fx": "xf_gale_vortex",
+        "tint": 16769184,
+        "scale": 1.1
+      }
+    },
+    "mechTip": "It dives underground. The marked circle follows you until the last moment, then locks: keep moving, then dash out.",
     "image": "bosses/sandwyrm.png",
     "drops": [
       {
@@ -1600,14 +1688,13 @@
     "name": "Mirage Empress",
     "home": "suntemple",
     "zone": "suntemple",
-    "tint": 16764808,
     "xp": 2400,
     "stones": [
       320,
       440
     ],
-    "sprite": "boss.ninetail",
-    "scale": 0.5,
+    "sprite": "mob.peachspirit",
+    "scale": 1.8,
     "radius": 24,
     "maxHp": 30000,
     "atk": 80,
@@ -1691,6 +1778,54 @@
       "speedMult": 1.4,
       "cooldownMult": 0.65
     },
+    "aura": 16747232,
+    "look": {
+      "silhouette": "tall robed spirit",
+      "ramp": [
+        2820669,
+        13851352,
+        16770984
+      ],
+      "orbit": {
+        "fx": "xf_soul_wisp",
+        "count": 3,
+        "radius": 46,
+        "scale": 0.11,
+        "tint": 16765168,
+        "speed": 1.4,
+        "lift": 40
+      },
+      "sigil": {
+        "fx": "xf_star_array",
+        "color": 16752104,
+        "size": 190
+      },
+      "phaseFx": {
+        "fx": "xf_mirror_shatter",
+        "tint": 16752104,
+        "scale": 0.7
+      },
+      "deathFx": {
+        "fx": "xf_mirror_shatter",
+        "tint": 16763120,
+        "scale": 1.2
+      }
+    },
+    "mech": {
+      "illusions": {
+        "count": 3,
+        "every": 16,
+        "ttl": 10,
+        "phases": [
+          2,
+          3
+        ],
+        "ring": 78,
+        "radius": 30,
+        "burstMult": 0.9
+      }
+    },
+    "mechTip": "Mirror images! One is real. Decoys have no shadow and shatter when struck (hurting you if you are close): strike the one that casts a shadow.",
     "image": "bosses/mirageempress.png",
     "drops": [
       {
@@ -1714,14 +1849,13 @@
     "name": "Furnace Warden",
     "home": "furnace",
     "zone": "furnace",
-    "tint": 16751200,
     "xp": 3600,
     "stones": [
       480,
       640
     ],
-    "sprite": "boss.fallenimmortal",
-    "scale": 0.8,
+    "sprite": "mob.soldier",
+    "scale": 1.9,
     "radius": 24,
     "maxHp": 48000,
     "atk": 95,
@@ -1816,6 +1950,56 @@
       "speedMult": 1.4,
       "cooldownMult": 0.6
     },
+    "aura": 16738848,
+    "look": {
+      "silhouette": "towering armoured halberdier",
+      "ramp": [
+        2360320,
+        16730640,
+        16769136
+      ],
+      "rampMix": 1,
+      "orbit": {
+        "fx": "xf_soul_wisp",
+        "count": 4,
+        "radius": 50,
+        "scale": 0.1,
+        "tint": 16742960,
+        "speed": 1.6,
+        "lift": 34
+      },
+      "sigil": {
+        "fx": "xf_array_seal",
+        "color": 16738848,
+        "size": 220
+      },
+      "phaseFx": {
+        "fx": "xf_phoenix",
+        "tint": 16747072,
+        "scale": 0.7
+      },
+      "deathFx": {
+        "fx": "xf_phoenix",
+        "tint": 16756832,
+        "scale": 1.3
+      }
+    },
+    "mech": {
+      "pools": {
+        "every": 10,
+        "count": 3,
+        "radius": 26,
+        "warn": 1.1,
+        "ttl": 8,
+        "dpsMult": 0.4,
+        "phases": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    "mechTip": "Molten pools pool up around you: they flash red first, then burn for several seconds. Do not stand still.",
     "image": "bosses/furnacewarden.png",
     "drops": [
       {
@@ -2151,8 +2335,7 @@
       520
     ],
     "sprite": "mob.thunderbird",
-    "tint": 16055039,
-    "scale": 0.95,
+    "scale": 2,
     "radius": 24,
     "maxHp": 52000,
     "atk": 130,
@@ -2236,6 +2419,56 @@
       "speedMult": 1.35,
       "cooldownMult": 0.68
     },
+    "aura": 10481888,
+    "look": {
+      "silhouette": "great winged crane",
+      "ramp": [
+        928298,
+        8378568,
+        16777215
+      ],
+      "orbit": {
+        "fx": "xf_amb_crane_flap_far",
+        "count": 3,
+        "radius": 62,
+        "scale": 1.2,
+        "tint": 15269882,
+        "speed": 0.9,
+        "lift": 48
+      },
+      "sigil": {
+        "fx": "xf_gale_vortex",
+        "color": 10481888,
+        "size": 210
+      },
+      "phaseFx": {
+        "fx": "xf_crane",
+        "tint": 15269882,
+        "scale": 0.6
+      },
+      "deathFx": {
+        "fx": "xf_crane",
+        "tint": 16777215,
+        "scale": 1.1
+      }
+    },
+    "mech": {
+      "beams": {
+        "arms": 3,
+        "speed": 0.55,
+        "length": 170,
+        "width": 9,
+        "warn": 1.4,
+        "active": 6,
+        "every": 14,
+        "damageMult": 1.1,
+        "phases": [
+          2,
+          3
+        ]
+      }
+    },
+    "mechTip": "Wind blades sweep around the boss. Thin lines show where they will cut: keep moving with the rotation or dash through a gap.",
     "image": "bosses/cranelord.png",
     "drops": [
       {
@@ -2261,7 +2494,6 @@
       600
     ],
     "sprite": "boss.ninetail",
-    "tint": 16770728,
     "scale": 0.46,
     "radius": 24,
     "maxHp": 64000,
@@ -2344,6 +2576,15 @@
       "speedMult": 1.35,
       "cooldownMult": 0.66
     },
+    "aura": 16767120,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled fox, parchment ramp",
+      "ramp": [
+        2759176,
+        14200928,
+        16774352
+      ]
+    },
     "image": "bosses/archivekeeper.png",
     "drops": [
       {
@@ -2368,9 +2609,8 @@
       800,
       1100
     ],
-    "sprite": "boss.fallenimmortal",
-    "tint": 14218495,
-    "scale": 0.8,
+    "sprite": "mob.jiangshi",
+    "scale": 1.8,
     "radius": 24,
     "maxHp": 118000,
     "atk": 170,
@@ -2466,6 +2706,53 @@
       "speedMult": 1.4,
       "cooldownMult": 0.62
     },
+    "aura": 16765024,
+    "look": {
+      "silhouette": "hatted official, arms out",
+      "ramp": [
+        1708032,
+        12093980,
+        16773296
+      ],
+      "orbit": {
+        "fx": "xf_talisman",
+        "count": 4,
+        "radius": 50,
+        "scale": 0.12,
+        "tint": 16769162,
+        "speed": 0.8,
+        "lift": 40
+      },
+      "sigil": {
+        "fx": "xf_array_seal",
+        "color": 16765024,
+        "size": 200
+      },
+      "phaseFx": {
+        "fx": "xf_bell_ward",
+        "tint": 16769162,
+        "scale": 0.6
+      },
+      "deathFx": {
+        "fx": "xf_bell_ward",
+        "tint": 16773296,
+        "scale": 1.1
+      }
+    },
+    "mech": {
+      "pylons": {
+        "count": 3,
+        "hpFrac": 0.012,
+        "reduction": 0.85,
+        "phases": [
+          2,
+          3
+        ],
+        "ring": 100,
+        "defMult": 0.5
+      }
+    },
+    "mechTip": "Seal pylons shield the boss: while any stands it takes only a sliver of damage. Destroy the pylons first.",
     "image": "bosses/magistrate.png",
     "drops": [
       {
@@ -2820,7 +3107,6 @@
       560
     ],
     "sprite": "boss.ninetail",
-    "tint": 13164799,
     "scale": 0.44,
     "radius": 22,
     "maxHp": 48000,
@@ -2906,6 +3192,15 @@
       "speedMult": 1.4,
       "cooldownMult": 0.65
     },
+    "aura": 13164799,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled fox, moon-silver ramp",
+      "ramp": [
+        1054762,
+        9414872,
+        16054527
+      ]
+    },
     "image": "bosses/mirrorqueen.png",
     "drops": [
       {
@@ -2931,7 +3226,6 @@
       1300
     ],
     "sprite": "boss.jiaolong",
-    "tint": 16734794,
     "scale": 0.55,
     "radius": 28,
     "maxHp": 120000,
@@ -3019,6 +3313,15 @@
       "speedMult": 1.4,
       "cooldownMult": 0.62
     },
+    "aura": 16734794,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled dragon, blood ramp",
+      "ramp": [
+        1703936,
+        12593690,
+        16756880
+      ]
+    },
     "image": "bosses/abyss-tyrant.png",
     "drops": [
       {
@@ -3047,9 +3350,8 @@
       1100,
       1600
     ],
-    "sprite": "boss.ninetail",
-    "tint": 12089599,
-    "scale": 0.6,
+    "sprite": "mob.ghost",
+    "scale": 2.2,
     "radius": 26,
     "maxHp": 150000,
     "atk": 270,
@@ -3136,6 +3438,54 @@
       "speedMult": 1.4,
       "cooldownMult": 0.6
     },
+    "aura": 11550960,
+    "look": {
+      "silhouette": "drifting lantern wraith",
+      "ramp": [
+        1179679,
+        10104790,
+        16752872
+      ],
+      "orbit": {
+        "fx": "xf_soul_wisp",
+        "count": 3,
+        "radius": 58,
+        "scale": 0.12,
+        "tint": 16734928,
+        "speed": 1.2,
+        "lift": 50
+      },
+      "sigil": {
+        "fx": "xf_taiji",
+        "color": 11550960,
+        "size": 220
+      },
+      "phaseFx": {
+        "fx": "xf_ink_splash",
+        "tint": 11550960,
+        "scale": 0.7
+      },
+      "deathFx": {
+        "fx": "xf_ink_splash",
+        "tint": 16747248,
+        "scale": 1.3
+      }
+    },
+    "mech": {
+      "leech": {
+        "every": 15,
+        "count": 3,
+        "healFrac": 0.015,
+        "hpFrac": 0.0025,
+        "speed": 38,
+        "phases": [
+          2,
+          3
+        ],
+        "max": 6
+      }
+    },
+    "mechTip": "Blood wisps drift toward the boss to heal it. Cut them down before they arrive.",
     "image": "bosses/abyss-matron.png",
     "drops": [
       {
@@ -3165,7 +3515,6 @@
       4200
     ],
     "sprite": "boss.fallenimmortal",
-    "tint": 16729688,
     "scale": 0.85,
     "radius": 28,
     "maxHp": 260000,
@@ -3265,6 +3614,63 @@
       "speedMult": 1.45,
       "cooldownMult": 0.56
     },
+    "aura": 16724048,
+    "look": {
+      "silhouette": "cloaked swordsman wreathed in blades",
+      "ramp": [
+        1048584,
+        12589104,
+        16751216
+      ],
+      "orbit": {
+        "fx": "xf_flying_sword",
+        "count": 5,
+        "radius": 64,
+        "scale": 0.12,
+        "tint": 16726608,
+        "speed": 1.3,
+        "lift": 44
+      },
+      "sigil": {
+        "fx": "xf_star_array",
+        "color": 16724048,
+        "size": 240
+      },
+      "phaseFx": {
+        "fx": "xf_tribulation",
+        "tint": 16728160,
+        "scale": 0.7
+      },
+      "deathFx": {
+        "fx": "xf_tribulation",
+        "tint": 16744592,
+        "scale": 1.2
+      }
+    },
+    "mech": {
+      "ward": {
+        "frac": 0.04,
+        "phases": [
+          3
+        ],
+        "ttl": 18,
+        "healFrac": 0.02
+      },
+      "beams": {
+        "arms": 4,
+        "speed": 0.5,
+        "length": 190,
+        "width": 8,
+        "warn": 1.5,
+        "active": 7,
+        "every": 13,
+        "damageMult": 0.8,
+        "phases": [
+          3
+        ]
+      }
+    },
+    "mechTip": "The Dao Demon wraps itself in a ward and a wheel of blades: break the ward, and slip between the spinning blades.",
     "image": "bosses/abyss-daodemon.png",
     "drops": [
       {

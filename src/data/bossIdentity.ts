@@ -76,5 +76,10 @@ export const BOSS_IDENTITY: Record<string, Override> = {
   'abyss-tyrant': { tint: undefined, aura: 0xff5a4a, look: { silhouette: 'PLACEHOLDER recycled dragon, blood ramp', ramp: [0x1a0000, 0xc02a1a, 0xffb090] } },
   archivekeeper: { tint: undefined, aura: 0xffd890, look: { silhouette: 'PLACEHOLDER recycled fox, parchment ramp', ramp: [0x2a1a08, 0xd8b060, 0xfff4d0] } },
   mirrorqueen: { tint: undefined, aura: 0xc8e0ff, look: { silhouette: 'PLACEHOLDER recycled fox, moon-silver ramp', ramp: [0x10182a, 0x8fa8d8, 0xf4f8ff] } },
+  cloudwyrm: { tint: undefined, aura: 0xdff4ff, look: { silhouette: 'PLACEHOLDER recycled dragon, cloud-white ramp', ramp: [0x14284a, 0x8ec8f0, 0xffffff] } },
+  swordshade: { tint: undefined, aura: 0xa890ff, look: { silhouette: 'PLACEHOLDER recycled swordsman, violet ramp', ramp: [0x120a2a, 0x7a5ad8, 0xe0d0ff] } },
+  's2-prismsage': { tint: undefined, aura: 0xd8b8ff, look: { silhouette: 'PLACEHOLDER recycled swordsman, prism ramp', ramp: [0x1a0f33, 0xb888ff, 0xfff0ff] } },
+  vaultcalligrapher: { tint: undefined, aura: 0xffe8a8, look: { silhouette: 'PLACEHOLDER recycled swordsman, ink-and-gold ramp', ramp: [0x0c0c14, 0xc8a850, 0xfff6d8] } },
+  'abyss-vaultself': { tint: undefined, aura: 0xd8f0ff, look: { silhouette: 'PLACEHOLDER recycled swordsman, mirror-steel ramp', ramp: [0x0a1220, 0x7898c0, 0xf4faff] } },
   's2-glacierwyrm': { tint: undefined, aura: 0xbfe4ff, look: { silhouette: 'PLACEHOLDER recycled dragon, glacier ramp', ramp: [0x081a2a, 0x4aa8d8, 0xf0fbff] } },
 };

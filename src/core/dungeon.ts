@@ -223,15 +223,15 @@ export function generateDungeon(def: DungeonDef): WorldMap {
 
   // interior dressing (round 22): boulders hugging the walls and clusters on the floor, so chambers are furnished, not empty halls
   const vocab = [...new Set(def.scatter.map((x) => x.kind).filter((k) => k !== 'lingzhi'))];
-  const wallish: PropKind[] = def.kind === 'cave' ? ['rock', 'rock', 'taihurocks'] : ['standstone', 'stonecircle', 'standstone'];
+  const wallish: PropKind[] = def.kind === 'cave' ? ['rock', 'rock', 'rock', 'taihurocks'] : ['standstone', 'stonecircle', 'standstone'];
   const cluster: PropKind[] = def.kind === 'cave' ? ['rock', 'rock', ...vocab] : ['petals', 'standstone', ...vocab];
   let floorTiles = 0; for (let i = 0; i < w * h; i++) if (!blocked[i]) floorTiles++;
   for (let ty = BORDER; ty < h - BORDER; ty++) for (let tx = BORDER; tx < w - BORDER; tx++) {
     if (blocked[at(tx, ty)] || reserved[at(tx, ty)] || occ[at(tx, ty)]) continue;
     const rim = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => ground[at(tx + dx!, ty + dy!)] === def.wall);
-    if (rim && rng() < (def.kind === 'cave' ? 0.2 : 0.1) && Math.hypot(tx - bossT.x, ty - bossT.y) > 9 && Math.hypot(tx - entranceT.x, ty - entranceT.y) > 6) safePlace(wallish[Math.floor(rng() * wallish.length)]!, tx, ty, { margin: 0 });
+    if (rim && rng() < (def.kind === 'cave' ? 0.14 : 0.1) && Math.hypot(tx - bossT.x, ty - bossT.y) > 9 && Math.hypot(tx - entranceT.x, ty - entranceT.y) > 6) safePlace(wallish[Math.floor(rng() * wallish.length)]!, tx, ty, { margin: 0 });
   }
-  for (let k = 0, tries = 0; k < Math.floor(floorTiles / 55) && tries < 3000; tries++) {
+  for (let k = 0, tries = 0; k < Math.floor(floorTiles / 75) && tries < 3000; tries++) {
     const tx = BORDER + 2 + Math.floor(rng() * (w - 2 * BORDER - 4)), ty = BORDER + 2 + Math.floor(rng() * (h - 2 * BORDER - 4));
     if (blocked[at(tx, ty)] || reserved[at(tx, ty)] || occ[at(tx, ty)] || Math.hypot(tx - entranceT.x, ty - entranceT.y) < 7 || Math.hypot(tx - bossT.x, ty - bossT.y) < 10) continue;
     let placed = 0;

@@ -40,6 +40,13 @@
 - Screenshots reviewed: character panel at 1280x720 and 1024x600, Heroine and Fan Scholar technique casts and hotbars, Cloudhollow floor, Obsidian Colossus arena, hubs of chapters 3, 4 and 5.
 - UNVERIFIED: hand feel of the kits, audio, real-GPU fps, human boss playtest.
 
+## 2026-10-29 - Round 22 boss identity and dungeon depth
+- Goal: bosses and dungeons that look and play differently. 8 main bosses got a different base sprite, a luminance-gradient palette ramp (pure `core/palette.ts`, applied to the pack art at boot), satellites, sigils, phase/death fx and one mechanic each; 19 dungeons got 2-4 mechanics each plus wider routes and denser interiors. No new assets or dependencies.
+- Pure cores with unit tests: `src/core/bossMech.ts`, `src/core/dungeonFeatures.ts`, `src/core/palette.ts`, burrow in `src/core/boss.ts`; data in `src/data/bossIdentity.ts` and `src/data/dungeonFeatures.ts`; rendering in `src/game/bossFight.ts`, `src/game/dungeonView.ts`.
+- Found and fixed during the loop: pinched tunnels (13 of 19 failed even a 3-tile body), a prop ring that closed the boss chamber, dressing props that cut switches off from the entrance (now `safePlace`), a one-frame early 'cleared' in the ambush timer, hint list cap (40 -> 80).
+- Screenshots reviewed (qc-artifacts/r22-*): Sovereign (ward + shards), Sand Wyrm (underground + eruption), Mirage Empress, Furnace Warden (pools warn/burn), Crane Lord (blade warning and active arms), Magistrate (pylons + links), closed and open seal gate, spike warning, poison mist, collapse crack/pit, ambush wave, interiors of wolfden, ember-mine, cloudhollow, scrollvault, abyss-ashmaw.
+- UNVERIFIED: hand-played feel and balance of every new fight and room, audio, real-GPU fps.
+
 ## 2026-10-16 — Published
 - Repo: https://github.com/vuthehuy1997/immortal-realms (public). Live: https://vuthehuy1997.github.io/immortal-realms/
 - Deploy: `.github/workflows/pages.yml` (lint, typecheck, unit tests, build, then GitHub Pages) on every push to `main`. e2e (`npm run qc`) is local-only for now.

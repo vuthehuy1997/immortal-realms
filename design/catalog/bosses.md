@@ -295,7 +295,7 @@ Drops: s2-wyrm-pearl (100%), s2-glacier-saber (50%), s2-rime-elixir (100%)
 |---|---|---|---|---|---|---|---|---|---|
 | 22000 | 70 | 20 | 46 | 1800 | 260–360 | canyon | canyon | ember-wyrm | 0.66 / 0.33 |
 
-Kit: **P1** sweep, charge · **P2** charge, rain, summon, slam · **P3** rain, ring, charge, slam, sweep
+Kit: **P1** sweep, charge, burrow · **P2** charge, burrow, rain, summon, slam · **P3** burrow, rain, ring, charge, slam, sweep
 
 Drops: ember-wyrm-scale (100%), ember-hp-potion (100%), ember-qi-pill (100%)
 
@@ -307,6 +307,7 @@ Drops: ember-wyrm-scale (100%), ember-hp-potion (100%), ember-qi-pill (100%)
 | rain | count 8, radius 30, spread 130, windup 0.5, delay 0.95, recover 0.4, cooldown 5.5, damageMult 1.2 |
 | summon | windup 0.8, cooldown 13, count 3, maxMinions 5, minionType sandviper |
 | ring | windup 0.75, cooldown 6.5, projectiles 12, damageMult 0.95 |
+| burrow | windup 1.9, lockBefore 0.65, recover 0.9, cooldown 11, radius 56, damageMult 1.8, minRange 30 |
 
 ## Mirage Empress (`mirageempress`)
 

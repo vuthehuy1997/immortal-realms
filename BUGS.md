@@ -23,6 +23,15 @@
 | QA6-B8 | Cloudhollow floor reads as void | flagstone seams, darker base |
 | QA6-B6 | Objective bar stale after hook travel to ch5 | NOT FIXED (hook-induced, S4) |
 
+## Round 22 (found and fixed while building boss identity and dungeon mechanics)
+| ID | Bug | Fix |
+|---|---|---|
+| R22-1 | 13 of 19 dungeons had a gate-to-boss route a 3-tile body could not walk (3.4-4 wide tunnels, scatter and a closed boulder ring around the boss) | 7-wide spine kept free of props, boss ring leaves the arrival side open, `clearanceReach` test over all dungeons |
+| R22-2 | New wall-hugging props cut brazier/plate switches off from the entrance (reachable only through the closed seal) | `safePlace` checks reachability with the seal closed and open, ring-run fast path |
+| R22-3 | Ambush timer counted a wave as cleared on the very tick it spawned | a wave needs 1 s before "cleared" counts; unit test |
+| R22-4 | Save validation capped hints at 40: the new tips could have made a long-playing save unloadable | cap 80, test that ~40 hints load |
+| R22-5 | Pool visuals were pale grey rings that did not read as lava | dark base + saturated fill + bright core, ramp mix 1.0 for the Furnace Warden |
+
 ## Open / known limitations
 - L-001 Enemies are not saved (respawn fresh on load); only player/quests/inventory/boss-defeated flag persist.
 - L-002 Saves are client-side and editable; checksum only detects accidental corruption/naive edits (not security).
