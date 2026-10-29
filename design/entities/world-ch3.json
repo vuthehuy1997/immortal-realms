@@ -82,7 +82,7 @@
       "y": 1192
     },
     "hunter-tarq": {
-      "x": 1400,
+      "x": 1224,
       "y": 1784
     },
     "miner-borok": {
@@ -99,5 +99,5 @@
     }
   },
   "herbs": 57,
-  "propCount": 922
+  "propCount": 916
 }

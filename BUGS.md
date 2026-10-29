@@ -39,3 +39,6 @@
 - L-004 No audio, no touch/gamepad, only Chromium tested.
 - L-005 Balance and feel unplaytested by a human.
 - L-006 UI text is English only; no i18n layer yet.
+- R23 fixed: QA7 F1 (seal lost on reload / stranded hero), F2-F6, F8-F11 (see docs/QA_REPORT_7.md "Resolution"). F7 reclassified: realm-0 hero artefact, not a data bug; still needs a human playtest.
+- R23 open: no human has played the boss fights (feel of blade warning width, Mirage markers, tip queue timing); the realm gap itself (a player who never breaks through) is only hinted, not enforced.
+- R23 pre-existing (also fails at 93ba040): e2e boss.spec 'ninetail move "teleport"' - the boss lands 115 px from the hero (test expects < 90). Not caused by round 23; not investigated.

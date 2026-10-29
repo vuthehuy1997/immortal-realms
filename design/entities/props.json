@@ -46,14 +46,14 @@
         "h": 1
       }
     ],
-    "placedInWorld": 533,
+    "placedInWorld": 531,
     "image": "props/pine.png"
   },
   {
     "kind": "stairs",
     "scale": 0.22,
     "blocks": [],
-    "placedInWorld": 13,
+    "placedInWorld": 7,
     "image": "props/stairs.png"
   },
   {
@@ -141,7 +141,7 @@
         "h": 1.2
       }
     ],
-    "placedInWorld": 418,
+    "placedInWorld": 417,
     "image": "props/taihurocks.png"
   },
   {
@@ -155,7 +155,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 325,
+    "placedInWorld": 296,
     "image": "props/willow.png"
   },
   {
@@ -169,7 +169,7 @@
     "kind": "orchid",
     "scale": 0.13,
     "blocks": [],
-    "placedInWorld": 524,
+    "placedInWorld": 450,
     "image": "props/orchid.png"
   },
   {
@@ -206,7 +206,7 @@
     "scale": 0.22,
     "blocks": [],
     "flat": true,
-    "placedInWorld": 185,
+    "placedInWorld": 176,
     "image": "props/petals.png"
   },
   {
@@ -261,7 +261,7 @@
         "h": 1
       }
     ],
-    "placedInWorld": 312,
+    "placedInWorld": 309,
     "image": "props/dragonpillar.png"
   },
   {

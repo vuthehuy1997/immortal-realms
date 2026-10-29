@@ -86,3 +86,8 @@
 - Fixed `npm run lint` (720 errors came from ESLint scanning `.claude/worktrees`). Added per-hero technique kits.
 - QC: lint clean, tsc clean, build OK, 923 unit tests pass; e2e herokits (3) + tower (5) pass; screenshot qc-artifacts/hero-kit-fan.png reviewed (Ember Fan visible, long hotbar names shortened). Full e2e suite NOT re-run this round.
 - UNVERIFIED: hand-played feel of kits, balance, real-GPU perf, audio.
+
+## 2026-10-29 - Round 23 (QA 7 fixes, boss/dungeon polish)
+- Fixed from docs/QA_REPORT_7.md: seal state persists (validated save field + stranding guard), blade wheel follows the boss with visible warnings, Mirage real-one marker, tips queued and toasts moved off the hero, no props on void/water/lava, ambush wave cap, NPC out of Sand Wyrm arena, pit rescue outside patch, mobile boss bar. F7 (boss lethality) analysed from data: the QA hero was realm 0 at Lv 50; intended heroes take 5-20% hits; added tests and a realm-lag tip, no boss retune.
+- Screenshots reviewed: sovereign and daodemon arena approaches (no void seen), Matron, Dao Demon wheel (hub on boss feet), Crane Lord warning band, Mirage gold ring, 390x844 boss bar.
+- UNVERIFIED: hand-played feel, balance for players who skip breakthroughs, real-GPU fps, audio.

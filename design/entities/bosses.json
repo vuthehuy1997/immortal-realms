@@ -1841,7 +1841,7 @@
         "burstMult": 0.9
       }
     },
-    "mechTip": "Mirror images! One is real. Decoys have no shadow and shatter when struck (hurting you if you are close): strike the one that casts a shadow.",
+    "mechTip": "Mirror images! One is real. Decoys shatter when struck (hurting you if you are close): strike the one standing in the gold ring.",
     "image": "bosses/mirageempress.png",
     "drops": [
       {
