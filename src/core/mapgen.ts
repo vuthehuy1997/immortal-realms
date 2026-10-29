@@ -244,3 +244,35 @@ export function generateFromDef(def: MapDef): WorldMap {
     lair: bossHomes.warden ?? homes[2] ?? homes[0]!, den: bossHomes.ninetail ?? homes[0]!, pool: bossHomes.jiaolong ?? homes[1] ?? homes[0]!, bossHomes, portal, portalNext, entrances, anchors, npcs, herbs, arrayPos,
   };
 }
+
+/**
+ * Can a body that needs a (2k+1) x (2k+1) block of open tiles around its centre (k=1: a 3-tile-wide body, k=2: 5) travel between two world
+ * points? Used to prove that big bosses and elites never get pinned in a dungeon's tunnels.
+ */
+export function clearanceReach(m: Pick<WorldMap, 'width' | 'height' | 'blocked'>, from: Vec2, to: Vec2, k: number): boolean {
+  const { width: w, height: h, blocked } = m;
+  const roomy = (x: number, y: number): boolean => {
+    for (let dy = -k; dy <= k; dy++) for (let dx = -k; dx <= k; dx++) { const tx = x + dx, ty = y + dy; if (tx < 0 || ty < 0 || tx >= w || ty >= h || blocked[ty * w + tx]) return false; }
+    return true;
+  };
+  const sx = Math.floor(from.x / TILE_SIZE), sy = Math.floor(from.y / TILE_SIZE), gx = Math.floor(to.x / TILE_SIZE), gy = Math.floor(to.y / TILE_SIZE);
+  // endpoints may sit beside a wall (a gate, a boss's array): start the search from the nearest roomy tile
+  const snap = (x: number, y: number): number | null => {
+    for (let r = 0; r <= 4; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) if (Math.max(Math.abs(dx), Math.abs(dy)) === r && roomy(x + dx, y + dy)) return (y + dy) * w + x + dx;
+    return null;
+  };
+  const a = snap(sx, sy), b = snap(gx, gy);
+  if (a === null || b === null) return false;
+  const seen = new Uint8Array(w * h), stack = [a]; seen[a] = 1;
+  while (stack.length) {
+    const i = stack.pop()!;
+    if (i === b) return true;
+    const x = i % w, y = (i - x) / w;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+      const nx = x + dx, ny = y + dy, j = ny * w + nx;
+      if (nx < 0 || ny < 0 || nx >= w || ny >= h || seen[j] || !roomy(nx, ny)) continue;
+      seen[j] = 1; stack.push(j);
+    }
+  }
+  return false;
+}

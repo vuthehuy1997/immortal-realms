@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import raw from '../data/manifest.generated.json';
+import { BOSSES } from '../data/boss';
+import { applyRamp, lumaRange } from '../core/palette';
 
 export interface SheetDef { url: string; fw: number; fh: number; frames: number; fps: number; loop: boolean; ox: number; oy: number }
 export interface PropAsset { url: string; w: number; h: number }
@@ -67,3 +69,35 @@ export function makeHelperTextures(textures: Phaser.Textures.TextureManager): vo
 }
 
 export const sheetOf = (key: string): SheetDef | undefined => MANIFEST.sheets[key];
+
+/**
+ * Boss palette ramps: for every boss with `look.ramp`, builds a gradient-mapped copy of each strip of its base sprite as new textures
+ * `<sprite>~<bossId>.<anim>` (registered in the manifest so animations are created for them). Pure pixel work on the licensed pack art.
+ */
+export function deriveBossLooks(textures: Phaser.Textures.TextureManager): void {
+  for (const b of Object.values(BOSSES)) {
+    const ramp = b.look?.ramp;
+    if (!ramp) continue;
+    const idle = textures.exists(`${b.sprite}.idle`) ? (textures.get(`${b.sprite}.idle`).getSourceImage() as CanvasImageSource & { width: number; height: number }) : null;
+    if (!idle) continue;
+    const draw = (img: CanvasImageSource & { width: number; height: number }) => {
+      const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+      const ctx = c.getContext('2d', { willReadFrequently: true })!; ctx.drawImage(img, 0, 0);
+      return { c, ctx, data: ctx.getImageData(0, 0, c.width, c.height) };
+    };
+    const range = lumaRange(draw(idle).data.data); // one range per base so every animation keeps the same look
+    const prefix = `${b.sprite}~${b.id}`;
+    for (const [key, s] of Object.entries(MANIFEST.sheets)) {
+      if (!key.startsWith(`${b.sprite}.`)) continue;
+      const anim = key.slice(b.sprite.length + 1), nk = `${prefix}.${anim}`;
+      if (textures.exists(nk) || anim.includes('.')) continue;
+      const { c, ctx, data } = draw(textures.get(key).getSourceImage() as CanvasImageSource & { width: number; height: number });
+      applyRamp(data.data, ramp, range, b.look?.rampMix ?? 0.85);
+      ctx.putImageData(data, 0, 0);
+      const tex = textures.addCanvas(nk, c);
+      if (!tex) continue;
+      for (let i = 0; i < s.frames; i++) tex.add(i, 0, i * s.fw, 0, s.fw, s.fh);
+      MANIFEST.sheets[nk] = s;
+    }
+  }
+}

@@ -34,7 +34,7 @@ export interface BossMech { ward?: WardDef; illusions?: IllusionDef; pools?: Poo
 export interface BossLook {
   /** gradient map on luminance: [shadow, mid, highlight]; mixed with the original pixels by `rampMix` (default 0.85) */
   ramp?: [number, number, number]; rampMix?: number;
-  /** extra display scale on top of `scale` is baked into `scale`; this flips nothing, it names the silhouette in docs */
+  /** what the outline reads as (docs / design snapshot); `PLACEHOLDER ...` marks art that is still a recycled sprite */
   silhouette: string;
   /** satellites circling the body (fx strip frames) */
   orbit?: { fx: string; count: number; radius: number; scale: number; tint: number; speed: number; lift?: number };
@@ -197,3 +197,5 @@ export const bossesOfChapter = (chapter: number): BossDef[] => Object.values(BOS
 export const bossesOfDungeon = (id: string): BossDef[] => Object.values(BOSSES).filter((b) => b.dungeon === id);
 
 export const BOSS_IDS = Object.keys(BOSSES);
+/** Texture prefix a boss is drawn with: its own ramp-recoloured copy of the base sprite, or the base sprite itself. */
+export const bossSpriteKey = (b: BossDef): string => (b.look?.ramp ? `${b.sprite}~${b.id}` : b.sprite);

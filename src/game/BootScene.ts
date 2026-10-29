@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { applyTextureFilters, makeHelperTextures, queueAssets, registerAnimations } from './assets';
+import { applyTextureFilters, deriveBossLooks, makeHelperTextures, queueAssets, registerAnimations } from './assets';
 
 /** Loads every asset once and reports progress to the DOM loading bar. */
 export class BootScene extends Phaser.Scene {
@@ -12,6 +12,7 @@ export class BootScene extends Phaser.Scene {
 
   create(): void {
     makeHelperTextures(this.textures);
+    deriveBossLooks(this.textures);
     applyTextureFilters(this.textures);
     registerAnimations(this.anims);
     this.game.events.emit('assets-ready');

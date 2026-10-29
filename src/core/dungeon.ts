@@ -7,6 +7,33 @@ import { TILE_SIZE, tileToWorld, type GroundKind, type PropInst, type WorldMap }
 
 type Rng = () => number;
 
+/**
+ * Tunnel widths (tiles). Round 22: the old 3.4-4 wide tunnels pinned big bodies (a boss body needs a 3-tile-wide lane, an elite plus the hero more);
+ * the main route is now at least `SPINE_WIDTH`, and `tests/dungeons.test.ts` proves a body with 5 tiles of clearance can walk gate to boss in every dungeon.
+ */
+export const SPINE_WIDTH = 7;
+export const SIDE_WIDTH = 5;
+/** the guaranteed route stays free of props this far (tiles) either side */
+const ROUTE_CLEAR = 3;
+
+/** Shortest open 4-connected route between two tiles (null if cut off). */
+function routeBetween(w: number, h: number, blocked: Uint8Array, a: Vec2, b: Vec2): number[] | null {
+  const start = Math.floor(a.y) * w + Math.floor(a.x), goal = Math.floor(b.y) * w + Math.floor(b.x);
+  const prev = new Int32Array(w * h).fill(-2); prev[start] = -1;
+  const q = [start];
+  for (let head = 0; head < q.length; head++) {
+    const i = q[head]!;
+    if (i === goal) { const out: number[] = []; for (let k = i; k !== -1; k = prev[k]!) out.push(k); return out.reverse(); }
+    const x = i % w, y = (i - x) / w;
+    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+      const nx = x + dx, ny = y + dy, j = ny * w + nx;
+      if (nx < 0 || ny < 0 || nx >= w || ny >= h || blocked[j] || prev[j] !== -2) continue;
+      prev[j] = i; q.push(j);
+    }
+  }
+  return null;
+}
+
 const carveCircle = (open: Uint8Array, w: number, h: number, cx: number, cy: number, r: number): void => {
   for (let y = Math.floor(cy - r); y <= Math.ceil(cy + r); y++) for (let x = Math.floor(cx - r); x <= Math.ceil(cx + r); x++) {
     if (x > 1 && y > 1 && x < w - 2 && y < h - 2 && Math.hypot(x - cx, y - cy) <= r) open[y * w + x] = 1;
@@ -40,14 +67,14 @@ function carveCave(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2, 
   }
   // guaranteed spine from the gate to the boss chamber, plus a few side caverns
   const mid: Vec2 = { x: (entrance.x + boss.x) / 2, y: h / 2 + (rng() - 0.5) * h * 0.5 };
-  carveTunnel(open, w, h, entrance, mid, 4, rng);
-  carveTunnel(open, w, h, mid, boss, 4, rng);
+  carveTunnel(open, w, h, entrance, mid, SPINE_WIDTH, rng);
+  carveTunnel(open, w, h, mid, boss, SPINE_WIDTH, rng);
   for (let k = 0; k < 4; k++) {
     const c: Vec2 = { x: 12 + rng() * (w - 24), y: 8 + rng() * (h - 16) };
     carveCircle(open, w, h, c.x, c.y, 4 + rng() * 3);
-    carveTunnel(open, w, h, c, mid, 3, rng);
+    carveTunnel(open, w, h, c, mid, SIDE_WIDTH, rng);
   }
-  carveCircle(open, w, h, entrance.x + 1, entrance.y, 4.5);
+  carveCircle(open, w, h, entrance.x + 1, entrance.y, 5.5);
   carveCircle(open, w, h, boss.x, boss.y, 9.5);
 }
 
@@ -72,8 +99,8 @@ function carveRealm(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2,
   for (let i = 0; i < centres.length - 1; i++) {
     const a = centres[i]!, b = centres[i + 1]!;
     const corner: Vec2 = { x: b.x, y: a.y };
-    carveTunnel(open, w, h, a, corner, 3.4, rng);
-    carveTunnel(open, w, h, corner, b, 3.4, rng);
+    carveTunnel(open, w, h, a, corner, SPINE_WIDTH, rng);
+    carveTunnel(open, w, h, corner, b, SPINE_WIDTH, rng);
   }
   return centres;
 }
@@ -102,7 +129,10 @@ export function generateDungeon(def: DungeonDef): WorldMap {
   for (let i = 0; i < w * h; i++) if (ground[i] === def.floor && accent() < 0.05) ground[i] = def.floor === 'stone' ? 'basalt' : def.floor;
 
   const props: PropInst[] = [];
-  const { place, occ, at } = createPlacer(w, h, blocked, props);
+  const { place, occ, at, reserved } = createPlacer(w, h, blocked, props);
+  // the gate-to-boss route keeps a clear lane: no scatter, pillar or boulder may narrow it
+  const route = routeBetween(w, h, blocked, entranceT, bossT) ?? [];
+  for (const i of route) { const x = i % w, y = (i - x) / w; for (let dy = -ROUTE_CLEAR; dy <= ROUTE_CLEAR; dy++) for (let dx = -ROUTE_CLEAR; dx <= ROUTE_CLEAR; dx++) { const tx = x + dx, ty = y + dy; if (tx >= 0 && ty >= 0 && tx < w && ty < h) reserved[ty * w + tx] = 1; } }
   const gate = tileToWorld({ x: entranceT.x - 3, y: entranceT.y + 1 });
   // exit gate stands in the rock behind the spawn; the array under it is where E works
   props.push({ kind: 'moonwall', x: gate.x, y: gate.y }); // set into the cavern wall: scenery only, so it never walls in the spawn

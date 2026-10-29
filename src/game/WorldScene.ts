@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { placeFloat, type FloatSlot } from '../core/floatStack';
-import { addPoise, newBossAI, STAGGER_DAMAGE, updateBoss, type BossAI, type BossEvent } from '../core/boss';
+import { addPoise, forceStagger, newBossAI, STAGGER_DAMAGE, updateBoss, type BossAI, type BossEvent } from '../core/boss';
 import { PERFECT_BUFF_TIME, PERFECT_DAMAGE, PERFECT_MANA, PERFECT_SLOWMO, perfectReady } from '../core/dodge';
 import { showBoonPicker, isBoonPickerOpen, moveBoonFocus, confirmBoonFocus } from '../ui/boons';
 import { TOWER_XP } from '../core/tower';
@@ -26,7 +26,8 @@ import { step, type Vec2 } from '../core/movement';
 import { acceptQuest } from '../core/quest';
 import { createRng } from '../core/rng';
 import { generateChapter, generateDungeonMap, isBlockedTile, moveWithCollision, nearestFree, tileToWorld, TILE_SIZE, zoneAt, type WorldMap, type ZoneId } from '../core/world';
-import { BOSSES, bossesOfChapter, bossesOfDungeon, type BossDef } from '../data/boss';
+import { BOSSES, bossesOfChapter, bossesOfDungeon, bossSpriteKey, type BossDef } from '../data/boss';
+import { BossFight, type FightHost } from './bossFight';
 import { DUNGEONS, dungeonsOfChapter, type DungeonDef } from '../data/dungeons';
 import { canEnterDungeon, claimDungeonReward, flushPending, isDungeonCleared } from '../core/dungeonRun';
 import { ENEMIES, type EnemyDef } from '../data/enemies';
@@ -84,6 +85,8 @@ interface BossEnt {
   burn: { t: number; dps: number; tick: number } | null; slow: number;
   rainTele: Phaser.GameObjects.Graphics | null; charge: { until: number; hit: boolean; width: number; mult: number } | null;
   slams: number; def: BossDef; c: Combatant; ai: BossAI; pos: Vec2; actor: Actor; engaged: boolean; tele: Phaser.GameObjects.Graphics | null; lockUntil: number; kb: Vec2;
+  /** identity layer: satellites, sigil and the boss's mechanic (ward / decoys / pools / beams / pylons / wisps) */
+  fight: BossFight; wasHidden: boolean;
 }
 interface Bolt {
   kind: 'sword' | 'wave' | 'hostile'; pos: Vec2; vel: Vec2; traveled: number; max: number; damage: number; pierce: number; hit: Set<unknown>;
@@ -344,14 +347,29 @@ export class WorldScene extends Phaser.Scene {
     return e;
   }
 
+  private fightHostCache: FightHost | null = null;
+  /** services the boss identity layer (`BossFight`) needs from the scene */
+  private fightHost(): FightHost {
+    return this.fightHostCache ??= {
+      scene: this, fx: this.fx, heroPos: () => this.pos, heroRadius: PLAYER_RADIUS,
+      hurtHero: (atk, from) => this.hurtPlayer(atk, from),
+      damageTo: (def, mult) => computeDamage(this.pc, { def }, mult * this.dodgeBuff(), this.rng).amount,
+      floatText: (at, text, color, big) => this.floatText(at, text, color, !!big),
+      toast: (t, ms) => toast(t, ms), tip: (id, t) => this.tip(id, t), sfx: (n) => audio.sfx(n),
+      free: (p) => nearestFree(this.world, p, 10, 8) ?? p,
+    };
+  }
+
   private spawnBoss(def: BossDef): void {
     const c: Combatant = { hp: def.maxHp, maxHp: def.maxHp, mana: 0, maxMana: 0, atk: def.atk, def: def.def, critChance: 0, critMult: 1, manaRegen: 0 };
     const pos = { ...this.world.bossHomes[def.id]! };
-    const actor = new Actor(this, def.sprite, pos.x, pos.y, def.scale, 56);
+    const actor = new Actor(this, bossSpriteKey(def), pos.x, pos.y, def.scale, 56);
     if (def.tint !== undefined) actor.setBaseTint(def.tint);
     if (def.aura !== undefined || def.tint !== undefined) actor.setAura(def.aura ?? def.tint!, def.radius * 7, def.aura !== undefined ? 0.6 : 0.3);
     actor.setPos(pos.x, pos.y);
-    this.bosses.push({ burn: null, slow: 0, rainTele: null, charge: null, slams: 0, def, c, ai: newBossAI(), pos, actor, engaged: false, tele: null, lockUntil: 0, kb: { x: 0, y: 0 } });
+    const ent = { burn: null, slow: 0, rainTele: null, charge: null, slams: 0, def, c, ai: newBossAI(), pos, actor, engaged: false, tele: null, lockUntil: 0, kb: { x: 0, y: 0 }, wasHidden: false } as unknown as BossEnt;
+    ent.fight = new BossFight(this.fightHost(), ent, { ...pos });
+    this.bosses.push(ent);
   }
 
   // ---------- input actions ----------
@@ -764,7 +782,7 @@ export class WorldScene extends Phaser.Scene {
   // ---------- combat: shared ----------
   private targets(): Target[] {
     const t: Target[] = this.enemies.map((e) => ({ pos: e.pos, radius: e.def.radius, key: e, hit: (m: number, o?: HitOpts) => this.hitEnemy(e, m, o) }));
-    for (const b of this.bosses) t.push({ pos: b.pos, radius: b.def.radius, key: b, hit: (m: number, o?: HitOpts) => this.hitBoss(b, m, o) });
+    for (const b of this.bosses) { t.push({ pos: b.pos, radius: b.def.radius, key: b, hit: (m: number, o?: HitOpts) => this.hitBoss(b, m, o) }); t.push(...b.fight.targets()); }
     return t;
   }
 
@@ -912,17 +930,19 @@ export class WorldScene extends Phaser.Scene {
     this.lastCombat = this.now;
     const r = computeDamage(this.pc, b.c, mult * this.dodgeBuff() * this.executeMult(b.c) * (b.ai.state === 'stagger' ? STAGGER_DAMAGE : 1), this.rng);
     const hpBefore = b.c.hp;
-    const killed = applyDamage(b.c, r.amount);
+    const f = b.fight.filter(r.amount); // ward / pylons / underground soak the hit
+    const killed = f.amount > 0 ? applyDamage(b.c, f.amount) : false;
     if (!o.dot) this.leech(hpBefore - b.c.hp);
-    if (!o.dot && !killed) this.poiseHit(b, r.amount);
-    this.floatText(b.pos, String(r.amount), r.crit ? '#ffd23f' : '#ffffff', r.crit);
-    if (!o.dot && !killed) this.rootEffect(null, b, r.amount);
+    if (!o.dot && !killed && f.amount > 0) this.poiseHit(b, f.amount);
+    if (f.staggered && forceStagger(b.ai)) { this.floatText({ x: b.pos.x, y: b.pos.y - 16 }, 'Staggered!', '#9fd8ff', true); this.fx.shake(200, 0.006); this.hitStop(90); }
+    this.floatText(b.pos, b.ai.hidden ? 'Underground' : String(r.amount), f.amount < r.amount ? '#9fd8ff' : r.crit ? '#ffd23f' : '#ffffff', r.crit && f.amount >= r.amount);
+    if (!o.dot && !killed && f.amount > 0) this.rootEffect(null, b, f.amount);
     audio.sfx(r.crit ? 'crit' : 'hit');
     b.actor.flash(50);
     this.fx.burst(b.pos.x, b.pos.y - 22, r.crit ? COLORS.gold : this.heroColor, 10);
     if (o.kb && !killed) b.kb = impulse({ x: b.pos.x - (o.from ?? this.pos).x, y: b.pos.y - (o.from ?? this.pos).y }, o.kb * 0.15);
     if (!killed) return;
-    b.tele?.destroy();
+    b.tele?.destroy(); b.fight.die(); b.rainTele?.destroy(); b.actor.setAlpha(1);
     this.bosses = this.bosses.filter((x) => x !== b);
     for (const m of this.enemies.filter((x) => x.minion && x.zone === b.def.zone)) m.actor.destroy();
     this.enemies = this.enemies.filter((x) => !(x.minion && x.zone === b.def.zone));
@@ -1412,7 +1432,7 @@ export class WorldScene extends Phaser.Scene {
     const dist = Math.hypot(target.x - b.pos.x, target.y - b.pos.y);
     if (!b.engaged && alive && dist < 170) b.engaged = true;
     if (b.engaged && (dist > 360 || !alive)) { // leash / player died: reset the fight
-      b.engaged = false; b.c.hp = b.c.maxHp; b.ai = newBossAI(); b.tele?.destroy(); b.tele = null; b.rainTele?.destroy(); b.rainTele = null; b.charge = null; b.actor.setAlpha(1);
+      b.engaged = false; b.c.hp = b.c.maxHp; b.ai = newBossAI(); b.tele?.destroy(); b.tele = null; b.rainTele?.destroy(); b.rainTele = null; b.charge = null; b.actor.setAlpha(1); b.fight.reset(); b.wasHidden = false;
       for (const m of this.enemies.filter((x) => x.minion)) m.actor.destroy();
       this.enemies = this.enemies.filter((x) => !x.minion);
       setBossBar(null);
@@ -1430,6 +1450,9 @@ export class WorldScene extends Phaser.Scene {
       }
       setBossBar(b.def.name, b.c.hp, b.c.maxHp);
     }
+    b.fight.update(dt, b.engaged && alive, b.c.hp / b.c.maxHp, this.rng, target);
+    if (b.ai.hidden) { b.actor.setAlpha(0); b.wasHidden = true; if (Math.random() < dt * 14) this.fx.burst(b.pos.x + (Math.random() - 0.5) * b.def.radius, b.pos.y, 0xd8b070, 3); }
+    else if (b.wasHidden) { b.wasHidden = false; b.actor.setAlpha(1); }
     if (this.now >= b.lockUntil) b.actor.play(Math.hypot(vel.x, vel.y) > 4 ? 'move' : 'idle');
     b.actor.face(target.x < b.pos.x ? -1 : 1);
     b.actor.setPos(b.pos.x, b.pos.y);
@@ -1442,14 +1465,14 @@ export class WorldScene extends Phaser.Scene {
     switch (ev.type) {
       case 'phase':
         audio.sfx('roar'); toast(ev.phase === 2 ? `${b.def.name} grows serious!` : `${b.def.name} is enraged!`, 2800);
-        this.fx.shake(300, 0.006); this.fx.ring(b.pos.x, b.pos.y, 90, COLORS.boss, 600); break;
+        this.fx.shake(300, 0.006); this.fx.ring(b.pos.x, b.pos.y, 90, COLORS.boss, 600); b.fight.phaseFx(); break;
       case 'telegraph': {
         audio.sfx('telegraph');
         const anim = ev.move === 'slam' || ev.move === 'sweep' ? 'attack_a' : ev.move === 'charge' || ev.move === 'ring' ? 'attack_b' : 'special';
         b.actor.play(anim, { force: true, duration: Math.min(ev.duration, 1.2) }); b.lockUntil = this.now + ev.duration + 0.5;
         const warn = 0xff3b30, g = this.add.graphics().setDepth(5);
         g.fillStyle(warn, 0.24).lineStyle(2.5, 0xff5a4a, 0.95);
-        if ((ev.move === 'slam' || ev.move === 'teleport') && ev.radius) { g.fillCircle(ev.at.x, ev.at.y, ev.radius).strokeCircle(ev.at.x, ev.at.y, ev.radius); }
+        if ((ev.move === 'slam' || ev.move === 'teleport' || ev.move === 'burrow') && ev.radius) { g.fillCircle(ev.at.x, ev.at.y, ev.radius).strokeCircle(ev.at.x, ev.at.y, ev.radius); }
         else if (ev.move === 'sweep' && ev.range && ev.halfAngle) {
           const a0 = Math.atan2(ev.dir.y, ev.dir.x);
           g.beginPath().moveTo(b.pos.x, b.pos.y).arc(b.pos.x, b.pos.y, ev.range, a0 - ev.halfAngle, a0 + ev.halfAngle).closePath().fillPath().strokePath();
@@ -1506,6 +1529,23 @@ export class WorldScene extends Phaser.Scene {
         if (inCircle(b.pos, ev.radius, this.pos, PLAYER_RADIUS)) this.hurtPlayer(atk * ev.damageMult, b.pos);
         break;
       }
+      case 'burrowTrack': { // the marker trails the hero, then locks (brighter, steady)
+        const g = b.tele ?? (b.tele = this.add.graphics().setDepth(5)), r = b.def.moves.burrow!.radius;
+        g.clear().fillStyle(0xff3b30, ev.locked ? 0.34 : 0.18).lineStyle(ev.locked ? 3 : 2, ev.locked ? 0xffd0c0 : 0xff5a4a, 0.95).fillCircle(ev.at.x, ev.at.y, r).strokeCircle(ev.at.x, ev.at.y, r);
+        if (Math.random() < 0.3) this.fx.burst(ev.at.x + (Math.random() - 0.5) * r, ev.at.y, 0xd8b070, 3);
+        break;
+      }
+      case 'burrow': {
+        b.tele?.destroy(); b.tele = null;
+        const to = nearestFree(this.world, ev.to, b.def.radius - 4, 6) ?? b.pos;
+        b.pos = { ...to }; b.actor.setAlpha(1); b.wasHidden = false;
+        b.actor.play('attack_a', { force: true, duration: 0.5 }); b.lockUntil = this.now + 0.6;
+        audio.sfx('slam'); this.fx.shake(260, 0.008); this.fx.ring(to.x, to.y, ev.radius, 0xffc860, 420);
+        for (let i = 0; i < 10; i++) { const a = (i / 10) * Math.PI * 2; this.fx.play('xf_stone_spike', to.x + Math.cos(a) * ev.radius * 0.75, to.y + Math.sin(a) * ev.radius * 0.75, { scale: 0.18, tint: 0xe8c890, blend: 'normal', alpha: 0.9, depth: to.y - 30 }); }
+        this.fx.play('xf_gale_vortex', to.x, to.y + 4, { scale: 0.5, tint: 0xffe0a0, depth: to.y + 5 });
+        if (inCircle(to, ev.radius, this.pos, PLAYER_RADIUS)) this.hurtPlayer(atk * ev.damageMult, to);
+        break;
+      }
       case 'summon':
         b.actor.play('special', { force: true, duration: 0.8 }); b.lockUntil = this.now + 0.9;
         for (let i = 0; i < ev.count; i++) {
@@ -1560,7 +1600,7 @@ export class WorldScene extends Phaser.Scene {
         hero: this.gs.character.hero, stones: this.gs.stones, tut: this.gs.tut, objective: this.objective().text, skills: { ...this.gs.skills }, freePoints: freePoints(this.gs), inventoryGear: { weapon: this.gs.inventory.weapon, armor: this.gs.inventory.armor, charm: this.gs.inventory.charm }, zone: this.currentZone, tower: this.rift.snapshot(), towerBest: this.gs.towerBest, boons: [...this.gs.boons], boonPicks: this.gs.boonPicks, perfectBuff: this.now < this.perfectUntil, dead: this.dead, comboStep: this.combo.step, dashing: isDashing(this.dashState, this.now), invulnerable: isInvulnerable(this.dashState, this.now),
         quests: Object.fromEntries(Object.entries(this.gs.quests).map(([k, v]) => [k, v.status])),
         enemies: this.enemies.map((e) => ({ id: e.id, type: e.def.id, hp: e.c.hp, x: e.pos.x, y: e.pos.y, ai: e.ai.state, minion: e.minion, elite: e.elite, affix: e.affix, burning: !!e.burn, slowed: e.slow > 0, stunned: e.stun >= STUN_MARK_MIN, shield: e.shield, zone: e.zone, anim: e.actor.anim })),
-        bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams, poise: Math.round(b.ai.poise) })),
+        bosses: this.bosses.map((b) => ({ id: b.def.id, hp: b.c.hp, maxHp: b.c.maxHp, x: b.pos.x, y: b.pos.y, engaged: b.engaged, phase: b.ai.phase, state: b.ai.state === 'windup' ? `${b.ai.move}-windup` : b.ai.state, slams: b.slams, poise: Math.round(b.ai.poise), hidden: b.ai.hidden, mech: b.fight.snapshot(), look: bossSpriteKey(b.def) })),
         boss: this.boss ? { hp: this.boss.c.hp, maxHp: this.boss.c.maxHp, x: this.boss.pos.x, y: this.boss.pos.y, engaged: this.boss.engaged, phase: this.boss.ai.phase, state: this.boss.ai.state === 'windup' ? `${this.boss.ai.move}-windup` : this.boss.ai.state, slams: this.boss.slams } : null,
         chapter: this.chapter, dungeon: this.dungeon?.id ?? null, entrances: this.world.entrances, portalNext: this.world.portalNext ?? null, portal: this.world.portal, bossHomes: this.world.bossHomes, story: [...this.gs.story],
         palace: this.world.props.find((p) => p.kind === 'palace'), lair: this.world.lair, den: this.world.den, pool: this.world.pool, spawn: this.world.spawn, npc: this.world.npcs['elder-lin'], npcs: this.world.npcs, npcPlates: Object.fromEntries(this.npcs.map((n) => [n.id, n.plate.visible])), arrayPos: this.world.arrayPos,
@@ -1588,6 +1628,7 @@ export class WorldScene extends Phaser.Scene {
       respawnNow: () => this.respawn(),
       useSlot: (i: number) => this.useSlot(i),
       gather: () => this.interact(),
+      mechNow: (id: string) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; b.fight.mech.illCd = b.fight.mech.poolCd = b.fight.mech.beamCd = b.fight.mech.leechCd = 0.05; } },
       bossForce: (id: string, move: string) => { const b = this.bosses.find((x) => x.def.id === id); if (b) { b.engaged = true; b.ai.force = move as never; b.ai.gap = 0; } },
       setStones: (n: number) => { this.gs.stones = n; },
       useGate: () => this.useGate(),

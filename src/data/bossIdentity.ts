@@ -35,7 +35,7 @@ export const BOSS_IDENTITY: Record<string, Override> = {
   // ch3 finale: lava pools
   furnacewarden: {
     sprite: 'mob.soldier', scale: 1.9, tint: undefined, aura: 0xff6a20,
-    look: { silhouette: 'towering armoured halberdier', ramp: [0x1a0500, 0xe0521a, 0xffe27a], orbit: { fx: 'xf_soul_wisp', count: 4, radius: 50, scale: 0.1, tint: 0xff7a30, speed: 1.6, lift: 34 },
+    look: { silhouette: 'towering armoured halberdier', ramp: [0x240400, 0xff4a10, 0xffe070], rampMix: 1, orbit: { fx: 'xf_soul_wisp', count: 4, radius: 50, scale: 0.1, tint: 0xff7a30, speed: 1.6, lift: 34 },
       sigil: { fx: 'xf_array_seal', color: 0xff6a20, size: 220 }, phaseFx: { fx: 'xf_phoenix', tint: 0xff8a40, scale: 0.7 }, deathFx: { fx: 'xf_phoenix', tint: 0xffb060, scale: 1.3 } },
     mech: { pools: { every: 10, count: 3, radius: 26, warn: 1.1, ttl: 8, dpsMult: 0.4, phases: [1, 2, 3] } },
     mechTip: 'Molten pools pool up around you: they flash red first, then burn for several seconds. Do not stand still.',
