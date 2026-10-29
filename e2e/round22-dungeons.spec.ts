@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { newGame, shot, st, waitGame } from './helpers';
+import { me, newGame, shot, st, waitGame } from './helpers';
 
 /** Round 22: dungeon mechanics through the real scene (traps, seal gates, collapsing floor, ambush), plus screenshots of the new interiors. */
 const enter = async (page: Page, id: string): Promise<void> => {
@@ -25,6 +25,29 @@ test.describe('round 22 dungeon mechanics', () => {
     expect((await fx(page)).plates).toEqual([true, true, true]);
     await expect.poll(async () => (await fx(page)).gateOpen).toBe(true);
     await tp(page, f0.gateAt!.x - 40, f0.gateAt!.y); await waitGame(page, 0.8); await shot(page, 'r22-dg-gate-open');
+  });
+
+  test('R23 F1: save + reload beyond an opened seal keeps it open and never strands the hero (s1-stormroost)', async ({ page }) => {
+    await newGame(page); await enter(page, 's1-stormroost');
+    const f0 = await fx(page);
+    for (const p of f0.plateAt) { await tp(page, p.x, p.y); await waitGame(page, 0.4); }
+    await expect.poll(async () => (await fx(page)).gateOpen).toBe(true);
+    // walk past the gate towards the boss side, then save (as an autosave would) and reload
+    const boss = (await st(page)).bosses[0]!;
+    await tp(page, boss.x - 200, boss.y); await waitGame(page, 0.6);
+    const before = await me(page);
+    await hpPool(page, 600); // a legal HP value (the 1e6 test pool is rejected by save validation, correctly)
+    await page.keyboard.press('Escape'); await page.click('#btn-save');
+    await expect(page.locator('.toast', { hasText: 'Game saved' })).toBeVisible();
+    await page.reload();
+    await page.click('#btn-continue'); await page.waitForFunction(() => window.__rpg && window.__rpg.state().now > 0.5, undefined, { timeout: 90_000 });
+    const f1 = await fx(page);
+    expect(f1.gateOpen, 'seal stays open').toBe(true); expect(f1.plates).toEqual([true, true, true]);
+    const after = await me(page);
+    expect(Math.hypot(after.x - before.x, after.y - before.y)).toBeLessThan(40); // not moved back to the spawn
+    // and the way back is walkable: reach the plates side without a blocked gate
+    await tp(page, f0.plateAt[0]!.x, f0.plateAt[0]!.y); await waitGame(page, 0.5);
+    expect(Math.hypot((await me(page)).x - f0.plateAt[0]!.x, (await me(page)).y - f0.plateAt[0]!.y)).toBeLessThan(30);
   });
 
   test('braziers burn out unless all lit in one run (swordsanctum)', async ({ page }) => {

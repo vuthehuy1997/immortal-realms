@@ -53,6 +53,8 @@ export interface GameState {
   insight: InsightRanks;
   /** reward items that did not fit in the bag; handed over as soon as there is room (see `flushPending`) */
   pending?: { id: string; count: number }[];
+  /** solved-seal state of the dungeon the hero is inside (see `exportSeal`); absent on the open map and in old saves */
+  seal?: import('./dungeonFeatures').SealSave | null;
 }
 
 export const WARDEN_ID = 'warden';

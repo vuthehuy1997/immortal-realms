@@ -210,6 +210,8 @@ export class WorldScene extends Phaser.Scene {
     if (this.dungeon && this.world.features) {
       this.dview = new DungeonView(this.dungeonHost(), this.world.features);
       if (isDungeonCleared(this.gs, this.dungeon.id)) this.dview.preOpen(); // a puzzle solved once stays solved
+      else if (this.gs.seal && this.gs.seal.id === this.dungeon.id) this.dview.restore(this.gs.seal, this.dungeon.id); // reload mid-dungeon: the seal stays as it was
+      if (this.dview.rescueIfStranded(this.pos, this.world.spawn)) toast('The seal gives way: you were stranded behind it.', 3000); // never trap the hero behind a closed gate
       const blurb = featureBlurb(this.dungeon.id);
       if (blurb) toast(`${this.dungeon.name}: ${blurb}`, 3600);
     }
@@ -303,8 +305,9 @@ export class WorldScene extends Phaser.Scene {
   private roll = (): number => this.rngOverride ?? this.rng();
   private save(announce: boolean): boolean {
     this.pushToState();
+    this.gs.seal = this.dview && this.dungeon ? this.dview.seal(this.dungeon.id) : null;
     // never persist a dead hero: quitting from the death screen respawns you at the village with full vitals
-    const snapshot: GameState = this.dead || this.gs.hp <= 0 ? { ...this.gs, hp: this.pc.maxHp, mana: this.pc.maxMana, pos: this.respawnSpot(), dungeon: null } : this.gs;
+    const snapshot: GameState = this.dead || this.gs.hp <= 0 ? { ...this.gs, hp: this.pc.maxHp, mana: this.pc.maxMana, pos: this.respawnSpot(), dungeon: null, seal: null } : this.gs;
     const ok = saveGame(snapshot);
     if (announce) toast(ok ? 'Game saved.' : 'Could not save (storage unavailable).');
     return ok;
@@ -551,7 +554,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.traveling || !CHAPTERS[n]) return;
     this.traveling = true;
     this.pushToState();
-    this.gs.chapter = n; this.gs.dungeon = null;
+    this.gs.chapter = n; this.gs.dungeon = null; this.gs.seal = null;
     const m = generateChapter(n);
     const g = kind === 'back' ? m.portalNext ?? m.portal : null; // coming back, you step out of the gate you left by
     this.gs.pos = (g && nearestFree(m, { x: g.x, y: g.y + 34 })) || { ...m.spawn };
@@ -572,7 +575,7 @@ export class WorldScene extends Phaser.Scene {
     if (!c.ok) { toast(c.reason, 4200); audio.sfx('fail'); return; }
     this.traveling = true;
     this.pushToState();
-    this.gs.dungeon = id;
+    this.gs.dungeon = id; this.gs.seal = null;
     this.gs.pos = { ...generateDungeonMap(id).spawn };
     this.gs.hp = Math.max(1, this.pc.hp);
     saveGame(this.gs);
@@ -585,7 +588,7 @@ export class WorldScene extends Phaser.Scene {
     if (this.traveling || !d) return;
     this.traveling = true;
     this.pushToState();
-    this.gs.dungeon = null;
+    this.gs.dungeon = null; this.gs.seal = null;
     this.gs.pos = this.dungeonFront(d);
     this.gs.hp = Math.max(1, this.pc.hp);
     saveGame(this.gs);
@@ -1078,7 +1081,7 @@ export class WorldScene extends Phaser.Scene {
 
   private respawn(): void {
     showDeath(false);
-    this.mutate(() => { const s = statsOf(this.gs); this.gs.hp = s.maxHp; this.gs.mana = s.maxMana; this.gs.pos = this.respawnSpot(); this.gs.dungeon = null; refillFlask(this.gs.flask); });
+    this.mutate(() => { const s = statsOf(this.gs); this.gs.hp = s.maxHp; this.gs.mana = s.maxMana; this.gs.pos = this.respawnSpot(); this.gs.dungeon = null; this.gs.seal = null; refillFlask(this.gs.flask); });
     this.scene.restart({ state: this.gs, host: this.host });
   }
 

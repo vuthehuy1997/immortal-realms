@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { newRuntime, pitUnder, tickFeatures, trapPhase, BRAZIER_RADIUS, CRACK_TIME, PLATE_RADIUS, type FeatureEvent, type FeatureLayout, type FeatureRuntime, type Trap } from '../core/dungeonFeatures';
+import { exportSeal, isStranded, newRuntime, restoreSeal, type SealSave, pitUnder, tickFeatures, trapPhase, BRAZIER_RADIUS, CRACK_TIME, PLATE_RADIUS, type FeatureEvent, type FeatureLayout, type FeatureRuntime, type Trap } from '../core/dungeonFeatures';
 import type { Vec2 } from '../core/movement';
 import { TILE_SIZE, type WorldMap } from '../core/world';
 import { MANIFEST } from './assets';
@@ -78,6 +78,31 @@ export class DungeonView {
     this.rt.gateOpen = true; this.rt.platesOn.fill(true); this.rt.brazierLeft.fill(1);
     for (const i of l.gate.tiles) w.blocked[i] = 0;
     l.plates.forEach((_, i) => this.sprite(`plate${i}`)?.setTint(0x6dff9a));
+  }
+
+  /** Applies a saved seal state (round 23): a gate solved before the save stays open. Returns false when the save does not fit this layout. */
+  restore(seal: SealSave, id: string): boolean {
+    const l = this.layout, w = this.host.world;
+    if (!restoreSeal(this.rt, l, seal)) return false;
+    if (this.rt.gateOpen && l.gate) for (const i of l.gate.tiles) w.blocked[i] = 0;
+    l.plates.forEach((_, i) => { if (this.rt.platesOn[i]) this.sprite(`plate${i}`)?.setTint(0x6dff9a).setAlpha(1); });
+    l.patches.forEach((p, i) => { if (this.rt.cacheTaken[i]) this.sprite(`cache${p.id}`)?.setVisible(false); });
+    if (this.rt.ambush.state === 'done') for (const k of [...this.spriteAt.keys()]) if (k.startsWith('rune') || k === 'ambush') this.spriteAt.get(k)?.setAlpha(0.12);
+    void id;
+    return true;
+  }
+  /** The state to persist (see `restore`). */
+  seal(id: string): SealSave { return exportSeal(id, this.rt); }
+  /**
+   * Stranding guard: if the hero stands somewhere the entrance cannot reach while the gate is closed (an old save from before seals were stored,
+   * or a hand-edited position), open the gate instead of trapping them. Returns true when it had to.
+   */
+  rescueIfStranded(hero: Vec2, entrance: Vec2): boolean {
+    const l = this.layout, w = this.host.world;
+    if (!l.gate || this.rt.gateOpen) return false;
+    if (!isStranded({ w: w.width, h: w.height, blocked: w.blocked }, entrance, hero)) return false;
+    this.preOpen();
+    return true;
   }
 
   // ---------- per frame ----------

@@ -15,6 +15,7 @@ import { SLOT_COUNT } from './inventory';
 import { CHAPTERS } from '../data/chapters';
 import { DUNGEONS } from '../data/dungeons';
 import { newFlask, validFlask } from './sustain';
+import { validSealSave } from './dungeonFeatures';
 import type { GameState } from './gameState';
 
 export const SAVE_VERSION = 4;
@@ -75,6 +76,7 @@ function validate(s: unknown): string | null {
   if (typeof s.chapter !== 'number' || !Number.isInteger(s.chapter) || !(s.chapter in CHAPTERS)) return 'bad chapter';
   if (s.dungeon !== null && (typeof s.dungeon !== 'string' || DUNGEONS[s.dungeon]?.chapter !== s.chapter)) return 'bad dungeon';
   if (s.pending !== undefined && (!Array.isArray(s.pending) || s.pending.length > 40 || s.pending.some((x) => !isObj(x) || typeof x.id !== 'string' || !num(x.count, 1, 999)))) return 'bad pending rewards';
+  if (s.seal !== undefined && s.seal !== null && !validSealSave(s.seal, s.dungeon as string | null)) return 'bad dungeon seal';
   if (!validFlask(s.flask)) return 'bad flask';
   if (!validBoons(s.boons)) return 'bad boons';
   if (!validTowerBest(s.towerBest)) return 'bad tower record';
@@ -96,6 +98,7 @@ export function parseSave(text: string | null): LoadResult {
   if (isObj(env.state)) { // fields added after v4 shipped: older saves are on chapter 1 and have seen its prologue
     if (env.state.chapter === undefined) env.state.chapter = 1;
     if (env.state.dungeon === undefined) env.state.dungeon = null;
+    if (env.state.seal === undefined) env.state.seal = null;
     if (env.state.story === undefined) env.state.story = [1];
     if (env.state.flask === undefined) env.state.flask = newFlask();
     if (env.state.boons === undefined) env.state.boons = [];

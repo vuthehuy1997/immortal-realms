@@ -296,3 +296,41 @@ export function tourLength(pts: Vec2[]): number {
   while (left.length) { let bi = 0; for (let i = 1; i < left.length; i++) if (d2(cur, left[i]!) < d2(cur, left[bi]!)) bi = i; len += d2(cur, left[bi]!); cur = left.splice(bi, 1)[0]!; }
   return len;
 }
+
+/* ------------------------------ persistence (round 23) ------------------------------ */
+/** The part of a dungeon's mechanics that must survive save + reload: a solved seal, taken caches and a finished ambush. Traps, pits and an ambush in progress restart. */
+export interface SealSave { id: string; gate: boolean; plates: boolean[]; cache: boolean[]; ambushDone: boolean }
+
+export function exportSeal(id: string, rt: FeatureRuntime): SealSave {
+  return { id, gate: rt.gateOpen, plates: [...rt.platesOn], cache: [...rt.cacheTaken], ambushDone: rt.ambush.state === 'done' };
+}
+
+/** Strict shape check of a stored seal (never trust a save). `dungeon` is the dungeon id the save says the hero is in. */
+export function validSealSave(v: unknown, dungeon: string | null): v is SealSave {
+  if (typeof v !== 'object' || v === null || Array.isArray(v)) return false;
+  const o = v as Record<string, unknown>, bools = (a: unknown): boolean => Array.isArray(a) && a.length <= 16 && a.every((x) => typeof x === 'boolean');
+  return typeof o.id === 'string' && o.id === dungeon && typeof o.gate === 'boolean' && bools(o.plates) && bools(o.cache) && typeof o.ambushDone === 'boolean';
+}
+
+/** Applies a stored seal to a fresh runtime. Returns false (and changes nothing) when it does not fit this layout. Gate tiles are NOT unblocked here: the view does that. */
+export function restoreSeal(rt: FeatureRuntime, l: FeatureLayout, s: SealSave): boolean {
+  if (s.plates.length !== l.plates.length || s.cache.length !== l.patches.length) return false;
+  if (s.gate && !l.gate) return false;
+  rt.gateOpen = s.gate || !l.gate;
+  rt.platesOn = rt.gateOpen && l.gate?.by === 'plates' ? l.plates.map(() => true) : [...s.plates];
+  if (rt.gateOpen && l.gate?.by === 'braziers') rt.brazierLeft.fill(1);
+  rt.cacheTaken = [...s.cache];
+  if (s.ambushDone && l.ambush) rt.ambush = { state: 'done', wave: l.ambush.waves, t: 0 };
+  return true;
+}
+
+/**
+ * Is `hero` (world units) cut off from `entrance` (world units) by the closed seal? `blocked` already contains the closed gate tiles.
+ * True means the hero stands on the far side of an unsolved gate (or inside it): the scene must rescue them.
+ */
+export function isStranded(g: Grid, entrance: Vec2, hero: Vec2): boolean {
+  const dist = distanceField(g, { x: entrance.x / TILE_SIZE, y: entrance.y / TILE_SIZE });
+  const hx = Math.floor(hero.x / TILE_SIZE), hy = Math.floor(hero.y / TILE_SIZE);
+  if (hx < 0 || hy < 0 || hx >= g.w || hy >= g.h) return true;
+  return dist[hy * g.w + hx] === -1;
+}
