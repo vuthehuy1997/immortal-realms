@@ -18,6 +18,7 @@ export const BLOCKING_GROUND: ReadonlySet<GroundKind> = new Set<GroundKind>(['wa
 
 export interface PropInst { kind: PropKind; x: number; y: number }
 
+import type { FeatureLayout } from './dungeonFeatures';
 export interface WorldMap {
   /** chapter this map belongs to */
   chapter: number;
@@ -45,6 +46,8 @@ export interface WorldMap {
   entrances: Record<string, Vec2>;
   /** set on the map of a cave / secret realm */
   dungeon?: string;
+  /** dungeon mechanics (traps, seal gate, plates, braziers, collapsing floor, ambush): see `core/dungeonFeatures.ts` */
+  features?: FeatureLayout;
   anchors: Partial<Record<ZoneId, Vec2>>;
   npcs: Record<string, Vec2>;
   herbs: Vec2[];

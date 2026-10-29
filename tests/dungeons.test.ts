@@ -21,6 +21,9 @@ const reach = (m: WorldMap, from: { x: number; y: number }) => {
   return (p: { x: number; y: number }) => seen.has(Math.floor(p.y / TILE_SIZE) * m.width + Math.floor(p.x / TILE_SIZE));
 };
 
+/** the seal gate (plates / braziers) is closed in a fresh map: reachability is checked with it opened */
+const gateOpen = (m: WorldMap): WorldMap => { const blocked = new Uint8Array(m.blocked); for (const i of m.features?.gate?.tiles ?? []) blocked[i] = 0; return { ...m, blocked }; };
+
 describe('dungeon data', () => {
   it('there are caves and secret realms in the game', () => {
     expect(DUNGEON_IDS.length).toBeGreaterThan(0);
@@ -56,7 +59,7 @@ describe('dungeon maps', () => {
     expect(m.dungeon).toBe(id); expect(m.chapter).toBe(d.chapter);
     for (let x = 0; x < m.width; x++) { expect(isBlockedTile(m, x, 0)).toBe(true); expect(isBlockedTile(m, x, m.height - 1)).toBe(true); }
     expect(new Set(m.zone)).toEqual(new Set([id]));
-    const ok = reach(m, m.spawn);
+    const ok = reach(gateOpen(m), m.spawn);
     expect(ok(m.spawn), 'spawn open').toBe(true);
     expect(ok(m.portal), 'exit gate').toBe(true);
     expect(ok(m.bossHomes[d.boss]!), 'boss chamber').toBe(true);

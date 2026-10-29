@@ -1,6 +1,8 @@
 import type { DungeonDef } from '../data/dungeons';
 import type { PropKind } from '../data/props';
 import { createRng } from './rng';
+import { DUNGEON_FEATURES } from '../data/dungeonFeatures';
+import { layoutFeatures } from './dungeonFeatures';
 import type { Vec2 } from './movement';
 import { BORDER, createPlacer, sealPockets } from './mapgen';
 import { TILE_SIZE, tileToWorld, type GroundKind, type PropInst, type WorldMap } from './world';
@@ -16,24 +18,6 @@ export const SIDE_WIDTH = 5;
 /** the guaranteed route stays free of props this far (tiles) either side */
 const ROUTE_CLEAR = 3;
 
-/** Shortest open 4-connected route between two tiles (null if cut off). */
-function routeBetween(w: number, h: number, blocked: Uint8Array, a: Vec2, b: Vec2): number[] | null {
-  const start = Math.floor(a.y) * w + Math.floor(a.x), goal = Math.floor(b.y) * w + Math.floor(b.x);
-  const prev = new Int32Array(w * h).fill(-2); prev[start] = -1;
-  const q = [start];
-  for (let head = 0; head < q.length; head++) {
-    const i = q[head]!;
-    if (i === goal) { const out: number[] = []; for (let k = i; k !== -1; k = prev[k]!) out.push(k); return out.reverse(); }
-    const x = i % w, y = (i - x) / w;
-    for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
-      const nx = x + dx, ny = y + dy, j = ny * w + nx;
-      if (nx < 0 || ny < 0 || nx >= w || ny >= h || blocked[j] || prev[j] !== -2) continue;
-      prev[j] = i; q.push(j);
-    }
-  }
-  return null;
-}
-
 const carveCircle = (open: Uint8Array, w: number, h: number, cx: number, cy: number, r: number): void => {
   for (let y = Math.floor(cy - r); y <= Math.ceil(cy + r); y++) for (let x = Math.floor(cx - r); x <= Math.ceil(cx + r); x++) {
     if (x > 1 && y > 1 && x < w - 2 && y < h - 2 && Math.hypot(x - cx, y - cy) <= r) open[y * w + x] = 1;
@@ -41,19 +25,19 @@ const carveCircle = (open: Uint8Array, w: number, h: number, cx: number, cy: num
 };
 
 /** A wandering tunnel `width` tiles wide from a to b: it drifts sideways but always makes progress. */
-function carveTunnel(open: Uint8Array, w: number, h: number, a: Vec2, b: Vec2, width: number, rng: Rng): void {
+function carveTunnel(open: Uint8Array, w: number, h: number, a: Vec2, b: Vec2, width: number, rng: Rng, trail?: Vec2[]): void {
   let { x, y } = a;
   const steps = Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) * 2.2);
   for (let i = 0; i < steps && Math.hypot(b.x - x, b.y - y) > 1.5; i++) {
     const dx = b.x - x, dy = b.y - y, d = Math.hypot(dx, dy);
     x += (dx / d) * 0.6 + (rng() - 0.5) * 0.9;
     y += (dy / d) * 0.6 + (rng() - 0.5) * 0.9;
-    carveCircle(open, w, h, x, y, width / 2);
+    carveCircle(open, w, h, x, y, width / 2); trail?.push({ x, y });
   }
-  carveCircle(open, w, h, b.x, b.y, width / 2);
+  carveCircle(open, w, h, b.x, b.y, width / 2); trail?.push({ ...b });
 }
 
-function carveCave(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2, boss: Vec2): void {
+function carveCave(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2, boss: Vec2, spine: Vec2[]): void {
   const { w, h } = def.size;
   for (let y = 3; y < h - 3; y++) for (let x = 3; x < w - 3; x++) if (rng() < 0.46) open[y * w + x] = 1;
   for (let pass = 0; pass < 5; pass++) {
@@ -67,8 +51,8 @@ function carveCave(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2, 
   }
   // guaranteed spine from the gate to the boss chamber, plus a few side caverns
   const mid: Vec2 = { x: (entrance.x + boss.x) / 2, y: h / 2 + (rng() - 0.5) * h * 0.5 };
-  carveTunnel(open, w, h, entrance, mid, SPINE_WIDTH, rng);
-  carveTunnel(open, w, h, mid, boss, SPINE_WIDTH, rng);
+  carveTunnel(open, w, h, entrance, mid, SPINE_WIDTH, rng, spine);
+  carveTunnel(open, w, h, mid, boss, SPINE_WIDTH, rng, spine);
   for (let k = 0; k < 4; k++) {
     const c: Vec2 = { x: 12 + rng() * (w - 24), y: 8 + rng() * (h - 16) };
     carveCircle(open, w, h, c.x, c.y, 4 + rng() * 3);
@@ -79,7 +63,7 @@ function carveCave(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2, 
 }
 
 /** Chain of chambers joined by straight corridors; returns each chamber's centre. */
-function carveRealm(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2, boss: Vec2): Vec2[] {
+function carveRealm(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2, boss: Vec2, spine: Vec2[]): Vec2[] {
   const { w, h } = def.size;
   const count = Math.max(3, def.rooms ?? 4);
   const centres: Vec2[] = [entrance];
@@ -99,8 +83,8 @@ function carveRealm(def: DungeonDef, rng: Rng, open: Uint8Array, entrance: Vec2,
   for (let i = 0; i < centres.length - 1; i++) {
     const a = centres[i]!, b = centres[i + 1]!;
     const corner: Vec2 = { x: b.x, y: a.y };
-    carveTunnel(open, w, h, a, corner, SPINE_WIDTH, rng);
-    carveTunnel(open, w, h, corner, b, SPINE_WIDTH, rng);
+    carveTunnel(open, w, h, a, corner, SPINE_WIDTH, rng, spine);
+    carveTunnel(open, w, h, corner, b, SPINE_WIDTH, rng, spine);
   }
   return centres;
 }
@@ -115,9 +99,9 @@ export function generateDungeon(def: DungeonDef): WorldMap {
   const open = new Uint8Array(w * h);
   const entranceT: Vec2 = { x: 7, y: Math.floor(h / 2) };
   const bossT: Vec2 = { x: w - 13, y: Math.floor(h / 2) + Math.round((rng() - 0.5) * 8) };
-  const chambers: Vec2[] = [];
-  if (def.kind === 'cave') carveCave(def, rng, open, entranceT, bossT);
-  else chambers.push(...carveRealm(def, rng, open, entranceT, bossT));
+  const chambers: Vec2[] = [], spine: Vec2[] = [];
+  if (def.kind === 'cave') carveCave(def, rng, open, entranceT, bossT, spine);
+  else chambers.push(...carveRealm(def, rng, open, entranceT, bossT, spine));
 
   const ground: GroundKind[] = new Array<GroundKind>(w * h).fill(def.wall);
   const blocked = new Uint8Array(w * h);
@@ -130,9 +114,11 @@ export function generateDungeon(def: DungeonDef): WorldMap {
 
   const props: PropInst[] = [];
   const { place, occ, at, reserved } = createPlacer(w, h, blocked, props);
+  // mechanics first: they claim their tiles (and close the seal gate) before any scenery is placed
+  const features = layoutFeatures(DUNGEON_FEATURES[def.id] ?? [], { w, h, blocked }, entranceT, bossT, spine, createRng(def.seed ^ 0xfea7), occ);
+  for (const i of features.gate?.tiles ?? []) blocked[i] = 1;
   // the gate-to-boss route keeps a clear lane: no scatter, pillar or boulder may narrow it
-  const route = routeBetween(w, h, blocked, entranceT, bossT) ?? [];
-  for (const i of route) { const x = i % w, y = (i - x) / w; for (let dy = -ROUTE_CLEAR; dy <= ROUTE_CLEAR; dy++) for (let dx = -ROUTE_CLEAR; dx <= ROUTE_CLEAR; dx++) { const tx = x + dx, ty = y + dy; if (tx >= 0 && ty >= 0 && tx < w && ty < h) reserved[ty * w + tx] = 1; } }
+  for (const c of spine) { const cx = Math.round(c.x), cy = Math.round(c.y); for (let dy = -ROUTE_CLEAR; dy <= ROUTE_CLEAR; dy++) for (let dx = -ROUTE_CLEAR; dx <= ROUTE_CLEAR; dx++) { const tx = cx + dx, ty = cy + dy; if (tx >= 0 && ty >= 0 && tx < w && ty < h) reserved[ty * w + tx] = 1; } }
   const gate = tileToWorld({ x: entranceT.x - 3, y: entranceT.y + 1 });
   // exit gate stands in the rock behind the spawn; the array under it is where E works
   props.push({ kind: 'moonwall', x: gate.x, y: gate.y }); // set into the cavern wall: scenery only, so it never walls in the spawn
@@ -140,10 +126,11 @@ export function generateDungeon(def: DungeonDef): WorldMap {
   const bossW = tileToWorld(bossT);
   props.push({ kind: 'array', x: bossW.x, y: bossW.y + 8 });
 
-  // pillars around the boss chamber so the fight has cover to play with
-  for (let k = 0; k < 6; k++) {
-    const ang = (k / 6) * Math.PI * 2 + 0.3;
-    place(def.kind === 'cave' ? 'taihurocks' : 'standstone', Math.round(bossT.x + Math.cos(ang) * 6.5), Math.round(bossT.y + Math.sin(ang) * 6), { force: true, margin: 0 });
+  // pillars around the boss chamber so the fight has cover to play with; the west side (where the route arrives) stays open so the lane is never closed
+  for (let k = 0; k < 8; k++) {
+    const ang = (k / 8) * Math.PI * 2 + 0.4;
+    if (Math.abs(Math.atan2(Math.sin(ang - Math.PI), Math.cos(ang - Math.PI))) < 1.25) continue; // within ~70 degrees of west
+    place(def.kind === 'cave' ? 'taihurocks' : 'standstone', Math.round(bossT.x + Math.cos(ang) * 7), Math.round(bossT.y + Math.sin(ang) * 6.5), { force: true, margin: 0 });
   }
   if (def.kind === 'realm') for (const c of chambers.slice(1, -1)) {
     place('lotusbowl', Math.round(c.x), Math.round(c.y), { margin: 2 });
@@ -187,7 +174,7 @@ export function generateDungeon(def: DungeonDef): WorldMap {
   const spawn = tileToWorld({ x: entranceT.x + 1, y: entranceT.y });
   const centre = tileToWorld({ x: w / 2, y: h / 2 });
   return {
-    chapter: def.chapter, dungeon: def.id, width: w, height: h, ground, zone: new Array<string>(w * h).fill(def.id), blocked, props, spawn,
+    chapter: def.chapter, dungeon: def.id, width: w, height: h, ground, zone: new Array<string>(w * h).fill(def.id), blocked, props, spawn, features,
     lair: bossW, den: bossW, pool: bossW, bossHomes: { [def.boss]: bossW }, portal: gate, entrances: {}, anchors: { [def.id]: centre }, npcs: {}, herbs,
     arrayPos: { x: spawn.x + 14, y: spawn.y },
   };
