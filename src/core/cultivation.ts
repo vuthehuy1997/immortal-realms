@@ -10,6 +10,10 @@ export const hasNextRealm = (c: Cultivation): boolean => c.realm < REALMS.length
 export const nextRealmLevel = (c: Cultivation): number => REALMS[c.realm + 1]?.reqLevel ?? Infinity;
 export const canBreakthrough = (c: Cultivation, level = 99): boolean => hasNextRealm(c) && c.qi >= qiMax(c) && level >= nextRealmLevel(c);
 /** Failed breakthroughs cause qi backlash: this fraction of max HP (never lethal). */
+/** The realm a hero of `level` is expected to have reached (every balance pass assumes it): the highest one whose break-through level they meet. */
+export const expectedRealm = (level: number): number => REALMS.reduce((best, r, i) => (level >= r.reqLevel ? i : best), 0);
+/** How many realms the hero trails behind what their level assumes (0 = on pace). Boss damage is tuned for an on-pace hero. */
+export const realmLag = (c: Cultivation, level: number): number => Math.max(0, expectedRealm(level) - c.realm);
 export const BACKLASH = 0.25;
 
 export function addQi(c: Cultivation, amount: number): void {

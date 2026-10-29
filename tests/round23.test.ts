@@ -5,6 +5,11 @@ import { checksum, parseSave, serialize } from '../src/core/save';
 import { generateChapter, generateDungeonMap, standsOnLand, TILE_SIZE } from '../src/core/world';
 import { PROPS } from '../src/data/props';
 import { DUNGEON_IDS, DUNGEONS } from '../src/data/dungeons';
+import { deriveStats } from '../src/core/character';
+import { expectedRealm, realmLag } from '../src/core/cultivation';
+import { BOSSES } from '../src/data/boss';
+import { CHAPTERS } from '../src/data/chapters';
+import { ZONES, zonesOfChapter } from '../src/data/zones';
 
 const gated = DUNGEON_IDS.filter((id) => generateDungeonMap(id).features?.gate);
 const grid = (w: ReturnType<typeof generateDungeonMap>) => ({ w: w.width, h: w.height, blocked: w.blocked });
@@ -95,5 +100,32 @@ describe('R23 F8: no NPC stands in a boss arena', () => {
     for (const [npc, p] of Object.entries(m.npcs)) for (const [boss, h] of Object.entries(m.bossHomes)) {
       expect(Math.hypot(p.x - h.x, p.y - h.y) / TILE_SIZE, `${npc} vs ${boss}`).toBeGreaterThanOrEqual(NEAR_BY_DESIGN.has(npc) ? 11 : 20);
     }
+  });
+});
+
+/* ---- R23 F7: boss hits against the hero the balance assumes (chapter-top level, on-pace realm, chapter shop gear) ---- */
+const hitShare = (bossId: string, realm: number): number => {
+  const b = BOSSES[bossId]!, lvl = topLevelOf(b.chapter), s = deriveStats('flame', lvl, realm, CHAPTERS[b.chapter]!.gear?.shop as never);
+  const mults = Object.values(b.moves).map((m) => (m as { damageMult?: number }).damageMult ?? 0);
+  return Math.max(...mults.map((k) => (k ? Math.max(1, Math.round(b.atk * k - s.def * 0.5)) : 0))) / s.maxHp;
+};
+const topLevelOf = (n: number): number => Math.max(...[...zonesOfChapter(n).map((z) => ZONES[z]!), ...Object.values(DUNGEONS).filter((d) => d.chapter === n).map((d) => ZONES[d.id]!)].map((z) => Number(/Lv \d+-(\d+)/.exec(z.level)?.[1] ?? 0)));
+describe('R23 F7: boss lethality is computed, not guessed', () => {
+  it('on-pace hero: no boss move takes more than 22% of max HP, ordinary bosses no more than 15% (finale: abyss-daodemon)', () => {
+    for (const b of Object.values(BOSSES)) {
+      const share = hitShare(b.id, expectedRealm(topLevelOf(b.chapter)));
+      expect(share, `${b.id} heaviest hit ${(share * 100).toFixed(0)}%`).toBeLessThanOrEqual(b.id === 'abyss-daodemon' ? 0.22 : 0.16);
+    }
+  });
+  it('the 20-45% hits QA 7 saw match a hero stuck in realm 0 at chapter-top level (cultivation not advanced), not the intended hero', () => {
+    for (const id of ['cranelord', 'magistrate', 'abyss-matron', 'abyss-daodemon']) {
+      const b = BOSSES[id]!, onPace = hitShare(id, expectedRealm(topLevelOf(b.chapter))), stuck = hitShare(id, 0);
+      expect(stuck / onPace, id).toBeGreaterThan(2);
+      expect(stuck, `${id} vs realm-0 hero`).toBeGreaterThan(0.2);
+    }
+  });
+  it('realmLag measures how far a hero trails the realm their level assumes', () => {
+    expect(realmLag({ realm: 0, qi: 0 }, 48)).toBe(6); expect(realmLag({ realm: 6, qi: 0 }, 48)).toBe(0); expect(realmLag({ realm: 3, qi: 0 }, 21)).toBe(0);
+    expect(realmLag({ realm: 5, qi: 0 }, 99)).toBe(1);
   });
 });

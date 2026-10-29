@@ -9,7 +9,7 @@ import { BOONS } from '../data/boons';
 import { applyDamage, computeDamage, Cooldowns, regenMana, tryCast, type Combatant } from '../core/combat';
 import { COMBO, COMBO_WINDOW, commit, DASH, isDashing, isInvulnerable, newCombo, newDash, nextStep, tryDash, type ComboState, type DashState } from '../core/combo';
 import { scaledEnemy } from '../core/balance';
-import { BACKLASH, meditate, nextRealmLevel } from '../core/cultivation';
+import { BACKLASH, meditate, nextRealmLevel, realmLag } from '../core/cultivation';
 import { getDialogue } from '../core/dialogue';
 const AMBUSH_MULT = 1.5; // sneak-attack damage bonus on an unaware enemy
 const PACK_ALERT_RADIUS = 70; // hearing range for packmates when one is struck
@@ -1063,6 +1063,7 @@ export class WorldScene extends Phaser.Scene {
     const gs = this.gs, st = statsOf(gs);
     if (this.now - this.lastCombat < 2 && this.pc.hp < st.maxHp * 0.45 && gs.flask.charges > 0) this.tip('flask', 'Low on health? Press F to drink the spirit flask (it heals 35% and refills as you kill).');
     if (freePoints(gs) > 0 && gs.progress.level >= 3) this.tip('points', 'You have technique points: press C to upgrade techniques or deepen your Dao Insight.');
+    if (this.bosses.some((b) => b.engaged) && realmLag(gs.cultivation, gs.progress.level) >= 2) this.tip('realm-lag', 'Your cultivation trails your level, so you are far weaker than this boss expects: fill your qi (M to meditate, kills help) and break through (B) to gain a large stat boost.');
     if (this.bosses.some((b) => b.engaged)) this.tip('dodge', 'Boss attacks are shown in red. Dash (Shift) through one at the last moment for a Perfect Dodge: mana and +25% damage.');
     if (Object.values(gs.quests).some((q) => q.status === 'active')) this.tip('qlog', 'Press J or Q to open your quest log.');
   }
