@@ -1,8 +1,9 @@
 import type { ZoneId } from './zones';
 import { CONTENT } from './content';
+import { BOSS_IDENTITY } from './bossIdentity';
 
 /** A boss is a sprite + stats + a kit of telegraphed moves; each phase draws from its own pool of moves. */
-export type MoveId = 'slam' | 'sweep' | 'charge' | 'rain' | 'teleport' | 'summon' | 'ring';
+export type MoveId = 'slam' | 'sweep' | 'charge' | 'rain' | 'teleport' | 'summon' | 'ring' | 'burrow';
 
 export interface SlamDef { radius: number; windup: number; recover: number; cooldown: number; damageMult: number; triggerRange: number }
 export interface SweepDef { range: number; halfAngle: number; windup: number; recover: number; cooldown: number; damageMult: number; triggerRange: number }
@@ -11,6 +12,38 @@ export interface RainDef { count: number; radius: number; spread: number; windup
 export interface TeleportDef { windup: number; recover: number; cooldown: number; behind: number; radius: number; damageMult: number }
 export interface SummonDef { windup: number; cooldown: number; count: number; maxMinions: number; minionType: string }
 export interface RingDef { windup: number; cooldown: number; projectiles: number; damageMult: number }
+/** Dive underground (untargetable), the marked circle follows the hero until `lockBefore` seconds before the end, then locks; the boss erupts there. */
+export interface BurrowDef { windup: number; lockBefore: number; recover: number; cooldown: number; radius: number; damageMult: number; minRange: number }
+
+type Phases = (1 | 2 | 3)[];
+/** Spirit ward: a shell worth `frac` of max HP granted on entering each listed phase. Break it for a stagger; if it outlasts `ttl` seconds it dissolves and heals the boss `healFrac`. */
+export interface WardDef { frac: number; phases: Phases; ttl: number; healFrac: number }
+/** Mirror illusions: `count` decoys plus the real boss take places on a ring around the arena; decoys shatter when hit (hurting whoever is close) or touched. */
+export interface IllusionDef { count: number; every: number; ttl: number; phases: Phases; ring: number; radius: number; burstMult: number }
+/** Lingering ground hazards (lava / poison / ink): telegraphed for `warn` s, then `dpsMult` x attack per second for `ttl` s. */
+export interface PoolsDef { every: number; count: number; radius: number; warn: number; ttl: number; dpsMult: number; phases: Phases }
+/** Rotating beams anchored where the boss stands: thin warning lines for `warn` s, then they sweep for `active` s. */
+export interface BeamsDef { arms: number; speed: number; length: number; width: number; warn: number; active: number; every: number; damageMult: number; phases: Phases }
+/** Seal pylons: while any stands the boss takes only (1 - reduction) of damage. Raised on entering each listed phase. */
+export interface PylonsDef { count: number; hpFrac: number; reduction: number; phases: Phases; ring: number; defMult: number }
+/** Leech wisps drift to the boss and heal it `healFrac` of max HP each unless killed first. */
+export interface LeechDef { every: number; count: number; healFrac: number; hpFrac: number; speed: number; phases: Phases; max: number }
+export interface BossMech { ward?: WardDef; illusions?: IllusionDef; pools?: PoolsDef; beams?: BeamsDef; pylons?: PylonsDef; leech?: LeechDef }
+
+/** Rendering recipe layered on the base sprite (all from the licensed pack: no new art). */
+export interface BossLook {
+  /** gradient map on luminance: [shadow, mid, highlight]; mixed with the original pixels by `rampMix` (default 0.85) */
+  ramp?: [number, number, number]; rampMix?: number;
+  /** extra display scale on top of `scale` is baked into `scale`; this flips nothing, it names the silhouette in docs */
+  silhouette: string;
+  /** satellites circling the body (fx strip frames) */
+  orbit?: { fx: string; count: number; radius: number; scale: number; tint: number; speed: number; lift?: number };
+  /** rotating sigil on the ground under the boss */
+  sigil?: { fx: string; color: number; size: number };
+  /** fx played at each phase change and on death */
+  phaseFx?: { fx: string; tint: number; scale: number };
+  deathFx?: { fx: string; tint: number; scale: number };
+}
 
 export interface BossDef {
   id: string; name: string;
@@ -33,13 +66,19 @@ export interface BossDef {
   scale: number;
   radius: number;
   maxHp: number; atk: number; def: number; speed: number;
-  moves: { slam?: SlamDef; sweep?: SweepDef; charge?: ChargeDef; rain?: RainDef; teleport?: TeleportDef; summon?: SummonDef; ring?: RingDef };
+  moves: { slam?: SlamDef; sweep?: SweepDef; charge?: ChargeDef; rain?: RainDef; teleport?: TeleportDef; summon?: SummonDef; ring?: RingDef; burrow?: BurrowDef };
   /** moves available in phase 1, 2, 3 */
   kit: [MoveId[], MoveId[], MoveId[]];
   phase2At: number; phase3At: number; // hp ratio thresholds
   /** poise: fraction of max HP in damage that staggers the boss (default 0.12) */
   poise?: number;
   enrage: { speedMult: number; cooldownMult: number };
+  /** the one mechanic that changes how this boss is fought (see src/core/bossMech.ts) */
+  mech?: BossMech;
+  /** palette ramp, satellites, sigil, phase/death fx (see `BOSS_IDENTITY`) */
+  look?: BossLook;
+  /** one-line tip shown the first time the mechanic appears */
+  mechTip?: string;
 }
 
 export const WARDEN: BossDef = {
@@ -144,6 +183,15 @@ export const SOVEREIGN: BossDef = {
 
 export const BOSSES: Record<string, BossDef> = { warden: WARDEN, ninetail: NINETAIL, jiaolong: JIAOLONG, corpseking: CORPSEKING, crystalcolossus: CRYSTALCOLOSSUS, sovereign: SOVEREIGN };
 for (const c of CONTENT) for (const b of c.bosses) BOSSES[b.id] = b;
+/** Round 22: distinct sprite base / palette / mechanic for the main bosses, layered over the authored defs. */
+for (const [id, o] of Object.entries(BOSS_IDENTITY)) {
+  const b = BOSSES[id];
+  if (!b) continue;
+  const { moves, kit, ...rest } = o;
+  Object.assign(b, rest);
+  if (moves) b.moves = { ...b.moves, ...moves };
+  if (kit) b.kit = kit;
+}
 /** Bosses standing on a chapter's open map (dungeon bosses live in their dungeon). */
 export const bossesOfChapter = (chapter: number): BossDef[] => Object.values(BOSSES).filter((b) => b.chapter === chapter && !b.dungeon);
 export const bossesOfDungeon = (id: string): BossDef[] => Object.values(BOSSES).filter((b) => b.dungeon === id);

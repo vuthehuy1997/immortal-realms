@@ -21,6 +21,8 @@ export interface BossAI {
   force: MoveId | null;
   /** accumulated poise damage, seconds since the last poise hit, and stagger immunity left */
   poise: number; poiseIdle: number; poiseImmune: number;
+  /** underground (burrow windup): untargetable and cannot be staggered */
+  hidden: boolean;
 }
 
 export type BossEvent =
@@ -32,11 +34,14 @@ export type BossEvent =
   | { type: 'rain'; zones: Vec2[]; radius: number; delay: number; damageMult: number }
   | { type: 'teleport'; to: Vec2; radius: number; damageMult: number }
   | { type: 'summon'; count: number; minionType: string }
-  | { type: 'ring'; projectiles: number; damageMult: number };
+  | { type: 'ring'; projectiles: number; damageMult: number }
+  /** the burrow marker moved (it follows the hero until the lock) */
+  | { type: 'burrowTrack'; at: Vec2; locked: boolean }
+  | { type: 'burrow'; to: Vec2; radius: number; damageMult: number };
 
 export interface BossOutput { vel: Vec2; events: BossEvent[] }
 
-export const newBossAI = (): BossAI => ({ phase: 1, state: 'chase', move: null, timer: 0, gap: 1.6, cd: {}, last: null, lockAt: { x: 0, y: 0 }, lockDir: { x: 1, y: 0 }, zones: [], force: null, poise: 0, poiseIdle: 0, poiseImmune: 0 });
+export const newBossAI = (): BossAI => ({ phase: 1, state: 'chase', move: null, timer: 0, gap: 1.6, cd: {}, last: null, lockAt: { x: 0, y: 0 }, lockDir: { x: 1, y: 0 }, zones: [], force: null, poise: 0, poiseIdle: 0, poiseImmune: 0, hidden: false });
 
 const ZERO: Vec2 = { x: 0, y: 0 };
 const norm = (v: Vec2): Vec2 => { const l = Math.hypot(v.x, v.y) || 1; return { x: v.x / l, y: v.y / l }; };
@@ -50,12 +55,19 @@ export const poiseMax = (def: BossDef): number => def.maxHp * (def.poise ?? POIS
 
 /** Adds poise damage. A boss in a wind-up or recover staggers when the bar fills; charges and an active stagger are not interruptible. Returns true if it staggered now. */
 export function addPoise(ai: BossAI, def: BossDef, dmg: number, mult = 1): boolean {
-  if (ai.poiseImmune > 0 || ai.state === 'stagger' || ai.state === 'charging') return false;
+  if (ai.poiseImmune > 0 || ai.state === 'stagger' || ai.state === 'charging' || ai.hidden) return false;
   ai.poiseIdle = 0;
   ai.poise += dmg * mult;
   if (ai.poise < poiseMax(def)) return false;
   ai.poise = 0; ai.poiseImmune = STAGGER_IMMUNE + STAGGER_TIME;
   ai.state = 'stagger'; ai.timer = STAGGER_TIME; ai.move = null;
+  return true;
+}
+
+/** Breaks the boss out of whatever it is doing into a stagger (ward break). Not while underground or charging. */
+export function forceStagger(ai: BossAI): boolean {
+  if (ai.hidden || ai.state === 'stagger' || ai.state === 'charging') return false;
+  ai.state = 'stagger'; ai.timer = STAGGER_TIME; ai.move = null; ai.poise = 0; ai.poiseImmune = Math.max(ai.poiseImmune, STAGGER_IMMUNE * 0.5 + STAGGER_TIME);
   return true;
 }
 
@@ -65,17 +77,17 @@ export const WINDUP_MIN_FACTOR = 0.85;
 function windupOf(def: BossDef, m: MoveId): number {
   const mv = def.moves;
   return m === 'slam' ? mv.slam!.windup : m === 'sweep' ? mv.sweep!.windup : m === 'charge' ? mv.charge!.windup : m === 'rain' ? mv.rain!.windup
-    : m === 'teleport' ? mv.teleport!.windup : m === 'summon' ? mv.summon!.windup : mv.ring!.windup;
+    : m === 'teleport' ? mv.teleport!.windup : m === 'summon' ? mv.summon!.windup : m === 'burrow' ? mv.burrow!.windup : mv.ring!.windup;
 }
 function recoverOf(def: BossDef, m: MoveId): number {
   const mv = def.moves;
   return m === 'slam' ? mv.slam!.recover : m === 'sweep' ? mv.sweep!.recover : m === 'charge' ? mv.charge!.recover : m === 'rain' ? mv.rain!.recover
-    : m === 'teleport' ? mv.teleport!.recover : 0.35;
+    : m === 'teleport' ? mv.teleport!.recover : m === 'burrow' ? mv.burrow!.recover : 0.35;
 }
 function cooldownOf(def: BossDef, m: MoveId): number {
   const mv = def.moves;
   return m === 'slam' ? mv.slam!.cooldown : m === 'sweep' ? mv.sweep!.cooldown : m === 'charge' ? mv.charge!.cooldown : m === 'rain' ? mv.rain!.cooldown
-    : m === 'teleport' ? mv.teleport!.cooldown : m === 'summon' ? mv.summon!.cooldown : mv.ring!.cooldown;
+    : m === 'teleport' ? mv.teleport!.cooldown : m === 'summon' ? mv.summon!.cooldown : m === 'burrow' ? mv.burrow!.cooldown : mv.ring!.cooldown;
 }
 
 /** Is `m` a legal choice right now (cooldown, range, minion cap)? */
@@ -86,6 +98,7 @@ function usable(def: BossDef, ai: BossAI, m: MoveId, dist: number, minions: numb
   if (m === 'sweep') return dist <= mv.sweep!.triggerRange;
   if (m === 'charge') return dist >= mv.charge!.minRange && dist <= mv.charge!.maxRange;
   if (m === 'summon') return minions < mv.summon!.maxMinions;
+  if (m === 'burrow') return dist >= mv.burrow!.minRange;
   return true;
 }
 
@@ -108,8 +121,14 @@ export function updateBoss(ai: BossAI, def: BossDef, hpRatio: number, self: Vec2
 
   if (ai.state === 'windup' && ai.move) {
     ai.timer -= dt;
+    if (ai.move === 'burrow' && ai.timer > 0) { // underground: the marker trails the hero, then locks shortly before the eruption
+      const locked = ai.timer <= def.moves.burrow!.lockBefore;
+      if (!locked) ai.lockAt = { x: target.x, y: target.y };
+      events.push({ type: 'burrowTrack', at: { ...ai.lockAt }, locked });
+    }
     if (ai.timer > 0) return { vel: ZERO, events };
     const m = ai.move, mv = def.moves;
+    ai.hidden = false;
     ai.cd[m] = cooldownOf(def, m) * cdMult;
     if (m === 'slam') events.push({ type: 'slam', at: { ...ai.lockAt }, radius: mv.slam!.radius, damageMult: mv.slam!.damageMult });
     else if (m === 'sweep') events.push({ type: 'sweep', origin: { ...self }, dir: { ...ai.lockDir }, range: mv.sweep!.range, halfAngle: mv.sweep!.halfAngle, damageMult: mv.sweep!.damageMult });
@@ -117,6 +136,7 @@ export function updateBoss(ai: BossAI, def: BossDef, hpRatio: number, self: Vec2
     else if (m === 'teleport') events.push({ type: 'teleport', to: { ...ai.lockAt }, radius: mv.teleport!.radius, damageMult: mv.teleport!.damageMult });
     else if (m === 'summon') events.push({ type: 'summon', count: mv.summon!.count, minionType: mv.summon!.minionType });
     else if (m === 'ring') events.push({ type: 'ring', projectiles: mv.ring!.projectiles, damageMult: mv.ring!.damageMult });
+    else if (m === 'burrow') events.push({ type: 'burrow', to: { ...ai.lockAt }, radius: mv.burrow!.radius, damageMult: mv.burrow!.damageMult });
     if (m === 'charge') {
       events.push({ type: 'charge', dir: { ...ai.lockDir }, speed: mv.charge!.speed, duration: mv.charge!.duration, width: mv.charge!.width, damageMult: mv.charge!.damageMult });
       ai.state = 'charging'; ai.timer = mv.charge!.duration;
@@ -130,7 +150,7 @@ export function updateBoss(ai: BossAI, def: BossDef, hpRatio: number, self: Vec2
     return { vel, events };
   }
   if (ai.state === 'stagger') {
-    ai.timer -= dt;
+    ai.timer -= dt; ai.hidden = false;
     if (ai.timer <= 0) { ai.state = 'recover'; ai.timer = 0.3; ai.gap = 0.8; }
     return { vel: ZERO, events };
   }
@@ -155,6 +175,9 @@ export function updateBoss(ai: BossAI, def: BossDef, hpRatio: number, self: Vec2
         const to = { x: target.x + dir.x * mv.teleport!.behind, y: target.y + dir.y * mv.teleport!.behind };
         ai.lockAt = to;
         events.push({ type: 'telegraph', move: m, duration: w, at: to, dir, radius: mv.teleport!.radius });
+      } else if (m === 'burrow') {
+        ai.hidden = true; ai.lockAt = { x: target.x, y: target.y };
+        events.push({ type: 'telegraph', move: m, duration: w, at: { ...target }, dir, radius: mv.burrow!.radius });
       } else if (m === 'rain') {
         const r = mv.rain!, zones: Vec2[] = [{ x: target.x, y: target.y }];
         for (let i = 1; i < r.count; i++) { const a = rng() * Math.PI * 2, d = 20 + rng() * r.spread; zones.push({ x: target.x + Math.cos(a) * d, y: target.y + Math.sin(a) * d }); }
