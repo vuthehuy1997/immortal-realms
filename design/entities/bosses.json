@@ -818,7 +818,6 @@
       150
     ],
     "sprite": "boss.fallenimmortal",
-    "tint": 12101887,
     "scale": 0.5,
     "radius": 17,
     "maxHp": 6800,
@@ -880,6 +879,15 @@
     "enrage": {
       "speedMult": 1.35,
       "cooldownMult": 0.7
+    },
+    "aura": 11047167,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled swordsman, violet ramp",
+      "ramp": [
+        1182250,
+        8018648,
+        14733567
+      ]
     },
     "image": "bosses/swordshade.png",
     "drops": [
@@ -1310,7 +1318,6 @@
       250
     ],
     "sprite": "boss.fallenimmortal",
-    "tint": 14203135,
     "scale": 0.55,
     "radius": 18,
     "maxHp": 12500,
@@ -1391,6 +1398,15 @@
     "enrage": {
       "speedMult": 1.35,
       "cooldownMult": 0.65
+    },
+    "aura": 14203135,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled swordsman, prism ramp",
+      "ramp": [
+        1707827,
+        12093695,
+        16773375
+      ]
     },
     "image": "bosses/s2-prismsage.png",
     "drops": [
@@ -2783,7 +2799,6 @@
       360
     ],
     "sprite": "boss.jiaolong",
-    "tint": 14677247,
     "scale": 0.42,
     "radius": 24,
     "maxHp": 30000,
@@ -2867,6 +2882,15 @@
     "enrage": {
       "speedMult": 1.3,
       "cooldownMult": 0.7
+    },
+    "aura": 14677247,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled dragon, cloud-white ramp",
+      "ramp": [
+        1321034,
+        9357552,
+        16777215
+      ]
     },
     "image": "bosses/cloudwyrm.png",
     "drops": [
@@ -2999,7 +3023,6 @@
       520
     ],
     "sprite": "boss.fallenimmortal",
-    "tint": 16771240,
     "scale": 0.55,
     "radius": 22,
     "maxHp": 44000,
@@ -3080,6 +3103,15 @@
     "enrage": {
       "speedMult": 1.35,
       "cooldownMult": 0.68
+    },
+    "aura": 16771240,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled swordsman, ink-and-gold ramp",
+      "ramp": [
+        789524,
+        13150288,
+        16774872
+      ]
     },
     "image": "bosses/vaultcalligrapher.png",
     "drops": [
@@ -3907,7 +3939,6 @@
       900
     ],
     "sprite": "boss.fallenimmortal",
-    "tint": 14217471,
     "scale": 0.6,
     "radius": 20,
     "maxHp": 84000,
@@ -3991,6 +4022,15 @@
     "enrage": {
       "speedMult": 1.4,
       "cooldownMult": 0.62
+    },
+    "aura": 14217471,
+    "look": {
+      "silhouette": "PLACEHOLDER recycled swordsman, mirror-steel ramp",
+      "ramp": [
+        660000,
+        7903424,
+        16055039
+      ]
     },
     "image": "bosses/abyss-vaultself.png",
     "drops": [
