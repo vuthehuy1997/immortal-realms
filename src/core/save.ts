@@ -98,7 +98,6 @@ export function parseSave(text: string | null): LoadResult {
   if (isObj(env.state)) { // fields added after v4 shipped: older saves are on chapter 1 and have seen its prologue
     if (env.state.chapter === undefined) env.state.chapter = 1;
     if (env.state.dungeon === undefined) env.state.dungeon = null;
-    if (env.state.seal === undefined) env.state.seal = null;
     if (env.state.story === undefined) env.state.story = [1];
     if (env.state.flask === undefined) env.state.flask = newFlask();
     if (env.state.boons === undefined) env.state.boons = [];

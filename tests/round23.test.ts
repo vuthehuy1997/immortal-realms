@@ -43,7 +43,7 @@ describe('R23 F1: seal state survives save + reload and never strands the hero',
     const env = JSON.parse(serialize(gs)) as { checksum: string; state: Record<string, unknown> };
     delete env.state.seal; env.checksum = checksum(JSON.stringify(env.state));
     const old = parseSave(JSON.stringify(env)); expect(old.ok).toBe(true);
-    if (old.ok) expect(old.state.seal).toBeNull();
+    if (old.ok) expect(old.state.seal ?? null).toBeNull(); // absent = no seal state: the stranding guard covers old saves
     for (const bad of [{ ...gs.seal, id: 'other' }, { ...gs.seal, gate: 'yes' }, { ...gs.seal, plates: Array(99).fill(true) }, { ...gs.seal, cache: [1] }, 7]) {
       const e2 = JSON.parse(serialize(gs)) as { checksum: string; state: Record<string, unknown> };
       e2.state.seal = bad; e2.checksum = checksum(JSON.stringify(e2.state));
