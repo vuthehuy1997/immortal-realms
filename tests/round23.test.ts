@@ -56,7 +56,7 @@ describe('R23 F1: seal state survives save + reload and never strands the hero',
 });
 
 describe('R23 F6: no scenery on void, water or lava, in any chapter or dungeon', () => {
-  const maps = [1, 2, 3, 4, 5].map((c) => [`chapter ${c}`, () => generateChapter(c)] as const).concat(DUNGEON_IDS.map((id) => [id, () => generateDungeonMap(id)] as const));
+  const maps: [string, () => ReturnType<typeof generateChapter>][] = [...[1, 2, 3, 4, 5].map((c): [string, () => ReturnType<typeof generateChapter>] => [`chapter ${c}`, () => generateChapter(c)]), ...DUNGEON_IDS.map((id): [string, () => ReturnType<typeof generateChapter>] => [id, () => generateDungeonMap(id)])];
   it.each(maps)('%s', (_n, make) => {
     const m = make(), bad = m.props.filter((p) => !standsOnLand(m, p));
     expect(bad.slice(0, 5)).toEqual([]);
@@ -72,8 +72,8 @@ describe('R23 F6: no scenery on void, water or lava, in any chapter or dungeon',
 describe('R23 F9: ambush waves cannot stack without bound', () => {
   const l = { ...emptyLayout(), ambush: { at: { x: 0, y: 0 }, radius: 48, runes: [{ x: 10, y: 0 }], waves: 5, per: 6, gap: 8, xp: 0, stones: 0 } };
   it('with every foe still alive the timer never starts a second wave; live foes stay within one wave', () => {
-    const rt = newRuntime(l); let spawned = 0, alive = 0, peak = 0;
-    for (let t = 0; t < 120; t += 0.05) for (const e of tickFeatures(rt, l, { x: 0, y: 0 }, 0.05, alive)) if (e.type === 'ambushWave') { spawned += e.count; alive += e.count; peak = Math.max(peak, alive); }
+    const rt = newRuntime(l); let alive = 0, peak = 0;
+    for (let t = 0; t < 120; t += 0.05) for (const e of tickFeatures(rt, l, { x: 0, y: 0 }, 0.05, alive)) if (e.type === 'ambushWave') { alive += e.count; peak = Math.max(peak, alive); }
     expect(rt.ambush.wave).toBe(1); expect(peak).toBe(6); expect(rt.ambush.state).toBe('running');
   });
   it('a hero who keeps killing gets the waves on the timer; the live count never exceeds the cap plus one wave', () => {
