@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { exportSeal, isStranded, newRuntime, restoreSeal, validSealSave } from '../src/core/dungeonFeatures';
+import { ambushLiveCap, emptyLayout, tickFeatures, exportSeal, isStranded, newRuntime, restoreSeal, validSealSave } from '../src/core/dungeonFeatures';
 import { newGameState } from '../src/core/gameState';
 import { checksum, parseSave, serialize } from '../src/core/save';
-import { generateDungeonMap, TILE_SIZE } from '../src/core/world';
+import { generateChapter, generateDungeonMap, standsOnLand, TILE_SIZE } from '../src/core/world';
+import { PROPS } from '../src/data/props';
 import { DUNGEON_IDS, DUNGEONS } from '../src/data/dungeons';
 
 const gated = DUNGEON_IDS.filter((id) => generateDungeonMap(id).features?.gate);
@@ -51,5 +52,48 @@ describe('R23 F1: seal state survives save + reload and never strands the hero',
     }
     expect(validSealSave(gs.seal, null), 'a seal on the open map is invalid').toBe(false);
     void TILE_SIZE;
+  });
+});
+
+describe('R23 F6: no scenery on void, water or lava, in any chapter or dungeon', () => {
+  const maps = [1, 2, 3, 4, 5].map((c) => [`chapter ${c}`, () => generateChapter(c)] as const).concat(DUNGEON_IDS.map((id) => [id, () => generateDungeonMap(id)] as const));
+  it.each(maps)('%s', (_n, make) => {
+    const m = make(), bad = m.props.filter((p) => !standsOnLand(m, p));
+    expect(bad.slice(0, 5)).toEqual([]);
+    for (const p of m.props) {
+      if (PROPS[p.kind].float || p.kind === 'lotuspond') continue;
+      const tx = Math.floor(p.x / TILE_SIZE), ty = Math.floor((p.y - 1) / TILE_SIZE);
+      expect(['water', 'lava', 'void']).not.toContain(m.ground[ty * m.width + tx]);
+    }
+    expect(m.herbs.every((h) => !['water', 'lava', 'void'].includes(m.ground[Math.floor((h.y - 1) / TILE_SIZE) * m.width + Math.floor(h.x / TILE_SIZE)]!))).toBe(true);
+  });
+});
+
+describe('R23 F9: ambush waves cannot stack without bound', () => {
+  const l = { ...emptyLayout(), ambush: { at: { x: 0, y: 0 }, radius: 48, runes: [{ x: 10, y: 0 }], waves: 5, per: 6, gap: 8, xp: 0, stones: 0 } };
+  it('with every foe still alive the timer never starts a second wave; live foes stay within one wave', () => {
+    const rt = newRuntime(l); let spawned = 0, alive = 0, peak = 0;
+    for (let t = 0; t < 120; t += 0.05) for (const e of tickFeatures(rt, l, { x: 0, y: 0 }, 0.05, alive)) if (e.type === 'ambushWave') { spawned += e.count; alive += e.count; peak = Math.max(peak, alive); }
+    expect(rt.ambush.wave).toBe(1); expect(peak).toBe(6); expect(rt.ambush.state).toBe('running');
+  });
+  it('a hero who keeps killing gets the waves on the timer; the live count never exceeds the cap plus one wave', () => {
+    const rt = newRuntime(l); let alive = 0, peak = 0, cleared = 0;
+    for (let t = 0; t < 200; t += 0.05) {
+      for (const e of tickFeatures(rt, l, { x: 0, y: 0 }, 0.05, alive)) if (e.type === 'ambushWave') { alive += e.count; peak = Math.max(peak, alive); }
+      if (Math.floor(t * 20) % 40 === 0 && alive > 0) { alive--; cleared++; } // one kill every 2 s
+    }
+    expect(peak).toBeLessThanOrEqual(ambushLiveCap(6) + 6);
+    expect(rt.ambush.wave).toBe(5); expect(cleared).toBeGreaterThan(0);
+  });
+});
+
+describe('R23 F8: no NPC stands in a boss arena', () => {
+  // quest guides placed beside the optional mini-boss their quest is about (kept deliberately): outside its 8-10 tile arena ring, never in it
+  const NEAR_BY_DESIGN = new Set(['scholar-mei', 'scholar-eun', 'seer-lian']);
+  it.each([1, 2, 3, 4, 5])('chapter %i: every NPC is at least 20 tiles from every boss home', (c) => {
+    const m = generateChapter(c);
+    for (const [npc, p] of Object.entries(m.npcs)) for (const [boss, h] of Object.entries(m.bossHomes)) {
+      expect(Math.hypot(p.x - h.x, p.y - h.y) / TILE_SIZE, `${npc} vs ${boss}`).toBeGreaterThanOrEqual(NEAR_BY_DESIGN.has(npc) ? 11 : 20);
+    }
   });
 });

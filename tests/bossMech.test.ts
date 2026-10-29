@@ -115,6 +115,16 @@ describe('beams', () => {
     expect(Math.abs(m.beam!.angle - a0)).toBeGreaterThan(0.2);
     expect(run(def, m, 2, 4).some((e) => e.type === 'beamEnd')).toBe(true);
   });
+  it('R23: the blade wheel follows the boss (it walks or teleports mid-spin), warning and active alike', () => {
+    const m = newMech(def); let self = { x: 0, y: 0 };
+    const step = (n: number) => { for (let i = 0; i < n; i++) tickMech(m, def, { phase: 2, self, target: { x: 100, y: 0 }, home: { x: 0, y: 0 }, dt: 0.25, rng: () => 0.5, engaged: true }); };
+    step(17); expect(m.beam).not.toBeNull();
+    self = { x: 300, y: -80 }; step(1);
+    expect(m.beam!.origin).toEqual({ x: 300, y: -80 });
+    self = { x: -50, y: 40 }; step(1);
+    if (m.beam) expect(m.beam.origin).toEqual({ x: -50, y: 40 });
+    expect(m.beam!.origin).not.toBe(self); // a copy, never the boss's own vector
+  });
   it('an active arm hits a body on it and misses one in the gap between arms', () => {
     const b = { origin: { x: 0, y: 0 }, angle: 0, dir: 1 as const, warn: 0, left: 3, arms: 3, length: 100, width: 6, speed: 1 };
     expect(beamHits(b, { x: 60, y: 0 }, 5)).toBe(true);

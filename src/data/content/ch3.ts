@@ -72,7 +72,7 @@ const MAP: MapDef = {
   ],
   npcs: {
     'caravan-master-hui': { x: 26, y: 98 }, 'trader-sahn': { x: 31, y: 105 }, 'alchemist-zhu': { x: 17, y: 105 },
-    'wanderer-dahl': { x: 62, y: 99 }, 'keeper-ila': { x: 57, y: 74 }, 'hunter-tarq': { x: 87, y: 111 },
+    'wanderer-dahl': { x: 62, y: 99 }, 'keeper-ila': { x: 57, y: 74 }, 'hunter-tarq': { x: 76, y: 111 },
     'miner-borok': { x: 119, y: 83 }, 'hermit-zaim': { x: 30, y: 47 }, 'scholar-eun': { x: 97, y: 45 },
   },
   herbs: [['dunes', 12], ['oasis', 12], ['canyon', 8], ['saltflats', 9], ['magmarift', 8], ['suntemple', 8]],

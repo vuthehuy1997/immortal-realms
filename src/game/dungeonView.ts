@@ -116,8 +116,8 @@ export class DungeonView {
       this.fallCd = 1.2; h.hurtPct(pit.fall, pit.centre); h.floatText(hero, 'You fall!', '#c9b8a0', true); h.sfx('slam');
       h.fx.burst(hero.x, hero.y, 0x8a7a60, 14); h.setHeroPos({ ...this.lastSafe });
     } else if (!pit) {
-      const tx = Math.floor(hero.x / TILE_SIZE), ty = Math.floor(hero.y / TILE_SIZE);
-      const unsafe = l.patches.some((p, pi) => p.tiles.some((tt, i) => tt.x === tx && tt.y === ty && this.rt.patches[pi]![i]!.state !== 'solid'));
+      // the rescue spot is always OUTSIDE every collapse patch (round 23): a fall must not drop you back onto floor that is about to crack again
+      const unsafe = l.patches.some((p) => Math.hypot(hero.x - p.centre.x, hero.y - p.centre.y) <= TILE_SIZE * 4.2);
       if (!unsafe) this.lastSafe = { ...hero };
     }
     this.draw();

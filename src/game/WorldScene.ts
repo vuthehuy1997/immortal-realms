@@ -65,6 +65,7 @@ const TALK_RANGE = 36;
 const PORTAL_RANGE = 44;
 const GATHER_RANGE = 26;
 const WORLD_SEED = 20261016;
+const TIP_MS = 4500;
 const AUTOSAVE_SECONDS = 30;
 const RESPAWN_CHECK_SECONDS = 4;
 const ARRAY_RADIUS = 48;
@@ -1047,7 +1048,16 @@ export class WorldScene extends Phaser.Scene {
   private tip(id: string, text: string): void {
     if (this.gs.hints.includes(id)) return;
     try { if (navigator.webdriver && new URLSearchParams(location.search).get('tips') !== '1') return; } catch { /* no navigator */ } // automation: tips would push expected toasts off the screen
-    this.gs.hints.push(id); toast(text, 7000, 'tip');
+    if (this.tipQueue.some((q) => q.id === id)) return;
+    this.tipQueue.push({ id, text }); // shown one at a time, shortly (round 23: a 7 s tip over the hero hid the fight)
+  }
+  private tipQueue: { id: string; text: string }[] = [];
+  private tipBusyUntil = 0;
+  private pumpTips(): void {
+    if (!this.tipQueue.length || this.now < this.tipBusyUntil) return;
+    const q = this.tipQueue.shift()!;
+    if (this.gs.hints.includes(q.id)) return;
+    this.gs.hints.push(q.id); toast(q.text, TIP_MS, 'tip'); this.tipBusyUntil = this.now + TIP_MS / 1000 + 0.4;
   }
   private checkTips(): void {
     const gs = this.gs, st = statsOf(gs);
@@ -1232,7 +1242,7 @@ export class WorldScene extends Phaser.Scene {
     this.updateRains(dt);
 
     for (const h of this.herbs) if (!h.alive && this.now >= h.respawnAt) { h.alive = true; h.img.setVisible(true); h.glow.setVisible(true); }
-    if (alive) { this.rift.update(dt); this.tipTimer += dt; if (this.tipTimer > 1) { this.tipTimer = 0; this.checkTips(); } }
+    if (alive) { this.rift.update(dt); this.pumpTips(); this.tipTimer += dt; if (this.tipTimer > 1) { this.tipTimer = 0; this.checkTips(); } }
     if (this.gs.boonPicks > 0 && alive && this.now >= this.boonCheckAt && this.now - this.lastCombat > 2.5 && !this.autoBoonOff()) this.offerBoon();
     this.respawnTimer += dt;
     if (this.respawnTimer >= RESPAWN_CHECK_SECONDS) { this.respawnTimer = 0; this.topUpEnemies(); this.deliverPending(); }

@@ -138,14 +138,23 @@ export class BossFight {
     if (bm) {
       for (let k = 0; k < bm.arms; k++) {
         const a = bm.angle + (k * Math.PI * 2) / bm.arms, ex = bm.origin.x + Math.cos(a) * bm.length, ey = bm.origin.y + Math.sin(a) * bm.length * 1;
-        if (bm.warn > 0) g.lineStyle(1.5, 0xff3b30, 0.35 + 0.4 * pulse(this.t, 4)).lineBetween(bm.origin.x, bm.origin.y, ex, ey);
-        else {
+        if (bm.warn > 0) { // a wide pulsing red band with bright edges and a hot core: readable on a dark floor
+          const p = 0.5 + 0.5 * Math.sin(this.t * 14), w = bm.width + this.host.heroRadius * 0.6;
+          g.lineStyle(w * 2, 0xff2a1a, 0.18 + 0.14 * p).lineBetween(bm.origin.x, bm.origin.y, ex, ey);
+          const nx = -Math.sin(a) * w, ny = Math.cos(a) * w;
+          g.lineStyle(2, 0xff8a60, 0.8).lineBetween(bm.origin.x + nx, bm.origin.y + ny, ex + nx, ey + ny).lineBetween(bm.origin.x - nx, bm.origin.y - ny, ex - nx, ey - ny);
+          g.lineStyle(2.5, 0xffe0c0, 0.55 + 0.4 * p).lineBetween(bm.origin.x, bm.origin.y, ex, ey);
+        } else {
           g.lineStyle(bm.width * 2.6, this.accent, 0.28).lineBetween(bm.origin.x, bm.origin.y, ex, ey);
           g.lineStyle(bm.width * 1.2, this.accent, 0.75).lineBetween(bm.origin.x, bm.origin.y, ex, ey);
           g.lineStyle(bm.width * 0.4, 0xffffff, 0.95).lineBetween(bm.origin.x, bm.origin.y, ex, ey);
           g.fillStyle(0xffffff, 0.9).fillCircle(ex, ey, bm.width * 0.7);
         }
       }
+      // hub on the floor under the boss, tethered up to its body so the wheel reads as the boss's own attack
+      g.fillStyle(this.accent, 0.45).fillEllipse(bm.origin.x, bm.origin.y, bm.width * 3.2, bm.width * 3.2 * ELLIPSE);
+      g.lineStyle(2, 0xffffff, 0.8).strokeEllipse(bm.origin.x, bm.origin.y, bm.width * 3.2, bm.width * 3.2 * ELLIPSE);
+      g.lineStyle(2, this.accent, 0.5).lineBetween(bm.origin.x, bm.origin.y, b.pos.x, b.pos.y - this.bodyHeight() * 0.5);
       if (engaged && beamHits(bm, hero, this.host.heroRadius)) this.host.hurtHero(b.def.atk * (b.def.mech?.beams?.damageMult ?? 1), bm.origin);
     }
     // pylons: pillar, glow, link to the boss, hp bar
@@ -162,6 +171,13 @@ export class BossFight {
       const s = this.wispSprites.get(w.id);
       if (s) s.setPosition(w.pos.x, w.pos.y - 10 + Math.sin(this.t * 6 + w.id) * 2).setDepth(w.pos.y + 4);
       g.lineStyle(1, 0xff5ad0, 0.25).lineBetween(w.pos.x, w.pos.y - 8, b.pos.x, b.pos.y - this.bodyHeight() * 0.3);
+    }
+    // illusion markers: a gold ring + chevron under the REAL one, cyan broken rings under the images
+    if (m.illusion && !b.ai.hidden) {
+      const p = 0.5 + 0.5 * Math.sin(this.t * 5), r = b.def.radius * 2.4;
+      g.lineStyle(2.5, 0xffd23f, 0.6 + 0.35 * p).strokeEllipse(b.pos.x, b.pos.y, r, r * ELLIPSE);
+      g.fillStyle(0xffd23f, 0.9).fillTriangle(b.pos.x - 6, b.pos.y - this.bodyHeight() - 22 - 3 * p, b.pos.x + 6, b.pos.y - this.bodyHeight() - 22 - 3 * p, b.pos.x, b.pos.y - this.bodyHeight() - 12 - 3 * p);
+      for (const d of m.illusion.decoys) g.lineStyle(1.5, 0x7fd8ff, 0.4 + 0.3 * Math.sin(this.t * 9 + d.id)).strokeEllipse(d.pos.x, d.pos.y, r, r * ELLIPSE);
     }
     // decoys: drift (state is in core), flicker, no shadow
     if (m.illusion) for (const d of m.illusion.decoys) {
@@ -187,9 +203,9 @@ export class BossFight {
       case 'wardExpire':
         h.toast('The ward fades and the boss recovers.', 2200); this.healBoss(e.heal); break;
       case 'illusion': {
-        h.toast('Mirror images! The real one casts a shadow.', 2600); h.sfx('roar');
+        h.toast('Mirror images! The real one wears the gold ring.', 2200); h.sfx('roar');
         const real = h.free(e.real);
-        h.fx.play('xf_mirror_shatter', b.pos.x, b.pos.y - 24, { scale: 0.45, tint: this.accent, depth: b.pos.y + 4 });
+        h.fx.ring(b.pos.x, b.pos.y, 60, this.accent, 380); h.fx.burst(b.pos.x, b.pos.y - 24, this.accent, 10); // small puff: the big shatter sprite whited out the screen on a huge boss
         b.pos.x = real.x; b.pos.y = real.y; // the boss steps into its slot
         h.fx.play('xf_soul_wisp', real.x, real.y - 20, { scale: 0.3, tint: this.accent });
         for (const d of e.decoys) {

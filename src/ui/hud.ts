@@ -114,7 +114,7 @@ export function setPrompt(text: string | null): void {
   const p = $('prompt'); p.classList.toggle('hidden', text === null); if (text !== null) setText(p, text);
 }
 
-export const TOAST_MAX = 4;
+export const TOAST_MAX = 3;
 const toastTimers = new WeakMap<HTMLElement, ReturnType<typeof setTimeout>>();
 /** Shows a message. The same text already on screen is refreshed with a x2, x3... count instead of stacking, and at most TOAST_MAX stay visible. */
 export function toast(text: string, ms = 2600, cls = ''): void {
@@ -127,7 +127,8 @@ export function toast(text: string, ms = 2600, cls = ''): void {
   }
   const t = el('div', `toast${cls ? ` ${cls}` : ''}`, text); t.dataset.text = text; host.appendChild(t);
   toastTimers.set(t, setTimeout(() => t.remove(), ms));
-  while (host.children.length > TOAST_MAX) host.firstElementChild?.remove();
+  // at most TOAST_MAX stay: the oldest non-tip goes first so a boss phase change cannot bury the fight (tips are queued by the scene)
+  while (host.children.length > TOAST_MAX) ((([...host.children].find((c) => !c.classList.contains('tip')) as HTMLElement | undefined) ?? host.firstElementChild))?.remove();
 }
 
 let zoneTimer: ReturnType<typeof setTimeout> | undefined;

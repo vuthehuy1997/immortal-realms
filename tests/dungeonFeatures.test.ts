@@ -88,7 +88,7 @@ describe('ambush waves', () => {
     run(l, rt, P(0, 0), 0.0001, 0.05, 4);
     run(l, rt, P(0, 0), 1.2, 0.05, 4); // wave 1 arrives
     const c = run(l, rt, P(0, 0), 0.2, 0.05, 0); expect(c.ev.filter((e) => e.type === 'ambushWave')).toHaveLength(1); // cleared early: next wave at once
-    const d = run(l, rt, P(0, 0), 11, 0.05, 3); expect(d.ev.filter((e) => e.type === 'ambushWave')).toHaveLength(1); // timer
+    const d = run(l, rt, P(0, 0), 11, 0.05, 2); expect(d.ev.filter((e) => e.type === 'ambushWave')).toHaveLength(1); // timer
     expect(rt.ambush.wave).toBe(3);
     const e = run(l, rt, P(0, 0), 2, 0.05, 0);
     expect(e.ev.some((x) => x.type === 'ambushDone')).toBe(true); expect(rt.ambush.state).toBe('done');

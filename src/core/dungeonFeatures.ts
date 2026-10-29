@@ -39,6 +39,8 @@ export const BRAZIER_RADIUS = 22;
 export const CRACK_TIME = 1.0;
 export const AMBUSH_TRIGGER = 48; // 3 tiles
 export const TRAP_HIT_COOLDOWN = 0.6;
+/** The timer may start the next ambush wave only while at most this many of the previous wave still live, so waves can never pile up (round 23, QA 7 F9). */
+export const ambushLiveCap = (per: number): number => Math.ceil(per / 2);
 
 export interface Grid { w: number; h: number; blocked: Uint8Array }
 export const emptyLayout = (): FeatureLayout => ({ traps: [], plates: [], braziers: [], litFor: 0, gate: null, patches: [], ambush: null });
@@ -272,7 +274,7 @@ export function tickFeatures(rt: FeatureRuntime, l: FeatureLayout, hero: Vec2, d
     if (am.state === 'running') {
       am.t -= dt;
       const waveDone = am.wave > 0 && ambushAlive === 0 && am.t <= a.gap - 1; // a wave needs a second to arrive before 'cleared' counts
-      if (am.wave < a.waves && (am.t <= 0 || waveDone)) { am.wave++; am.t = a.gap; ev.push({ type: 'ambushWave', wave: am.wave, count: a.per, at: a.runes }); }
+      if (am.wave < a.waves && ((am.t <= 0 && ambushAlive <= ambushLiveCap(a.per)) || waveDone)) { am.wave++; am.t = a.gap; ev.push({ type: 'ambushWave', wave: am.wave, count: a.per, at: a.runes }); }
       else if (am.wave >= a.waves && ambushAlive === 0 && am.t <= a.gap - 0.5) { am.state = 'done'; ev.push({ type: 'ambushDone', xp: a.xp, stones: a.stones }); }
     }
   }

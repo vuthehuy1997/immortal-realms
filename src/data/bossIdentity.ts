@@ -30,7 +30,7 @@ export const BOSS_IDENTITY: Record<string, Override> = {
     look: { silhouette: 'tall robed spirit', ramp: [0x2b0a3d, 0xd35ad8, 0xffe7a8], orbit: { fx: 'xf_soul_wisp', count: 3, radius: 46, scale: 0.11, tint: 0xffd0f0, speed: 1.4, lift: 40 },
       sigil: { fx: 'xf_star_array', color: 0xff9de8, size: 190 }, phaseFx: { fx: 'xf_mirror_shatter', tint: 0xff9de8, scale: 0.7 }, deathFx: { fx: 'xf_mirror_shatter', tint: 0xffc8f0, scale: 1.2 } },
     mech: { illusions: { count: 3, every: 16, ttl: 10, phases: [2, 3], ring: 78, radius: 30, burstMult: 0.9 } },
-    mechTip: 'Mirror images! One is real. Decoys have no shadow and shatter when struck (hurting you if you are close): strike the one that casts a shadow.',
+    mechTip: 'Mirror images! One is real. Decoys shatter when struck (hurting you if you are close): strike the one standing in the gold ring.',
   },
   // ch3 finale: lava pools
   furnacewarden: {

@@ -191,6 +191,7 @@ export function tickMech(m: MechState, def: BossDef, c: MechCtx): MechEvent[] {
     const bm = cfg.beams;
     m.beamHitCd = Math.max(0, m.beamHitCd - dt);
     if (m.beam) {
+      m.beam.origin.x = c.self.x; m.beam.origin.y = c.self.y; // the blades are the boss's: they follow it (it may walk or teleport mid-spin)
       if (m.beam.warn > 0) m.beam.warn -= dt;
       else { m.beam.angle += m.beam.dir * m.beam.speed * dt; m.beam.left -= dt; }
       if (m.beam.left <= 0) { m.beam = null; m.beamCd = bm.every; ev.push({ type: 'beamEnd' }); }

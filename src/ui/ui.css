@@ -39,7 +39,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 #zonebanner .zn { font-size: 2.3em; font-weight: 700; letter-spacing: .1em; text-shadow: 0 2px 6px #000, 0 0 16px #c9a33a88; }
 #zonebanner .zl { font-size: .95em; opacity: .85; margin-top: .1em; }
 #zonebanner::after { content: ''; display: block; height: 22px; margin: .3em auto 0; width: 14em; background: var(--img-div-cloud) center / contain no-repeat; image-rendering: pixelated; }
-#toasts { position: absolute; left: 50%; top: 33%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .3em; }
+#toasts { position: absolute; left: 50%; top: 14%; pointer-events: none; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .3em; }
 .toast { background: rgba(14,12,22,.92); border: 1px solid var(--gold2); padding: .4em 1.1em; border-radius: 6px; font-weight: 700; box-shadow: 0 2px 10px #0008; }
 #prompt { position: absolute; left: 50%; bottom: 9.5em; transform: translateX(-50%); background: rgba(10,10,18,.78); border: 1px solid #5b4a24; padding: .3em .9em; border-radius: 6px; }
 
@@ -245,7 +245,7 @@ body.touch #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width
 .boonfoot { margin-top: 1em; display: flex; gap: 1em; align-items: center; justify-content: center; flex-wrap: wrap; }
 .boonowned { margin-top: .8em; font-size: .78em; opacity: .65; line-height: 1.4; }
 
-.toast.tip { border-color: #7fd8ff; background: rgba(10,22,34,.94); font-weight: 600; max-width: 34em; text-align: center; }
+.toast.tip { border-color: #7fd8ff; background: rgba(10,22,34,.9); font-weight: 600; max-width: 30em; text-align: center; font-size: .88em; }
 .toast.tip::before { content: 'Tip · '; color: #7fd8ff; font-weight: 800; }
 .boon .tag { align-self: flex-start; font-size: .68em; letter-spacing: .1em; text-transform: uppercase; padding: .1em .5em; border-radius: 3px; background: rgba(255,255,255,.08); }
 .boon.tag-off { border-left: 4px solid #e8664d; } .boon.tag-def { border-left: 4px solid #5fb36a; } .boon.tag-util { border-left: 4px solid #6aa8e8; }
@@ -259,6 +259,8 @@ body.touch #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width
   #skills { bottom: 1vmin; transform: translateX(-50%) scale(.72); transform-origin: bottom center; }
   #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width: 2.2em; height: 2.2em; font-size: 1em; }
   #objective { top: 10.4em; max-width: 92vw; font-size: .9em; }
+  #boss { top: 12.6em; width: 92vw; } #boss .name { font-size: 1em; }
+  #toasts { top: 20%; }
 }
 @media (max-height: 480px) and (min-width: 701px) {
   #objective { top: .8em; max-width: 38vw; }

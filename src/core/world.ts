@@ -1,4 +1,4 @@
-import type { PropKind } from '../data/props';
+import { PROPS, type PropKind } from '../data/props';
 import type { ZoneId } from '../data/zones';
 import type { Vec2 } from './movement';
 import { MAP_DEFS } from '../data/maps';
@@ -96,16 +96,29 @@ export const zoneAt = (m: WorldMap, p: Vec2): ZoneId => {
   return m.zone[idx(m, tx, ty)]!;
 };
 
+/**
+ * Scenery stands on land: a prop whose foot tile is water, lava, void or outside the map is dropped (round 23, QA 7 F6: rocks and willows floating
+ * on black). Floating islands (`float`) and lily ponds are meant for the void / water; spirit arrays and herbs are gameplay and never touched.
+ */
+export function standsOnLand(m: Pick<WorldMap, 'width' | 'height' | 'ground'>, p: { kind: PropKind; x: number; y: number }): boolean {
+  if (PROPS[p.kind].float || p.kind === 'lotuspond' || p.kind === 'array' || p.kind === 'lingzhi') return true;
+  const tx = Math.floor(p.x / TILE_SIZE), ty = Math.floor((p.y - 1) / TILE_SIZE);
+  if (tx < 0 || ty < 0 || tx >= m.width || ty >= m.height) return false;
+  const g = m.ground[ty * m.width + tx]!;
+  return g !== 'water' && g !== 'lava' && g !== 'void';
+}
+const onLand = (m: WorldMap): WorldMap => { m.props = m.props.filter((p) => standsOnLand(m, p)); return m; };
+
 /** Builds the map of chapter `n` from its declarative map def (the seed lives in the def, so a chapter always looks the same). */
 export function generateChapter(n: number): WorldMap {
   const def = MAP_DEFS[n];
   if (!def) throw new Error(`no map for chapter ${n}`);
-  return generateFromDef(def);
+  return onLand(generateFromDef(def));
 }
 
 /** Map of a cave / secret realm. */
 export function generateDungeonMap(id: string): WorldMap {
   const d = DUNGEONS[id];
   if (!d) throw new Error(`no dungeon ${id}`);
-  return generateDungeon(d);
+  return onLand(generateDungeon(d));
 }
