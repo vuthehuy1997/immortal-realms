@@ -91,3 +91,8 @@
 - Fixed from docs/QA_REPORT_7.md: seal state persists (validated save field + stranding guard), blade wheel follows the boss with visible warnings, Mirage real-one marker, tips queued and toasts moved off the hero, no props on void/water/lava, ambush wave cap, NPC out of Sand Wyrm arena, pit rescue outside patch, mobile boss bar. F7 (boss lethality) analysed from data: the QA hero was realm 0 at Lv 50; intended heroes take 5-20% hits; added tests and a realm-lag tip, no boss retune.
 - Screenshots reviewed: sovereign and daodemon arena approaches (no void seen), Matron, Dao Demon wheel (hub on boss feet), Crane Lord warning band, Mirage gold ring, 390x844 boss bar.
 - UNVERIFIED: hand-played feel, balance for players who skip breakthroughs, real-GPU fps, audio.
+
+## 2026-10-30 - Round 24 realm guidance
+- Why: QA7 showed a level-50 hero left in realm 0 takes 2-3x boss damage; the game only hinted at breakthrough when a boss was engaged.
+- Done: pure `realmGuide`, HUD hint + Qi bar glow, panel, tips, gate/dungeon warning, death-screen reminder. QC: tsc clean, lint clean, build OK (no `__rpg` in prod), 1206 unit pass; e2e realmguide (2) + responsive + progression + round21: 26 passed. Screenshots qc-artifacts/realm-guide-ready.png and realm-guide-warn.png reviewed.
+- Full e2e not re-run this round. UNVERIFIED: human reaction to the hint, touch layout screenshot.

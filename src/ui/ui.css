@@ -184,6 +184,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
 @media (max-height: 680px) { #quest { font-size: .8em; top: 22em; max-height: 34vh; overflow: hidden; } }
 #mmlabel { line-height: 1.05; top: 15.9em; } #mmlabel b { font-size: .8em; } #mmlabel small { font-size: .7em; }
 body.bossfight #objective { display: none; }
+#realmhint { position: absolute; left: 50%; top: 8.2em; transform: translateX(-50%); background: rgba(10,10,18,.78); border: 1px solid #3f6b78; border-radius: 6px; padding: .25em .8em; display: flex; gap: .5em; align-items: center; max-width: 48vw; font-size: .88em; color: #bfe8f5; text-shadow: 0 1px 2px #000; }
+#realmhint i { width: .55em; height: .55em; border-radius: 50%; background: #6fd0ea; box-shadow: 0 0 6px #6fd0ea; flex: none; }
+#realmhint.warn { border-color: #b4562e; color: #ffd2b8; } #realmhint.warn i { background: #ff8a4c; box-shadow: 0 0 6px #ff8a4c; }
+#realmhint.go { border-color: #d9b94a; color: #fff1b8; animation: realmpulse 1.4s ease-in-out infinite; } #realmhint.go i { background: #ffd23f; box-shadow: 0 0 8px #ffd23f; }
+.xbar.qi.ready { animation: realmpulse 1.4s ease-in-out infinite; box-shadow: 0 0 10px #ffd23f; }
+@keyframes realmpulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.45); } }
+body.bossfight #realmhint { display: none; }
 #wmap .hint { position: absolute; top: .8em; left: 50%; transform: translateX(-50%); bottom: auto; }
 
 /* save slots (round 9) */
@@ -221,6 +228,7 @@ body.touch #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width
 @media (max-aspect-ratio: 1/1) {
   body.touch #minimap { width: 8.5em; height: 8.5em; } body.touch #mmlabel { display: none; }
   body.touch #objective { top: 9.2em; max-width: 92vw; }
+  body.touch #realmhint { top: 12em; max-width: 92vw; }
   body.touch #skills { bottom: 1vmin; transform: translateX(-50%) scale(.72); transform-origin: bottom center; }
   body.touch .tc-stick { bottom: 20vmin; width: 30vmin; height: 30vmin; }
   body.touch .tc-btns { bottom: 20vmin; }
@@ -259,6 +267,7 @@ body.touch #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width
   #skills { bottom: 1vmin; transform: translateX(-50%) scale(.72); transform-origin: bottom center; }
   #btn-audio { right: auto; bottom: auto; left: .6em; top: 9.6em; width: 2.2em; height: 2.2em; font-size: 1em; }
   #objective { top: 10.4em; max-width: 92vw; font-size: .9em; }
+  #realmhint { top: 13.4em; max-width: 92vw; }
   #boss { top: 12.6em; width: 92vw; } #boss .name { font-size: 1em; }
   #toasts { top: 20%; }
 }

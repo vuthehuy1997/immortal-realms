@@ -98,3 +98,6 @@ Placeholders (M2): all combat VFX (white arc, green ring, circle bolts) = PLACEH
 - [x] R23 QA7 fixes: seal persistence + stranding guard, blade wheel attached + visible, Mirage markers, tip/toast placement, no props on void/water/lava, ambush cap, Tarq, pit rescue, mobile boss bar, computed boss lethality (see docs/QA_REPORT_7.md "Resolution").
 - [ ] R23 unverified: hand-played feel of every changed telegraph and marker, tip timing (4.5 s), whether boss damage is right for a player who skips realm breakthroughs, real-GPU fps, audio.
 - [ ] R23 not done: 9 placeholder recolour bosses and mechanics for remaining cave bosses (R22 next), toast/tip slot on touch devices not hand-tested.
+
+- [x] R24 realm guidance (QA7 F7 follow-up): `src/core/realmGuide.ts` says what the player owes their realm (qi %, pill, press B, stats gained, realms trailed); shown as a HUD line under the objective (loud when 2+ realms behind), glowing Qi bar when ready, character panel realm multiplier + hint, tips (eligible / need pill / ready), pre-gate and pre-dungeon warning, death-screen reminder
+- [ ] R24 unverified: whether new players actually notice and act on the hint (needs a human); touch/portrait placement of `#realmhint` checked by CSS only, not by screenshot; no objective arrow to the alchemist/merchant when a pill is missing

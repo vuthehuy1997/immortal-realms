@@ -5,6 +5,7 @@ import { MAX_LEVEL, xpToNext } from '../core/progression';
 import { progressOf } from '../core/quest';
 import { countOf } from '../core/inventory';
 import { scaledSkill } from '../core/skills';
+import { realmGuide } from '../core/realmGuide';
 import type { GameState } from '../core/gameState';
 import { MANIFEST } from '../game/assets';
 import { $, el, setFill, setText, setWidth } from './dom';
@@ -27,6 +28,7 @@ export function buildHud(): void {
     <div id="quest" class="hidden"></div>
     <div id="boss" class="hidden"><div class="name" id="bossname"></div><div class="xbar boss"><i id="bosshp"></i><b id="bosshptxt"></b></div></div>
     <div id="objective" class="hidden"><span class="otag">Objective</span><span id="objtext"></span></div>
+    <div id="realmhint" class="hidden"><i></i><span id="realmtxt"></span></div>
     <div id="objarrow" class="hidden"><i></i><b id="objdist"></b></div>
     <div id="zonebanner"></div>
     <div id="skills"></div>
@@ -83,6 +85,10 @@ export function updateHud(f: HudFrame): void {
     $(`slot${i}`).title = `${sk.name} — ${sk.alt}\nDamage ×${scaledSkill(sk, lv).damageMult.toFixed(1)} · ${sk.manaCost} mana · ${scaledSkill(sk, lv).cooldown.toFixed(1)}s cooldown · level ${lv}/5`;
   });
   $('cd-pot1').style.height = $('cd-pot2').style.height = `${Math.min(100, (100 * f.potionCd) / f.potionMax)}%`;
+  const rg = realmGuide(gs.cultivation, gs.progress.level, countOf(gs.inventory, 'foundation-pill'));
+  setText($('realmtxt'), rg.line ?? ''); $('realmhint').classList.toggle('hidden', !rg.line);
+  $('realmhint').classList.toggle('warn', rg.tone === 'warn'); $('realmhint').classList.toggle('go', rg.stage === 'ready');
+  $('qi').parentElement!.classList.toggle('ready', rg.stage === 'ready');
   setText($('objtext'), f.objective); $('objective').classList.toggle('hidden', !f.objective);
   $('cd-dash').style.height = `${Math.min(100, (100 * f.dashCd) / f.dashMax)}%`;
   const pips = $('slot-combo').querySelectorAll('.pips i');

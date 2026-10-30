@@ -6,6 +6,7 @@ import type { Dialogue, DialogueAction } from '../core/dialogue';
 import { ITEMS, RARITY_COLOR } from '../data/items';
 import { REALMS } from '../data/realms';
 import { ROOTS } from '../data/roots';
+import { realmGuide } from '../core/realmGuide';
 import { countOf, SLOT_COUNT, type EquipKey } from '../core/inventory';
 import { activeKit } from '../data/skills';
 import { INSIGHT_IDS, INSIGHT_MAX, INSIGHTS } from '../data/insight';
@@ -107,7 +108,7 @@ function renderCharacter(gs: GameState, meditating: boolean): void {
   const left = el('div', 'chrstats'), right = el('div', 'chrtech');
   left.innerHTML = [
     row('Name', gs.character.name), row('Style', HEROES[gs.character.hero].trait.name), `<div class="row"><small>${HEROES[gs.character.hero].trait.desc}</small></div>`, row('Root', root.name), row('Level', gs.progress.level),
-    row('Realm', realm.name), row('Qi', `${Math.floor(gs.cultivation.qi)} / ${realm.qiMax}`), row('Spirit stones', gs.stones), '<hr>',
+    row('Realm', `${realm.name} (×${realm.statMult.toFixed(2)} stats)`), ...(realmGuide(gs.cultivation, gs.progress.level, countOf(gs.inventory, 'foundation-pill')).line ? [`<div class="row realmrow"><small>${realmGuide(gs.cultivation, gs.progress.level, countOf(gs.inventory, 'foundation-pill')).line}</small></div>`] : []), row('Qi', `${Math.floor(gs.cultivation.qi)} / ${realm.qiMax}`), row('Spirit stones', gs.stones), '<hr>',
     row('HP', `${Math.ceil(gs.hp)} / ${st.maxHp}`), row('Mana', `${Math.floor(gs.mana)} / ${st.maxMana}`),
     row('Attack', st.atk), row('Defence', st.def), row('Crit', `${Math.round(st.critChance * 100)}%`), row('Mana regen', `${st.manaRegen}/s`),
     row('Kills', gs.kills), row('Foundation Pills', countOf(gs.inventory, 'foundation-pill')),
